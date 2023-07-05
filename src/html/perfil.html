@@ -3,22 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Perfil Paciente</title>
+    <link rel="stylesheet" type="text/css" href="../css/perfil.css">
+    <link href="https://fonts.googleapis.com/css2?family=Jost&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container-fluid">
+    <div class="container">
         <div class="navbar" name="navbar" id="navbar">
-            <h2>Mi Perfil</h2>
+            <h1 class="title">Mi Perfil</h1>
         </div>        
-    </div>
     <br>
     <div class="nombre" id="nombre" name="nombre">
-        <h1 id="nombre"></h1>
+        <!--Contenido nombre-->
+    </div>
+    <br>
+    <div class="primerosDatos">
+    <div class="row" name="rows">
+        <div class="col" name="cols">
+            <p class="peso"></p>
+            <p for="med-peso">Kgs</p>
+        </div>
+
+        <div class="col" name="cols">
+            <h6 class="altura" id="altura"></h6>
+            <label for="med-estatura">cms</label>
+        </div>
+    </div>
     </div>
 
-    <div>
-        
+    <div class="segundosDatos">
+        <div class="row">
+            <div class="col">
+                <label for="nacimiento" id="nacimiento" class="nacimiento">
+                    Fecha de Nacimiento:
+                </label>
+                <br>
+                <label for="fechaNacimiento" id="fechaNacimiento" class="fechaNacimiento">
+                    <!--Contenido Fecha Nacimiento-->
+                </label>
+            </div>
+            <div class="col">
+                <label for="tlf" id="tlf" class="tlf">
+                    Teléfono:
+                </label>
+                <br>
+                <label for="celular" id="celular" class="celular">
+                    <!--Contenido Telefono-->
+                </label>
+            </div>
+        </div>
     </div>
-    <script src="../js/bd/paciente.js"></script>
+    <br>
+        <div class="direccion">
+            <label for="dataDireccion" class="dataDireccion" id="dataDireccion">
+                Dirección:
+            </label>
+            <label for="direccion" class="direccion" id="direccion">
+                <!--Contenido dirección-->
+            </label>
+        </div>
+        <div class="eps-nav">
+            <h3 class="eps" id="eps" name="eps">
+            <!--Contenido eps-->
+            </h3>
+        </div>
+        <div class="alergias">
+                <h6 class="titleAlergia">
+                    Alérgico a:
+                </h6>
+                <p class="dataAlergia" id="dataAlergia" name="dataAlergia">
+                    <!--Contenido alergias-->
+                </p>
+        </div>
+        <div class="nav-cuidador">
+            
+            <p class="nombreCuidador" id="nombreCuidador" name="nombreCuidador">
+                <!--Contenido nombre cuidador-->
+                <br>
+            </p>
+            <p class="cuidador">
+                Cuidador
+            </p>
+       
+            <a href="addCuidador"><img src="../img/add.png" alt="Agregar Cuidador" /></a>
+        </div>
+        <div class="dataCuidador">
+            <p class="direccion-cuidador"><strong>Dirección:</strong></p>
+            <p class="dataDireccionCuidador" id="dataDireccionCuidador" name="dataDireccionCuidador">Juan</p>
+            <p class="telefono-cuidador"><strong>Telefono de Contacto:</strong></p>
+            <p class="dataTelefonoCuidador" id="dataTelefonoCuidador" name="dataTelefonoCuidador"></p>
+            <p class="parentesco-cuidador"><strong>Paretesco:</strong></p>
+            <p class="dataParentescoCuidador" id="dataParentescoCuidador" name="dataParentescoCuidador"></p>
+        </div>
+    </div>
 </body>
 </html>
