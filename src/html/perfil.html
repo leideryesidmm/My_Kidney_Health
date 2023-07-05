@@ -11,22 +11,21 @@
     <div class="container">
         <div class="navbar" name="navbar" id="navbar">
             <h1 class="title">Mi Perfil</h1>
-        </div>        
-    <br>
-    <div class="nombre" id="nombre" name="nombre">
+        </div>   
+    <h2 class="nombre" id="nombre" name="nombre">
         <!--Contenido nombre-->
-    </div>
+    </h2>
     <br>
     <div class="primerosDatos">
     <div class="row" name="rows">
         <div class="col" name="cols">
-            <p class="peso"></p>
+            <p id="altura" class="peso"></p>
             <p for="med-peso">Kgs</p>
         </div>
 
         <div class="col" name="cols">
-            <h6 class="altura" id="altura"></h6>
-            <label for="med-estatura">cms</label>
+            <h6 id="peso" class="altura" id="altura"></h6>
+            <label  for="med-estatura">cms</label>
         </div>
     </div>
     </div>
@@ -89,12 +88,20 @@
         </div>
         <div class="dataCuidador">
             <p class="direccion-cuidador"><strong>Dirección:</strong></p>
-            <p class="dataDireccionCuidador" id="dataDireccionCuidador" name="dataDireccionCuidador">Juan</p>
+            <p class="dataDireccionCuidador" id="dataDireccionCuidador" name="dataDireccionCuidador"></p>
             <p class="telefono-cuidador"><strong>Telefono de Contacto:</strong></p>
             <p class="dataTelefonoCuidador" id="dataTelefonoCuidador" name="dataTelefonoCuidador"></p>
-            <p class="parentesco-cuidador"><strong>Paretesco:</strong></p>
+            <p class="parentesco-cuidador"><strong>Parentesco:</strong></p>
             <p class="dataParentescoCuidador" id="dataParentescoCuidador" name="dataParentescoCuidador"></p>
         </div>
     </div>
+    <script src="../js/bd/paciente.js">
+        
+    </script>
+    <script>
+        listarPacientes();
+        cuidadorActivo();
+        alergias();
+    </script>
 </body>
 </html>
