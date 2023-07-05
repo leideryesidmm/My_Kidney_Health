@@ -1,0 +1,89 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.container{
+    margin: 0;
+    padding: 0;
+}
+.navbar{
+    background-color: #04BAFC;
+    margin:auto;
+    height: 40px;
+}
+
+.title{
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.nombre{
+    text-align: center;
+    color: #000;
+}
+
+.cols{
+    display: block;
+}
+
+.segundosDatos{
+    display: flex;
+    justify-content: center;
+}
+
+.row{
+    display: flex;
+    justify-content: center;
+    width: 400px;
+}
+
+.col{
+flex: 1;
+margin: 0 10px;
+}
+
+.dataDireccion{
+    display: flex;
+    justify-content: center;
+}
+
+.eps-nav{
+    background-color: #00DBA1;
+    opacity: 0.48;
+    height: 40px;
+}
+
+.eps{
+    color: #fff;
+}
+
+.titleAlergia{
+    color:gray;
+    margin-left:50px;
+}
+
+.dataAlergia{
+    margin-left:50px;
+}
+
+.nav-cuidador{
+    background-color: #00DBA1;
+    opacity: 0.48;
+    height: auto;
+}
+
+
+.nombreCuidador{
+    color: #000;
+}
+
+
+.dataCuidador{
+    background-color: #E0E0E0;
+    margin: auto;
+}
