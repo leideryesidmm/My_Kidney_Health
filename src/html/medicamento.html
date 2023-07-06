@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/medicamento.css">
+    <link href="https://fonts.googleapis.com/css2?family=Jost&display=swap" rel="stylesheet">
+    <title>Medicamentos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="navbar" name="navbar" id="navbar">
+            <h1 class="title">Medicamento</h1>
+        </div>        
+    <br>
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" id="nombre">
+                <!--Nombre medicamento-->
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <div class="descrp-med">
+                    <p><strong>Descripción:</strong></p>
+                    <p class="descripcion" id="descripcion">
+                        <!--Descripcion del medicamento-->Hola
+                    </p>
+                </div>
+
+                <div class="via"></div>
+                    <p><strong>Vía administración:</strong></p>
+                    <p class="via_administracion" id="via_administracion">
+                        <!--Descripcion del medicamento-->
+                    </p>
+
+                    <div class="concentration">
+                    <p><strong>Concentración:</strong></p>
+                    <p class="concentracion" id="concentracion">
+                        <!--Concentracion del medicamento-->
+                    </p>
+                </div>
+                    <div class="fechaIni">
+                    <p><strong>Fecha inicio:</strong></p>
+                    <p class="fecha_inicio" id="fecha_inicio">
+                        <!--Fecha inicio de la toma del medicamento en programar medicamento-->
+                    </p>
+                    </div> 
+                    <div class="fechaFin">
+                    <p><strong>Fecha Finalización:</strong></p>
+                    <p class="fecha_fin" id="fecha_fin">
+                        <!--Fecha final de la toma del medicamento en programar medicamento-->
+                    </p>
+                    </div>
+                    <div class="dos">
+                    <p><strong>Dosis:</strong></p>
+                    <p class="dosis" id="dosis">
+                        <!--dosis de la toma del medicamento en formulamedicamento-->
+                    </p>
+                    </div>
+                    <div class="toma">
+                    <p><strong>Tomas:</strong></p>
+                    <p class="tomas" id="tomas">
+                        <!--tomas de la toma del medicamento en formulamedicamento-->
+                    </p>
+                    </div>
+                    <div class="tiempo">
+                    <p><strong>Intervalo de Horas:</strong></p>
+                    <p class="intervalo_tiempo" id="intervalo_tiempo">
+                        <!--intervalo de tiempo de la toma del medicamento en formulamedicamento-->
+                    </p>
+                    </div>
+                    
+                    <div class="btn-nuevo-container">
+                        <button id="btn-editar" class="btn-editar">Editar</button>
+                    </div>
+                
+              
+            </div>
+          
+        
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingTwo">
+            </h2>
+            </div>
+            </div>
+            </div>
+            <br>
+            <button id="btn-nuevo" class="btn-nuevo">Nuevo</button>
+              
+</body>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+</html>
