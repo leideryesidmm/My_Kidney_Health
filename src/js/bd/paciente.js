@@ -10,7 +10,8 @@ let listarPacientes= async()=>{
 });
     const paciente=await peticion.json();
     document.getElementById("nombre").innerText=paciente.nombre;
-    document.getElementById("fechaNacimiento").innerText=paciente.fechaNacimiento;
+    let fecha=new Date(paciente.fechaNacimiento);
+    document.getElementById("fechaNacimiento").innerText=fecha.toDateString();
     document.getElementById("celular").innerText=paciente.celular;
     document.getElementById("direccion").innerText=paciente.direccion;
     document.getElementById("peso").innerText=paciente.peso;
