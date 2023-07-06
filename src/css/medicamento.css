@@ -5,13 +5,16 @@ body{
 }
 
 .container{
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 1000px;
 }
 .navbar{
-    background-color: #04BAFC;
-    margin:auto;
-    height: 60px;
+  background-color: #04BAFC;
+  margin:auto;
+  height: 60px;
+  width: 100%;
 }
 
 .title{
@@ -19,7 +22,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: auto;
+    margin:0 auto;
 }
 
 .btn-nuevo-container {
@@ -39,6 +42,7 @@ body{
     display: flex;
     justify-content: end; 
     margin-left: 15px;  
+    float: right;
   }
 
   .btn-editar{
@@ -50,15 +54,42 @@ body{
     font-size: 15px;
     font-family: 'Jost', sans-serif;
     border-radius: 5px;
-    display: flex;
-    justify-content: end; 
-    margin-left: 15px;  
+     
   }
   .btn-nuevo-container button {
     padding: 5px 10px;
+    
+  }
+
+  .btn-editar-container {
+    display: flex;
+    justify-content: end;
   }
 
   .descrp-med p{
     display: inline-block;
     vertical-align: middle;
+  }
+
+  .via p,
+  .concentration p,
+  .fechaIni p,
+  .fechaFin p,
+  .dos p,
+  .toma p,
+  .tiempo p
+  {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  p strong{
+    color: #04BAFC;
+  }
+
+  @media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    [class*="col-"] {
+      width: 100%;
+    }
   }
