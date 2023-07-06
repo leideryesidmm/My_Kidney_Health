@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Agregar Recambios</title>
+    <link rel="stylesheet" type="text/css" href="../css/index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Jost&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div>
+        <div class="navbar" name="navbar" id="navbar">
+            <h1 class="title">Recambios</h1>
+        </div>
+        <h3>Agregar Recambio</h3>
+        <div class="contentform">
+            <div class="form-group">
+                <div class="name">
+                    <div class="row">
+                        <div class="col">
+                            <label for="nameMed">Drenaje:</label>
+                        </div>
+                        <div class="col">
+                            <input type="text" name="medicamento" id="medicamento" class="medicamento">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="descripcion">
+                    <div class="row">
+                        <div class="col">
+                            <label for="descMed">Características del líquido:</label>
+                        </div>
+                        <div class="col">
+                            <input type="text" name="descripcion" id="descripcion" class="descripcion">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="via">
+                    <div class="row">
+                        <div class="col">
+                            <label for="viaMed">Vía Administración:</label>
+                        </div>
+                        <div class="col">
+                            <input type="text" name="via_administracion" id="via_administracion"
+                                class="via_administracion">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="concentration">
+                    <div class="row">
+                        <div class="col">
+                            <label for="concent">Concentración:</label>
+                        </div>
+                        <div class="col">
+                            <input type="text" name="concentracion" id="concentracion" class="concentracion">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fechaIni">
+                    <div class="row">
+                        <div class="col">
+                            <label for="fechaInicio">Fecha Inicio:</label>
+                        </div>
+                        <div class="col">
+                            <input type="date" name="fecha_inicio" id="fecha_inicio" class="fecha_inicio">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fechaFin">
+                    <div class="row">
+                        <div class="col">
+                            <label for="fechaF">Fecha Finalización:</label>
+                        </div>
+                        <div class="col">
+                            <input type="date" name="fecha_fin" id="fecha_fin" class="fecha_fin">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="toma">
+                    <div class="row">
+                        <div class="col">
+                            <label for="tomaMed">Tomas diarias:</label>
+                        </div>
+                        <div class="col">
+                            <input type="text" name="tomas" id="tomas" class="tomas">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dosisMed">
+                    <div class="row">
+                        <div class="col">
+                            <label for="dosis">Dosis:</label>
+                        </div>
+                        <div class="col">
+                            <input type="text" name="dosis" id="dosis" class="dosis">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="intervalos">
+                    <div class="row">
+                        <div class="col">
+                            <label for="intervalo">Tiempo entre tomas:</label>
+                        </div>
+                        <div class="col">
+                            <input type="text" name="intervalos_tiempo" id="intervalos_tiempo"
+                                class="intervalos_tiempo">
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+    <a href="medicamento.html" class="btn-cancelar">Cancelar</a>
+    <a href="medicamento.html" class="btn-nuevo">Guardar</a>
+</body>
+
+</html>
