@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +11,7 @@
 <body>
     <div class="container">
         <div class="navbar" name="navbar" id="navbar">
-            <h1 class="title">Medicamento</h1>
+            <h1 class="title">Medicamentos</h1>
         </div>        
     <br>
     <div class="accordion" id="accordionExample">
@@ -21,12 +21,12 @@
                 <!--Nombre medicamento-->
             </button>
           </h2>
-          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+          <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
             <div class="accordion-body">
                 <div class="descrp-med">
                     <p><strong>Descripción:</strong></p>
                     <p class="descripcion" id="descripcion">
-                        <!--Descripcion del medicamento-->Hola
+                        <!--Descripcion del medicamento-->
                     </p>
                 </div>
 
@@ -73,22 +73,45 @@
                     </p>
                     </div>
                     
-                    <div class="btn-nuevo-container">
-                        <button id="btn-editar" class="btn-editar">Editar</button>
+                    <div class="btn-editar-container">
+                        <a href="editarMedicamento.html" class="btn-editar"><img src="../img/editaraler.png"></a>
+                        <a href="medicamento.html" class="btn-inhabilitar" data-bs-toggle="modal"
+                            data-bs-target="#inhabiltarMedicamento" id="btn-inhabilitar"><img src="../img/inhabilitarMed.png" alt=""></a></div>
+                            
+                <div>
+                    <div class="modal" tabindex="-1" id="inhabiltarMedicamento">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Inhabilitar Medicamento</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p><strong>Medicamento:</strong> </p>
+                                    <label for="nombre" class="nombre" id="nombre">
+                                        <!--Nombre del medicamento-->
+                                    </label>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="submit" class="btn btn-primary">Aceptar</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                </div>
                 
-              
+                
+            
             </div>
-          
-        
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="headingTwo">
-            </h2>
+            </div>
+            </div>
             </div>
             </div>
             </div>
             <br>
-            <button id="btn-nuevo" class="btn-nuevo">Nuevo</button>
+            
+            <a href="addMedicamento.html" class="btn-nuevo">Agregar</a>
               
 </body>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
