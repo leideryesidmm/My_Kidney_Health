@@ -3,13 +3,13 @@
     
   }  
 
-  .hora p,
-  .concentracion p,
-  .volumen p,
-  .drenaje p,
-  .balance p,
-  .liquido p,
-  .orificio p
+  .horaDren p,
+  .concentr p,
+  .vol p,
+  .drenaj p,
+  .balan p,
+  .liquid p,
+  .orif p
   {
     display: inline-block;
     vertical-align: middle;
@@ -18,3 +18,5 @@
   p strong{
     color: #04BAFC;
   }
+
+  

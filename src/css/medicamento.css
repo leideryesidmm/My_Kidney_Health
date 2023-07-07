@@ -98,8 +98,8 @@ body{
   }
 
   #inhabilitar {
-    width: 32px;
-    height: 32px;
+    width: 30%;
+    height: 70%S;
   }
 
   @media only screen and (max-width: 768px) {
