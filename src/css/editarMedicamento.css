@@ -150,7 +150,6 @@ input {
         font-family: 'Jost', sans-serif;
         border-radius: 5px;
         text-decoration: none;
-        margin-right: 3%;
         
 }
 
@@ -164,7 +163,6 @@ input {
     font-family: 'Jost', sans-serif;
     border-radius: 5px;
     text-decoration: none;
-    margin-left: 1%;
 }
 
 
@@ -174,7 +172,3 @@ input {
       width: 100%;
     }
   }
-
-
-
-  

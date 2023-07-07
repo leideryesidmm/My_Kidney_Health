@@ -36,41 +36,26 @@ h3 {
 }
 
 .name, 
-.descripcion,
-.via,
-.concentration,
-.fechaIni,
-.fechaFin,
-.toma,
-.dosisMed,
-.intervalos{
+.address,
+.tlf,
+.parentesc{
     height: fit-content;
     padding: 10px;
 }
 
 .name input[type="text"],
-.descripcion input[type="text"],
-.via input[type="text"],
-.concentration input[type="text"],
-.fechaIni input[type="date"],
-.fechaFin input[type="date"],
-.toma input[type="text"],
-.dosisMed input[type="text"],
-.intervalos input[type="text"]{
+  .address input[type="text"],
+  .tlf input[type="text"],
+  .parentesc input[type="text"]{
     padding: 5px;
   }
   
 
 
 .name input[type="text"],
-.via input[type="text"],
-.descripcion input[type="text"],
-.concentration input[type="text"],
-.fechaIni input[type="date"],
-.fechaFin input[type="date"],
-.toma input[type="text"],
-.dosisMed input[type="text"],
-.intervalos input[type="text"]{
+.address input[type="text"],
+.tlf input[type="text"],
+.parentesc input[type="text"]{
     border-bottom: 1px solid gray;
     transition: border-bottom-color 0.3s;
     border-top: none;
@@ -80,14 +65,9 @@ h3 {
   }
 
 .name input[type="text"]:focus,
-.via input[type="text"]:focus,
-.descripcion input[type="text"]:focus,
-.concentration input[type="text"]:focus,
-.fechaIni input[type="date"]:focus,
-.fechaFin input[type="date"]:focus,
-.toma input[type="text"]:focus,
-.dosisMed input[type="text"]:focus,
-.intervalos input[type="text"]:focus{
+.address input[type="text"]:focus,
+.tlf input[type="text"]:focus,
+.parentesc input[type="text"]:focus{
     border-bottom-color: transparent;
     outline: none;
     content: "";
@@ -98,8 +78,8 @@ h3 {
   .contentform {
     display: flex;
     flex-direction: column;
-    width: 90%;
-    margin-left: 5%;
+    width: 80%;
+    margin-left: 10%;
 }
 
 .form-group {
@@ -130,7 +110,7 @@ input {
 
 .btn-container {
     display: flex;
-    justify-content: flex-end;
+    justify-content:center;
     margin-top: 10px;
     margin-right: 5%;
 }
@@ -174,7 +154,3 @@ input {
       width: 100%;
     }
   }
-
-
-
-  
