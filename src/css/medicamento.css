@@ -2,7 +2,6 @@ body{
     margin: 0;
     padding: 0;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    align-items: center;
 }
 
 .container{
@@ -36,45 +35,36 @@ body{
     color: #fff;
     border: none;
     cursor: pointer;
-    padding: 10px 20px;
+    padding: 10px 40px;
     font-size: 15px;
     font-family: 'Jost', sans-serif;
     border-radius: 5px;
     display: flex;
     justify-content: end; 
-    margin-right: 13px;  
+    margin-left: 15px;  
     float: right;
-    text-decoration: none;
+  }
+
+  .btn-editar{
+    background-color: #00DBA1;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 10px 40px;
+    font-size: 15px;
+    font-family: 'Jost', sans-serif;
+    border-radius: 5px;
+     
+  }
+  .btn-nuevo-container button {
+    padding: 5px 10px;
+    
   }
 
   .btn-editar-container {
     display: flex;
-    justify-content: flex-end;
-    margin-top: 10px;
-    margin: auto;
-}
-
-.btn-editar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 10%;
-    height: 10%;
-}
-
-.btn-editar img {
-    max-width: 100%;
-    max-height: 100%;
-    margin-left: 10%;
-}
-
-.btn-inhabilitar img {
-  width: 60%;
-  height: 100%;
-  
-  margin-left: 50%;
-}
-
+    justify-content: end;
+  }
 
   .via p,
   .concentration p,
@@ -87,11 +77,6 @@ body{
   {
     display: inline-block;
     vertical-align: middle;
-  }
-
-  .modal-body{
-    display: flex;
-    justify-content: center;
   }
 
   p strong{
