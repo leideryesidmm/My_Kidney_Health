@@ -76,18 +76,14 @@ body{
 }
 
 
-  .descrp-med p{
-    display: inline-block;
-    vertical-align: middle;
-  }
-
   .via p,
   .concentration p,
   .fechaIni p,
   .fechaFin p,
   .dos p,
   .toma p,
-  .tiempo p
+  .tiempo p, 
+  .descrp-med p
   {
     display: inline-block;
     vertical-align: middle;

@@ -1,0 +1,20 @@
+.btn-nuevo-container button {
+    padding: 5px 10px;
+    
+  }  
+
+  .hora p,
+  .concentracion p,
+  .volumen p,
+  .drenaje p,
+  .balance p,
+  .liquido p,
+  .orificio p
+  {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  p strong{
+    color: #04BAFC;
+  }

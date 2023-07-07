@@ -1,0 +1,27 @@
+.drenaje,
+.caracteristica,
+.orificio {
+    height: fit-content;
+    padding: 10px;
+    width: 100%;
+}
+
+.drenaje input[type="number"],
+.caracteristica input[type="text"],
+.orificio input[type="text"] {
+    padding: 5px;
+    border-bottom: 1px solid gray;
+    transition: border-bottom-color 0.3s;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    content: "";    
+}
+
+
+#btnguardar {
+    margin-left: 72%;
+    background-color: #04BAFC;
+    color: white;
+}
+
