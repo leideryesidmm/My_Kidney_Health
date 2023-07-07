@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -12,89 +12,109 @@
 </head>
 
 <body>
-    <div class="container">
         <div class="navbar" name="navbar" id="navbar">
             <h1 class="title">Medicamento</h1>
-        </div>
-        <br>
-        <div class="accordion" id="accordionExample">
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" id="nombre">
-                        <!--Nombre medicamento-->
-                    </button>
-                </h2>
-                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                    data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <div class="descrp-med">
-                            <p><strong>Descripción:</strong></p>
-                            <p class="descripcion" id="descripcion">
-                                <!--Descripcion del medicamento-->Hola
-                            </p>
-                        </div>
-
-                        <div class="via">
-                            <p><strong>Vía administración:</strong></p>
-                            <p class="via_administracion" id="via_administracion">
-                                <!--Descripcion del medicamento-->
-                            </p>
-                        </div>
-                        <div class="concentration">
-                            <p><strong>Concentración:</strong></p>
-                            <p class="concentracion" id="concentracion">
-                                <!--Concentracion del medicamento-->
-                            </p>
-                        </div>
-                        <div class="fechaIni">
-                            <p><strong>Fecha inicio:</strong></p>
-                            <p class="fecha_inicio" id="fecha_inicio">
-                                <!--Fecha inicio de la toma del medicamento en programar medicamento-->
-                            </p>
-                        </div>
-                        <div class="fechaFin">
-                            <p><strong>Fecha Finalización:</strong></p>
-                            <p class="fecha_fin" id="fecha_fin">
-                                <!--Fecha final de la toma del medicamento en programar medicamento-->
-                            </p>
-                        </div>
-                        <div class="dos">
-                            <p><strong>Dosis:</strong></p>
-                            <p class="dosis" id="dosis">
-                                <!--dosis de la toma del medicamento en formulamedicamento-->
-                            </p>
-                        </div>
-                        <div class="toma">
-                            <p><strong>Tomas:</strong></p>
-                            <p class="tomas" id="tomas">
-                                <!--tomas de la toma del medicamento en formulamedicamento-->
-                            </p>
-                        </div>
-                        <div class="tiempo">
-                            <p><strong>Intervalo de Horas:</strong></p>
-                            <p class="intervalo_tiempo" id="intervalo_tiempo">
-                                <!--intervalo de tiempo de la toma del medicamento en formulamedicamento-->
-                            </p>
-                        </div>
-
-                        <div class="btn-nuevo-container">
-                            <button id="btn-editar" class="btn-editar">Editar</button>
-                        </div>
-
-
-                    </div>
-
-
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingTwo">
-                        </h2>
-                    </div>
+        </div>        
+    <br>
+    <div class="container"></div>
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" id="nombre">
+                <!--Nombre medicamento-->
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <div class="descrp-med">
+                    <p><strong>Descripción:</strong></p>
+                    <p class="descripcion" id="descripcion">
+                        <!--Descripcion del medicamento-->
+                    </p>
                 </div>
+
+                <div class="via"></div>
+                    <p><strong>Vía administración:</strong></p>
+                    <p class="via_administracion" id="via_administracion">
+                        <!--Descripcion del medicamento-->
+                    </p>
+
+                    <div class="concentration">
+                    <p><strong>Concentración:</strong></p>
+                    <p class="concentracion" id="concentracion">
+                        <!--Concentracion del medicamento-->
+                    </p>
+                </div>
+                    <div class="fechaIni">
+                    <p><strong>Fecha inicio:</strong></p>
+                    <p class="fecha_inicio" id="fecha_inicio">
+                        <!--Fecha inicio de la toma del medicamento en programar medicamento-->
+                    </p>
+                    </div> 
+                    <div class="fechaFin">
+                    <p><strong>Fecha Finalización:</strong></p>
+                    <p class="fecha_fin" id="fecha_fin">
+                        <!--Fecha final de la toma del medicamento en programar medicamento-->
+                    </p>
+                    </div>
+                    <div class="dos">
+                    <p><strong>Dosis:</strong></p>
+                    <p class="dosis" id="dosis">
+                        <!--dosis de la toma del medicamento en formulamedicamento-->
+                    </p>
+                    </div>
+                    <div class="toma">
+                    <p><strong>Tomas:</strong></p>
+                    <p class="tomas" id="tomas">
+                        <!--tomas de la toma del medicamento en formulamedicamento-->
+                    </p>
+                    </div>
+                    <div class="tiempo">
+                    <p><strong>Intervalo de Horas:</strong></p>
+                    <p class="intervalo_tiempo" id="intervalo_tiempo">
+                        <!--intervalo de tiempo de la toma del medicamento en formulamedicamento-->
+                    </p>
+                    </div>
+                    
+                    <div class="btn-editar-container">
+                        <a href="editarMedicamento.html" class="btn-editar"><img src="../img/editaraler.png"></a>
+                        <div><a href="" class="btn-inhabilitar" data-bs-toggle="modal"
+                            data-bs-target="#inhabilitarMedicamento" ><img src="../img/inhabilitar.png" alt="" id="inhabilitar"></a></div>
+                            </div>
+                            <div>
+                                <div class="modal" tabindex="-1" id="inhabilitarMedicamento">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Eliminar Medicamento</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Esta seguro(a) de eliminar este medicamento:</p>
+                                                <label  class="medicamento" id="medicamento"></label>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+              
+            </div>
+            </div>
+
+        
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingTwo">
+            </h2>
+            </div>
+            </div>
             </div>
             <br>
-            <button id="btn-nuevo" class="btn-nuevo">Nuevo</button>
-
+            <a href="addMedicamento.html" class="btn-nuevo">A</a>
+              </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
     integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
