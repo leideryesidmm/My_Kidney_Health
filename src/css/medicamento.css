@@ -9,7 +9,6 @@ body{
   margin: 0;
   padding: 0;
   width: 100%;
-  max-width: 1000px;
 }
 .navbar{
   background-color: #04BAFC;
@@ -39,7 +38,7 @@ body{
     padding: 10px 20px;
     font-size: 15px;
     font-family: 'Jost', sans-serif;
-    border-radius: 5px;
+    border-radius: 50%;
     display: flex;
     justify-content: end; 
     margin-right: 13px;  
@@ -96,6 +95,11 @@ body{
 
   p strong{
     color: #04BAFC;
+  }
+
+  #inhabilitar {
+    width: 32px;
+    height: 32px;
   }
 
   @media only screen and (max-width: 768px) {
