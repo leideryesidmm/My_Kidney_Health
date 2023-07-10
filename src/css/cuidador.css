@@ -73,7 +73,7 @@ label {
 
 
 
-.btn-reactivar{
+.cambiarCuidador{
     
         background-color: #00DBA1;
         color: #fff;
@@ -85,6 +85,7 @@ label {
         border-radius: 5px;
         text-decoration: none;
         margin-right: 3%;
+        margin-left: 7%;
         
 }
 

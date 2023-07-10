@@ -52,3 +52,26 @@ let alergias= async()=>{
     
    document.getElementById("dataAlergia").innerText=msgalergias;
 }
+
+let listarVias= async()=>{
+  const peticion= await fetch(servidorAPI+"paciente/medicamento/viaAdministracion",{
+    method:"GET",
+    headers:{
+      "Accept":"application/json",
+      "Content-Type":"application/json"
+    }
+  });
+  const selectVias = document.getElementById('selectVias');
+  const vias=await peticion.json();
+  const optionSeleccionar = document.createElement('option');
+  optionSeleccionar.textContent = "Seleccione";
+  selectVias.appendChild(optionSeleccionar);
+  vias.forEach(via=>{
+    const option = document.createElement('option');
+    option.value = via.idViaAdministracion;
+    option.textContent = via.descripcion;
+    selectVias.appendChild(option);
+  })
+
+  
+}

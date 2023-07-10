@@ -85,6 +85,17 @@ body{
     vertical-align: middle;
   }
 
+  .via_administracion,
+  .concentracion, 
+  .fecha_inicio
+  .fecha_fin,
+  .dosis,
+  .tomas,
+  .intervalo_tiempo,
+  .descripcion{
+    margin-left: 2%;
+  }
+
   .modal-body{
     display: flex;
     justify-content: center;
