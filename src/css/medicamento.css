@@ -12,7 +12,6 @@ body{
 }
 .navbar{
   background-color: #04BAFC;
-  margin:auto;
   height: 60px;
   width: 100%;
 }
@@ -96,9 +95,15 @@ body{
     margin-left: 2%;
   }
 
-  .modal-body{
+  .modal {
     display: flex;
+    align-items: center;
     justify-content: center;
+    height: 100vh;
+  }
+  
+  .modal-content, .modal-title, h5 {
+    text-align: center;
   }
 
   p strong{
@@ -114,9 +119,8 @@ body{
 }
 
 #icono {
-  width: 15%;
-  height: 15%;
-  
+  width: 40px;
+    height: 40px;
 }
 
   @media only screen and (max-width: 768px) {

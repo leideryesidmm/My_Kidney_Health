@@ -51,12 +51,12 @@ h3 {
 .name input[type="text"],
 .descripcion input[type="text"],
 .via input[type="text"],
-.concentration input[type="text"],
+.concentration input[type="number"],
 .fechaIni input[type="date"],
 .fechaFin input[type="date"],
-.toma input[type="text"],
-.dosisMed input[type="text"],
-.intervalos input[type="text"]{
+.toma input[type="number"],
+.dosisMed input[type="number"],
+.intervalos input[type="number"]{
     padding: 5px;
   }
   
@@ -65,12 +65,12 @@ h3 {
 .name input[type="text"],
 .via input[type="text"],
 .descripcion input[type="text"],
-.concentration input[type="text"],
+.concentration input[type="number"],
 .fechaIni input[type="date"],
 .fechaFin input[type="date"],
-.toma input[type="text"],
-.dosisMed input[type="text"],
-.intervalos input[type="text"]{
+.toma input[type="number"],
+.dosisMed input[type="number"],
+.intervalos input[type="number"]{
     border-bottom: 1px solid gray;
     transition: border-bottom-color 0.3s;
     border-top: none;
@@ -82,12 +82,12 @@ h3 {
 .name input[type="text"]:focus,
 .via input[type="text"]:focus,
 .descripcion input[type="text"]:focus,
-.concentration input[type="text"]:focus,
+.concentration input[type="number"]:focus,
 .fechaIni input[type="date"]:focus,
 .fechaFin input[type="date"]:focus,
-.toma input[type="text"]:focus,
-.dosisMed input[type="text"]:focus,
-.intervalos input[type="text"]:focus{
+.toma input[type="number"]:focus,
+.dosisMed input[type="number"]:focus,
+.intervalos input[type="number"]:focus{
     border-bottom-color: transparent;
     outline: none;
     content: "";
