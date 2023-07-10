@@ -178,12 +178,13 @@ h5 {
     margin-left: 85%;
   }
 
-  .btn-nuevo{
+  #btnguardar {
+    margin-left: 72%;
     background-color: #04BAFC;
-    width: 70%;
-    height: 70%;
-    border-radius: 100%;
-  }
+    color: white;
+}
+
+  
 
   #agregaralergia {
     margin: auto;
@@ -191,6 +192,8 @@ h5 {
   }
 
   .drenaje p,
+  .concentracion p,
+  .hora p,
   .caracteristica p,
   .orificio p
   {

@@ -19,4 +19,39 @@
     color: #04BAFC;
   }
 
+  .btn-editar-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+    margin: auto; 
+      
+}
+
+.btn-editar-container img{
+  margin-right: 150%;
+}
+
+.btn-editar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+}
+
+.btn-editar img {
+    max-width: 100%;
+    max-height: 100%;
+    margin-left: 10%;
+}
+
+#inhabilitar-rec {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    }
+
+  
   
