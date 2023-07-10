@@ -141,10 +141,12 @@ h5 {
   th, td, tr{    
     text-align: center;
     margin-top: auto;
+    vertical-align: middle;
   }
 
   thead {
     background-color: #B2EAF2;
+    
   }
 
   thead:hover {
@@ -175,7 +177,6 @@ h5 {
   #icono {
     width: 40px;
     height: 40px;
-    margin-left: 85%;
   }
 
   #btnguardar {
@@ -200,3 +201,6 @@ h5 {
     display: inline-block;
     vertical-align: middle;
   }
+
+
+

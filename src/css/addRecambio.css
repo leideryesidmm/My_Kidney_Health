@@ -9,6 +9,7 @@
 }
 
 .drenaje input[type="number"],
+.hora input[type="time"],
 .concentracion input[type="text"],
 .caracteristica input[type="text"],
 .orificio input[type="text"] {
@@ -18,7 +19,7 @@
     border-top: none;
     border-left: none;
     border-right: none;
-    content: "";    
+    content: "";
 }
 
 
@@ -35,6 +36,7 @@
     margin-top: 10px;
     margin-right: 5%;
 }
+
 .btn-container {
     display: flex;
     justify-content: flex-end;
@@ -46,21 +48,21 @@
     margin-left: 5%;
 }
 
-.btn-cancelar{
-    
-        background-color: gray;
-        color: #fff;
-        border: none;
-        cursor: pointer;
-        padding: 3px 20px;
-        font-size: 15px;
-        font-family: 'Jost', sans-serif;
-        border-radius: 5px;
-        text-decoration: none;
-        margin-right: 5%;        
+.btn-cancelar {
+
+    background-color: gray;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 3px 20px;
+    font-size: 15px;
+    font-family: 'Jost', sans-serif;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-right: 5%;
 }
 
-.btn-nuevo{
+.btn-nuevo {
     background-color: #00DBA1;
     color: #fff;
     border: none;
@@ -70,4 +72,9 @@
     font-family: 'Jost', sans-serif;
     border-radius: 5px;
     text-decoration: none;
+}
+
+option {
+    color: black;
+    background-color: white;
 }
