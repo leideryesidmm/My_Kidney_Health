@@ -4,7 +4,7 @@
     let msg=""
     let cont=1;
     medicamentos.forEach(medicamento => {
-        msg+='<div class="accordion accordion-flush" id="accordionFlushExample">'+
+        msg+='<div class="accordion accordion-flush">'+
              '       <div class="accordion-item">'+
              '         <h2 class="accordion-header">'+
              '          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse'+cont+'" aria-expanded="false" aria-controls="flush-collapse'+cont+'" class="nombre">'+
@@ -56,22 +56,21 @@
              '               </div>'+
              '<div class="btn-editar-container">'+
         '<a href="editarMedicamento.html" class="btn-editar"><img src="../img/editaraler.png"></a>'+
-        '<div><a href="" class="btn-inhabilitar" data-bs-toggle="modal"'+
-            'data-bs-target="#inhabilitarMedicamento" ><img src="../img/inhabilitar.png" alt="" id="inhabilitar"></a></div>'+
+        '<a href="" class="btn-inhabilitar" data-bs-toggle="modal"'+
+            'data-bs-target="#inhabilitarMedicamento" ><img src="../img/inhabilitar.png" alt="" id="inhabilitar"></a>'+
             '</div>'+
-            '<div>'+
-                '<div class="modal" tabindex="-1" id="inhabilitarMedicamento">'+
-                    '<div class="modal-dialog">'+
-                        '<div class="modal-content">'+
-                            '<div class="modal-header">'+
+                ' <div class="modal" tabindex="-1" id="inhabilitarMedicamento">'+
+                    ' <div class="modal-dialog">'+
+                        ' <div class="modal-content">'+
+                            ' <div class="modal-header">'+
                                 '<h5 class="modal-title">Eliminar Medicamento</h5>'+
                               '  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>'+
                             '</div>'+
-                            '<div class="modal-body">'+
+                            ' <div class="modal-body">'+
                                 '<p>Esta seguro(a) de eliminar este medicamento:</p>'+
                                 '<label  class="medicamento" id="medicamento"></label>'+
                            ' </div>'+
-                            '<div class="modal-footer">'+
+                            ' <div class="modal-footer">'+
                                 '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>'+
                                 '<button type="submit" class="btn btn-danger">Eliminar</button>'+
                            ' </div>'+
@@ -80,8 +79,7 @@
                 '</div>'+
             '</div>'+
              '         </div>'+
-             '       </div>'+
-             '     </div>';
+             '       </div></div>';
              cont++;
     });
     document.getElementById("acordeon1").innerHTML=msg;
