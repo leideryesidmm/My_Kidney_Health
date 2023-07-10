@@ -21,78 +21,105 @@
 
         <h3>Todos los recambios</h3>
         <div class="container">
-        <div class="accordion" id="accordionExample">
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" id="nombre">
-                        Recambio 07/07/2023-1
-                    </button>
-                </h2>
-                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                    data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <div class="horaDren">
-                            <p><strong>Hora drenaje:</strong></p>
-                            <p class="hora" id="hora">
-                                00:00:00
-                            </p>
-                        </div>
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" id="nombre">
+                            Recambio 07/07/2023-1
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <div class="horaDren">
+                                <p><strong>Hora drenaje:</strong></p>
+                                <p class="hora" id="hora">
+                                    00:00:00
+                                </p>
+                            </div>
 
-                        <div class="concentr">
-                            <p><strong>Concentración:</strong></p>
-                            <p class="concentracion" id="concentracion">
-                                <!--concentracion-->
-                            </p>
-                        </div>
-                        <div class="vol">
-                            <p><strong>Volumen:</strong></p>
-                            <p class="volumen" id="volumen">
-                                <!--volumen-->
-                            </p>
-                        </div>
-                        <div class="drenaj">
-                            <p><strong>Drenaje:</strong></p>
-                            <p class="drenaje" id="drenaje">
-                                <!--drenaje-->
-                            </p>
-                        </div>
-                        <div class="balan">
-                            <p><strong>Balance:</strong></p>
-                            <p class="balance" id="balance">
-                                <!--balance-->
-                            </p>
-                        </div>
-                        <div class="liquid">
-                            <p><strong>Características del líquido:</strong></p>
-                            <p class="liquido" id="liquido">
-                                <!--liquido-->
-                            </p>
-                        </div>
-                        <div class="orif">
-                            <p><strong>Estado del orificio:</strong></p>
-                            <p class="orificio" id="orificio">
-                                <!--orificio-->
-                            </p>
-                        </div>
+                            <div class="concentr">
+                                <p><strong>Concentración:</strong></p>
+                                <p class="concentracion" id="concentracion">
+                                    <!--concentracion-->
+                                </p>
+                            </div>
+                            <div class="vol">
+                                <p><strong>Volumen:</strong></p>
+                                <p class="volumen" id="volumen">
+                                    <!--volumen-->
+                                </p>
+                            </div>
+                            <div class="drenaj">
+                                <p><strong>Drenaje:</strong></p>
+                                <p class="drenaje" id="drenaje">
+                                    <!--drenaje-->
+                                </p>
+                            </div>
+                            <div class="balan">
+                                <p><strong>Balance:</strong></p>
+                                <p class="balance" id="balance">
+                                    <!--balance-->
+                                </p>
+                            </div>
+                            <div class="liquid">
+                                <p><strong>Características del líquido:</strong></p>
+                                <p class="liquido" id="liquido">
+                                    <!--liquido-->
+                                </p>
+                            </div>
+                            <div class="orif">
+                                <p><strong>Estado del orificio:</strong></p>
+                                <p class="orificio" id="orificio">
+                                    <!--orificio-->
+                                </p>
+                            </div>
 
-                        <div class="btn-nuevo-container">
-                            <button id="btn-editar" class="btn-editar">Editar</button>
+                            <div class="btn-editar-container">
+                                <a href="editarRecambio.html" class="btn-editar"><img src="../img/editaraler.png"></a>
+                                <div>
+                                    <a href="" class="btn-inhabilitar" data-bs-toggle="modal"
+                                        data-bs-target="#eliminarrecambio"><img src="../img/inhabilitar.png" alt=""
+                                            id="inhabilitar-rec"></a>
+                                </div>
+                            </div>
                         </div>
-
-
-                    </div>
-
-
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingTwo">
-                        </h2>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                            </h2>
+                        </div>
                     </div>
                 </div>
             </div>
-            <br>
-            <a href=""><img src="../img/nuevo.png" alt="" id="icono"></a>
-            
+        </div>
+        <br>
+        <div>
+            <a href="agregarRecambio.html"><img src="../img/nuevo.png" alt="" id="icono"></a>
+        </div>
+
+<!-- modales -->
+        <div>
+            <div class="modal" tabindex="-1" id="eliminarrecambio">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Eliminar Recambio</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>¿Está seguro(a) de eliminar este recambio?</p>
+                            <label class="idRecambio" id="idRecambio">Recambio Id aquí</label>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
