@@ -13,7 +13,7 @@
 
 <body>
     <div class="navbar" name="navbar" id="navbar">
-        <h1 class="title">Alergias</h1>
+        <h1 class="title">Mis Alergias</h1>
     </div>
 
     <br>
@@ -32,31 +32,18 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Camarones</td>
-                    <td>
-                        <a href=""><img src="../img/editaraler.png" alt="" id="inhabilitar"></a>
-                        <a href=""><img src="../img/inhabilitar.png" alt="" id="inhabilitar"></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Morfina</td>
-                    <td>
-                        <a href=""><img src="../img/editaraler.png" alt="" id="inhabilitar"></a>
-                        <a href=""><img src="../img/inhabilitar.png" alt="" id="inhabilitar"></a>
-                    </td>
-                </tr>
+                
                 <tr>
                     <td>Abejas</td>
                     <td>
-                        <a href=""><img src="../img/editaraler.png" alt="" id="inhabilitar"></a>
-                        <a href=""><img src="../img/inhabilitar.png" alt="" id="inhabilitar"></a>
+                        <a href="" data-bs-toggle="modal" data-bs-target="#editaralergia"><img src="../img/editaraler.png"  alt="" id="inhabilitar"></a>
+                        <a href="" data-bs-toggle="modal" data-bs-target="#eliminaralergia"><img src="../img/inhabilitar.png" alt="" id="inhabilitar"></a>
                     </td>
                 </tr>
             </tbody>
         </table>
         <br>
-        <div><a href="addMedicamento.html" class="btn-nuevo" data-bs-toggle="modal"
+        <div><a href="addMedicamento.html" class="btn" id="btnguardar" data-bs-toggle="modal"
                 data-bs-target="#agregaralergia">Agregar</a></div>
     </div>
 
@@ -69,12 +56,54 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Alergico a: </p>
+                        <p>Alérgico a: </p>
                         <input type="text" class="form-control" placeholder="Insertar alergia">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="modal" tabindex="-1" id="editaralergia">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Editar Alergia</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Alérgico a: </p>
+                        <input type="text" class="form-control" placeholder="Inserte nuevo nombre de alergia">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="modal" tabindex="-1" id="eliminaralergia">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Eliminar Alergia</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>¿Está seguro(a) de eliminar esta alergia?</p>
+                        <label  class="nombreAlergia" id="nombreAlergia">Nombre aquí</label>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
                     </div>
                 </div>
             </div>
