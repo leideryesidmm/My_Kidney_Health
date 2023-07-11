@@ -33,7 +33,7 @@
                 <label for="descMed">Descripción:</label>
             </div>
             <div class="col">
-                <input type="text" name="descripcion" id="descripcion" class="descripcion">
+                <input type="text" name="descripcion" value="hola" id="descripcion" class="descripcion">
             </div>
         </div>
     </div>
@@ -44,7 +44,7 @@
         <label for="viaMed">Vía Administración:</label>
     </div>
     <div class="col">
-        <select id="selectMedicamentos" required></select>
+        <select id="selectVias" required></select>
     </div>
 </div>
 </div>
@@ -124,5 +124,15 @@
         <a href="medicamento.html" class="btn-cancelar">Cancelar</a>
         <button type="submit" class="btn-nuevo">Actualizar</button>
     </div>
+    <script src="../js/bd/medicamento.js">
+        
+    </script>
+    <script src="../js/functions/medicamento.js">
+
+    </script>
+    <script type="module">
+        encontrarMedicamento();
+        listarVias();
+    </script>
 </body>
 </html>
