@@ -6,6 +6,8 @@
     <title>Cuidador Actual</title>
     <link rel="stylesheet" type="text/css" href="../css/cuidador.css">
     <link href="https://fonts.googleapis.com/css2?family=Jost&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+</head>
 </head>
 <body>
     <div class="container">
@@ -17,13 +19,20 @@
 
 <div class="container">
 
-    <div class="row">
-        <div class="col d-flex align-items-center justify-content-center">
-            <label for="varCuidador"><strong>Cuidador:</strong></label>
+    <div class="cuidadores">
+    <label for="varCuidador" class="varCuidador"><strong>Cuidador:</strong></label>
             <br>
-            <label for="cuidador" id="cuidador" class="cuidador"></label>
+            <label for="nombre" id="nombre" class="nombre"></label>
         </div>
-        <div class="col">
+
+      <br>
+    <div class="row">
+        <div class="col-6 d-flex">
+            <label for="cedCuidador" class="cedCuidador"><strong>Cédula:</strong></label>
+        <br>
+        <label for="cedula_cuidador" id="cedula_cuidador" class="cedula_cuidador"></label>
+        </div>
+        <div class="col-6 d-flex">
             <label for="varParentesco"><strong>Parentesco:</strong></label>
             <br>
                 <label for="parentesco" id="parentesco" class="parentesco"></label>
@@ -31,17 +40,18 @@
         </div>
         <br>
         <div class="row">
-            <div class="col d-flex align-items-center justify-content-center">
+            <div class="col-6 d-flex" id="tlf">
                 <label for="varTelefono"><strong>Teléfono:</strong></label>
                 <br>
                 <label for="telefono" id="telefono" class="telefono"></label>
             </div>
-            <div class="col">
+            <div class="col-6 d-flex" id="address">
                 <label for="varDirección"><strong>Dirección:</strong></label>
                 <br>
                     <label for="direccion" id="direccion" class="direccion"></label>
             </div>
             </div>
+            
 
 </div>
 
@@ -52,7 +62,10 @@
     </div>
     </div>
     
-    
-   
+    <script src="../js/bd/cuidador.js"></script>
+   <script>
+   cuidadorActivo();
+cuidadorPorPaciente();    
+    </script>
 </body>
 </html>
