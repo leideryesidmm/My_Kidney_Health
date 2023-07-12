@@ -15,7 +15,7 @@
 <h3>Editar Medicamento</h3>
         <div class="contentform">
         <div class="form-group">
-
+            <input type="number" id="idMedicamento" hidden>
             <div class="name">
                 <div class="row">
                     <div class="col">
@@ -122,10 +122,10 @@
     </div>
     <div class="btn-container">
         <a href="medicamento.html" class="btn-cancelar">Cancelar</a>
-        <button type="submit" class="btn-nuevo">Actualizar</button>
+        <button onclick="actualizarMedicamento()" type="submit" class="btn-nuevo">Actualizar</button>
     </div>
     <script src="../js/bd/medicamento.js">
-        
+ 
     </script>
     <script src="../js/functions/medicamento.js">
 

@@ -90,6 +90,7 @@ let encontrarMedicamento=async()=>{
 
   const medicamento=await peticion.json();
   console.log(medicamento);
+  document.getElementById("idMedicamento").value=medicamento.idFormulaMedicamento;
   document.getElementById("medicamento").value=medicamento.nombre;
   document.getElementById("descripcion").value=medicamento.descripcion;
   document.getElementById("concentracion").value=medicamento.concentracion;
@@ -105,4 +106,40 @@ let encontrarMedicamento=async()=>{
   document.getElementById("selectVias").selectedIndex=medicamento.viaAdministracion.idViaAdministracion;
 
 
+}
+//formulaMedicamento/actualizar/{id_formula_medicamento}
+let actualizarMedicamento=async ()=> {
+  let idFormulaMedicamento=document.getElementById("idMedicamento").value
+  console.log(idFormulaMedicamento)
+  let formulamedicamento={
+      "concentracion": document.getElementById("concentracion").value,
+      "descripcion": document.getElementById("descripcion").value,
+      "dosis": document.getElementById("dosis").value,
+      "fechaFin": document.getElementById("fecha_fin").value+"T00:00:00.001Z",
+      "fechaIni": document.getElementById("fecha_inicio").value+"T00:00:00.001Z",
+      "intervaloTiempo": document.getElementById("intervalos_tiempo").value,
+      "nombre": document.getElementById("medicamento").value,
+      "paciente": cedula,
+      "tomas": document.getElementById("tomas").value,
+      "via_Administracion": document.getElementById("selectVias").value
+  }
+  console.log(formulamedicamento)
+
+  fetch(servidorAPI+"paciente/formulaMedicamento/actualizar/"+idFormulaMedicamento,{
+    method:"PATCH",
+    body: JSON.stringify(formulamedicamento),
+    headers:{
+      "Accept":"application/json",
+      "Content-Type":"application/json"
+    }
+  })
+  
+.then(data => {
+  console.log(data);
+  // Hacer algo con la respuesta exitosa
+})
+.catch(error => {
+  console.error(error);
+  // Mostrar mensaje de error en la consola o en la interfaz de usuario
+})
 }
