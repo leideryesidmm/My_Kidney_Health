@@ -11,7 +11,7 @@ let listMedicamentos = async (medicamentos) => {
         '" aria-expanded="false" aria-controls="flush-collapse' +
         cont +
         '">' +
-        medicamento.medicamento.nombre +
+        medicamento.nombre +
         "</button>" +
         "</h2>" +
         '<div id="flush-collapse' +
@@ -21,17 +21,17 @@ let listMedicamentos = async (medicamentos) => {
         '<div class="descrp-med">' +
         "<p><strong>Descripción:</strong></p>" +
         '<p class="descripcion" id="descripcion">' +
-        medicamento.medicamento.descripcion +
+        medicamento.descripcion +
         "</div>" +
         '<div class="via">' +
         "<p><strong>Vía administración:</strong></p>" +
         '<p class="via_administracion" id="via_administracion">' +
-        medicamento.medicamento.viaAdministracion.descripcion +
+        medicamento.viaAdministracion.descripcion +
         "</div>" +
         '<div class="concentration">' +
         "<p><strong>Concentración:</strong></p>" +
         '<p class="concentracion" id="concentracion">' +
-        medicamento.medicamento.concentracion +
+        medicamento.concentracion +
         "</p>" +
         "</div>" +
         '<div class="fechaIni">' +
@@ -63,7 +63,7 @@ let listMedicamentos = async (medicamentos) => {
         "</p>" +
         "</div>" +
         '<div class="btn-editar-container">' +
-        '<a href="editarMedicamento.html" class="btn-editar"><img src="../img/editaraler.png"></a>' +
+        '<a href="editarMedicamento.html?idFormulaMedicamento='+medicamento.idFormulaMedicamento+'" class="btn-editar"><img src="../img/editaraler.png"></a>' +
         '<div><a href="" class="btn-inhabilitar" data-bs-toggle="modal" data-bs-target="#inhabilitarMedicamento' +
         cont +
         '" ><img src="../img/inhabilitar.png" alt="" id="inhabilitar"></a></div>' +
@@ -79,7 +79,7 @@ let listMedicamentos = async (medicamentos) => {
         "</div>" +
         '<div class="modal-body">' +
         "<p>¿Está seguro(a) de eliminar este medicamento?</p>" +
-        '<label  class="medicamento" id="medicamento"></label>' +
+        '<label  class="medicamento" id="medicamento">'+medicamento.nombre+'</label>' +
         "</div>" +
         '<div class="modal-footer">' +
         '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>' +
@@ -95,3 +95,7 @@ let listMedicamentos = async (medicamentos) => {
     });
     document.getElementById("acordeon1").innerHTML = msg;
   };
+
+
+
+  

@@ -75,3 +75,34 @@ let listarVias= async()=>{
 
   
 }
+let encontrarMedicamento=async()=>{
+  const params = new URLSearchParams(window.location.search.slice(1));
+  const idFormulaMedicamento = params.get('idFormulaMedicamento');
+  console.log(idFormulaMedicamento);
+
+  const peticion= await fetch(servidorAPI+"paciente/medicamento/findById/"+idFormulaMedicamento,{
+    method:"GET",
+    headers:{
+      "Accept":"application/json",
+      "Content-Type":"application/json"
+    }
+  });
+
+  const medicamento=await peticion.json();
+  console.log(medicamento);
+  document.getElementById("medicamento").value=medicamento.nombre;
+  document.getElementById("descripcion").value=medicamento.descripcion;
+  document.getElementById("concentracion").value=medicamento.concentracion;
+  let fechaDefecto = new Date(medicamento.fechaIni);
+  let fechaFormateada = fechaDefecto.toISOString().split('T')[0];
+  document.getElementById("fecha_inicio").value=fechaFormateada;
+  fechaDefecto = new Date(medicamento.fechaFin);
+  fechaFormateada = fechaDefecto.toISOString().split('T')[0];
+  document.getElementById("fecha_fin").value=fechaFormateada;
+  document.getElementById("tomas").value=medicamento.tomas;
+  document.getElementById("dosis").value=medicamento.dosis;
+  document.getElementById("intervalos_tiempo").value=medicamento.intervaloTiempo;
+  document.getElementById("selectVias").selectedIndex=medicamento.viaAdministracion.idViaAdministracion;
+
+
+}
