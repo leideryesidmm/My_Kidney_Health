@@ -134,12 +134,47 @@ let actualizarMedicamento=async ()=> {
     }
   })
   
-.then(data => {
-  console.log(data);
-  // Hacer algo con la respuesta exitosa
+.then(response => {
+  if (response.ok) {
+    // La solicitud fue exitosa (código de estado 2xx)
+    if (response.status === 200 || response.status === 204 ) {
+      $('#successModal').modal('show');
+    }
+  } else {
+    // La solicitud no fue exitosa (código de estado no 2xx)
+    // Realiza acciones para manejar la respuesta no exitosa
+  }
 })
 .catch(error => {
   console.error(error);
   // Mostrar mensaje de error en la consola o en la interfaz de usuario
 })
+}
+
+let eliminarMedicamento=async (idMedicamento)=> {
+  fetch(servidorAPI+"paciente/medicamento/eliminar/"+idMedicamento,{
+    method:"DELETE",
+    headers:{
+      "Accept":"application/json",
+      "Content-Type":"application/json"
+    }
+  })
+   
+.then(response => {
+  console.log(response)
+  if (response.ok) {
+    // La solicitud fue exitosa (código de estado 2xx)
+      $('#inhabilitarMedicamento'+idMedicamento).modal('hide');
+      $('#modal2').modal('show');
+  } else {
+    // La solicitud no fue exitosa (código de estado no 2xx)
+    // Realiza acciones para manejar la respuesta no exitosa
+    $('#modal3').modal('show');
+  }
+})
+.catch(error => {
+  console.error(error);
+  // Mostrar mensaje de error en la consola o en la interfaz de usuario
+})
+
 }
