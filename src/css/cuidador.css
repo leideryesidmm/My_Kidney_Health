@@ -50,6 +50,7 @@ h3 {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-left: 60px;
 }
 
 .col {
@@ -71,7 +72,10 @@ label {
     margin-left: 5%;
 }
 
-
+.cuidadores, .varCuidador, .nombre{
+    justify-content: center;
+    text-align: center;
+}
 
 .cambiarCuidador{
     

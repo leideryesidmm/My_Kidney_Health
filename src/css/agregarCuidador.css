@@ -35,6 +35,7 @@ h3 {
     margin: auto;
 }
 
+.cedCuidador,
 .name, 
 .address,
 .tlf,
@@ -43,15 +44,16 @@ h3 {
     padding: 10px;
 }
 
+.cedCuidador input[type="text"],
 .name input[type="text"],
-  .address input[type="text"],
-  .tlf input[type="text"],
-  .parentesc input[type="text"]{
+.address input[type="text"],
+.tlf input[type="text"],
+.parentesc input[type="text"]{
     padding: 5px;
   }
   
 
-
+.cedCuidador input[type="text"],
 .name input[type="text"],
 .address input[type="text"],
 .tlf input[type="text"],
@@ -64,6 +66,7 @@ h3 {
     content: "";
   }
 
+.cedCuidador input[type="text"]:focus,
 .name input[type="text"]:focus,
 .address input[type="text"]:focus,
 .tlf input[type="text"]:focus,
@@ -147,7 +150,18 @@ input {
     margin-left: 1%;
 }
 
+.parents{
+    margin-left: 10px;
+}
 
+.modal-body{
+    text-align: center;
+}
+
+.modal-header h5{
+    color: red;
+    margin-left: 42.5%;
+}
 @media only screen and (max-width: 768px) {
     /* For mobile phones: */
     [class*="col-"] {
