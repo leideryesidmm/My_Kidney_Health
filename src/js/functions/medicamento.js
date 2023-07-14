@@ -83,7 +83,7 @@ let listMedicamentos = async (medicamentos) => {
         "</div>" +
         '<div class="modal-footer">' +
         '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>' +
-        '<button type="submit" class="btn btn-danger">Eliminar</button>' +
+        '<button type="submit" onclick="eliminarMedicamento('+medicamento.idFormulaMedicamento+')" class="btn btn-danger">Eliminar</button>' +
         "</div>" +
         "</div>" +
         "</div>" +
