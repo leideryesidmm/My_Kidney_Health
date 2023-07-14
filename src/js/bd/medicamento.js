@@ -178,3 +178,42 @@ let eliminarMedicamento=async (idMedicamento)=> {
 })
 
 }
+
+let crearMedicamento=async ()=> {
+  let formulamedicamento={
+      "concentracion": document.getElementById("concentracion").value,
+      "descripcion": document.getElementById("descripcion").value,
+      "dosis": document.getElementById("dosis").value,
+      "fechaFin": document.getElementById("fecha_fin").value+"T00:00:00.001Z",
+      "fechaIni": document.getElementById("fecha_inicio").value+"T00:00:00.001Z",
+      "intervaloTiempo": document.getElementById("intervalos_tiempo").value,
+      "nombre": document.getElementById("medicamento").value,
+      "paciente": cedula,
+      "tomas": document.getElementById("tomas").value,
+      "via_Administracion": document.getElementById("selectVias").value
+  }
+  console.log(formulamedicamento)
+  fetch(servidorAPI+"paciente/Medicamento/crear/",{
+    method:"POST",
+    body: JSON.stringify(formulamedicamento),
+    headers:{
+      "Accept":"application/json",
+      "Content-Type":"application/json"
+    }
+  })
+  .then(response => {
+    console.log(response)
+    if (response.ok) {
+      // La solicitud fue exitosa (código de estado 2xx)
+        $('#successModal').modal('show');
+    } else {
+      // La solicitud no fue exitosa (código de estado no 2xx)
+      // Realiza acciones para manejar la respuesta no exitosa
+      $('#errorModal').modal('show');
+    }
+  })
+  .catch(error => {
+    console.error(error);
+    // Mostrar mensaje de error en la consola o en la interfaz de usuario
+  })
+}
