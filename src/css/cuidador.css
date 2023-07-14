@@ -18,15 +18,15 @@ h3 {
 }
 
 .navbar img{
-    width: 70%;
-    height: 90%;
+    width: 80%;
+    height: 100%;
     float: right;
-    margin-right: 7%;
+    margin-right: 10%;
 }
 .navbar{
     background-color: #04BAFC;
     margin:auto;
-    height:fit-content;
+    height:53px;
     width: 100%;
     display: flex;
     justify-content: center;
