@@ -90,6 +90,7 @@ let encontrarMedicamento=async()=>{
 
   const medicamento=await peticion.json();
   console.log(medicamento);
+  document.getElementById("idMedicamento").value=medicamento.idFormulaMedicamento;
   document.getElementById("medicamento").value=medicamento.nombre;
   document.getElementById("descripcion").value=medicamento.descripcion;
   document.getElementById("concentracion").value=medicamento.concentracion;
@@ -105,4 +106,114 @@ let encontrarMedicamento=async()=>{
   document.getElementById("selectVias").selectedIndex=medicamento.viaAdministracion.idViaAdministracion;
 
 
+}
+//formulaMedicamento/actualizar/{id_formula_medicamento}
+let actualizarMedicamento=async ()=> {
+  let idFormulaMedicamento=document.getElementById("idMedicamento").value
+  console.log(idFormulaMedicamento)
+  let formulamedicamento={
+      "concentracion": document.getElementById("concentracion").value,
+      "descripcion": document.getElementById("descripcion").value,
+      "dosis": document.getElementById("dosis").value,
+      "fechaFin": document.getElementById("fecha_fin").value+"T00:00:00.001Z",
+      "fechaIni": document.getElementById("fecha_inicio").value+"T00:00:00.001Z",
+      "intervaloTiempo": document.getElementById("intervalos_tiempo").value,
+      "nombre": document.getElementById("medicamento").value,
+      "paciente": cedula,
+      "tomas": document.getElementById("tomas").value,
+      "via_Administracion": document.getElementById("selectVias").value
+  }
+  console.log(formulamedicamento)
+
+  fetch(servidorAPI+"paciente/formulaMedicamento/actualizar/"+idFormulaMedicamento,{
+    method:"PATCH",
+    body: JSON.stringify(formulamedicamento),
+    headers:{
+      "Accept":"application/json",
+      "Content-Type":"application/json"
+    }
+  })
+  
+.then(response => {
+  if (response.ok) {
+    // La solicitud fue exitosa (código de estado 2xx)
+    if (response.status === 200 || response.status === 204 ) {
+      $('#successModal').modal('show');
+    }
+  } else {
+    // La solicitud no fue exitosa (código de estado no 2xx)
+    // Realiza acciones para manejar la respuesta no exitosa
+  }
+})
+.catch(error => {
+  console.error(error);
+  // Mostrar mensaje de error en la consola o en la interfaz de usuario
+})
+}
+
+let eliminarMedicamento=async (idMedicamento)=> {
+  fetch(servidorAPI+"paciente/medicamento/eliminar/"+idMedicamento,{
+    method:"DELETE",
+    headers:{
+      "Accept":"application/json",
+      "Content-Type":"application/json"
+    }
+  })
+   
+.then(response => {
+  console.log(response)
+  if (response.ok) {
+    // La solicitud fue exitosa (código de estado 2xx)
+      $('#inhabilitarMedicamento'+idMedicamento).modal('hide');
+      $('#modal2').modal('show');
+  } else {
+    // La solicitud no fue exitosa (código de estado no 2xx)
+    // Realiza acciones para manejar la respuesta no exitosa
+    $('#modal3').modal('show');
+  }
+})
+.catch(error => {
+  console.error(error);
+  // Mostrar mensaje de error en la consola o en la interfaz de usuario
+})
+
+}
+
+let crearMedicamento=async ()=> {
+  let formulamedicamento={
+      "concentracion": document.getElementById("concentracion").value,
+      "descripcion": document.getElementById("descripcion").value,
+      "dosis": document.getElementById("dosis").value,
+      "fechaFin": document.getElementById("fecha_fin").value+"T00:00:00.001Z",
+      "fechaIni": document.getElementById("fecha_inicio").value+"T00:00:00.001Z",
+      "intervaloTiempo": document.getElementById("intervalos_tiempo").value,
+      "nombre": document.getElementById("medicamento").value,
+      "paciente": cedula,
+      "tomas": document.getElementById("tomas").value,
+      "via_Administracion": document.getElementById("selectVias").value
+  }
+  console.log(formulamedicamento)
+  fetch(servidorAPI+"paciente/Medicamento/crear/",{
+    method:"POST",
+    body: JSON.stringify(formulamedicamento),
+    headers:{
+      "Accept":"application/json",
+      "Content-Type":"application/json"
+    }
+  })
+  .then(response => {
+    console.log(response)
+    if (response.ok) {
+      // La solicitud fue exitosa (código de estado 2xx)
+        $('#successModal').modal('show');
+    } else {
+      // La solicitud no fue exitosa (código de estado no 2xx)
+      // Realiza acciones para manejar la respuesta no exitosa
+      $('#errorModal').modal('show');
+    }
+  })
+  .catch(error => {
+    console.error(error);
+    // Mostrar mensaje de error en la consola o en la interfaz de usuario
+  })
 }
