@@ -37,12 +37,12 @@ let listMedicamentos = async (medicamentos) => {
         '<div class="fechaIni">' +
         "<p><strong>Fecha inicio:</strong></p>" +
         '<p class="fecha_inicio" id="fecha_inicio">' +
-        "<!--Fecha inicio de la toma del medicamento en programar medicamento--></p>" +
+        " "+formatearFechas(medicamento.fechaIni)+"</p>" +
         "</div> " +
         '<div class="fechaFin">' +
         "<p><strong>Fecha Finalización:</strong></p>" +
         '<p class="fecha_fin" id="fecha_fin">' +
-        "<!--Fecha final de la toma del medicamento en programar medicamento--></p>" +
+        " "+formatearFechas(medicamento.fechaFin)+"</p>" +
         "</div>" +
         '<div class="dos">' +
         "<p><strong>Dosis:</strong></p>" +
@@ -94,30 +94,22 @@ let listMedicamentos = async (medicamentos) => {
       cont++;
     });
     document.getElementById("acordeon1").innerHTML = msg;
-  fetch(servidorAPI+"paciente/formulaMedicamento/actualizar/"+idFormulaMedicamento,{
-    method:"PATCH",
-    body: JSON.stringify(formulamedicamento),
-    headers:{
-      "Accept":"application/json",
-      "Content-Type":"application/json"
-    }
-  })
-  
-.then(response => {
-  if (response.ok) {
-    // La solicitud fue exitosa (código de estado 2xx)
-    if (response.status === 200 || response.status === 204 ) {
-      $('#successModal').modal('show');
-    }
-  } else {
-    // La solicitud no fue exitosa (código de estado no 2xx)
-    // Realiza acciones para manejar la respuesta no exitosa
-  }
-})
-.catch(error => {
-  console.error(error);
-  // Mostrar mensaje de error en la consola o en la interfaz de usuario
-})
+
+}
+
+let formatearFechas= function(fechaOriginal){
+
+// Convertir la fecha a un objeto Date
+const fecha = new Date(fechaOriginal);
+
+// Obtener los componentes de la fecha
+const year = fecha.getFullYear();
+const month = ('0' + (fecha.getMonth() + 1)).slice(-2);
+const day = ('0' + fecha.getDate()).slice(-2);
+
+// Crear la fecha formateada
+const fechaFormateada = `${year}-${month}-${day}`;
+return fechaFormateada;
 }
 
 
