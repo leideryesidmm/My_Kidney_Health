@@ -106,7 +106,39 @@ label {
     margin-left: 1%;
 }
 
-
+.cuidadoresInactivos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .msg-reactivar {
+    background-color: #04BAFC;
+    color: #fff;
+  }
+  
+  table {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-collapse: collapse; /* Agrega esta línea para colapsar los bordes de la tabla */
+    border-spacing: 0; /* Agrega esta línea para eliminar el espacio entre las celdas */
+  }
+  
+  table th {
+    background-color: #00DBA1;
+  }
+  
+  th.header {
+    background-color: #f2f2f2;
+    border: none;
+  }
+  
+  td.data {
+    border: 1px solid #ccc;
+    text-align: center;
+  }
 @media only screen and (max-width: 768px) {
     /* For mobile phones: */
     [class*="col-"] {

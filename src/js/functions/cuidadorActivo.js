@@ -68,3 +68,41 @@ if(cuidadores>0){
 }
     document.getElementById("agregarCuidador").innerHTML = msg;
 };
+
+
+let cuidadoresInactivos = async (cuidadores) => {
+    cuidadores = await cuidadores;
+    let msg = "";
+    document.getElementById("cambiar").style.display = "none";
+    document.getElementById("nuevo").style.marginLeft = "200px";
+    msg += '<br>' +
+      '<h3 class="msg-reactivar">Seleccione un cuidador antiguo para reactivarlo</h3>';
+  
+    msg += '<table class="cuidadoresInactivos">' +
+      
+      '<tr>' +
+      '<th>Cédula Cuidador</th>' +
+      '<th>Nombre</th>' +
+      '<th>Acciones</th>' +
+      '</tr>'
+      ;
+  
+    cuidadores.forEach((cuidador) => {
+      if (cuidador.activo === false) {
+        msg +=
+          '<tr>' +
+          '<td>' + cuidador.cedulaCuidador + '</td>' +
+          '<td>' + cuidador.nombre + '</td>' +
+          '<td>' +
+          '<button type="button">' +
+          '<img src="" />' +
+          '</button>' +
+          '</td>' +
+          '</tr>';
+      }
+    });
+  
+    msg += '</table>';
+  
+    document.getElementById("cuidadoresAntiguos").innerHTML = msg;
+  };

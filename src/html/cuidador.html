@@ -7,6 +7,8 @@
     <link rel="stylesheet" type="text/css" href="../css/cuidador.css">
     <link href="https://fonts.googleapis.com/css2?family=Jost&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 </head>
 <body>
@@ -52,23 +54,38 @@
             </div>
             </div>
             
-
 </div>
+<br>
 
     <div class="btn-container">
-        <button type="submit" id="cambiarCuidador" class="cambiarCuidador">Cambiar</button>
-        <a href="agregarCuidador.html" class="btn-nuevo">Nuevo</a>
+        <button onclick="cuidadoresInactivos(cuidadoresAntiguos())" type="submit" class="btn-nuevo" id="cambiar">Cambiar</button>
+        <a href="agregarCuidador.html" class="btn-nuevo" id="nuevo">Nuevo</a>
         
     </div>
+
+    <div class="cuidadoresAntiguos" id="cuidadoresAntiguos">
     </div>
+
+    
+    
+    </div>
+
+    
     
     <script src="../js/bd/cuidador.js"></script>
    <script>
    cuidadorActivo();
 cuidadorPorPaciente();    
     </script>
+    <script src="../js/functions/cuidadorActivo.js"></script>
+    <script>
+        ;
+    </script>
 </body>
 </html>
+
+
+
 
 
 
