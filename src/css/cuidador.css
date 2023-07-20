@@ -14,7 +14,6 @@ h3 {
     margin: 0;
     padding: 0;
     width: 100%;
-    max-width: 1000px;
 }
 
 .navbar img{
@@ -43,7 +42,7 @@ h3 {
     justify-content: center;
     align-items: center;
     margin: auto;
-    margin-left: 31%;
+    margin-left: 33.2%;
 }
 
 .row {
@@ -104,6 +103,20 @@ label {
     border-radius: 5px;
     text-decoration: none;
     margin-left: 1%;
+    margin-right: 27px;
+}
+
+.inhabilitarCuidador{
+  background-color: #c71919;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 3px 20px;
+    font-size: 15px;
+    font-family: 'Jost', sans-serif;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-left: 1%;
 }
 
 .cuidadoresInactivos {
@@ -116,6 +129,7 @@ label {
   .msg-reactivar {
     background-color: #04BAFC;
     color: #fff;
+    opacity: 0.6;
   }
   
   table {
@@ -128,6 +142,7 @@ label {
   
   table th {
     background-color: #00DBA1;
+    opacity: 0.5;
   }
   
   th.header {
@@ -139,6 +154,24 @@ label {
     border: 1px solid #ccc;
     text-align: center;
   }
+
+  button[type="button"] {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    /* Agrega otros estilos personalizados aquí si es necesario */
+  }
+
+button img{
+    width: 40px;
+    height: 40px;
+}  
+
+#sinCuidador{
+  color: #fa0808;
+}
+
 @media only screen and (max-width: 768px) {
     /* For mobile phones: */
     [class*="col-"] {
