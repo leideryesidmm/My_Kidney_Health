@@ -15,7 +15,9 @@ body {
       width: 100%;
     }
   }
-
+  .fil{
+    background-color: #B2EAF2;
+  }
   .navbar{
     background-color: #04BAFC;
     margin:auto;
@@ -131,7 +133,7 @@ h5 {
     justify-content: center;
     align-items: center;
     width: 95%;
-    margin: auto;
+    margin: 1%;
   }
 
  #derecho{
