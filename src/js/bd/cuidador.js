@@ -5,7 +5,7 @@ let crearCuidador = async () => {
   document.getElementById('agregarCuidador').addEventListener('submit', async function(event) {
     event.preventDefault();
     let cuidadores = await cuidadorPorPaciente();
-    console.log(cuidadores);
+   
 
     var cedula_cuidador = document.getElementById('cedula_cuidador').value;
     var nombre = document.getElementById('nombre').value;
@@ -14,7 +14,6 @@ let crearCuidador = async () => {
     var parentesco = selectedOption.value;
     var direccion = document.getElementById('direccion').value;
     var telefono = document.getElementById('telefono').value;
-    console.log(cedula_cuidador, nombre, parentesco, direccion, telefono);
 
     if (cuidadores.includes(cedula_cuidador)) {
       var avisoMensaje = document.getElementById('avisoMensaje');
@@ -163,7 +162,6 @@ let listaParentesco= async()=>{
       "Content-Type":"application/json"
     }
   });
-  console.log(peticion);
   const selectParentesco = document.getElementById('selectParentesco');
   const parentescos=await peticion.json();
   const optionSeleccionar = document.createElement('option');
@@ -259,7 +257,6 @@ let cuidadorActivo= async()=>{
       const cuidador = await peticion.json();
     
       var decryptedCedula = CryptoJS.AES.decrypt(cuidador.cuidador.cedulaCuidador, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-      console.log(decryptedCedula);
       var decryptedNombre = CryptoJS.AES.decrypt(cuidador.cuidador.nombre, 'clave_secreta').toString(CryptoJS.enc.Utf8);
       var decryptedDireccion = CryptoJS.AES.decrypt(cuidador.cuidador.direccion, 'clave_secreta').toString(CryptoJS.enc.Utf8);
       var decryptedTelefono = CryptoJS.AES.decrypt(cuidador.cuidador.telefono, 'clave_secreta').toString(CryptoJS.enc.Utf8);
@@ -377,10 +374,8 @@ let actualizarCuidador = async () => {
   let cuidadorDesencriptado={}
 
   const cuid = await peticion.json();
-  console.log(cuid);
   const decryptedCedula = cuid.cuidador.cedulaCuidador;
   
-  console.log(decryptedCedula)
   const valorCodificado = encodeURIComponent(decryptedCedula);
   let cedulaCuidador=document.getElementById("cedulaCuidador").value;
   let direccion = document.getElementById("address").value;
@@ -396,9 +391,6 @@ let actualizarCuidador = async () => {
     telefono: CryptoJS.AES.encrypt(telefono, 'clave_secreta').toString(),
     cedulaCuidador: decryptedCedula
   };
-  console.log(cedulaCuidador)
-  console.log(cuidador);
-  console.log(servidorAPI + "paciente/cuidador/actualizar/" + decryptedCedula);
 
   fetch(servidorAPI + "paciente/cuidador/actualizar", {
     method: "PATCH",
@@ -410,7 +402,6 @@ let actualizarCuidador = async () => {
   })
     .then(response => {
       if (response.ok) {
-        console.log("ENTRO");
         if (response.status === 200 || response.status === 204) {
           $('#successModal').modal('show');
         }
@@ -464,10 +455,8 @@ else{
 
 let reactivarCuidador = async (cedulaCuidador) => {
   let cuidadoresAntiguos = await cuidAntiguos();
-  console.log(cuidadoresAntiguos);
   cuidadoresAntiguos.forEach((cuidadorAntiguo) => {
     let cedCuidador = CryptoJS.AES.decrypt(cuidadorAntiguo.cedulaCuidador, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-    console.log(cedCuidador);
     let cedulaDesencriptada = parseInt(cedCuidador, 10);
     if (cedulaDesencriptada == cedulaCuidador) {
      
@@ -486,7 +475,6 @@ let reactivarCuidador = async (cedulaCuidador) => {
       })
         .then(response => {
           if (response.ok) {
-            console.log("ENTRO");
             if (response.status === 200 || response.status === 204) {
               $('#successModal').modal('show');
             }
@@ -521,10 +509,7 @@ let inhabilitarCuidador=async()=>{
   });
 
   const cuidadorActivo = await peticion.json();
-  console.log(cuidadorActivo);
-  console.log(cuidadorActivo.cuidador.cedulaCuidador);
   let cedCuidador = CryptoJS.AES.decrypt(cuidadorActivo.cuidador.cedulaCuidador, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-    console.log(cedCuidador);
   let cuidador={
     cedulaCuidador:cedCuidador,
     idCuidadorPaciente:cuidadorActivo.idCuidadorPaciente
@@ -542,29 +527,10 @@ let inhabilitarCuidador=async()=>{
   })
   .then(response => {
     if (response.ok) {
-      console.log("ENTRO");
       if (response.status === 200 || response.status === 204) {
         $('#successModal').modal('show');
       }
     }
   })
   location.reload();
-}
-
-function alternarCambiarCuidador() {
-  const cambiarCuidadorContent = document.getElementById("cuidadoresAntiguos");
-
-  if (mostrarCambiarCuidador) {
-    cambiarCuidadorContent.style.display = "none";
-    mostrarCambiarCuidador = false;
-  } else {
-    cambiarCuidadorContent.style.display = "block";
-    mostrarCambiarCuidador = true;
-  }
-}
-
-function cerrarCambiarCuidador() {
-  const cambiarCuidadorContent = document.getElementById("cuidadoresAntiguos");
-  cambiarCuidadorContent.style.display = "none";
-  mostrarCambiarCuidador = false;
 }
