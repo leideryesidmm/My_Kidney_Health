@@ -1,7 +1,6 @@
 let cuidadorPrincipal=async(cuidadores, cuidAntiguos)=>{
     cuidadores = await cuidadores;
     cuidAntiguos=await cuidAntiguos;
-    console.log(cuidAntiguos);
     let msg="";
     if(cuidadores==null){
         msg+=
@@ -64,7 +63,6 @@ let cuidadorPrincipal=async(cuidadores, cuidAntiguos)=>{
 
 let cuidadoresInactivos = async (cuidadores) => {
     cuidadores = await cuidadores;
-    console.log(cuidadores);
     let msg = "";
     document.getElementById("cambiar").style.display = "none";
     document.getElementById("nuevo").style.marginLeft = "200px";
