@@ -176,7 +176,6 @@ let eliminarMedicamento=async (idMedicamento)=> {
   console.error(error);
   // Mostrar mensaje de error en la consola o en la interfaz de usuario
 })
-
 }
 
 let crearMedicamento=async ()=> {

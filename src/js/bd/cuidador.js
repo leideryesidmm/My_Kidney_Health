@@ -5,7 +5,7 @@ let crearCuidador = async () => {
   document.getElementById('agregarCuidador').addEventListener('submit', async function(event) {
     event.preventDefault();
     let cuidadores = await cuidadorPorPaciente();
-    console.log(cuidadores);
+   
 
     var cedula_cuidador = document.getElementById('cedula_cuidador').value;
     var nombre = document.getElementById('nombre').value;
@@ -14,7 +14,6 @@ let crearCuidador = async () => {
     var parentesco = selectedOption.value;
     var direccion = document.getElementById('direccion').value;
     var telefono = document.getElementById('telefono').value;
-    console.log(cedula_cuidador, nombre, parentesco, direccion, telefono);
 
     if (cuidadores.includes(cedula_cuidador)) {
       var avisoMensaje = document.getElementById('avisoMensaje');
@@ -32,7 +31,8 @@ let crearCuidador = async () => {
       fetch(servidorAPI + 'paciente/cuidador/crear/' + cedula, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          "Accept":"application/json",
+      "Content-Type":"application/json"
         },
         body: JSON.stringify({
           cedula: encryptedCedula,
@@ -75,6 +75,83 @@ let cuidadorPorPaciente=async()=>{
     }
 
 
+    let cuidadoresAntiguos = async () => {
+      const cuidadoresDesencriptados = new Set();
+      const peticion = await fetch(servidorAPI + 'paciente/cuidador/listCuidadorPacienteByPaciente/' + cedula, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      });
+    
+      if (peticion.status === 204) {
+        return null;
+      } else {
+        const cuidadores = await peticion.json();
+    
+        const peticion2 = await fetch(servidorAPI + "paciente/cuidador/findCuidadorActivo/" + cedula, {
+          method: "GET",
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+          }
+        });
+    
+        if (peticion2.status === 204) {
+          cuidadores.forEach(cuidador => {
+            let cedulaCuidador = CryptoJS.AES.decrypt(cuidador.cuidador.cedulaCuidador, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+            let nombre = CryptoJS.AES.decrypt(cuidador.cuidador.nombre, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+            let direccion = CryptoJS.AES.decrypt(cuidador.cuidador.direccion, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+            let telefono = CryptoJS.AES.decrypt(cuidador.cuidador.telefono, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+            let activo = cuidador.activo;
+    
+            const cuidadorDesencriptado = {
+              cedulaCuidador: cedulaCuidador,
+              nombre: nombre,
+              direccion: direccion,
+              telefono: telefono,
+              activo: activo
+            };
+    
+            cuidadoresDesencriptados.add(JSON.stringify(cuidadorDesencriptado));
+          });
+        } else {
+          const cuidadorActivo = await peticion2.json();
+    
+          // Si hay un cuidador activo, desencripta su cédula y guárdala en una variable
+          let cedCuidadorActivo = CryptoJS.AES.decrypt(cuidadorActivo.cuidador.cedulaCuidador, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+    
+          cuidadores.forEach(cuidador => {
+            let cedAntiguo = CryptoJS.AES.decrypt(cuidador.cuidador.cedulaCuidador, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+    
+            // Compara la cédula del cuidador actual con la cédula del cuidador activo
+            if (cedAntiguo !== cedCuidadorActivo) {
+              // Si no son iguales, añade el cuidador a la lista de desencriptados
+              let cedulaCuidador = CryptoJS.AES.decrypt(cuidador.cuidador.cedulaCuidador, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+              let nombre = CryptoJS.AES.decrypt(cuidador.cuidador.nombre, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+              let direccion = CryptoJS.AES.decrypt(cuidador.cuidador.direccion, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+              let telefono = CryptoJS.AES.decrypt(cuidador.cuidador.telefono, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+              let activo = cuidador.activo;
+    
+              const cuidadorDesencriptado = {
+                cedulaCuidador: cedulaCuidador,
+                nombre: nombre,
+                direccion: direccion,
+                telefono: telefono,
+                activo: activo
+              };
+    
+              cuidadoresDesencriptados.add(JSON.stringify(cuidadorDesencriptado));
+            }
+          });
+        }
+    
+        const CuidadoresDesencriptadosSinRepetir = Array.from(cuidadoresDesencriptados).map(cuidador => JSON.parse(cuidador));
+        return CuidadoresDesencriptadosSinRepetir;
+      }
+    };
+    
 
 let listaParentesco= async()=>{
   const peticion= await fetch(servidorAPI+"Prueba/ListParentesco",{
@@ -85,7 +162,6 @@ let listaParentesco= async()=>{
       "Content-Type":"application/json"
     }
   });
-  console.log(peticion);
   const selectParentesco = document.getElementById('selectParentesco');
   const parentescos=await peticion.json();
   const optionSeleccionar = document.createElement('option');
@@ -137,31 +213,36 @@ let cuidadorActivo= async()=>{
       "Content-Type":"application/json"
     }
   });
-  if (peticion!=null) {
-    
+  let cuidadorDesencriptado={}
+  if(peticion.status===204){
+    return null;
+  }
+    else{
     const cuidador=await peticion.json();
-    if (cuidador !== null) {
-
+    
   var decryptedCedula = CryptoJS.AES.decrypt(cuidador.cuidador.cedulaCuidador, 'clave_secreta').toString(CryptoJS.enc.Utf8);
   var decryptedNombre = CryptoJS.AES.decrypt(cuidador.cuidador.nombre, 'clave_secreta').toString(CryptoJS.enc.Utf8);
   var decryptedDireccion = CryptoJS.AES.decrypt(cuidador.cuidador.direccion, 'clave_secreta').toString(CryptoJS.enc.Utf8);
   var decryptedTelefono = CryptoJS.AES.decrypt(cuidador.cuidador.telefono, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-  
-  document.getElementById("cedula_cuidador").innerText = decryptedCedula;
+  var parentesco=cuidador.cuidador.parentesco.descripcion;
+
+  cuidadorDesencriptado.cedula=decryptedCedula;
+  cuidadorDesencriptado.nombre=decryptedNombre;
+  cuidadorDesencriptado.direccion=decryptedDireccion;
+  cuidadorDesencriptado.telefono=decryptedTelefono;
+  cuidadorDesencriptado.parentesco=parentesco;
+  }
+  /*document.getElementById("cedula_cuidador").innerText = decryptedCedula;
   document.getElementById("nombre").innerText = decryptedNombre;
   document.getElementById("telefono").innerText = decryptedTelefono;
   document.getElementById("direccion").innerText = decryptedDireccion;
-  document.getElementById("parentesco").innerText = cuidador.cuidador.parentesco.descripcion;
+  document.getElementById("parentesco").innerText = cuidador.cuidador.parentesco.descripcion;*/
+  return cuidadorDesencriptado;
 }
-else{
-  document.getElementById("cedula_cuidador").innerText = "No hay registros";
-  document.getElementById("nombre").innerText = "No hay registros";
-  document.getElementById("telefono").innerText = "No hay registros";
-  document.getElementById("direccion").innerText = "No hay registros";
-  document.getElementById("parentesco").innerText = "No hay registros";
-}
-}
-    }
+
+
+
+    
   
 
     let encontrarCuidador = async () => {
@@ -194,6 +275,7 @@ else{
           selectParentesco.selectedIndex = index;
         }
       });
+      return cuidador;
     }
     
 
@@ -289,41 +371,33 @@ let actualizarCuidador = async () => {
       "Content-Type": "application/json"
     }
   });
+  let cuidadorDesencriptado={}
 
   const cuid = await peticion.json();
-
   const decryptedCedula = cuid.cuidador.cedulaCuidador;
   
-  
   const valorCodificado = encodeURIComponent(decryptedCedula);
-
+  let cedulaCuidador=document.getElementById("cedulaCuidador").value;
   let direccion = document.getElementById("address").value;
   let nombre = document.getElementById("name").value;
   let parentesco = document.getElementById("selectedParentesco").value;
   let telefono = document.getElementById("telf").value;
 
+  //cedula: decryptedCedula;
   let cuidador = {
-    cedula: decryptedCedula,
     direccion: CryptoJS.AES.encrypt(direccion, 'clave_secreta').toString(),
     nombre: CryptoJS.AES.encrypt(nombre, 'clave_secreta').toString(),
-    parentesco: parentesco,
-    telefono: CryptoJS.AES.encrypt(telefono, 'clave_secreta').toString()
+    parentesco: parseInt(parentesco,10),
+    telefono: CryptoJS.AES.encrypt(telefono, 'clave_secreta').toString(),
+    cedulaCuidador: decryptedCedula
   };
 
-  console.log(cuidador);
-  console.log(servidorAPI + "paciente/cuidador/actualizar/" + valorCodificado);
-
-  fetch(servidorAPI + "paciente/cuidador/actualizar/" + valorCodificado, {
-    method: "PUT",
-    body: JSON.stringify({
-      cedula: cedula,
-      direccion: direccion,
-      nombre: nombre,
-      parentesco: parentesco,
-      telefono: telefono
-    }),
+  fetch(servidorAPI + "paciente/cuidador/actualizar", {
+    method: "PATCH",
+    body: JSON.stringify(cuidador),
     headers: {
-      "Accept": "application/json"
+      "Accept": "application/json",
+      "Content-Type": "application/json"
     }
   })
     .then(response => {
@@ -337,4 +411,144 @@ let actualizarCuidador = async () => {
     .catch(error => {
       console.error(error);
     });
+}
+
+let cuidAntiguos = async () => {
+  const peticion = await fetch(servidorAPI + 'paciente/cuidador/listCuidadorPacienteByPaciente/' + cedula, {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  });
+if(peticion.status===204){
+  return null;
+}
+else{
+  const cuidadores = await peticion.json();
+  const cuidAntSinRep= await cuidadoresAntiguos();
+  const cuidadoresAnt = new Map();
+  
+if(cuidAntSinRep.length>0){
+  cuidadores.forEach(cuidador => {
+    if (cuidador.activo === false) {
+      const cedulaCuidador = cuidador.cuidador.cedulaCuidador;
+      const cuidadorAnt = {
+        cedulaCuidador: cedulaCuidador,
+        nombre: cuidador.cuidador.nombre,
+        direccion: cuidador.cuidador.direccion,
+        telefono: cuidador.cuidador.telefono,
+        activo: cuidador.activo,
+        idCuidadorPaciente: cuidador.idCuidadorPaciente
+      };
+      cuidadoresAnt.set(cedulaCuidador, cuidadorAnt);
+    }
+  });
+}
+else{
+  return 0;
+}
+  return Array.from(cuidadoresAnt.values());
+}
+  
+};
+
+let reactivarCuidador = async (cedulaCuidador) => {
+  let cuidadoresAntiguos = await cuidAntiguos();
+  cuidadoresAntiguos.forEach((cuidadorAntiguo) => {
+    let cedCuidador = CryptoJS.AES.decrypt(cuidadorAntiguo.cedulaCuidador, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+    let cedulaDesencriptada = parseInt(cedCuidador, 10);
+    if (cedulaDesencriptada == cedulaCuidador) {
+     
+    let cuidAntiguo={
+      cedulaCuidador:cuidadorAntiguo.cedulaCuidador,
+    }
+      fetch(servidorAPI + "paciente/cuidador/reactivarCuidador/" + cedula, {
+        method: "PATCH",
+        body: JSON.stringify(
+          cuidAntiguo
+        ),
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        }
+      })
+        .then(response => {
+          if (response.ok) {
+            if (response.status === 200 || response.status === 204) {
+              $('#successModal').modal('show');
+            }
+          } else {
+            fetch(servidorAPI + "paciente/cuidador/ReactivarCuidadorAntiguoSinActivo", {
+              method: "PATCH",
+              body: JSON.stringify(
+                cuidAntiguo
+              ),
+              headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+              }
+            })
+          }
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }
+  });
+  location.reload();
+}
+
+let inhabilitarCuidador=async()=>{
+  const peticion = await fetch(servidorAPI + "paciente/cuidador/findCuidadorActivo/" + cedula, {
+    method: "GET",
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    }
+  });
+
+  const cuidadorActivo = await peticion.json();
+  let cedCuidador = CryptoJS.AES.decrypt(cuidadorActivo.cuidador.cedulaCuidador, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+  let cuidador={
+    cedulaCuidador:cedCuidador,
+    idCuidadorPaciente:cuidadorActivo.idCuidadorPaciente
+  }
+
+  const peticion2= await fetch(servidorAPI + "paciente/cuidador/inhabilitarCuidadorActivo/"+cedula,{
+    method: "PATCH",
+              body: JSON.stringify(
+                cuidador
+              ),
+              headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+              }
+  })
+  .then(response => {
+    if (response.ok) {
+      if (response.status === 200 || response.status === 204) {
+        $('#successModal').modal('show');
+      }
+    }
+  })
+  location.reload();
+}
+
+function alternarCambiarCuidador() {
+  const cambiarCuidadorContent = document.getElementById("cuidadoresAntiguos");
+
+  if (mostrarCambiarCuidador) {
+    cambiarCuidadorContent.style.display = "none";
+    mostrarCambiarCuidador = false;
+  } else {
+    cambiarCuidadorContent.style.display = "block";
+    mostrarCambiarCuidador = true;
+  }
+}
+
+function cerrarCambiarCuidador() {
+  const cambiarCuidadorContent = document.getElementById("cuidadoresAntiguos");
+  cambiarCuidadorContent.style.display = "none";
+  mostrarCambiarCuidador = false;
 }
