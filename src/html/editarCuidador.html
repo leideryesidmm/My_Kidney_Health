@@ -22,66 +22,67 @@
         <div class="form-group">
             <form id="editarCuidador">
             <div class="name">
-                <div class="row">
-                    <div class="col">
-                <label for="cuidador">Cuidador:</label>
-            </div>
-            <div class="col">
-                <input type="text" name="nombre" id="name" class="nombre">
-            </div>
-        </div>
-        </div>
-
-        <div class="cc">
-            <div class="row">
-                <div class="col">
-            <label for="ced">Cédula:</label>
-        </div>
-        <div class="col">
-            <input type="text" name="cedula_cuidador" id="cedulaCuidador" class="cedula_cuidador">
-        </div>
-    </div>
-</div>
-<div class="parents">
-    <div class="row">
-        <div class="col">
-    <label for="parentesc">Parentesco:</label>
-</div>
-
-<div class="col">
-    <select id="selectedParentesco" required></select>
-</div>
-</div>
-</div>
-
-            <div class="address">
-                <div class="row">
-                    <div class="col">
-                <label for="add">Dirección:</label>
-            </div>
-            <div class="col">
-                <input type="text" name="direccion" id="address" class="direccion">
-            </div>
-        </div>
-    </div>
-
-            <div class="tlf">
-                <div class="row">
-                    <div class="col">
-                <label for="tel">Teléfono:</label>
-            </div>
-            <div class="col">
-                <input type="text" name="telefono" id="telf" class="telefono">
-            </div>
-        </div>
-    </div>
+                <div class="row align-items-center">
+                    <div class="col-4">
+                        <label for="cuidador">Cuidador:</label>
+                    </div>
+                    <div class="col-8">
+                        <input type="text" name="nombre" id="name" class="nombre">
+                    </div>
+                </div>
+                
+                <div class="cc" hidden>
+                    <div class="row align-items-center">
+                        <div class="col-4">
+                            <label for="ced">Cédula:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" name="cedula_cuidador" id="cedulaCuidador" class="cedula_cuidador">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="parents">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <label for="parentesc">Parentesco:</label>
+                        </div>
+                        <div class="col-7">
+                            <select id="selectedParentesco" required></select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="address">
+                    <div class="row align-items-center">
+                        <div class="col-4">
+                            <label for="add">Dirección:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" name="direccion" id="address" class="direccion">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tlf">
+                    <div class="row align-items-center">
+                        <div class="col-4">
+                            <label for="tel">Teléfono:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" name="telefono" id="telf" class="telefono">
+                        </div>
+                    </div>
+                </div>
+                </div>
 </form>
         </div>
         </div>
 
     </div>
     <div class="btn-container">
-        <a href="cuidador.html" class="btn-cancelar">Cancelar</a><button onclick="actualizarCuidador()" type="submit" class="btn-nuevo">Actualizar</button>
+        <a href="cuidador.html" class="btn-cancelar">Cancelar</a>
+        <button onclick="actualizarCuidador()" type="submit" class="btn-nuevo">Actualizar</button>
         
     </div>
 
