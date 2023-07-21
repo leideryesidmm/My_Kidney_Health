@@ -14,42 +14,31 @@
 <body>
   <header>
     <div class="navbar" name="navbar" id="navbar">
-      <h1 class="title">Prescripciones</h1>
+      <h1 class="title">Prescripcion</h1>
   </div>
   </header>
   <br>
 
   <div>
     <h3>Prescripción de la diálisis</h3>
-    <div class="row" id="date">
-      <div class="col-6">
-        <label for="desde">Desde:&nbsp</label>
-        <input type="date" id="desde" name="" value="">
-      </div>
-      <div class="col-6">
-        <label for="hasta">Hasta:&nbsp</label>
-        <input type="date" id="hasta" name="" value="">
-      </div>
-    </div>
+    <h6 id="tipo"></h6>
   </div>
   <br>
   <div>
-    <div id="prescontainer">
-      <div class="row">
-        <label for="cantidad">N° recambios: 4</label>
-        <label for="volumen">Volumen: 2000cc</label>
-        <label for="concentracion">Concentracion: 1.25%, 2.50%, 1.25%, 2.50%</label>
-      </div>
+    <div id="prescri">
+      
     </div>
-  </div>
+    
+    
   <br>
-  <div>
-    <div id="promcontainer">
-      <div class="row">
-        <label for="promrec">Promedio recambios: 3.3/día</label>
-        <label for="promult">Promedio Ultrafiltración: 1300cc/día</label>
-        <label for="dias">Días analizados: 3</label>
-      </div>
+  <div class="row" id="date">
+    <div class="col-6">
+      <label for="desde">Desde:&nbsp</label>
+      <input type="date" id="desde" name="" value="">
+    </div>
+    <div class="col-6">
+      <label for="hasta">Hasta:&nbsp</label>
+      <input type="date" id="hasta" name="" value="">
     </div>
   </div>
   <br>
@@ -74,9 +63,7 @@
     </table>
   </div>
 
-
-
-
+  
 
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
     integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
@@ -84,7 +71,8 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
     integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
     crossorigin="anonymous"></script>
-  <script src="js/pacientes.js"></script>
+  <script src="../js/functions/prescripcion.js"></script>
+  <script>mostrarPrescripcion([{},{}])</script>
 </body>
 
 </html>
