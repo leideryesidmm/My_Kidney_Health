@@ -63,11 +63,10 @@ h3 {
 
 
 
-.cedCuidador input[type="text"],
 .name input[type="text"],
+.cc input[type="text"],
 .address input[type="text"],
-.tlf input[type="text"],
-.parentesc input[type="text"]{
+.tlf input[type="text"]{
     border-bottom: 1px solid gray;
     transition: border-bottom-color 0.3s;
     border-top: none;
@@ -76,24 +75,22 @@ h3 {
     content: "";
   }
 
-.cedCuidador input[type="text"]:focus,
 .name input[type="text"]:focus,
+.cc input[type="text"]:focus,
 .address input[type="text"]:focus,
-.tlf input[type="text"]:focus,
-.parentesc input[type="text"]:focus{
+.tlf input[type="text"]:focus{
     border-bottom-color: transparent;
     outline: none;
     content: "";
   }
 
-
-
-
-.contentform {
-  display: flex;
-  flex-direction: column;
-  width: 80%;
-  margin-left: 5%;
+ 
+  
+  .contentform {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin-left: 5%;
 }
 
 .form-group {

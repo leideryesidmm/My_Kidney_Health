@@ -77,4 +77,53 @@
 option {
     color: black;
     background-color: white;
+    
 }
+
+.imagen img {
+    width: 110px;
+    height: 110px; 
+  }
+
+  #contenedorImagenes {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 20px;
+  }
+  
+  .opcion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 20px; /* Espacio entre las opciones */
+    margin-bottom: 20px; /* Espacio debajo de las opciones */
+  }
+  
+  
+  .opcion p, input {
+    margin-top: 10px; /* Espacio entre la imagen y el texto */
+    text-align: center;
+    justify-content: center;
+  }
+
+  .caracteristica select, .concentracion select{
+    text-align: center;
+    background-color: #cfcaca;
+    width: 180px;
+    height: 35px;
+    border-radius: none;
+    border: none;
+  }
+
+  
+
+  select {
+    margin-left: 13px;
+  }
+
+  .opcionInfeccionManguito{
+    margin-left: 130px;
+  }
+
+
+  

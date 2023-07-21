@@ -176,8 +176,9 @@ input {
     border: none;
   }
 
+
   select {
-    margin-left: 13px;
+    margin-left: 8px;
   }
 
   .row > div {
@@ -192,6 +193,7 @@ input {
     color: red;
     margin-left: 42.5%;
 }
+
 @media only screen and (max-width: 768px) {
     /* For mobile phones: */
     [class*="col-"] {

@@ -534,3 +534,21 @@ let inhabilitarCuidador=async()=>{
   })
   location.reload();
 }
+
+function alternarCambiarCuidador() {
+  const cambiarCuidadorContent = document.getElementById("cuidadoresAntiguos");
+
+  if (mostrarCambiarCuidador) {
+    cambiarCuidadorContent.style.display = "none";
+    mostrarCambiarCuidador = false;
+  } else {
+    cambiarCuidadorContent.style.display = "block";
+    mostrarCambiarCuidador = true;
+  }
+}
+
+function cerrarCambiarCuidador() {
+  const cambiarCuidadorContent = document.getElementById("cuidadoresAntiguos");
+  cambiarCuidadorContent.style.display = "none";
+  mostrarCambiarCuidador = false;
+}
