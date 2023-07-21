@@ -16,44 +16,89 @@ let listarAlergias= async()=>{
       return alergias;     
   }
 
-  let crearAlergia = async () => {
-    document.getElementById('guardarAlergia').addEventListener('submit', async function(event) {
-      event.preventDefault();
+  let crearAlergia=async ()=> {
+    document.getElementById('guardarAlergia').addEventListener('click', async function(event) {
+           event.preventDefault();        
+    
+           console.log(document.getElementById('nombreCrear').value)
+    fetch(servidorAPI+"paciente/alergia/crear/"+cedula,{
+      method:"POST",
+      body: JSON.stringify({nombre : document.getElementById('nombreCrear').value}),
+      headers:{
+        "Accept":"application/json",
+        "Content-Type":"application/json"
+      }
+    })
+    .then(response => {
+      console.log(response)
+      if (response.ok) {
+          $('#agregaralergia').modal('hide');
+          location.reload();
+      } else {
+        $('#errorModal').modal('show');
+      }
+    })
+    .catch(error => {
+      console.error(error);
+    })
+  });  
   
-  
-      var nombre = document.getElementById('nombre').value;
-      
-  
-    //   if (cuidadores.includes(cedula_cuidador)) {
-    //     var avisoMensaje = document.getElementById('avisoMensaje');
-    // avisoMensaje.innerText = 'El cuidador ya está registrado, si no está como su cuidador actual debe cambiarlo en el apartado de cuidador';
-  
-    // $('#avisoModal').modal('show');
-        
-    //   } else {
-    //     var encryptedCedula = CryptoJS.AES.encrypt(cedula, 'clave_secreta').toString();
-    //     var encryptedCedulaC = CryptoJS.AES.encrypt(cedula_cuidador, 'clave_secreta').toString();
-    //     var encryptedNombre = CryptoJS.AES.encrypt(nombre, 'clave_secreta').toString();
-    //     var encryptedDireccion = CryptoJS.AES.encrypt(direccion, 'clave_secreta').toString();
-    //     var encryptedTelefono = CryptoJS.AES.encrypt(telefono, 'clave_secreta').toString();
-  
-        fetch(servidorAPI + '/alergia/crear/' + cedula,alergia, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              nombre
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-          
-        })
-        .catch(error => {
-          // Maneja el error de la petición
-        });
-        location.href = 'alergias.html';
-  
-      });
   }
+
+  let editarAlergia=async (id_alergia)=> {
+ 
+           console.log(document.getElementById('nombreEditar'+id_alergia).value)
+    fetch(servidorAPI+"paciente/alergia/editar/"+id_alergia,{
+      method:"PATCH",
+      body: JSON.stringify({nombre : document.getElementById('nombreEditar'+id_alergia).value}),
+      headers:{
+        "Accept":"application/json",
+        "Content-Type":"application/json"
+      }
+    })
+    .then(response => {
+      console.log(response)
+      if (response.ok) {
+          $('#editaralergia'+id_alergia).modal('hide');
+      } else {
+        $('#errorModal').modal('show');
+      }
+    })
+    .catch(error => {
+      console.error(error);
+    }
+    );  
+    location.href = 'alergias.html';  
+  }
+
+
+  let inhabilitarAlergia=async (id_alergia)=> {
+    fetch(servidorAPI+"paciente/alergia/inactivar/"+cedula+"/"+id_alergia,{
+      method:"PATCH",
+      headers:{
+        "Accept":"application/json",
+        "Content-Type":"application/json"
+      }
+    })
+     
+  .then(response => {
+    console.log(response)
+    if (response.ok) {
+      // La solicitud fue exitosa (código de estado 2xx)
+        $('#eliminaralergia'+id_alergia).modal('hide');
+        // $('#modal2').modal('show');
+    } else {
+      // La solicitud no fue exitosa (código de estado no 2xx)
+      // Realiza acciones para manejar la respuesta no exitosa
+      // $('#modal3').modal('show');
+    }
+  })
+  .catch(error => {
+    console.error(error);
+    // Mostrar mensaje de error en la consola o en la interfaz de usuario
+  })
+  
+  location.href = 'alergias.html';
+  }
+
+  
