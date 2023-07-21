@@ -40,11 +40,11 @@
                                 <label for="concentr">Concentración: </label>
                             </div>
                             <div class="col">
-                                <select class="form-select form-select-sm" aria-label=".form-select-lg example">
-                                    <option selected>Seleccione...</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                <select class="form-select form-select-sm" aria-label=".form-select-lg example" id="selectConcentracion">
+                                  <option value="">Seleccione...</option>
+                                  <option value="1.5%">1.5%</option>
+                                  <option value="2.5%">2.5%</option>
+                                  <option value="4.25%">4.25%</option>
                                 </select>
                             </div>
                         </div>
@@ -56,16 +56,16 @@
                                 <label for="caracLiq">Características del líquido:</label>
                             </div>
                             <div class="col">
-                                <select class="form-select form-select-sm" aria-label=".form-select-lg example">
+                                <select class="form-select form-select-sm" id="selectLiquido" aria-label=".form-select-lg example">
                                     <option selected>Seleccione...</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                    <option value="transparente">Transparente</option>
+                                    <option value="turbio">Turbio</option>
+                                    <option value="sanguinolento">Sanguinolento</option>
                                 </select>
                             </div>
                         </div>
                     </div>
-
+<!--
                     <div class="orificio">
                         <div class="row">
                             <div class="col">
@@ -74,23 +74,94 @@
                             <div class="col">
                                 <select class="form-select form-select-sm" aria-label=".form-select-lg example">
                                     <option selected>Seleccione...</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                    <option value="1">Perfecto</option>
+                                    <option value="2">Bueno</option>
+                                    <option value="3">Equívoco</option>
+                                    <option value="1">Infección aguda</option>
+                                    <option value="2">Infección crónica</option>
+                                    <option value="3">Trauma</option>
                                 </select>
                             </div>
                         </div>
                     </div>
+-->
 
+<div id="contenedorImagenes">
+  <div class="opcion">
+    <label for="opcionPerfecto">
+      <div class="imagen">
+        <img src="../img/orificioPerfecto.png" alt="Orificio Perfecto" />
+      </div>
+    <input type="radio" name="opcion" id="opcionPerfecto" value="perfecto" />
+      Perfecto
+    </label>
+  </div>
+  <div class="opcion">
+    <label for="opcionBueno">
+      <div class="imagen">
+        <img src="../img/orificioBueno.png" alt="Orificio bueno" />
+      </div>
+    <input type="radio" name="opcion" id="opcionBueno" value="bueno" />
+      Bueno
+    </label>
+  </div>
+  <div class="opcion">
+    <label for="opcionEquivoco">
+      <div class="imagen">
+        <img src="../img/orificioEquivoco.png" alt="Orificio equivoco" />
+      </div>
+    <input type="radio" name="opcion" id="opcionEquivoco" value="equivoco" />
+      Equívoco
+    </label>
+  </div>
+  <div class="opcion">
+    <label for="opcionInfeccionAguda">
+      <div class="imagen">
+        <img src="../img/orificioInfeccionAguda.png" alt="Infección aguda" />
+      </div>
+    <input type="radio" name="opcion" id="opcionInfeccionAguda" value="infección aguda" />
+      Inf. Aguda
+    </label>
+  </div>
+  <div class="opcion">
+    <label for="opcionInfeccionCronica">
+      <div class="imagen">
+        <img src="../img/orificioInfeccionCronica.png" alt="Infección crónica" />
+      </div>
+    <input type="radio" name="opcion" id="opcionInfeccionCronica" value="infección crónica" />
+      Inf. Crónica
+    </label>
+  </div>
+  <div class="opcion">
+    <label for="opcionTrauma">
+      <div class="imagen">
+        <img src="../img/orificioTrauma.png" alt="Orificio con Trauma" />
+      </div>
+    <input type="radio" name="opcion" id="opcionTrauma" value="trauma" />
+      Trauma
+    </label>
+  </div>
+  <div class="opcion">
+    <label for="opcionInfeccionManguito" class="opcionInfeccionManguito">
+      <div class="imagen">
+        <img src="../img/orificioInfeccionManguito.png" alt="infección manguito" />
+      </div>
+    <input type="radio" name="opcion" id="opcionInfeccionManguito" value="infección manguito" />
+      Inf. Manguito
+    </label>
+  </div>
+  
                 </div>
             </div>
             <div class="btn-container">
                 <a href="recambiosGuardados.html" class="btn-cancelar">Cancelar</a>
-                <button type="submit" class="btn-nuevo">Agregar</button>
+                <button type="submit" class="btn-nuevo" onclick="crearRecambio()">Agregar</button>
             </div>
         </div>
     </div>
+<script src="../js/bd/recambio.js">
 
+</script>
 </body>
 
 </html>

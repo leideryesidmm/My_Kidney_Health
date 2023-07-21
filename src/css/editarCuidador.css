@@ -63,26 +63,29 @@ h3 {
   
 
 
-.name input[type="text"],
-.cc input[type="text"],
-.address input[type="text"],
-.tlf input[type="text"]{
-    border-bottom: 1px solid gray;
-    transition: border-bottom-color 0.3s;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    content: "";
-  }
-
-.name input[type="text"]:focus,
-.cc input[type="text"]:focus,
-.address input[type="text"]:focus,
-.tlf input[type="text"]:focus{
-    border-bottom-color: transparent;
-    outline: none;
-    content: "";
-  }
+  .cedCuidador input[type="text"],
+  .name input[type="text"],
+  .address input[type="text"],
+  .tlf input[type="text"],
+  .parentesc input[type="text"]{
+      border-bottom: 1px solid gray;
+      transition: border-bottom-color 0.3s;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      content: "";
+    }
+  
+  .cedCuidador input[type="text"]:focus,
+  .name input[type="text"]:focus,
+  .address input[type="text"]:focus,
+  .tlf input[type="text"]:focus,
+  .parentesc input[type="text"]:focus{
+      border-bottom-color: transparent;
+      outline: none;
+      content: "";
+    }
+  
 
  
   
@@ -175,6 +178,7 @@ input {
     border: none;
     margin-left: 2px;
   }
+
 
 
   .row > div {
