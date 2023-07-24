@@ -1,47 +1,47 @@
 body{
-  margin: 0;
-  padding: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  color: #000;
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: #000;
 }
 
 h3 {
-  text-align: center;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  font-weight: bold;
-  font-size: 18px;
+    text-align: center;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: bold;
+    font-size: 18px;
 }
-  
+    
 
 .container{
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  max-width: 1000px;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    max-width: 1000px;
 }
 .navbar{
-  background-color: #04BAFC;
-  margin:auto;
-  height:53px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    background-color: #04BAFC;
+    margin:auto;
+    height:53px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .navbar h1{
-  margin-left: 30%;
+    margin-left: 30%;
 
 }
 
 .title{
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0;
-  font-size: 30px;
-  font-weight: bold;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    font-size: 30px;
+    font-weight: bold;
 }
 
 .name,
@@ -49,40 +49,43 @@ h3 {
 .address,
 .tlf
 {
-  height: fit-content;
+    height: fit-content;
+    
+}
+
+.name input[type="text"],
+.cc input[type="text"],
+  .address input[type="text"],
+  .tlf input[type="text"]
+  {
+    padding: 5px;
+  }
   
-}
-
-.name input[type="text"],
-.cc input[type="text"],
-.address input[type="text"],
-.tlf input[type="text"]
-{
-  padding: 5px;
-}
 
 
-
-.name input[type="text"],
-.cc input[type="text"],
-.address input[type="text"],
-.tlf input[type="text"]{
-    border-bottom: 1px solid gray;
-    transition: border-bottom-color 0.3s;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    content: "";
-  }
-
-.name input[type="text"]:focus,
-.cc input[type="text"]:focus,
-.address input[type="text"]:focus,
-.tlf input[type="text"]:focus{
-    border-bottom-color: transparent;
-    outline: none;
-    content: "";
-  }
+  .cedCuidador input[type="text"],
+  .name input[type="text"],
+  .address input[type="text"],
+  .tlf input[type="text"],
+  .parentesc input[type="text"]{
+      border-bottom: 1px solid gray;
+      transition: border-bottom-color 0.3s;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      content: "";
+    }
+  
+  .cedCuidador input[type="text"]:focus,
+  .name input[type="text"]:focus,
+  .address input[type="text"]:focus,
+  .tlf input[type="text"]:focus,
+  .parentesc input[type="text"]:focus{
+      border-bottom-color: transparent;
+      outline: none;
+      content: "";
+    }
+  
 
  
   
@@ -94,97 +97,97 @@ h3 {
 }
 
 .form-group {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
 }
 
 .row {
-  display: flex;
-  align-items: center;
-}
+    display: flex;
+    align-items: center;
+  }
 
 .col {
-  flex-basis: 0;
-  flex-grow: 1;
-  max-width: 100%;
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
 }
 
 label {
-  min-width: 200px;
+    min-width: 200px;
 }
 
 input {
-  flex: 1;
+    flex: 1;
 }
 
 .btn-container {
-  display: flex;
-  justify-content:center;
-  margin-top: 10px;
-  margin-right: 5%;
+    display: flex;
+    justify-content:center;
+    margin-top: 10px;
+    margin-right: 5%;
 }
 
 .btn-container a {
-  margin-left: 5%;
+    margin-left: 5%;
 }
 
 .btn-cancelar{
-  
-      background-color: gray;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-      padding: 3px 20px;
-      font-size: 15px;
-      font-family: 'Jost', sans-serif;
-      border-radius: 5px;
-      text-decoration: none;
-      margin-right: 3%;
-      
+    
+        background-color: gray;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        padding: 3px 20px;
+        font-size: 15px;
+        font-family: 'Jost', sans-serif;
+        border-radius: 5px;
+        text-decoration: none;
+        margin-right: 3%;
+        
 }
 
 .btn-nuevo{
-  background-color: #04BAFC;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  padding: 3px 20px;
-  font-size: 15px;
-  font-family: 'Jost', sans-serif;
-  border-radius: 5px;
-  text-decoration: none;
-  margin-left: 1%;
+    background-color: #04BAFC;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 3px 20px;
+    font-size: 15px;
+    font-family: 'Jost', sans-serif;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-left: 1%;
 }
 
 .parents .row {
-  display: flex;
-}
+    display: flex;
+  }
+  
+
+  .parents{
+    margin-right: 67px;
+  }
+
+  .row select {
+    text-align: center;
+    background-color: #cfcaca;
+    width: 191px;
+    height: 35px;
+    border-radius: none;
+    border: none;
+    margin-left: 2px;
+  }
 
 
-.parents{
-  margin-right: 67px;
-}
 
-.row select {
-  text-align: center;
-  background-color: #cfcaca;
-  width: 191px;
-  height: 35px;
-  border-radius: none;
-  border: none;
-  margin-left: 2px;
-}
-
-
-
-.row > div {
-  margin-bottom: 10px;
-}
+  .row > div {
+    margin-bottom: 10px;
+  }
 
 @media only screen and (max-width: 768px) {
-  /* For mobile phones: */
-  [class*="col-"] {
-    width: 100%;
+    /* For mobile phones: */
+    [class*="col-"] {
+      width: 100%;
+    }
   }
-}

@@ -19,6 +19,36 @@ let crearRecambio = async () => {
         opcion.checked = false;
       }
     }
-  
     console.log(drenaje, imagenGuardada, concentracion, liquido);
+
+    let drenajeEncriptado=CryptoJS.AES.encrypt(drenaje, 'clave_secreta').toString();
+    let concentracionEncriptada=CryptoJS.AES.encrypt(concentracion, 'clave_secreta').toString();
+    let liquidoEncriptado=CryptoJS.AES.encrypt(liquido, 'clave_secreta').toString();
+    let imagenEncriptada=CryptoJS.AES.encrypt(imagenGuardada, 'clave_secreta').toString();
+
+    let recambioUnitario={
+      drenajeDialisis:drenajeEncriptado,
+      concentracion:concentracionEncriptada,
+      estadoLiquido:liquidoEncriptado,
+      orificioSalida:imagenEncriptada
+    }
+    console.log(recambioUnitario);
+
+    fetch (servidorAPI+"paciente/prescripcion/crearRecambio/"+cedula,{
+      method: 'POST',
+      headers: {
+        "Accept":"application/json",
+    "Content-Type":"application/json"
+      }
+    });
+    body: JSON.stringify({
+      recambioUnitario
+    })
+  .then(response => response.json())
+  .then(data => {
+    
+  })
+  .catch(error => {
+    // Maneja el error de la petición
+  });
   }
