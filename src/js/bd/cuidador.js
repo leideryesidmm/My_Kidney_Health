@@ -1,12 +1,37 @@
 let servidorAPI="http://localhost:8081/";
 const cedula="1193098419";
+var cedulaEncriptada= "";
+
+let obtenerCedulaEncriptada=async()=>{
+  const peticion= await fetch(servidorAPI+'Medico/findAllPacientes',{
+    method:'GET',
+    headers:{
+      "Accept":"application/json",
+      "Content-Type": "application/json"
+    }
+      });
+      const pacientes=await peticion.json();
+      console.log(pacientes);
+      pacientes.forEach(paciente=>{
+        let decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+        const cedulaCodificado = encodeURIComponent(decryptedCedula);
+        console.log(decryptedCedula);
+        if(cedula===cedulaCodificado)
+        cedulaEncriptada=paciente.cedula;
+        
+      })   
+      return cedulaEncriptada;
+}
+
+var cedulaEncriptada=  obtenerCedulaEncriptada();
+
 
 let crearCuidador = async () => {
   document.getElementById('agregarCuidador').addEventListener('submit', async function(event) {
     event.preventDefault();
+    console.log(cedulaEncriptada);
     let cuidadores = await cuidadorPorPaciente();
-   
-
+    console.log(cuidadores);
     var cedula_cuidador = document.getElementById('cedula_cuidador').value;
     var nombre = document.getElementById('nombre').value;
     var parentesc = document.getElementById('parentesco');
@@ -22,26 +47,36 @@ let crearCuidador = async () => {
   $('#avisoModal').modal('show');
       
     } else {
-      var encryptedCedula = CryptoJS.AES.encrypt(cedula, 'clave_secreta').toString();
       var encryptedCedulaC = CryptoJS.AES.encrypt(cedula_cuidador, 'clave_secreta').toString();
       var encryptedNombre = CryptoJS.AES.encrypt(nombre, 'clave_secreta').toString();
       var encryptedDireccion = CryptoJS.AES.encrypt(direccion, 'clave_secreta').toString();
       var encryptedTelefono = CryptoJS.AES.encrypt(telefono, 'clave_secreta').toString();
-
-      fetch(servidorAPI + 'paciente/cuidador/crear/' + cedula, {
+      let cuidador={
+        
+        cedulaCuidador: encryptedCedulaC,
+        nombre: encryptedNombre,
+        parentesco: parentesco,
+        direccion: encryptedDireccion,
+        telefono: encryptedTelefono
+      }
+      let paciente={
+        cedula:cedulaEncriptada
+      }
+      let cuidadorPaciente={
+        cuidadorInDto:cuidador,
+        pacienteInDto:paciente
+      }
+      console.log(cuidador);
+      console.log(paciente);
+      fetch(servidorAPI + 'paciente/cuidador/crear', {
         method: 'POST',
         headers: {
           "Accept":"application/json",
       "Content-Type":"application/json"
         },
-        body: JSON.stringify({
-          cedula: encryptedCedula,
-          cedulaCuidador: encryptedCedulaC,
-          nombre: encryptedNombre,
-          parentesco: parentesco,
-          direccion: encryptedDireccion,
-          telefono: encryptedTelefono
-        })
+        body: JSON.stringify(
+          cuidadorPaciente
+        )
       })
       .then(response => response.json())
       .then(data => {
@@ -57,14 +92,21 @@ let crearCuidador = async () => {
 }
 
 let cuidadorPorPaciente=async()=>{
-  const peticion= await fetch(servidorAPI+'paciente/cuidador/listCuidadorPacienteByPaciente/'+cedula,{
-    method:'GET',
+  cedulaEncriptada=await obtenerCedulaEncriptada();
+  console.log(cedulaEncriptada);
+  const peticion= await fetch(servidorAPI+'/paciente/cuidador/listCuidadorPacienteByPaciente',{
+    method:'POST',
     headers:{
       "Accept":"application/json",
       "Content-Type": "application/json"
-    }
+    },
+    body:JSON.stringify({
+      cedula:cedulaEncriptada
+    })
       });
+      
       const cuidadores=await peticion.json();
+      console.log(cuidadores);
       let decryptedCedulas = [];
       cuidadores.forEach(cuidador=>{
         let decryptedCedula = CryptoJS.AES.decrypt(cuidador.cuidador.cedulaCuidador, 'clave_secreta').toString(CryptoJS.enc.Utf8);
@@ -77,25 +119,32 @@ let cuidadorPorPaciente=async()=>{
 
     let cuidadoresAntiguos = async () => {
       const cuidadoresDesencriptados = new Set();
-      const peticion = await fetch(servidorAPI + 'paciente/cuidador/listCuidadorPacienteByPaciente/' + cedula, {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }
-      });
+      cedulaEncriptada=await obtenerCedulaEncriptada();
+      const peticion= await fetch(servidorAPI+'/paciente/cuidador/listCuidadorPacienteByPaciente',{
+        method:'POST',
+        headers:{
+          "Accept":"application/json",
+          "Content-Type": "application/json"
+        },
+        body:JSON.stringify({
+          cedula:cedulaEncriptada
+        })
+          });
     
       if (peticion.status === 204) {
         return null;
       } else {
         const cuidadores = await peticion.json();
     
-        const peticion2 = await fetch(servidorAPI + "paciente/cuidador/findCuidadorActivo/" + cedula, {
-          method: "GET",
+        const peticion2 = await fetch(servidorAPI + "paciente/cuidador/findCuidadorActivo", {
+          method: "POST",
           headers: {
             "Accept": "application/json",
             "Content-Type": "application/json"
-          }
+          },
+          body:JSON.stringify({
+            cedula:cedulaEncriptada
+          })
         });
     
         if (peticion2.status === 204) {
@@ -206,12 +255,16 @@ let listarParentesco = async () => {
 }
 
 let cuidadorActivo= async()=>{
-  const peticion= await fetch(servidorAPI+"paciente/cuidador/findCuidadorActivo/"+cedula,{
-    method:"GET",
-    headers:{
-      "Accept":"application/json",
-      "Content-Type":"application/json"
-    }
+  cedulaEncriptada= await obtenerCedulaEncriptada();
+  const peticion = await fetch(servidorAPI + "paciente/cuidador/findCuidadorActivo", {
+    method: "POST",
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    },
+    body:JSON.stringify({
+      cedula:cedulaEncriptada
+    })
   });
   let cuidadorDesencriptado={}
   if(peticion.status===204){
@@ -219,7 +272,7 @@ let cuidadorActivo= async()=>{
   }
     else{
     const cuidador=await peticion.json();
-    
+    console.log(cuidador);
   var decryptedCedula = CryptoJS.AES.decrypt(cuidador.cuidador.cedulaCuidador, 'clave_secreta').toString(CryptoJS.enc.Utf8);
   var decryptedNombre = CryptoJS.AES.decrypt(cuidador.cuidador.nombre, 'clave_secreta').toString(CryptoJS.enc.Utf8);
   var decryptedDireccion = CryptoJS.AES.decrypt(cuidador.cuidador.direccion, 'clave_secreta').toString(CryptoJS.enc.Utf8);
@@ -246,12 +299,16 @@ let cuidadorActivo= async()=>{
   
 
     let encontrarCuidador = async () => {
-      const peticion = await fetch(servidorAPI + "paciente/cuidador/findCuidadorActivo/" + cedula, {
-        method: "GET",
+      cedulaEncriptada=await obtenerCedulaEncriptada();
+      const peticion = await fetch(servidorAPI + "paciente/cuidador/findCuidadorActivo", {
+        method: "POST",
         headers: {
           "Accept": "application/json",
           "Content-Type": "application/json"
-        }
+        },
+        body:JSON.stringify({
+          cedula:cedulaEncriptada
+        })
       });
     
       const cuidador = await peticion.json();
@@ -364,13 +421,17 @@ let cuidadorActivo= async()=>{
 
 let actualizarCuidador = async () => {
 
-  const peticion = await fetch(servidorAPI + "paciente/cuidador/findCuidadorActivo/" + cedula, {
-    method: "GET",
-    headers: {
-      "Accept": "application/json",
-      "Content-Type": "application/json"
-    }
-  });
+  cedulaEncriptada=await obtenerCedulaEncriptada();
+      const peticion = await fetch(servidorAPI + "paciente/cuidador/findCuidadorActivo", {
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        body:JSON.stringify({
+          cedula:cedulaEncriptada
+        })
+      });
   let cuidadorDesencriptado={}
 
   const cuid = await peticion.json();
@@ -414,13 +475,17 @@ let actualizarCuidador = async () => {
 }
 
 let cuidAntiguos = async () => {
-  const peticion = await fetch(servidorAPI + 'paciente/cuidador/listCuidadorPacienteByPaciente/' + cedula, {
-    method: 'GET',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    }
-  });
+  cedulaEncriptada=await obtenerCedulaEncriptada();
+  const peticion= await fetch(servidorAPI+'/paciente/cuidador/listCuidadorPacienteByPaciente',{
+    method:'POST',
+    headers:{
+      "Accept":"application/json",
+      "Content-Type": "application/json"
+    },
+    body:JSON.stringify({
+      cedula:cedulaEncriptada
+    })
+      });
 if(peticion.status===204){
   return null;
 }
@@ -454,19 +519,28 @@ else{
 };
 
 let reactivarCuidador = async (cedulaCuidador) => {
+  cedulaEncriptada=await obtenerCedulaEncriptada();
   let cuidadoresAntiguos = await cuidAntiguos();
   cuidadoresAntiguos.forEach((cuidadorAntiguo) => {
     let cedCuidador = CryptoJS.AES.decrypt(cuidadorAntiguo.cedulaCuidador, 'clave_secreta').toString(CryptoJS.enc.Utf8);
     let cedulaDesencriptada = parseInt(cedCuidador, 10);
     if (cedulaDesencriptada == cedulaCuidador) {
      
+      let paciente={
+        cedula:cedulaEncriptada
+      }
     let cuidAntiguo={
-      cedulaCuidador:cuidadorAntiguo.cedulaCuidador,
+      cedulaCuidador:cuidadorAntiguo.cedulaCuidador
     }
-      fetch(servidorAPI + "paciente/cuidador/reactivarCuidador/" + cedula, {
+
+    let cuidadorPaciente={
+      pacienteInDto:paciente,
+      cuidadorInDto:cuidAntiguo
+    }
+      fetch(servidorAPI + "paciente/cuidador/reactivarCuidador", {
         method: "PATCH",
         body: JSON.stringify(
-          cuidAntiguo
+          cuidadorPaciente
         ),
         headers: {
           "Accept": "application/json",
@@ -500,25 +574,37 @@ let reactivarCuidador = async (cedulaCuidador) => {
 }
 
 let inhabilitarCuidador=async()=>{
-  const peticion = await fetch(servidorAPI + "paciente/cuidador/findCuidadorActivo/" + cedula, {
-    method: "GET",
-    headers: {
-      "Accept": "application/json",
-      "Content-Type": "application/json"
-    }
-  });
+  cedulaEncriptada=await obtenerCedulaEncriptada();
+      const peticion = await fetch(servidorAPI + "paciente/cuidador/findCuidadorActivo", {
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        body:JSON.stringify({
+          cedula:cedulaEncriptada
+        })
+      });
 
   const cuidadorActivo = await peticion.json();
+  console.log(cuidadorActivo);
   let cedCuidador = CryptoJS.AES.decrypt(cuidadorActivo.cuidador.cedulaCuidador, 'clave_secreta').toString(CryptoJS.enc.Utf8);
   let cuidador={
     cedulaCuidador:cedCuidador,
     idCuidadorPaciente:cuidadorActivo.idCuidadorPaciente
   }
+  let paciente={
+    cedula:cedulaEncriptada
+  }
 
-  const peticion2= await fetch(servidorAPI + "paciente/cuidador/inhabilitarCuidadorActivo/"+cedula,{
+  let cuidadorPaciente={
+    cuidadorInDto:cuidador,
+    pacienteInDto:paciente
+  }
+  const peticion2= await fetch(servidorAPI + "paciente/cuidador/inhabilitarCuidadorActivo",{
     method: "PATCH",
               body: JSON.stringify(
-                cuidador
+                cuidadorPaciente
               ),
               headers: {
                 "Accept": "application/json",

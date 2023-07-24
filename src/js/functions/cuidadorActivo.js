@@ -1,5 +1,6 @@
 let cuidadorPrincipal=async(cuidadores, cuidAntiguos)=>{
     cuidadores = await cuidadores;
+    console.log(cuidadores);
     cuidAntiguos=await cuidAntiguos;
     let msg="";
     if(cuidadores==null){
