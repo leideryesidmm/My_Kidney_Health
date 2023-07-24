@@ -73,25 +73,28 @@ var cedulaEncriptada=  obtenerCedulaEncriptada();
           body:JSON.stringify({
             cedula:cedulaEncriptada
           })        
-        });
-        
+        });        
         const alergias=await peticion.json();
   
-        let listAlergias = [];
-        console.log(alergias);
+        // let listAlergias = [];
+        // console.log(alergias);
   
-        alergias.forEach(nombres=>{    
-          let decryptedNombre = CryptoJS.AES.decrypt(nombres.alergia.nombre, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-          console.log(nombres.alergia.nombre)
-          listAlergias.push(decryptedNombre);      
-        })
+        // alergias.forEach(nombres=>{    
+        //   let decryptedNombre = CryptoJS.AES.decrypt(nombres.alergia.nombre, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+        //   console.log(nombres.alergia.nombre)
+        //   listAlergias.push(decryptedNombre);      
+        // })
 
-        return listAlergias;     
+        return alergias;     
     }
     
   let editarAlergia=async (id_alergia)=> {
  
-           console.log(document.getElementById('nombreEditar'+id_alergia).value)
+    let nombre= document.getElementById('nombreEditar').value;
+   
+    let encryptedNombre = CryptoJS.AES.encrypt(nombre, 'clave_secreta').toString();
+    let alergia= {nombre: encryptedNombre};
+    console.log(document.getElementById('nombreEditar'+id_alergia).value)
     fetch(servidorAPI+"paciente/alergia/editar/"+id_alergia,{
       method:"PATCH",
       body: JSON.stringify({nombre : document.getElementById('nombreEditar'+id_alergia).value}),
@@ -113,7 +116,8 @@ var cedulaEncriptada=  obtenerCedulaEncriptada();
       console.error(error);
     }
     );  
-  }
+  }      
+   
 
 
   let inhabilitarAlergia=async (id_alergia)=> {
