@@ -50,7 +50,7 @@ let crearCuidador = async () => {
       var encryptedCedulaC = CryptoJS.AES.encrypt(cedula_cuidador, 'clave_secreta').toString();
       var encryptedNombre = CryptoJS.AES.encrypt(nombre, 'clave_secreta').toString();
       var encryptedDireccion = CryptoJS.AES.encrypt(direccion, 'clave_secreta').toString();
-      var encryptedTelefono = CryptoJS.AES.encrypt(telefono, 'clave_secreta').toString();
+      var encryptedTelefono = CryptoJS.AES.encrypt(telefono, 'clave_secreta').toString(); 
       let cuidador={
         
         cedulaCuidador: encryptedCedulaC,
