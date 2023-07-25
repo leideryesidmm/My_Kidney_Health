@@ -40,7 +40,7 @@
                                 <label for="dren">Drenaje:</label>
                             </div>
                             <div class="col">
-                                <input type="number" name="drenaje" id="drenaje" class="drenaje">
+                                <input type="number" name="drenaje" id="editarDrenaje" class="drenaje">
                             </div>
                         </div>
                     </div>
@@ -51,11 +51,11 @@
                                 <label for="concentr">Concentración: </label>
                             </div>
                             <div class="col">
-                                <select class="form-select form-select-sm" aria-label=".form-select-lg example">
-                                    <option selected>Seleccione...</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                <select class="form-select form-select-sm" aria-label=".form-select-lg example" id="editarSelectConcentracion">
+                                    <option value="">Seleccione...</option>
+                                  <option value="1.5%">1.5%</option>
+                                  <option value="2.5%">2.5%</option>
+                                  <option value="4.25%">4.25%</option>
                                 </select>
                             </div>
                         </div>
@@ -67,31 +67,82 @@
                                 <label for="caracLiq">Características del líquido:</label>
                             </div>
                             <div class="col">
-                                <select class="form-select form-select-sm" aria-label=".form-select-lg example">
+                                <select class="form-select form-select-sm" aria-label=".form-select-lg example" id="editarSelectLiquido">
                                     <option selected>Seleccione...</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                    <option value="transparente">Transparente</option>
+                                    <option value="turbio">Turbio</option>
+                                    <option value="sanguinolento">Sanguinolento</option>
                                 </select>
                             </div>
                         </div>
                     </div>
 
-                    <div class="orificio">
-                        <div class="row">
-                            <div class="col">
-                                <label for="estadoOri">Estado del orificio:</label>
+                    <div id="contenedorImagenes" >
+                        <div class="opcion">
+                          <label for="editarOpcionPerfecto">
+                            <div class="imagen">
+                              <img src="../img/orificioPerfecto.png" alt="Orificio Perfecto" />
                             </div>
-                            <div class="col">
-                                <select class="form-select form-select-sm" aria-label=".form-select-lg example">
-                                    <option selected>Seleccione...</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
-                            </div>
+                          <input type="radio" name="opcion" id="editarOpcionPerfecto" value="perfecto" required/>
+                            Perfecto
+                          </label>
                         </div>
-                    </div>
+                        <div class="opcion">
+                          <label for="editarOpcionBueno">
+                            <div class="imagen">
+                              <img src="../img/orificioBueno.png" alt="Orificio bueno" />
+                            </div>
+                          <input type="radio" name="opcion" id="editarOpcionBueno" value="bueno" required/>
+                            Bueno
+                          </label>
+                        </div>
+                        <div class="opcion">
+                          <label for="editarOpcionEquivoco">
+                            <div class="imagen">
+                              <img src="../img/orificioEquivoco.png" alt="Orificio equivoco" />
+                            </div>
+                          <input type="radio" name="opcion" id="editarOpcionEquivoco" value="equivoco" required/>
+                            Equívoco
+                          </label>
+                        </div>
+                        <div class="opcion">
+                          <label for="editarOpcionInfeccionAguda">
+                            <div class="imagen">
+                              <img src="../img/orificioInfeccionAguda.png" alt="Infección aguda" />
+                            </div>
+                          <input type="radio" name="opcion" id="editarOpcionInfeccionAguda" value="infección aguda" required/>
+                            Inf. Aguda
+                          </label>
+                        </div>
+                        <div class="opcion">
+                          <label for="editarOpcionInfeccionCronica">
+                            <div class="imagen">
+                              <img src="../img/orificioInfeccionCronica.png" alt="Infección crónica" />
+                            </div>
+                          <input type="radio" name="opcion" id="editarOpcionInfeccionCronica" value="infección crónica" required/>
+                            Inf. Crónica
+                          </label>
+                        </div>
+                        <div class="opcion">
+                          <label for="editarOpcionTrauma">
+                            <div class="imagen">
+                              <img src="../img/orificioTrauma.png" alt="Orificio con Trauma" />
+                            </div>
+                          <input type="radio" name="opcion" id="editarOpcionTrauma" value="trauma" required/>
+                            Trauma
+                          </label>
+                        </div>
+                        <div class="opcion">
+                          <label for="editarOpcionInfeccionManguito" class="opcionInfeccionManguito">
+                            <div class="imagen">
+                              <img src="../img/orificioInfeccionManguito.png" alt="infección manguito" />
+                            </div>
+                          <input type="radio" name="opcion" id="editarOpcionInfeccionManguito" value="infección manguito" required/>
+                            Inf. Manguito
+                          </label>
+                        </div>
+                        
+                                      </div>
 
                 </div>
             </div>

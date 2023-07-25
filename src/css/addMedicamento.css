@@ -14,7 +14,6 @@ h3 {
     margin: 0;
     padding: 0;
     width: 100%;
-    max-width: 1000px;
 }
 .navbar{
     background-color: #04BAFC;
@@ -103,7 +102,7 @@ h3 {
   .contentform {
     display: flex;
     flex-direction: column;
-    width: 90%;
+    width: 95%;
     margin-left: 5%;
 }
 
