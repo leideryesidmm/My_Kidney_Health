@@ -83,7 +83,7 @@ let crearCuidador = async () => {
         
       })
       .catch(error => {
-        // Maneja el error de la petición
+        console.error(error);
       });
       location.href = 'cuidador.html';
 
@@ -250,7 +250,7 @@ let listarParentesco = async () => {
     });
   }
 
-  // Llamar a encontrarCuidador después de verificar y agregar las opciones
+ 
   encontrarCuidador();
 }
 
@@ -326,7 +326,7 @@ let cuidadorActivo= async()=>{
       const selectParentesco = document.getElementById('selectedParentesco');
       const descripcionParentesco = cuidador.cuidador.parentesco.descripcion;
     
-      // Establecer el valor del select en base al parentesco del cuidador
+      
       Array.from(selectParentesco.options).forEach((option, index) => {
         if (option.textContent === descripcionParentesco) {
           selectParentesco.selectedIndex = index;
@@ -416,9 +416,6 @@ let cuidadorActivo= async()=>{
 }
 */
 
-
-  
-
 let actualizarCuidador = async () => {
 
   cedulaEncriptada=await obtenerCedulaEncriptada();
@@ -437,15 +434,14 @@ let actualizarCuidador = async () => {
   const cuid = await peticion.json();
   const decryptedCedula = cuid.cuidador.cedulaCuidador;
   
-  const valorCodificado = encodeURIComponent(decryptedCedula);
-  let cedulaCuidador=document.getElementById("cedulaCuidador").value;
   let direccion = document.getElementById("address").value;
+  
   let nombre = document.getElementById("name").value;
   let parentesco = document.getElementById("selectedParentesco").value;
   let telefono = document.getElementById("telf").value;
-
+  console.log(direccion, nombre, parentesco,telefono);
   //cedula: decryptedCedula;
-  let cuidador = {
+ let cuidador = {
     direccion: CryptoJS.AES.encrypt(direccion, 'clave_secreta').toString(),
     nombre: CryptoJS.AES.encrypt(nombre, 'clave_secreta').toString(),
     parentesco: parseInt(parentesco,10),
