@@ -3,9 +3,20 @@ let mostrarPrescripcion= async (prescripcion) => {
     if(prescripcion.unionPrescripcionDiasRecambios.length==1){
     let msg='<div id="prescontainer">'
     +'<div class="row">'
-    +'<label for="cantidad">N° recambios: 4</label>'
-    +'<label for="volumen">Volumen: 2000cc</label>'
-    +'<label for="concentracion">Concentracion: 1.25%, 2.50%, 1.25%, 2.50%</label>'
+    +'<label for="cantidad">N° recambios: '+ prescripcion.unionPrescripcionDiasRecambios[0].recambios.length +'</label>'
+
+    +'<label for="concentracion">Concentraciones: ';
+    let msg2=""
+    prescripcion.unionPrescripcionDiasRecambios[0].recambios.forEach(recambio => {
+    msg+=recambio.concentración+' - ';
+    msg2+=recambio.intervaloTiempo+' - ';
+    });
+    msg=msg.substring(0, msg.length - 3);
+    msg2=msg2.substring(0, msg2.length - 3);
+    msg+='</label>'
+    +'<label for="intervaloTiempo">Intervalos de tiempo: '
+    +msg2
+    +'</label>'
     +'</div></div>';
     document.getElementById("prescri").innerHTML=msg;
     }
@@ -13,7 +24,7 @@ let mostrarPrescripcion= async (prescripcion) => {
     let msg="";
     prescripcion.unionPrescripcionDiasRecambios.forEach((dias)=>{
         msg+='<div class="container">'
-        +'<div class="row">';
+        +'<div class="row text-center">';
 console.log(dias)
          msg += `<div class="col-2"><span class="badge ${dias.prescripcionDia.lunes ? 'bg-success' : 'bg-secondary'}">Lu</span></div>`
         + `<div class="col-2"><span class="badge ${dias.prescripcionDia.martes ? 'bg-success' : 'bg-secondary'}">Ma</span></div>`
@@ -30,28 +41,16 @@ console.log(dias)
         +'    <th>Tiempo</th>'
         +'  </tr>'
         +'</thead>'
-        +'<tbody id="seguimientoData">'
-        +'  <tr>'
-        +'    <td>1</th>'
-        +'    <td>4.5</th>'
-        +'    <td>6 horas</th>'
+        +'<tbody id="seguimientoData">';
+        let cont=1;
+        dias.recambios.forEach(recambio => {
+        msg+='  <tr>'
+        +'    <td>'+cont+'</th>'
+        +'    <td>'+recambio.concentración+'</th>'
+        +'    <td>'+recambio.intervaloTiempo+'</th>'
         +'  </tr>'
-        +'  <tr>'
-        +'    <td>1</th>'
-        +'    <td>4.5</th>'
-        +'    <td>6 horas</th>'
-        +'  </tr>'
-        +'  <tr>'
-        +'    <td>1</th>'
-        +'    <td>4.5</th>'
-        +'    <td>6 horas</th>'
-        +'  </tr>'
-        +'  <tr>'
-        +'    <td>1</th>'
-        +'    <td>4.5</th>'
-        +'    <td>6 horas</th>'
-        +'  </tr>'
-        +'</tbody>'
+        });
+        msg+='</tbody>'
         +'</table>'
         +'</div> <br>';
     })
