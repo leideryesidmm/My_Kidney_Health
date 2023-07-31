@@ -5,7 +5,7 @@ let listAlergias = async (alergias) => {
     alergias.forEach((paciente) => {
       msg +=
           '<tr>'+
-              '<td>'+ paciente.alergia.nombre +'</td>'+
+              '<td>'+ paciente +'</td>'+
               '<td>'+
                   '<a href="" data-bs-toggle="modal" data-bs-target="#editaralergia'+cont+'"><img src="../img/editaraler.png"  alt="" id="inhabilitar"></a>'+
                   '<a href="" data-bs-toggle="modal" data-bs-target="#eliminaralergia'+cont+'"><img src="../img/inhabilitar.png" alt="" id="inhabilitar"></a>'+
