@@ -14,3 +14,4 @@ let prescripciones= async()=>{
 console.log(prescripcion);
 return prescripcion;
 }
+

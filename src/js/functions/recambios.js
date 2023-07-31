@@ -90,3 +90,18 @@ let listRecambios = async (recambios) => {
     document.getElementById("acordeon1").innerHTML = msg;
   
   }
+
+  let concentraciones= async () => {
+    let cardinalidad=["Primer Recambio","Segundo Recambio", "Tercer Recambio", "Cuarto Recambio", "Quinto Recambio"]
+    let cont=0;
+    prescripcionDia=JSON.parse(localStorage.getItem('prescripcionActual'));
+    let msg="";
+    msg+="<select class='form-select form-select-sm' aria-label='.form-select-lg example' id='selectConcentracion' required>"
+         +"<option value=''>Seleccione...</option>";
+         prescripcionDia.recambios.forEach(recambio => {
+          msg+="<option value='"+recambio.idRecambio+"'>"+cardinalidad[cont]+' ('+recambio.concentracion+"%)</option>";
+          cont++;
+    });
+       msg+="</select>";
+    document.getElementById("concentra").innerHTML=msg;
+  }

@@ -1,4 +1,5 @@
 let mostrarPrescripcion= async (prescripcion) => {
+    localStorage.setItem('prescripcionActual', JSON.stringify(await prescripcionDiaHoy(prescripcion)));
     prescripcion=await prescripcion;
     if(prescripcion.unionPrescripcionDiasRecambios.length==1){
     let msg='<div id="prescontainer">'
@@ -8,7 +9,7 @@ let mostrarPrescripcion= async (prescripcion) => {
     +'<label for="concentracion">Concentraciones: ';
     let msg2=""
     prescripcion.unionPrescripcionDiasRecambios[0].recambios.forEach(recambio => {
-    msg+=recambio.concentración+' - ';
+    msg+=recambio.concentracion+' - ';
     msg2+=recambio.intervaloTiempo+' - ';
     });
     msg=msg.substring(0, msg.length - 3);
@@ -25,7 +26,6 @@ let mostrarPrescripcion= async (prescripcion) => {
     prescripcion.unionPrescripcionDiasRecambios.forEach((dias)=>{
         msg+='<div class="container">'
         +'<div class="row text-center">';
-console.log(dias)
          msg += `<div class="col-2"><span class="badge ${dias.prescripcionDia.lunes ? 'bg-success' : 'bg-secondary'}">Lu</span></div>`
         + `<div class="col-2"><span class="badge ${dias.prescripcionDia.martes ? 'bg-success' : 'bg-secondary'}">Ma</span></div>`
         + `<div class="col-2"><span class="badge ${dias.prescripcionDia.miercoles ? 'bg-success' : 'bg-secondary'}">Mi</span></div>`
@@ -46,7 +46,7 @@ console.log(dias)
         dias.recambios.forEach(recambio => {
         msg+='  <tr>'
         +'    <td>'+cont+'</th>'
-        +'    <td>'+recambio.concentración+'</th>'
+        +'    <td>'+recambio.concentracion+'</th>'
         +'    <td>'+recambio.intervaloTiempo+'</th>'
         +'  </tr>'
         });
@@ -56,4 +56,18 @@ console.log(dias)
     })
     document.getElementById("prescri").innerHTML=msg;
     }
+}
+let prescripcionDiaHoy= async (prescripcion) =>{
+    prescripcion=await prescripcion;
+    let dias=["lunes","martes","miercoles","jueves","viernes","sabado"]
+    const tiempoTranscurrido = Date.now();
+    const hoy = new Date(tiempoTranscurrido);
+    let prescripcionDiaHoy1;
+    prescripcion.unionPrescripcionDiasRecambios.forEach(prescripcionDia => {
+        if(prescripcionDia.prescripcionDia[dias[hoy.getDay()-1]]==true){
+            prescripcionDiaHoy1= prescripcionDia;
+        }
+    });
+    return prescripcionDiaHoy1
+
 }
