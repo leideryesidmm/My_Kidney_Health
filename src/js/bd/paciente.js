@@ -99,6 +99,7 @@ let alergias= async()=>{
   let pacienteInDto= {
     cedula:cedulaEncriptada
   }
+  let msgalergias="";
     const peticion= await fetch(servidorAPI+"paciente/alergia/listByPaciente",{
       method:"POST",
       headers:{
@@ -107,12 +108,12 @@ let alergias= async()=>{
       },
       body:JSON.stringify(pacienteInDto)
     });
-
+    if (peticion.status === 204) {
     const alergias=await peticion.json();
     console.log(alergias);
 
     
-    let msgalergias="";
+    
     
     alergias.forEach(alergia => {
       let alergiaEncriptada=CryptoJS.AES.decrypt(alergia.alergia.nombre, 'clave_secreta').toString(CryptoJS.enc.Utf8);
@@ -120,6 +121,6 @@ let alergias= async()=>{
         msgalergias=msgalergias+alergiaEncriptada+", "
     });
     msgalergias = msgalergias.substring(0, msgalergias.length - 2);
-    
+  }
     return msgalergias;
 }
