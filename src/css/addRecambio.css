@@ -81,30 +81,31 @@ option {
 }
 
 .imagen img {
-    width: 110px;
-    height: 110px; 
-  }
+  width: 95px;
+  height: 95px;
+}
 
-  #contenedorImagenes {
-    display: flex;
-    flex-wrap: wrap;
-    margin-left: 20px;
-  }
-  
-  .opcion {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-right: 20px; /* Espacio entre las opciones */
-    margin-bottom: 20px; /* Espacio debajo de las opciones */
-  }
-  
-  
-  .opcion p, input {
-    margin-top: 10px; /* Espacio entre la imagen y el texto */
-    text-align: center;
-    justify-content: center;
-  }
+#contenedorImagenes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Centrar las imágenes horizontalmente */
+}
+
+.opcion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px; /* Espacio debajo de las opciones */
+  flex-basis: calc(33.33% - 10px); /* Ancho de cada opción (33.33% - 20px de margen) */
+}
+
+.opcion:last-child {
+  flex-basis: 100%; /* Ancho del último elemento para que ocupe toda la fila */
+  display: flex;
+  justify-content: center; /* Centrar la última imagen horizontalmente */
+  align-items: center; /* Centrar la última imagen verticalmente */
+}
+
 
   .caracteristica select, .concentracion select{
     text-align: center;
@@ -121,9 +122,16 @@ option {
     margin-left: 13px;
   }
 
-  .opcionInfeccionManguito{
-    margin-left: 130px;
+  .seleccionOrificio{
+    color: rgb(245, 74, 74);
+    text-align: center;
+    font-style: italic;
+    margin-right:10px;
+    margin-left: 10px;
   }
+
+
+
 
 
   

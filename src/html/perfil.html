@@ -9,133 +9,24 @@
 </head>
 <body>
     <div class="container">
-        <div class="name">
+      
         <div class="navbar" name="navbar" id="navbar">
             <h1 class="title">Mi Perfil</h1>
             
         </div>        
-    
-    <h1 class="nombre" id="nombre" name="nombre">
-        <!--Contenido nombre-->
-    </h1>
-    
-    <div class="primerosDatos">
-        <div class="dataPeso">
-            <b><p class="valor">Peso:</p></b>
-            <p class="peso" id="peso"></p>
-            <p for="med-peso">Kgs</p>
-        </div>
-    <div class="dataAltura">
-        <b><p class="valor"> Altura: </p></b>
-            <p class="altura" id="altura"></p>
-           <p for="med-altura">Cms</p>
-        </div>
-    </div>
-    <div class="checks">
-        <div class="row">
-            <div class="col">
-                <input type="checkbox" name="diabetes" id="diabetes">
-                <label for="diabetes">diabetes</label>
-            <br>
-                <input type="checkbox" name="hipertension" id="hipertension">
-                <label for="hipertension">hipertension</label>
-            
-            </div>
-            <div class="col">
-                <label for="tiposangre" class="tipo_sangre" id="tipo_sangre">
-                    <!--Tipo de sangre-->O
-                </label>
-                <label for="rh" class="rh" id="rh">
-                    <!--Rh-->-
-                </label>
-            </div>
-        </div>
-    </div>
+        <div class="perfil" id="perfil">
 
-    <div class="segundosDatos">
-        <div class="row">
-            <div class="col">
-                <b><label for="nacimiento" id="nacimiento" class="nacimiento">
-                        Fecha de Nacimiento:
-                    </label>
-                </b>
-                <br>
-                <label for="fechaNacimiento" id="fechaNacimiento" class="fechaNacimiento">
-                    <!--Contenido Fecha Nacimiento-->
-                </label>
-            </div>
-            <div class="col">
-                <b><label for="tlf" id="tlf" class="tlf">
-                        Teléfono:
-                    </label>
-                </b>
-                <br>
-                <label for="celular" id="celular" class="celular">
-                    <!--Contenido Telefono-->
-                </label>
-            </div>
+
         </div>
-    </div>
-</div>
-        <div class="direction">
-            <label for="dataDireccion" class="dataDireccion" id="dataDireccion">
-                Dirección:
-            </label>
-            <label for="direccion" class="direccion" id="direccion">
-                <!--Contenido dirección-->
-            </label>
-        </div>
-        <div class="eps-nav">
-            <h3 class="eps" id="eps" name="eps">
-            <!--Contenido eps-->Coosalud
-            </h3>
-        </div>
-        <br>
-        <div class="alergias">
-                <h6 class="titleAlergia">
-                    Alérgico a:
-                </h6>
-                <p class="dataAlergia" id="dataAlergia" name="dataAlergia">
-                    <!--Contenido alergias-->
-                </p>
-        </div>
-        <br>
-        <div class="dataCuidador">
-        <div class="nav-cuidador">
-            <div class="row">
-                <div class="col">
-            <p class="nombreCuidador" id="nombreCuidador" name="nombreCuidador">
-                <!--Contenido nombre cuidador-->
-                <br>
-            </p>
-            <p class="cuidador">
-                Cuidador
-            </p>
-        </div>
-        <div class="col">
-            <div class="addCuidador">
-            <a href="cuidador.html"><img src="../img/irCuidador.png" alt="Agregar Cuidador" /></a>
-        </div>
-            </div>
-        </div>
-    </div>
-        <div class="dataCuidador">
-            <p class="direccion-cuidador"><strong>Dirección:</strong></p>
-            <p class="dataDireccionCuidador" id="dataDireccionCuidador" name="dataDireccionCuidador"></p>
-            <p class="telefono-cuidador"><strong>Teléfono de Contacto:</strong></p>
-            <p class="dataTelefonoCuidador" id="dataTelefonoCuidador" name="dataTelefonoCuidador"></p>
-            <p class="parentesco-cuidador"><strong>Parentesco:</strong></p>
-            <p class="dataParentescoCuidador" id="dataParentescoCuidador" name="dataParentescoCuidador"></p>
-        </div>
-    </div>
-    </div>
-    <script src="../js/bd/paciente.js">
-        
+    
+ 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+    <script src="../js/bd/paciente.js"></script>
+    <script src="../js/functions/paciente.js"></script>
+    
     </script>
     <script>
-        listarPacientes();
-        cuidadorActivo();
-        alergias();
+        perfil(listarPacientes(),cuidadorActivo(),alergias());
     </script>
 </body>
 </html>
