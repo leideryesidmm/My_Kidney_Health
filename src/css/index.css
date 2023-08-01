@@ -1,43 +1,46 @@
 html,
 
 body {
-    background-color: #ffffff;
-    height: 100%;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: #ffffff;
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 @media only screen and (max-width: 768px) {
-    /* For mobile phones: */
-    [class*="col-"] {
-      width: 100%;
-    }
-  }
-  .fil{
-    background-color: #B2EAF2;
-  }
-  .navbar{
-    background-color: #04BAFC;
-    margin:auto;
-    height:fit-content;
+
+  /* For mobile phones: */
+  [class*="col-"] {
     width: 100%;
-    margin: 0;
-    padding: 0;
+  }
 }
 
-.navbar h1{
-    align-items: center;
+.fil {
+  background-color: #B2EAF2;
 }
 
-.title{
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
-    text-align: center;
+.navbar {
+  background-color: #04BAFC;
+  margin: auto;
+  height: fit-content;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar h1 {
+  align-items: center;
+}
+
+.title {
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  text-align: center;
 }
 
 header {
@@ -48,165 +51,166 @@ header {
 
 .header-container {
   display: flex;
-  justify-content: space-evenly;;
+  justify-content: space-evenly;
+  ;
   align-items: center;
 }
 
 #container {
-    width: 150px;
-    height: 120px;
-    background-color: rgb(0, 219, 161, .48);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 150px;
+  height: 120px;
+  background-color: rgb(0, 219, 161, .48);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #textcontainer {
-    width: 150px;
-    height: 30px;
-    margin: auto;
-    background-color: #e7e7e7;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 150px;
+  height: 30px;
+  margin: auto;
+  background-color: #e7e7e7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #prescontainer {
-    width: 90%;
-    height: 100px;
-    margin: auto;
-    background-color: #e7e7e7;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+  width: 90%;
+  height: 100px;
+  margin: auto;
+  background-color: #e7e7e7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 #promcontainer {
-    width: 80%;
-    height: 100px;
-    margin: auto;
-    background-color: #04BAFC;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: white;
+  width: 80%;
+  height: 100px;
+  margin: auto;
+  background-color: #04BAFC;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
 }
 
-.logo img{
-    width: 40px;
-    height: 40px; 
-    border-radius: 50%;   
-    margin-left: 18%;
+.logo img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-left: 18%;
 }
 
-.col-6, .col-12 {
-    display: flex; 
-    justify-content: center;
+.col-6,
+.col-12 {
+  display: flex;
+  justify-content: center;
 }
 
 h3 {
-    text-align: center;
-    font-weight: bold;
+  text-align: center;
+  font-weight: bold;
 }
 
 h5 {
-    color: #5a5e64;
-    font-weight: bold;
+  color: #5a5e64;
+  font-weight: bold;
 }
+
 .sinbordefondo {
-    background-color: #eee;
-    border: 0;
-  }
-
-  #usomedicamento {
-    display: flex;
-    align-items: center;
-    margin: auto;
-    margin-top: 10%;
-    width: 70%;
-  }
-
-  #date {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 95%;
-    margin: 1%;
-  }
-
- #derecho{
-    text-align: right;
- }
-
-  th, td, tr{    
-    text-align: center;
-    margin-top: auto;
-    vertical-align: middle;
-  }
-
-  thead {
-    background-color: #B2EAF2;
-    
-  }
-
-  thead:hover {
-    background-color: #04BAFC;
-    color: white;
-  }
-
-  tbody:hover {
-    background-color: #e7e7e7;
-  }
-
-  #prescripcionTable {
-    width: 50%;
-    margin: auto;
-    font-size: small;
-  }
-
-  #alergiaTable {
-    width: 80%;
-    margin: auto;
-  }
-
-  #inhabilitar {
-    width: 20px;
-    height: 20px;
-  }
-
-  #icono {
-    width: 40px;
-    height: 40px;
-  }
-
-  #btnguardar {
-    margin-left: 72%;
-    background-color: #00DBA1;
-    color: white;
+  background-color: #eee;
+  border: 0;
 }
 
-  
+#usomedicamento {
+  display: flex;
+  align-items: center;
+  margin: auto;
+  margin-top: 10%;
+  width: 70%;
+}
 
-  #agregaralergia {
-    margin: auto;
-    width: 90%;
-  }
+#date {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 95%;
+  margin: 1%;
+}
 
-  .drenaje p,
-  .concentracion p,
-  .hora p,
-  .caracteristica p,
-  .orificio p
-  {
-    display: inline-block;
-    vertical-align: middle;
-  }
+#derecho {
+  text-align: right;
+}
 
-  #sinAlergias{
-    color: #fa0808;
-  }
+th,
+td,
+tr {
+  text-align: center;
+  margin-top: auto;
+  vertical-align: middle;
+}
+
+thead {
+  background-color: #B2EAF2;
+
+}
+
+thead:hover {
+  background-color: #04BAFC;
+  color: white;
+}
+
+tbody:hover {
+  background-color: #e7e7e7;
+}
+
+#prescripcionTable {
+  width: 50%;
+  margin: auto;
+  font-size: small;
+}
+
+#alergiaTable {
+  width: 80%;
+  margin: auto;
+}
+
+#inhabilitar {
+  width: 20px;
+  height: 20px;
+}
+
+#icono {
+  width: 40px;
+  height: 40px;
+}
+
+#btnguardar {
+  margin-left: 72%;
+  background-color: #00DBA1;
+  color: white;
+}
 
 
 
+#agregaralergia {
+  margin: auto;
+  width: 90%;
+}
+
+.drenaje p,
+.concentracion p,
+.hora p,
+.caracteristica p,
+.orificio p {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#sinAlergias {
+  color: #fa0808;
+}
