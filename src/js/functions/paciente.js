@@ -40,18 +40,18 @@ if(paciente!=null){
     '<div class="row">'+
         '<div class="col">';
         if(paciente.diabetes!=false){
-            msg+='<input type="checkbox" name="diabetes" id="diabetes" checked>'+
+            msg+='<input type="checkbox" name="diabetes" id="diabetesTrue" class="styled-checkbox" checked disabled>'+
             '<label for="diabetes">Diabetes</label>'+
             '<br>';}
         else{
-            msg+='<input type="checkbox" name="diabetes" id="diabetes">'+
+            msg+='<input type="checkbox" name="diabetes" id="diabetesTrue" disabled>'+
             '<label for="diabetes">Diabetes</label>'+
         '<br>';}
         if(paciente.hipertension!=false){
-            msg+='<input type="checkbox" name="hipertension" id="hipertension" checked>'+
+            msg+='<input type="checkbox" name="hipertension" id="hipertensionTrue" class="styled-checkbox" checked disabled>'+
             '<label for="hipertension">Hipertensión</label>';}
         else{
-            msg+='<input type="checkbox" name="hipertension" id="hipertension">'+
+            msg+='<input type="checkbox" name="hipertension" id="hipertensionFalse" disabled>'+
             '<label for="hipertension">Hipertensión</label>';  
         }
         msg+='</div>'+

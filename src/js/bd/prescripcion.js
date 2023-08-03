@@ -4,9 +4,8 @@ const urlParams = new URLSearchParams(window.location.search);
     cedulaEncript=decodeURIComponent(cedulaEncript)
     console.log(cedulaEncript)
     const cedula = CryptoJS.AES.decrypt(cedulaEncript, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-    
-    console.log(cedula)
-    var cedulaEncriptada= "";
+    console.log(cedula);
+var cedulaEncriptada= "";
 
 let prescripciones= async()=>{
     const peticion= await fetch(servidorAPI+"paciente/prescripcion/prescripcionActual",{

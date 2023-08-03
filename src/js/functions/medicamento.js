@@ -1,7 +1,14 @@
 let listMedicamentos = async (medicamentos) => {
   medicamentos = await medicamentos;
   let msg = "";
+  let ms="";
   let cont = 1;
+
+  msg+='<div class="navbar" name="navbar" id="navbar">' +
+  '<a href="principal.html?cedula=' + cedulaEncript + '" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a>' +
+  '<h1 class="title">Medicamentos</h1>' +
+  '</div>'+        
+      '<br>';
   medicamentos.forEach((medicamento) => {
     msg +=
       '<div class="accordion-item">' +
@@ -95,6 +102,15 @@ let listMedicamentos = async (medicamentos) => {
   });
   document.getElementById("acordeon1").innerHTML = msg;
 
+  ms+=
+  '<br>'+
+            '<div class="row">'+
+                '<div class="col-10"></div>'+
+                '<div class="col-2">'+
+                    '<a href="addMedicamento.html?cedula='+cedulaEncript+'"><img src="../img/nuevo.png" alt="" id="icono"></a>'+
+                '</div>'+
+            '</div>';
+            document.getElementById("btn-nuevo").innerHTML=ms;
 }
 
 let formatearFechas= function(fechaOriginal){
