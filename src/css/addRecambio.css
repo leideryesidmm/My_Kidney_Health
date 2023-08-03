@@ -115,8 +115,16 @@ option {
     border: none;
   }
 
-  
-
+  .close{
+    border: none;
+    border-radius: 80%;
+    background-color: #ffffff;
+    opacity: 1;
+    font-size: 24px;
+  }
+  #fechaHoraFin,#fechaHoraIni{
+    font-size: 10px;
+  }
   select {
     margin-left: 13px;
   }
