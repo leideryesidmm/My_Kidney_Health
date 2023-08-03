@@ -6,7 +6,13 @@ let perfil=async()=>{
         
     let msg="";
 if(paciente!=null){
-    msg+='<div class="container">'+
+    msg+=
+    '<div class="navbar" name="navbar" id="navbar">'+
+            '<a href="principal.html?cedula=' + cedulaEncript + '" " class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a>'+
+            '<h1 class="title">Mi Perfil</h1>'+
+            
+        '</div>'+ 
+    '<div class="container">'+
     '<div class="name">'+
 
 '<h1 class="nombre" id="nombre" name="nombre">'+paciente.nombre+
@@ -102,9 +108,13 @@ if(alergia!=null && alergia !== ""){
                 'Alérgico a:'+
             '</h6>'+
             '<p class="dataAlergia" id="dataAlergia" name="dataAlergia">'+alergia+
-            '</p>'+
+            '</p>'+ 
+            '<a href=""'
     '</div>'+
     '<br>';
+}
+else{
+
 }
 if(cuidador!=null && cuidador !== ""){
    msg+='<div class="dataCuidador">'+

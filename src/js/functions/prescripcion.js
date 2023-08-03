@@ -1,7 +1,18 @@
 let mostrarPrescripcion= async (prescripcion) => {
     prescripcion=await prescripcion;
+    let msg="";
+     msg +=
+     '<header>'+
+    '<div class="navbar" name="navbar" id="navbar">'+
+    '<a href="principal.html?cedula=' + cedulaEncript + '" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a>'+
+          '<h1 class="title-prescripcion">Prescripción</h1>'+
+'</div>'+
+'</header>'+
+  '<br>';
+  document.getElementById("presc").innerHTML=msg;
     if(prescripcion.unionPrescripcionDiasRecambios.length==1){
-    let msg='<div id="prescontainer">'
+    
+     msg+='<div id="prescontainer">'
     +'<div class="row">'
     +'<label for="cantidad">N° recambios: '+ prescripcion.unionPrescripcionDiasRecambios[0].recambios.length +'</label>'
 

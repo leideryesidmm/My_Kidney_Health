@@ -1,5 +1,3 @@
-
-
 let servidorAPI="http://localhost:8081/";
 const cedula="1193098419";
 let listarMedicamentos= async()=>{

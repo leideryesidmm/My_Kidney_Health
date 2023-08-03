@@ -15,23 +15,46 @@ h3 {
     padding: 0;
     width: 100%;
 }
-.navbar{
+.navbar {
     background-color: #04BAFC;
-    margin:auto;
-    height:fit-content;
-    width: 100%;
-}
+    margin: auto;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .title {
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    margin-right: 110px;
+  }
+  
+  #icono {
+    width: 40px;
+      height: 40px;
+  }
+  
+  .navbar img{
+    height: 30px;
+    margin: 0;
+    padding: 0;
+    width: 30px;
+    margin-left: 40px;
+  }
 
 .navbar h1{
     align-items: center;
 }
 
-.title{
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
+#selectVias{
+    text-align: center;
+    background-color: #cfcaca;
+    width: 162px;
+    height: 35px;
+    border-radius: none;
+    border: none;
 }
 
 .name, 

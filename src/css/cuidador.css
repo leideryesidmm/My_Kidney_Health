@@ -16,40 +16,43 @@ h3 {
     width: 100%;
 }
 
-.navbar img{
-    width: 80%;
-    height: 100%;
-    float: right;
-    margin-right: 10%;
+#icono {
+  width: 40px;
+    height: 40px;
+    margin-top: 6px;
+  padding: 0;
+  margin-left: 40px;
 }
-.navbar{
-    background-color: #04BAFC;
-    margin:auto;
-    height:53px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
+
+.navbar {
+  background-color: #04BAFC;
+  height: fit-content;
+  width: 100%;
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
 }
 
 .navbar h1{
-    align-items: center;
-    
+  align-items: center;
+  
 }
 
 .title{
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
-    margin-left: 33.2%;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  margin-right: 87.5px;
 }
+
 
 .row {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 60px;
+    margin-left: 90px;
 }
 
 .col {
@@ -162,6 +165,14 @@ label {
     margin: 0;
     /* Agrega otros estilos personalizados aquí si es necesario */
   }
+
+  #img-editar img {
+    margin: 5.5px;
+    width: 40px;
+    height: 40px;
+  }
+
+
 
 button img{
     width: 40px;

@@ -23,15 +23,11 @@ body {
 
 .navbar {
   background-color: #04BAFC;
-  margin: auto;
   height: fit-content;
   width: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-.navbar h1 {
-  align-items: center;
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
 }
 
 .title {
@@ -39,8 +35,29 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: auto;
-  text-align: center;
+  margin-right: 130px;
+}
+
+.title-principal{
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  margin-right: 110px;
+}
+
+#icono {
+  width: 40px;
+    height: 40px;
+}
+
+.navbar img{
+  height: 30px;
+  margin: 0;
+  padding: 0;
+  width: 30px;
+  margin-left: 40px;
 }
 
 header {
@@ -63,7 +80,9 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
+  
 }
+
 
 #textcontainer {
   width: 150px;
@@ -142,6 +161,14 @@ h5 {
   margin: 1%;
 }
 
+.navbar input{
+  width: 40px;
+  height: 40px;
+  background-color: #04BAFC;
+  border-radius: 50%;
+  margin-left: 30px;
+}
+
 #derecho {
   text-align: right;
 }
@@ -213,4 +240,21 @@ tbody:hover {
 
 #sinAlergias {
   color: #fa0808;
+}
+
+.title-recambio{
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  margin-right: 112px;
+}
+
+.title-prescripcion{
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 130px;
 }

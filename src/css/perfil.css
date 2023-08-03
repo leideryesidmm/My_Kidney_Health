@@ -10,22 +10,41 @@ body{
     width: 100%;
     max-width: 1000px;
 }
-.navbar{
-    background-color: #04BAFC;
-    margin:auto;
-    height: 60px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+
+#icono {
+  width: 40px;
+    height: 40px;
+}
+
+.navbar img{
+  height: 30px;
+  margin: 0;
+  padding: 0;
+  width: 30px;
+  margin-left: 40px;margin-top: 7px;
+}
+.navbar {
+  background-color: #04BAFC;
+  height: fit-content;
+  width: 100%;
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
+  
+}
+
+.navbar h1{
+  align-items: center;
+  
 }
 
 .title{
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 6.5px;
+  margin-right: 140px;
 }
 
 .editarPerfil img{
@@ -40,10 +59,10 @@ body{
 }
 
 .cms{
-  margin-right: 25px;
+  margin-right: 50px;
 }
 .rh{
-  margin-left: 2px;
+  margin-left: 1px;
 }
 
 
@@ -61,14 +80,13 @@ body{
 }
 
 .primerosDatos p{
-  padding-left: 6%;
+  padding-left: 2%;
 }
 
 .dataAltura, .dataPeso{
     display: flex;
     justify-content: center;
-    padding-left: 8%;
-    margin-right: 6%;
+    
 }
 
 .segundosDatos{
@@ -92,7 +110,7 @@ body{
 
 .col{
 flex: 1;
-margin: 0 10px;
+margin: 0 5px;
 }
 
 .direction {
@@ -150,7 +168,7 @@ margin: 0 10px;
   }
   
   .nav-cuidador p {
-    margin: 0 10%; /* Establece el margen a 0 */
+    margin: 0 5%; /* Establece el margen a 0 */
     height: 25px;
     
   }
