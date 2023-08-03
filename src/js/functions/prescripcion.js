@@ -64,6 +64,7 @@ let mostrarPrescripcion= async (prescripcion) => {
         msg+='</tbody>'
         +'</table>'
         +'</div> <br>';
+    
     })
     document.getElementById("prescri").innerHTML=msg;
     }
