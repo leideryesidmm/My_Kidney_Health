@@ -10,22 +10,41 @@ body{
     width: 100%;
     max-width: 1000px;
 }
-.navbar{
-    background-color: #04BAFC;
-    margin:auto;
-    height: 60px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+
+#icono {
+  width: 40px;
+    height: 40px;
+}
+
+.navbar img{
+  height: 30px;
+  margin: 0;
+  padding: 0;
+  width: 30px;
+  margin-left: 40px;margin-top: 7px;
+}
+.navbar {
+  background-color: #04BAFC;
+  height: fit-content;
+  width: 100%;
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
+  
+}
+
+.navbar h1{
+  align-items: center;
+  
 }
 
 .title{
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 6.5px;
+  margin-right: 140px;
 }
 
 .editarPerfil img{
@@ -39,6 +58,18 @@ body{
     color: #000;
 }
 
+.cms{
+  margin-right: 50px;
+}
+.rh{
+  margin-left: 1px;
+}
+
+
+
+.sangre{
+  margin-left:9px;
+}
 .cols{
     display: block;
 }
@@ -49,20 +80,26 @@ body{
 }
 
 .primerosDatos p{
-  padding-left: 6%;
+  padding-left: 2%;
 }
 
 .dataAltura, .dataPeso{
     display: flex;
     justify-content: center;
-    padding-left: 8%;
-    margin-right: 6%;
+    
 }
 
 .segundosDatos{
     display: flex;
     justify-content: center;
-    margin-left: 10%;
+    margin-left: 56px;
+}
+
+.telefono{
+  margin-left: 6px;
+}
+.celular{
+  margin-left: 6px;
 }
 
 .row{
@@ -73,7 +110,7 @@ body{
 
 .col{
 flex: 1;
-margin: 0 10px;
+margin: 0 5px;
 }
 
 .direction {
@@ -102,16 +139,20 @@ margin: 0 10px;
 .checks{
   display: flex;
   justify-content: center;
-  margin-left: 20%;
+  margin-left: 52px;
 }
 
 .titleAlergia{
-    color:gray;
+    color:#000;
     margin-left:50px;
 }
 
 .name{
     margin: auto;
+}
+
+.tipo_sangre{
+  margin-left: 4px;
 }
 
 
@@ -127,22 +168,25 @@ margin: 0 10px;
   }
   
   .nav-cuidador p {
-    margin: 0 10%; /* Establece el margen a 0 */
+    margin: 0 5%; /* Establece el margen a 0 */
     height: 25px;
     
   }
   
   .nombreCuidador,
   .cuidador {
-    color: #000;
-    font-size: 15px;
+    color: #fff;
+    font-size: 20px;
   }
 
   .eps-nav,
 .alergias,
 .dataCuidador {
-  margin-bottom: 0.5em; /* Ajusta el valor según tus necesidades */
+  margin-bottom: 0.5em;
+ 
 }
+
+
 
 .eps{
   display: flex;
@@ -152,9 +196,17 @@ margin: 0 10px;
 }
 
 
+
 .titleAlergia,
 .dataAlergia {
-  margin: 0 5%; /* Establece el margen a 0 */
+  margin: 0;
+}
+
+.alergiasPac h6,
+.dataAlergia{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
   .titleAlergia{
@@ -173,7 +225,7 @@ margin: 0 10px;
 
 .dataCuidador{
     background-color: #E0E0E0;
-    margin-left: 10px;
+    margin-left: 40px;
     
 }
 
@@ -236,7 +288,14 @@ margin: 0 10px;
     margin-right: 0;
   }
 
+  .info-cuidador {
+    margin-bottom: 10px; 
+}
 
+.info-cuidador p {
+    margin: 0; 
+    font-size: 20px;
+}
 
 @media only screen and (max-width: 768px) {
     /* For mobile phones: */

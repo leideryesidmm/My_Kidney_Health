@@ -1,5 +1,8 @@
 let servidorAPI="http://localhost:8081/";
-const cedula="1193098419";
+const urlParams = new URLSearchParams(window.location.search);
+    const cedulaEncript = urlParams.get('cedula');
+    const cedula = CryptoJS.AES.decrypt(cedulaEncript, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+var cedulaEncriptada= "";
 
 let prescripciones= async()=>{
     const peticion= await fetch(servidorAPI+"paciente/prescripcion/prescripcionActual",{

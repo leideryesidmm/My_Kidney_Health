@@ -19,29 +19,35 @@ h3 {
     width: 100%;
     max-width: 1000px;
 }
-.navbar{
-    background-color: #04BAFC;
-    margin:auto;
-    height:53px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+#icono {
+  width: 40px;
+    height: 40px;
+    margin-top: 6px;
+  padding: 0;
+  margin-left: 40px;
+}
+
+.navbar {
+  background-color: #04BAFC;
+  height: fit-content;
+  width: 100%;
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
 }
 
 .navbar h1{
-    margin-left: 30%;
-
+  align-items: center;
+  
 }
 
 .title{
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-    font-size: 30px;
-    font-weight: bold;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  margin-right: 140px;
 }
 
 .name,
@@ -91,15 +97,17 @@ h3 {
   
   .contentform {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 80%;
-    margin-left: 5%;
+    margin-left: 42px;
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
+    
 }
 
 .row {

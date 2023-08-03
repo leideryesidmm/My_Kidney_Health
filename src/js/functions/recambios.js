@@ -2,6 +2,15 @@ let listRecambios = async (recambios) => {
     recambios = await recambios;
     let msg = "";
     let cont = 1;
+
+    msg+=
+    '<div class="navbar" name="navbar" id="navbar">'+
+    '<a href="principal.html?cedula=' + cedulaEncript + '" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a>'+
+            '<h1 class="title-recambio">Mis Recambios</h1>'+
+    '</div>'+
+    '<br>';
+    document.getElementById("recamb").innerHTML=msg;
+
     recambios.forEach((recambio) => {
       msg +=
         '<div class="accordion-item">' +

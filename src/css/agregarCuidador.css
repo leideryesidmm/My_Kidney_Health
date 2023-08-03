@@ -19,29 +19,40 @@ h3 {
     width: 100%;
     max-width: 1000px;
 }
-.navbar{
-    background-color: #04BAFC;
-    margin:auto;
-    height:40px;
-    width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100%; 
+.navbar {
+  background-color: #04BAFC;
+  margin: auto;
+  margin: 0;
+  padding: 0;
+}
+
+.title {
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  margin-right: 110px;
+}
+
+#icono {
+  width: 40px;
+    height: 40px;
+}
+
+.agregarCuidador{
+  margin-left: 50px;
+}
+.navbar img{
+  height: 30px;
+  margin: 0;
+  padding: 0;
+  width: 30px;
+  margin-left: 40px;
 }
 
 .navbar h1{
-    align-items: center;
-}
-
-.title{
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-    font-size: 30px;
-    font-weight: bold;
+  align-items: center;
 }
 .cedCuidador,
 .name, 
@@ -88,7 +99,7 @@ h3 {
     display: flex;
     flex-direction: column;
     width: 80%;
-    margin-left: 10%;
+    margin-left: 13%;
 }
 
 .form-group {

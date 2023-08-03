@@ -1,5 +1,6 @@
 let servidorAPI="http://localhost:8081/";
-const cedula="1193098419";
+const urlParams = new URLSearchParams(window.location.search);
+    const cedula = urlParams.get('cedula');
 var cedulaEncriptada= "";
 
 let obtenerCedulaEncriptada=async()=>{

@@ -20,7 +20,7 @@ let cuidadorPrincipal=async(cuidadores, cuidAntiguos)=>{
     '<div class="container">' +
 '<h3>Cuidador Actual</h3>' +
 '<div class="cuidadores">' +
-    '<label for="varCuidador" class="varCuidador"><strong>Cuidador:</strong></label>' +
+    '<label for="varCuidador" class="varCuidador"><strong>Nombre:</strong></label>' +
             '<br>' +
             '<label for="nombre" id="nombre" class="nombre">'+cuidadores.nombre+'</label>' +
         '</div>' +
