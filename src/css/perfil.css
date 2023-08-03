@@ -53,6 +53,11 @@ body{
     margin-left: auto;
 }
 
+.styled-checkbox{
+  background-color: #04BAFC;
+}
+
+
 .nombre{
     text-align: center;
     color: #000;

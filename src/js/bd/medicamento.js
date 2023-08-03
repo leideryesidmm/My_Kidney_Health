@@ -1,5 +1,10 @@
 let servidorAPI="http://localhost:8081/";
-const cedula="1193098419";
+const urlParams = new URLSearchParams(window.location.search);
+    const cedulaEncript = urlParams.get('cedula');
+    const cedula = CryptoJS.AES.decrypt(cedulaEncript, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+var cedulaEncriptada= "";
+
+
 let listarMedicamentos= async()=>{
     const peticion= await fetch(servidorAPI+"paciente/medicamento/findMedicamentoByPaciente/"+cedula,{
       method:"GET",
@@ -177,6 +182,7 @@ let eliminarMedicamento=async (idMedicamento)=> {
 }
 
 let crearMedicamento=async ()=> {
+  
   let formulamedicamento={
       "concentracion": document.getElementById("concentracion").value,
       "descripcion": document.getElementById("descripcion").value,
@@ -185,7 +191,8 @@ let crearMedicamento=async ()=> {
       "fechaIni": document.getElementById("fecha_inicio").value+"T00:00:00.001Z",
       "intervaloTiempo": document.getElementById("intervalos_tiempo").value,
       "nombre": document.getElementById("medicamento").value,
-      "paciente": cedula,
+      "paciente": cedulaEncript,
+      
       "tomas": document.getElementById("tomas").value,
       "via_Administracion": document.getElementById("selectVias").value
   }
