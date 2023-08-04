@@ -32,7 +32,8 @@ function isAuthenticated() {
         
         // Inicio de sesión exitoso, guardar el estado de autenticación en el almacenamiento local
         localStorage.setItem("authenticated", "true");
-        location.href="principal.html?cedula=" + paciente.cedula;
+        const cedula= encodeURIComponent(paciente.cedula)
+        location.href="principal.html?cedula=" + cedula;
     console.log(username);
         return username; // Salir del bucle si se encontró una coincidencia
       }

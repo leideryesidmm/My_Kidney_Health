@@ -1,6 +1,7 @@
 let servidorAPI="http://localhost:8081/";
 const urlParams = new URLSearchParams(window.location.search);
-    const cedula = urlParams.get('cedula');
+    const cedulaEncript = urlParams.get('cedula');
+    const cedula = CryptoJS.AES.decrypt(cedulaEncript, 'clave_secreta').toString(CryptoJS.enc.Utf8);
 var cedulaEncriptada= "";
 
 let obtenerCedulaEncriptada=async()=>{
@@ -23,8 +24,6 @@ let obtenerCedulaEncriptada=async()=>{
       })   
       return cedulaEncriptada;
 }
-
-var cedulaEncriptada=  obtenerCedulaEncriptada();
 
 
 let crearCuidador = async () => {
