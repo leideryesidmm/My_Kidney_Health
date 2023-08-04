@@ -8,7 +8,7 @@ let perfil=async()=>{
 if(paciente!=null){
     msg+=
     '<div class="navbar" name="navbar" id="navbar">'+
-            '<a href="principal.html?cedula=' + cedulaEncript + '" " class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a>'+
+            '<a href="principal.html?cedula=' + encodeURIComponent(cedulaEncript) + '" " class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a>'+
             '<h1 class="title">Mi Perfil</h1>'+
             
         '</div>'+ 
@@ -102,25 +102,30 @@ if(paciente!=null){
     '</div>';
 }
 if(alergia!=null && alergia !== ""){
-    msg+='<br>'+
+    msg+=
+    '<br>'+
     '<div class="alergiasPac">'+
             '<h6 class="titleAlergia">'+
                 'Alérgico a:'+
             '</h6>'+
             '<p class="dataAlergia" id="dataAlergia" name="dataAlergia">'+alergia+
             '</p>'+ 
-            '<a href=""'
     '</div>'+
+    '<br>'+
+    '<a href="alergias.html?cedula=' + encodeURIComponent(cedulaEncript) + '"class="alerg-nueva" >Agregar Alergia</a>'+
     '<br>';
 }
 else{
-
+    msg+='<br><a href="alergias.html?cedula=' + encodeURIComponent(cedulaEncript) + '"class="alerg-nueva" >Agregar Alergia</a>'+
+    '<br>';
 }
 if(cuidador!=null && cuidador !== ""){
-   msg+='<div class="dataCuidador">'+
+   msg+=
+   '<br>'+
+   '<div class="dataCuidadorUp">'+
     '<div class="nav-cuidador">'+
         '<div class="row">'+
-            '<div class="col">'+
+            '<div class="col-10">'+
         '<b><p class="nombreCuidador" id="nombreCuidador" name="nombreCuidador">'+cuidador.nombre+
             '<br>'+
         '</p>'+
@@ -128,14 +133,13 @@ if(cuidador!=null && cuidador !== ""){
             'Cuidador'+
         '</p>'+
     '</div>'+
-    '<div class="col">'+
+    '<div class="col-2">'+
         '<div class="addCuidador">'+
-        '<a href="cuidador.html"><img src="../img/irCuidador.png" alt="Agregar Cuidador" /></a>'+
+        '<a href="cuidador.html?cedula=' + encodeURIComponent(cedulaEncript) + '"><img src="../img/irCuidador.png" alt="Agregar Cuidador" /></a>'+
     '</div>'+
         '</div>'+
     '</div>'+
 '</div>'+
-'<br>'+
     '<div class="dataCuidador">'+
         '<div class="info-cuidador">'+
         '<p class="direccion-cuidador"><strong>Dirección:</strong></p>'+
@@ -153,6 +157,9 @@ if(cuidador!=null && cuidador !== ""){
     '</div>'+
 '</div>'+
 '</div>';
+}
+else{
+    msg+='<br><a href="cuidador.html?cedula=' + encodeURIComponent(cedulaEncript) + '"class="alerg-nueva" >Agregar Cuidador</a>';
 }
 document.getElementById("perfil").innerHTML = msg;
 }

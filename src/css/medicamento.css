@@ -25,12 +25,12 @@ body{
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-  margin-right: 110px;
+  margin-right: 80px;
 }
 
 #icono {
-  width: 40px;
-    height: 40px;
+  width: 30px;
+    height: 30px;
 }
 
 .navbar img{
@@ -38,7 +38,7 @@ body{
   margin: 0;
   padding: 0;
   width: 30px;
-  margin-left: 40px;
+  margin-left: 20px;
 }
 
 .btn-nuevo-container {

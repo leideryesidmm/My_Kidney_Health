@@ -3,6 +3,12 @@ let cuidadorPrincipal=async(cuidadores, cuidAntiguos)=>{
     console.log(cuidadores);
     cuidAntiguos=await cuidAntiguos;
     let msg="";
+    let ms='<a href="perfil.html?cedula='+encodeURIComponent(cedulaEncript)+'" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a>'+
+    '<h1 class="title">Cuidador</h1>'+
+    '<div id="img-editar">'+
+
+    '</div>';
+    document.getElementById("navbar").innerHTML=ms;
     if(cuidadores==null){
         msg+=
             '<h3 id="sinCuidador"><i>"No hay un cuidador activo"</i></h3>'+

@@ -5,10 +5,12 @@ let listMedicamentos = async (medicamentos) => {
   let cont = 1;
 
   msg+='<div class="navbar" name="navbar" id="navbar">' +
-  '<a href="principal.html?cedula=' + cedulaEncript + '" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a>' +
+  '<a href="principal.html?cedula=' + encodeURIComponent(cedulaEncript) + '" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a>' +
   '<h1 class="title">Medicamentos</h1>' +
   '</div>'+        
       '<br>';
+  
+      if(medicamentos!=null){
   medicamentos.forEach((medicamento) => {
     msg +=
       '<div class="accordion-item">' +
@@ -100,6 +102,7 @@ let listMedicamentos = async (medicamentos) => {
       "</div>";
     cont++;
   });
+}
   document.getElementById("acordeon1").innerHTML = msg;
 
   ms+=
