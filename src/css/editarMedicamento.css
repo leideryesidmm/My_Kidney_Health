@@ -10,174 +10,196 @@ h3 {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-weight: bold;}
 
-.container{
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    max-width: 1000px;
-}
-.navbar {
-    background-color: #04BAFC;
-    margin: auto;
-    margin: 0;
-    padding: 0;
+    .container{
+      margin: 0;
+      padding: 0;
+      width: 100%;
   }
-  
-  .title {
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-    margin-right: 110px;
-  }
-  
-  #icono {
-    width: 30px;
-      height: 30px;
-  }
-  
-  .navbar img{
-    height: 30px;
-    margin: 0;
-    padding: 0;
-    width: 30px;
-    margin-left: 20px;
-  }
-
-.navbar h1{
-    align-items: center;
-}
-
-.name, 
-.descripcion,
-.via,
-.concentration,
-.fechaIni,
-.fechaFin,
-.toma,
-.dosisMed,
-.intervalos{
-    height: fit-content;
-    padding: 10px;
-}
-
-.name input[type="text"],
-.descripcion input[type="text"],
-.via input[type="text"],
-.concentration input[type="text"],
-.fechaIni input[type="date"],
-.fechaFin input[type="date"],
-.toma input[type="text"],
-.dosisMed input[type="text"],
-.intervalos input[type="text"]{
-    padding: 5px;
-  }
-  
-
-
-.name input[type="text"],
-.via input[type="text"],
-.descripcion input[type="text"],
-.concentration input[type="text"],
-.fechaIni input[type="date"],
-.fechaFin input[type="date"],
-.toma input[type="text"],
-.dosisMed input[type="text"],
-.intervalos input[type="text"]{
-    border-bottom: 1px solid gray;
-    transition: border-bottom-color 0.3s;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    content: "";
-  }
-
-.name input[type="text"]:focus,
-.via input[type="text"]:focus,
-.descripcion input[type="text"]:focus,
-.concentration input[type="text"]:focus,
-.fechaIni input[type="date"]:focus,
-.fechaFin input[type="date"]:focus,
-.toma input[type="text"]:focus,
-.dosisMed input[type="text"]:focus,
-.intervalos input[type="text"]:focus{
-    border-bottom-color: transparent;
-    outline: none;
-    content: "";
-  }
-
- 
-  
-  .contentform {
-    display: flex;
-    flex-direction: column;
-    width: 90%;
-    margin-left: 5%;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 10px;
-}
-
-.row {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: stretch;
-}
-
-.col {
-    flex-basis: 0;
-    flex-grow: 1;
-    max-width: 100%;
-}
-
-label {
-    min-width: 200px;
-}
-
-input {
-    flex: 1;
-}
-
-.btn-container {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 10px;
-    margin-right: 5%;
-}
-
-.btn-container a {
-    margin-left: 5%;
-}
-
-.btn-cancelar{
+  .navbar {
+      background-color: #04BAFC;
+      margin: auto;
+      margin: 0;
+      padding: 0;
+    }
     
-        background-color: #00DBA1;
-        color: #fff;
-        border: none;
-        cursor: pointer;
-        padding: 3px 20px;
-        font-size: 15px;
-        font-family: 'Jost', sans-serif;
-        border-radius: 5px;
-        text-decoration: none;
-        
-}
+    .title {
+      color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 6.5px;
+      margin-right: 110px;
+    }
 
-.btn-nuevo{
-    background-color: #04BAFC;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    padding: 3px 20px;
-    font-size: 15px;
-    font-family: 'Jost', sans-serif;
-    border-radius: 5px;
-    text-decoration: none;
-}
+    #icon {
+      width: 30px;
+        height: 30px;
+        margin-top: 6px;
+      padding: 0;
+      margin-left: 20px;
+    }
+    
+    #icono {
+      width: 30px;
+        height: 30px;
+    }
+    
+    .navbar img{
+      height: 30px;
+      margin: 0;
+      padding: 0;
+      width: 30px;
+      margin-left: 20px;
+    }
+  
+  .navbar h1{
+      align-items: center;
+  }
+  
+  #selectVias{
+      text-align: center;
+      background-color: #cfcaca;
+      width: 162px;
+      height: 35px;
+      border-radius: none;
+      border: none;
+  }
+  
+  .name, 
+  .descripcion,
+  .via,
+  .concentration,
+  .fechaIni,
+  .fechaFin,
+  .toma,
+  .dosisMed,
+  .intervalos{
+      height: fit-content;
+      padding: 10px;
+  }
+  
+  .name input[type="text"],
+  .descripcion input[type="text"],
+  .via input[type="text"],
+  .concentration input[type="number"],
+  .fechaIni input[type="date"],
+  .fechaFin input[type="date"],
+  .toma input[type="number"],
+  .dosisMed input[type="number"],
+  .intervalos input[type="number"]{
+      padding: 5px;
+    }
+    
+  
+  
+  .name input[type="text"],
+  .via input[type="text"],
+  .descripcion input[type="text"],
+  .concentration input[type="number"],
+  .fechaIni input[type="date"],
+  .fechaFin input[type="date"],
+  .toma input[type="number"],
+  .dosisMed input[type="number"],
+  .intervalos input[type="number"]{
+      border-bottom: 1px solid gray;
+      transition: border-bottom-color 0.3s;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      content: "";
+    }
+    .close{
+      border: none;
+      border-radius: 80%;
+      background-color: #ffffff;
+      opacity: 1;
+    }
+  .name input[type="text"]:focus,
+  .via input[type="text"]:focus,
+  .descripcion input[type="text"]:focus,
+  .concentration input[type="number"]:focus,
+  .fechaIni input[type="date"]:focus,
+  .fechaFin input[type="date"]:focus,
+  .toma input[type="number"]:focus,
+  .dosisMed input[type="number"]:focus,
+  .intervalos input[type="number"]:focus{
+      border-bottom-color: transparent;
+      outline: none;
+      content: "";
+    }
+  
+   
+    
+    .contentform {
+      display: flex;
+      flex-direction: column;
+      width: 95%;
+      margin-left: 5%;
+  }
+  
+  .form-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 10px;
+  }
+  
+  .row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: stretch;
+  }
+  
+  .col {
+      flex-basis: 0;
+      flex-grow: 1;
+      max-width: 100%;
+  }
+  
+  label {
+      min-width: 200px;
+  }
+  
+  input {
+      flex: 1;
+  }
+  
+  .btn-container {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 10px;
+      margin-right: 5%;
+  }
+  
+  .btn-container a {
+      margin-left: 5%;
+  }
+  
+  .btn-cancelar{
+      
+          background-color: #00DBA1;
+          color: #fff;
+          border: none;
+          cursor: pointer;
+          padding: 3px 20px;
+          font-size: 15px;
+          font-family: 'Jost', sans-serif;
+          border-radius: 5px;
+          text-decoration: none;
+          margin-right: 3%;        
+  }
+  
+  .btn-nuevo{
+      background-color: #04BAFC;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      padding: 3px 20px;
+      font-size: 15px;
+      font-family: 'Jost', sans-serif;
+      border-radius: 5px;
+      text-decoration: none;
+      margin-left: 1%;
+  }
 
 
 @media only screen and (max-width: 768px) {

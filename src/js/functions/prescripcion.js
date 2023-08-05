@@ -4,7 +4,7 @@ let mostrarPrescripcion= async (prescripcion) => {
      msg +=
      '<header>'+
     '<div class="navbar" name="navbar" id="navbar">'+
-    '<a href="principal.html?cedula=' + encodeURIComponent(cedulaEncript) + '" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a>'+
+    '<a href="principal.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a>'+
           '<h1 class="title-prescripcion">Prescripción</h1>'+
 '</div>'+
 '</header>'+

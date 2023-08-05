@@ -19,26 +19,35 @@ body{
   align-items: center; 
 }
 
+.sinMedicamentos{
+  color: red;
+  font-style: italic;
+  text-align: center;
+}
+
 .title {
   color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 auto;
-  margin-right: 80px;
+  margin: 3.5px;
+  margin-right: 105px;
 }
 
 #icono {
-  width: 30px;
-    height: 30px;
+  width: 40px;
+    height: 40px;
 }
 
-.navbar img{
-  height: 30px;
-  margin: 0;
-  padding: 0;
+
+
+#icon {
   width: 30px;
+    height: 30px;
+    margin-top: 6px;
+  padding: 0;
   margin-left: 20px;
+  
 }
 
 .btn-nuevo-container {
@@ -132,8 +141,8 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
 }
 
 

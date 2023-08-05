@@ -35,7 +35,17 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 6.5px;
   margin-right: 110px;
+}
+
+.title-alergias{
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 3.5px;
+  margin-right: 120px;
 }
 
 .title-principal-app{
@@ -43,8 +53,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 6.5px;
   margin: 0 auto;
-  margin-right: 85px;
+  margin-right: 49px;
 }
 
 #icono {
@@ -52,13 +63,16 @@ body {
     height: 40px;
 }
 
-.navbar img{
-  height:20px;
-  margin: 0;
+#icon {
+  width: 30px;
+    height: 30px;
+    margin-top: 5px;
+    margin-bottom: 10px;
   padding: 0;
-  width: 20px;
-  margin-left: 20px;
+  margin-left: 10px;
+  
 }
+
 
 header {
   width: 100%;
@@ -162,11 +176,16 @@ h5 {
 }
 
 .navbar input{
+  height:20px;
+  margin: 0;
+  padding: 0;
+  float: left;
   width: 40px;
   height: 40px;
   background-color: #04BAFC;
   border-radius: 50%;
-  margin-left: 30px;
+  margin-right: 20px;
+  
 }
 
 #derecho {
@@ -247,8 +266,8 @@ tbody:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 auto;
-  margin-right: 80px;
+  margin: 3.5px;
+  margin-right: 100px;
 }
 
 .title-prescripcion{
@@ -256,5 +275,26 @@ tbody:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 105px;
+  margin: 3.5px;
+  margin-right: 120.5px;
 }
+
+.devolverse{
+    width: 30px;
+      height: 30px;
+    margin-left: 20px;
+  }
+
+  .devolverseRecambio{
+    width: 30px;
+    height: 30px;
+  margin-left: 20px;
+  margin-top: 10px;
+  }
+
+  .devolverseAlergia{
+    width: 30px;
+      height: 30px;
+    margin-left: 20px;
+  }
+

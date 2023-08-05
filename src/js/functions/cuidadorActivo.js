@@ -3,7 +3,7 @@ let cuidadorPrincipal=async(cuidadores, cuidAntiguos)=>{
     console.log(cuidadores);
     cuidAntiguos=await cuidAntiguos;
     let msg="";
-    let ms='<a href="perfil.html?cedula='+encodeURIComponent(cedulaEncript)+'" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a>'+
+    let ms='<a href="perfil.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a>'+
     '<h1 class="title">Cuidador</h1>'+
     '<div id="img-editar">'+
 
