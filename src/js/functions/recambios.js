@@ -5,7 +5,7 @@ let listRecambios = async (recambios) => {
 
     msg+=
     '<div class="navbar" name="navbar" id="navbar">'+
-    '<a href="principal.html?cedula=' + encodeURIComponent(cedulaEncript) + '" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a>'+
+    '<a href="principal.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icon"></a>'+
             '<h1 class="title-recambio">Mis Recambios</h1>'+
     '</div>'+
     '<br>';

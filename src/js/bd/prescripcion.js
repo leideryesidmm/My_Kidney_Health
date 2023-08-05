@@ -1,8 +1,5 @@
 let servidorAPI="http://localhost:8081/";
-const urlParams = new URLSearchParams(window.location.search);
-    var cedulaEncript = urlParams.get('cedula');
-    cedulaEncript=decodeURIComponent(cedulaEncript)
-    //console.log(cedulaEncript)
+const cedulaEncript = decodeURIComponent(localStorage.getItem("cedula"));
     const cedula = CryptoJS.AES.decrypt(cedulaEncript, 'clave_secreta').toString(CryptoJS.enc.Utf8);
     //console.log(cedula);
 var cedulaEncriptada= "";

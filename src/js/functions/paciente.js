@@ -8,7 +8,7 @@ let perfil=async()=>{
 if(paciente!=null){
     msg+=
     '<div class="navbar" name="navbar" id="navbar">'+
-            '<a href="principal.html?cedula=' + encodeURIComponent(cedulaEncript) + '" " class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a>'+
+    '<a href="principal.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icon"></a>' +
             '<h1 class="title">Mi Perfil</h1>'+
             
         '</div>'+ 
@@ -112,11 +112,11 @@ if(alergia!=null && alergia !== ""){
             '</p>'+ 
     '</div>'+
     '<br>'+
-    '<a href="alergias.html?cedula=' + encodeURIComponent(cedulaEncript) + '"class="alerg-nueva" >Agregar Alergia</a>'+
+    '<a href="alergias.html"class="alerg-nueva" >Agregar Alergia</a>'+
     '<br>';
 }
 else{
-    msg+='<br><a href="alergias.html?cedula=' + encodeURIComponent(cedulaEncript) + '"class="alerg-nueva" >Agregar Alergia</a>'+
+    msg+='<br><a href="alergias.html"class="alerg-nueva" >Agregar Alergia</a>'+
     '<br>';
 }
 if(cuidador!=null && cuidador !== ""){
@@ -135,7 +135,7 @@ if(cuidador!=null && cuidador !== ""){
     '</div>'+
     '<div class="col-2">'+
         '<div class="addCuidador">'+
-        '<a href="cuidador.html?cedula=' + encodeURIComponent(cedulaEncript) + '"><img src="../img/irCuidador.png" alt="Agregar Cuidador" /></a>'+
+        '<a href="cuidador.html"><img src="../img/irCuidador.png" alt="Agregar Cuidador" /></a>'+
     '</div>'+
         '</div>'+
     '</div>'+
@@ -159,7 +159,7 @@ if(cuidador!=null && cuidador !== ""){
 '</div>';
 }
 else{
-    msg+='<br><a href="cuidador.html?cedula=' + encodeURIComponent(cedulaEncript) + '"class="alerg-nueva" >Agregar Cuidador</a>';
+    msg+='<br><a href="cuidador.html"class="alerg-nueva" >Agregar Cuidador</a>';
 }
 document.getElementById("perfil").innerHTML = msg;
 }

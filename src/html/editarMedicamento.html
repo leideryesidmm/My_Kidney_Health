@@ -12,20 +12,23 @@
 
 </head>
 <body>
-    <div class="container">
+    
         <div class="navbar" name="navbar" id="navbar">
+            <a href="medicamento.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icon"></a>
             <h1 class="title">Medicamentos</h1>
         </div>
+        <br>
 <h3>Editar Medicamento</h3>
+<div class="container">
         <div class="contentform">
         <div class="form-group">
             <input type="number" id="idMedicamento" hidden>
             <div class="name">
                 <div class="row">
-                    <div class="col">
+                    <div class="col-5">
                 <label for="nameMed">Medicamento:</label>
             </div>
-            <div class="col">
+            <div class="col-7">
                 <input type="text" name="medicamento" id="medicamento" class="medicamento">
             </div>
         </div>
@@ -33,10 +36,10 @@
 
             <div class="descripcion">
                 <div class="row">
-                    <div class="col">
+                    <div class="col-5">
                 <label for="descMed">Descripción:</label>
             </div>
-            <div class="col">
+            <div class="col-7">
                 <input type="text" name="descripcion" value="hola" id="descripcion" class="descripcion">
             </div>
         </div>
@@ -44,10 +47,10 @@
 
     <div class="via">
         <div class="row">
-            <div class="col">
+            <div class="col-5">
         <label for="viaMed">Vía Administración:</label>
     </div>
-    <div class="col">
+    <div class="col-7">
         <select id="selectVias" required></select>
     </div>
 </div>
@@ -55,10 +58,10 @@
 
             <div class="concentration">
                 <div class="row">
-                    <div class="col">
+                    <div class="col-5">
                 <label for="concent">Concentración:</label>
             </div>
-            <div class="col">
+            <div class="col-7">
                 <input type="number" name="concentracion" id="concentracion" class="concentracion">
             </div>
         </div>
@@ -66,10 +69,10 @@
 
             <div class="fechaIni">
                 <div class="row">
-                    <div class="col">
+                    <div class="col-5">
                 <label for="fechaInicio">Fecha Inicio:</label>
             </div>
-            <div class="col">
+            <div class="col-7">
                 <input type="date" name="fecha_inicio" id="fecha_inicio" class="fecha_inicio">
             </div>
         </div>
@@ -77,10 +80,10 @@
 
             <div class="fechaFin">
                 <div class="row">
-                    <div class="col">
+                    <div class="col-5">
                 <label for="fechaF">Fecha Finalización:</label>
             </div>
-            <div class="col">
+            <div class="col-7">
                 <input type="date" name="fecha_fin" id="fecha_fin" class="fecha_fin">
             </div>
         </div>
@@ -88,10 +91,10 @@
 
             <div class="toma">
                 <div class="row">
-                    <div class="col">
+                    <div class="col-5">
                 <label for="tomaMed">Tomas diarias:</label>
             </div>
-            <div class="col">
+            <div class="col-7">
                 <input type="number" name="tomas" id="tomas" class="tomas">
             </div>
         </div>
@@ -99,10 +102,10 @@
 
             <div class="dosisMed">
                 <div class="row">
-                    <div class="col">
+                    <div class="col-5">
                 <label for="dosis">Dosis:</label>
             </div>
-            <div class="col">
+            <div class="col-7">
                 <input type="number" name="dosis" id="dosis" class="dosis">
             </div>
         </div>
@@ -110,10 +113,10 @@
 
             <div class="intervalos">
                 <div class="row">
-                    <div class="col">
+                    <div class="col-5">
                 <label for="intervalo">Tiempo entre tomas:</label>
                 </div>
-            <div class="col">
+            <div class="col-7">
                 <input type="number" name="intervalos_tiempo" id="intervalos_tiempo" class="intervalos_tiempo">
             </div>
         </div>
@@ -147,7 +150,7 @@
           </div>
         </div>
       </div>
-
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
     <script src="../js/bd/medicamento.js">
  
     </script>
