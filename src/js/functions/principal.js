@@ -1,7 +1,7 @@
 let principal =()=>{
     const urlParams = new URLSearchParams(window.location.search);
     const cedulaEncript = urlParams.get('cedula');
-    console.log(cedulaEncript);
+    //console.log(cedulaEncript);
         let msg="";
 
     msg+=   

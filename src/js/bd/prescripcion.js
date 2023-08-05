@@ -2,9 +2,9 @@ let servidorAPI="http://localhost:8081/";
 const urlParams = new URLSearchParams(window.location.search);
     var cedulaEncript = urlParams.get('cedula');
     cedulaEncript=decodeURIComponent(cedulaEncript)
-    console.log(cedulaEncript)
+    //console.log(cedulaEncript)
     const cedula = CryptoJS.AES.decrypt(cedulaEncript, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-    console.log(cedula);
+    //console.log(cedula);
 var cedulaEncriptada= "";
 
 let prescripciones= async()=>{
@@ -18,7 +18,7 @@ let prescripciones= async()=>{
 });
     const prescripcion=await peticion.json();
     
-    console.log(prescripcion)
+    //console.log(prescripcion)
 return prescripcion;
 }
 
@@ -155,17 +155,20 @@ let crearRecambio = async () => {
      
   }
 
-  /*let recambiosHechos=async()=>{
+  let recambiosHechos=async()=>{
+    let ced=await obtenerCedulaEncriptada();
+    console.log(ced)
     const peticion= await fetch (servidorAPI+"paciente/recambio/findRecambioHechoByPaciente",{
       method: 'POST',
-      body: JSON.stringify({"cedula":obtenerCedulaEncriptada()}),
+      body: JSON.stringify({"cedula":ced}),
       headers: {
         "Accept":"application/json",
         "Content-Type":"application/json"
       }
     })
     let recambiosHechos2=await peticion.json()
+    console.log(recambiosHechos2);
         return recambiosHechos2
-  }*/
+  }
 
 
