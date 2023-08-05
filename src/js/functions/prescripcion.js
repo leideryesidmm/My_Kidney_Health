@@ -1,4 +1,5 @@
 let mostrarPrescripcion= async (prescripcion) => {
+    localStorage.setItem('prescripcionActual', JSON.stringify(await prescripcionDiaHoy(prescripcion)));
     prescripcion=await prescripcion;
     let msg="";
      msg +=
@@ -19,7 +20,7 @@ let mostrarPrescripcion= async (prescripcion) => {
     +'<label for="concentracion">Concentraciones: ';
     let msg2=""
     prescripcion.unionPrescripcionDiasRecambios[0].recambios.forEach(recambio => {
-    msg+=recambio.concentración+' - ';
+    msg+=recambio.concentracion+' - ';
     msg2+=recambio.intervaloTiempo+' - ';
     });
     msg=msg.substring(0, msg.length - 3);
@@ -36,7 +37,6 @@ let mostrarPrescripcion= async (prescripcion) => {
     prescripcion.unionPrescripcionDiasRecambios.forEach((dias)=>{
         msg+='<div class="container">'
         +'<div class="row text-center">';
-console.log(dias)
          msg += `<div class="col-2"><span class="badge ${dias.prescripcionDia.lunes ? 'bg-success' : 'bg-secondary'}">Lu</span></div>`
         + `<div class="col-2"><span class="badge ${dias.prescripcionDia.martes ? 'bg-success' : 'bg-secondary'}">Ma</span></div>`
         + `<div class="col-2"><span class="badge ${dias.prescripcionDia.miercoles ? 'bg-success' : 'bg-secondary'}">Mi</span></div>`
@@ -57,14 +57,62 @@ console.log(dias)
         dias.recambios.forEach(recambio => {
         msg+='  <tr>'
         +'    <td>'+cont+'</th>'
-        +'    <td>'+recambio.concentración+'</th>'
+        +'    <td>'+recambio.concentracion+'</th>'
         +'    <td>'+recambio.intervaloTiempo+'</th>'
         +'  </tr>'
         });
         msg+='</tbody>'
         +'</table>'
         +'</div> <br>';
+    
     })
     document.getElementById("prescri").innerHTML=msg;
     }
 }
+let prescripcionDiaHoy= async (prescripcion) =>{
+    prescripcion=await prescripcion;
+    let dias=["lunes","martes","miercoles","jueves","viernes","sabado"]
+    const tiempoTranscurrido = Date.now();
+    const hoy = new Date(tiempoTranscurrido);
+    let prescripcionDiaHoy1;
+    prescripcion.unionPrescripcionDiasRecambios.forEach(prescripcionDia => {
+        if(prescripcionDia.prescripcionDia[dias[hoy.getDay()-1]]==true){
+            prescripcionDiaHoy1= prescripcionDia;
+        }
+    });
+    document.getElementById("fechaP").innerText=prescripcion.cita.fecha.split("T")[0]
+    return prescripcionDiaHoy1
+
+}
+
+let tablaRecambios=async(recambios)=>{
+    recambios=await recambios;
+    
+    let msg='<table class="table table-bordered" id="recambioTable">'
+    +'<thead>'
+    +'  <tr>'
+    +'    <th>Inicio</th>'
+    +'    <th>Final</th>'
+    +'    <th>Concentración</th>'
+    +'    <th>Drenaje</th>'
+    +'  </tr>'
+    +'</thead>'
+    +'<tbody id="seguimientoData">';
+    recambios.forEach(recambio => {
+    msg+='  <tr>'
+    +'    <td style="font-size:70%">'+recambio.fecha.split("T")[0]+' \n '+recambio.fecha.split("T")[1]+'</th>'
+    +'    <td style="font-size:70%">'+recambio.hora.split("T")[0]+' \n '+recambio.fecha.split("T")[1]+'</th>'
+    +'    <td style="font-size:90%">'+recambio.recambio.concentracion+'</th>'
+    +'    <td style="font-size:90%">'+CryptoJS.AES.decrypt(recambio.drenajeDialisis, 'clave_secreta').toString(CryptoJS.enc.Utf8);+'</th>'
+    +'  </tr>';
+    });
+    
+    msg+='</tbody>'
+    +'</table>';
+    document.getElementById("recamTable").innerHTML=msg;
+    new DataTable('#recambioTable', {
+        language: {
+            url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json',
+        },
+    })
+  }
