@@ -13,6 +13,14 @@ body{
     max-width: 1000px;
 }
 
+#btnguardar {
+  background-color: #89898f;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 
 #icono {
