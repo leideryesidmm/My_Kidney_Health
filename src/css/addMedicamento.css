@@ -30,6 +30,13 @@ h3 {
     margin: 0 auto;
     margin-right: 110px;
   }
+  #icon {
+    width: 30px;
+      height: 30px;
+      margin-top: 6px;
+    padding: 0;
+    margin-left: 20px;
+  }
   
   #icono {
     width: 30px;

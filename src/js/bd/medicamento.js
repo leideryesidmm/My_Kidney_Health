@@ -1,21 +1,57 @@
 let servidorAPI="http://localhost:8081/";
-const urlParams = new URLSearchParams(window.location.search);
-    const cedulaEncript = urlParams.get('cedula');
+const cedulaEncript = decodeURIComponent(localStorage.getItem("cedula"));
+console.log(cedulaEncript);
     const cedula = CryptoJS.AES.decrypt(cedulaEncript, 'clave_secreta').toString(CryptoJS.enc.Utf8);
 var cedulaEncriptada= "";
 
 
 let listarMedicamentos= async()=>{
-    const peticion= await fetch(servidorAPI+"paciente/medicamento/findMedicamentoByPaciente/"+cedula,{
-      method:"GET",
+  const medDesencriptados = new Set();
+  let pacienteInDto={
+    cedula:cedulaEncript
+  }
+    const peticion= await fetch(servidorAPI+"paciente/medicamento/findMedicamentoByPaciente",{
+      method:"POST",
       headers:{
         "Accept":"application/json",
         "Content-Type":"application/json"
-      }
+      },
+      body:JSON.stringify(pacienteInDto)
 });
     const medicamentos=await peticion.json();
-console.log(medicamentos);
-return medicamentos;
+
+    medicamentos.forEach(medicamento=>{
+      let concentracionDesencriptada=CryptoJS.AES.decrypt(medicamento.concentracion, "clave_secreta").toString(CryptoJS.enc.Utf8);
+      let descripcionDesencriptada=CryptoJS.AES.decrypt(medicamento.descripcion, "clave_secreta").toString(CryptoJS.enc.Utf8);
+      let dosis=medicamento.dosis;
+      let fechaIni= medicamento.fechaIni.split("T")[0];
+      let fechaFin= medicamento.fechaFin.split("T")[0];
+      let intervaloDesencriptado=medicamento.intervaloTiempo;
+      let nombreDesencriptado=CryptoJS.AES.decrypt(medicamento.nombre, "clave_secreta").toString(CryptoJS.enc.Utf8);
+      let tomasDesencriptadas=medicamento.tomas;
+      let viaAdministracionDesencriptada=medicamento.viaAdministracion.descripcion;
+      let idFormulaMedicamento=medicamento.idFormulaMedicamento;
+
+      const medicamentosDesencriptados={
+        concentracion:concentracionDesencriptada,
+        descripcion:descripcionDesencriptada,
+        dosis:dosis,
+        fechaIni:fechaIni,
+        fechaFin:fechaFin,
+        intervaloTiempo:intervaloDesencriptado,
+        nombre:nombreDesencriptado,
+        tomas:tomasDesencriptadas,
+        via_Administracion:viaAdministracionDesencriptada,
+        idFormulaMedicamento:idFormulaMedicamento
+      }
+
+      medDesencriptados.add(JSON.stringify(medicamentosDesencriptados));
+      })
+      let medicamentosArreglo=Array.from(medDesencriptados).map(medicamento => JSON.parse(medicamento));
+
+  
+console.log(medicamentosArreglo);
+return medicamentosArreglo;
 }
 
 let cuidadorActivo= async()=>{
@@ -91,12 +127,20 @@ let encontrarMedicamento=async()=>{
     }
   });
 
+  
+
   const medicamento=await peticion.json();
   console.log(medicamento);
+
+  let concentracionDesencriptada=CryptoJS.AES.decrypt(medicamento.concentracion, "clave_secreta").toString(CryptoJS.enc.Utf8);
+  let descripcionDesencriptada=CryptoJS.AES.decrypt(medicamento.descripcion, "clave_secreta").toString(CryptoJS.enc.Utf8);
+  let nombreDesencriptado=CryptoJS.AES.decrypt(medicamento.nombre, "clave_secreta").toString(CryptoJS.enc.Utf8);
+
+
   document.getElementById("idMedicamento").value=medicamento.idFormulaMedicamento;
-  document.getElementById("medicamento").value=medicamento.nombre;
-  document.getElementById("descripcion").value=medicamento.descripcion;
-  document.getElementById("concentracion").value=medicamento.concentracion;
+  document.getElementById("medicamento").value=nombreDesencriptado;
+  document.getElementById("descripcion").value=descripcionDesencriptada;
+  document.getElementById("concentracion").value=concentracionDesencriptada;
   let fechaDefecto = new Date(medicamento.fechaIni);
   let fechaFormateada = fechaDefecto.toISOString().split('T')[0];
   document.getElementById("fecha_inicio").value=fechaFormateada;
@@ -106,23 +150,33 @@ let encontrarMedicamento=async()=>{
   document.getElementById("tomas").value=medicamento.tomas;
   document.getElementById("dosis").value=medicamento.dosis;
   document.getElementById("intervalos_tiempo").value=medicamento.intervaloTiempo;
-  document.getElementById("selectVias").selectedIndex=medicamento.viaAdministracion.idViaAdministracion;
+  console.log(medicamento.viaAdministracion.idViaAdministracion);
+  const selectVias = document.getElementById("selectVias");
+  selectVias.value = medicamento.viaAdministracion.idViaAdministracion;
 
 
 }
 //formulaMedicamento/actualizar/{id_formula_medicamento}
 let actualizarMedicamento=async ()=> {
   let idFormulaMedicamento=document.getElementById("idMedicamento").value
-  console.log(idFormulaMedicamento)
+  console.log(idFormulaMedicamento);
+
+  let concentracion=document.getElementById("concentracion").value;
+  let descripcion=document.getElementById("descripcion").value;
+  let nombre=document.getElementById("medicamento").value;
+
+  let concentracionEncriptada=CryptoJS.AES.encrypt(concentracion, "clave_secreta").toString();
+  let descripcionEncriptada=CryptoJS.AES.encrypt(descripcion, "clave_secreta").toString();
+  let nombreEncriptado=CryptoJS.AES.encrypt(nombre, "clave_secreta").toString();
   let formulamedicamento={
-      "concentracion": document.getElementById("concentracion").value,
-      "descripcion": document.getElementById("descripcion").value,
+      "concentracion": concentracionEncriptada,
+      "descripcion": descripcionEncriptada,
       "dosis": document.getElementById("dosis").value,
       "fechaFin": document.getElementById("fecha_fin").value+"T00:00:00.001Z",
       "fechaIni": document.getElementById("fecha_inicio").value+"T00:00:00.001Z",
       "intervaloTiempo": document.getElementById("intervalos_tiempo").value,
-      "nombre": document.getElementById("medicamento").value,
-      "paciente": cedula,
+      "nombre": nombreEncriptado,
+      "paciente": cedulaEncript,
       "tomas": document.getElementById("tomas").value,
       "via_Administracion": document.getElementById("selectVias").value
   }
@@ -182,17 +236,24 @@ let eliminarMedicamento=async (idMedicamento)=> {
 }
 
 let crearMedicamento=async ()=> {
+
+  let concentracion=document.getElementById("concentracion").value;
+  let descripcion=document.getElementById("descripcion").value;
+  let nombre=document.getElementById("medicamento").value;
+console.log(concentracion);
+  let concentracionEncriptada=CryptoJS.AES.encrypt(concentracion,"clave_secreta").toString();
+  let descripcionEncriptada=CryptoJS.AES.encrypt(descripcion,"clave_secreta").toString();
+  let nombreEncriptado=CryptoJS.AES.encrypt(nombre,"clave_secreta").toString();
   
   let formulamedicamento={
-      "concentracion": document.getElementById("concentracion").value,
-      "descripcion": document.getElementById("descripcion").value,
+      "concentracion": concentracionEncriptada,
+      "descripcion": descripcionEncriptada,
       "dosis": document.getElementById("dosis").value,
       "fechaFin": document.getElementById("fecha_fin").value+"T00:00:00.001Z",
       "fechaIni": document.getElementById("fecha_inicio").value+"T00:00:00.001Z",
       "intervaloTiempo": document.getElementById("intervalos_tiempo").value,
-      "nombre": document.getElementById("medicamento").value,
+      "nombre": nombreEncriptado,
       "paciente": cedulaEncript,
-      
       "tomas": document.getElementById("tomas").value,
       "via_Administracion": document.getElementById("selectVias").value
   }

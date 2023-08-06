@@ -5,7 +5,7 @@ let listRecambios = async (recambios) => {
 
     msg+=
     '<div class="navbar" name="navbar" id="navbar">'+
-    '<a href="principal.html?cedula=' + encodeURIComponent(cedulaEncript) + '" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a>'+
+    '<a href="principal.html" class="devolverseRecambio"><img src="../img/devolverseColor.png" alt="" id="icon"></a>'+
             '<h1 class="title-recambio">Mis Recambios</h1>'+
     '</div>'+
     '<br>';
@@ -98,4 +98,19 @@ let listRecambios = async (recambios) => {
     });
     document.getElementById("acordeon1").innerHTML = msg;
   
+  }
+
+  let concentraciones= async () => {
+    let cardinalidad=["Primer Recambio","Segundo Recambio", "Tercer Recambio", "Cuarto Recambio", "Quinto Recambio"]
+    let cont=0;
+    prescripcionDia=JSON.parse(localStorage.getItem('prescripcionActual'));
+    let msg="";
+    msg+="<select class='form-select form-select-sm' aria-label='.form-select-lg example' id='selectConcentracion' required>"
+         +"<option value=''>Seleccione...</option>";
+         prescripcionDia.recambios.forEach(recambio => {
+          msg+="<option value='"+recambio.idRecambio+"'>"+cardinalidad[cont]+' ('+recambio.concentracion+"%)</option>";
+          cont++;
+    });
+       msg+="</select>";
+    document.getElementById("concentra").innerHTML=msg;
   }

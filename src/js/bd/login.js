@@ -29,13 +29,13 @@ function isAuthenticated() {
       console.log(contrasenia);
       console.log(username === decryptedCedula && password === contrasenia);
       if (username === decryptedCedula && password === contrasenia) {
-        
-        // Inicio de sesión exitoso, guardar el estado de autenticación en el almacenamiento local
+     
         localStorage.setItem("authenticated", "true");
         const cedula= encodeURIComponent(paciente.cedula)
+        localStorage.setItem("cedula", cedula);
         location.href="principal.html?cedula=" + cedula;
     console.log(username);
-        return username; // Salir del bucle si se encontró una coincidencia
+        return username;
       }
       
     })
@@ -46,21 +46,19 @@ function isAuthenticated() {
   
   // Función para manejar el cierre de sesión
   let logout=()=>{
-    const urlParams = new URLSearchParams(window.location.search);
-    const cedula = urlParams.get('cedula');
+    localStorage.removeItem("authenticated");
     location.href="login.html";
 
-    const logoutURL = "login.html" + (cedula ? "?cedula=" + cedula : "");
+   
 
-  location.href = logoutURL;
+  location.href ="login.html";
   }
   
   let onload = async () => {
-    if (!isAuthenticated()) {
-      const urlParams = new URLSearchParams(window.location.search);
-      const cedula = urlParams.get('cedula');
-  
-      const loginURL = "login.html" + (cedula ? "?cedula=" + cedula : "");
-      location.href = loginURL;
+    if (isAuthenticated()) { 
+      location.href = "principal.html";
+    }
+    else{
+      
     }
   }

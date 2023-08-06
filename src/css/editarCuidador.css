@@ -37,18 +37,14 @@ h3 {
 }
 
 .navbar h1{
-  align-items: center;
-  
-}
-
-.title{
   color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: auto;
+  margin: 3.5px;
   margin-right: 140px;
 }
+
 
 .name,
 .cc, 
