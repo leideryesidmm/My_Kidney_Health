@@ -1,4 +1,4 @@
-let servidorAPI="http://localhost:8081/";
+let servidorAPI = "http://localhost:8081/";
 
 function isAuthenticated() {
     return localStorage.getItem("authenticated") === "true";
@@ -32,8 +32,6 @@ function isAuthenticated() {
      
         localStorage.setItem("authenticated", "true");
         const cedula= encodeURIComponent(paciente.cedula)
-        const contrasenia= encodeURIComponent(paciente.contrasenia)
-        localStorage.setItem("contrasenia", contrasenia);
         localStorage.setItem("cedula", cedula);
         location.href="principal.html?cedula=" + cedula;
     console.log(username);
@@ -51,16 +49,16 @@ function isAuthenticated() {
     localStorage.removeItem("authenticated");
     location.href="login.html";
 
-   
 
-  location.href ="login.html";
+
+  location.href = "login.html";
+}
+
+let onload = async () => {
+  if (isAuthenticated()) {
+    location.href = "principal.html";
   }
-  
-  let onload = async () => {
-    if (isAuthenticated()) { 
-      location.href = "principal.html";
-    }
-    else{
-      
-    }
+  else {
+
   }
+}
