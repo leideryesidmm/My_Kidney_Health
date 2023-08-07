@@ -34,7 +34,7 @@ let obtenerCedulaEncriptada=async()=>{
 }
 
 let obtenerContraseniaEncriptada=async()=>{
-  const peticion= await fetch(servidorAPI+'Usuario/findAllUsuarios',{
+  const peticion= await fetch(localStorage.getItem("servidorAPI")+'Usuario/findAllUsuarios',{
     method:'GET',
     headers:{
       "Accept":"application/json",
@@ -58,7 +58,7 @@ let listarPacientes = async () => {
   let pacienteInDto = {
     cedula: cedulaEncriptada
   }
-    const peticion= await fetch(servidorAPI+"paciente/findPacienteByCedula",{
+    const peticion= await fetch(localStorage.getItem("servidorAPI")+"paciente/findPacienteByCedula",{
       method:"POST",
       headers: {
         "Accept":"application/json",
@@ -131,7 +131,7 @@ let alergias = async () => {
     cedula: cedulaEncriptada
   }
   let msgalergias="";
-    const peticion= await fetch(servidorAPI+"paciente/alergia/listByPaciente",{
+    const peticion= await fetch(localStorage.getItem("servidorAPI")+"paciente/alergia/listByPaciente",{
       method:"POST",
       headers:{
         "Accept":"application/json",
