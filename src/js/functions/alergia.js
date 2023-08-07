@@ -6,7 +6,7 @@ let listAlergias = async (alergias) => {
     console.log(alergias)
 
     ms+=
-       '<a href="perfil.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a>'+
+       '<a href="perfil.html" class="devolverseAlergia"><img src="../img/devolverseColor.png" alt="" id="icono"></a>'+
         '<h1 class="title-alergias">Mis Alergias</h1>';
     document.getElementById("navbar").innerHTML=ms;
     if (alergias.length == 0) {

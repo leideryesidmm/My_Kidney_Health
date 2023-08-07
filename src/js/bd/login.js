@@ -1,4 +1,4 @@
-let servidorAPI="http://localhost:8081/";
+let servidorAPI = "http://localhost:8081/";
 
 function isAuthenticated() {
     return localStorage.getItem("authenticated") === "true";
@@ -54,16 +54,16 @@ function isAuthenticated() {
     localStorage.removeItem("authenticated");
     location.href="login.html";
 
-   
 
-  location.href ="login.html";
+
+  location.href = "login.html";
+}
+
+let onload = async () => {
+  if (isAuthenticated()) {
+    location.href = "principal.html";
   }
-  
-  let onload = async () => {
-    if (isAuthenticated()) { 
-      location.href = "principal.html";
-    }
-    else{
-      
-    }
+  else {
+
   }
+}

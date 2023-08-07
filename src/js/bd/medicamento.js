@@ -150,7 +150,9 @@ let encontrarMedicamento=async()=>{
   document.getElementById("tomas").value=medicamento.tomas;
   document.getElementById("dosis").value=medicamento.dosis;
   document.getElementById("intervalos_tiempo").value=medicamento.intervaloTiempo;
-  document.getElementById("selectVias").selectedIndex=medicamento.viaAdministracion.idViaAdministracion;
+  console.log(medicamento.viaAdministracion.idViaAdministracion);
+  const selectVias = document.getElementById("selectVias");
+  selectVias.value = medicamento.viaAdministracion.idViaAdministracion;
 
 
 }
