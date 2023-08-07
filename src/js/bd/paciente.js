@@ -1,8 +1,12 @@
 let servidorAPI="http://localhost:8081/";
     const cedulaEncript = decodeURIComponent(localStorage.getItem("cedula"));
+    const contraseniaEncript = decodeURIComponent(localStorage.getItem("contrasenia"));
     console.log(cedulaEncript);
+    console.log(contraseniaEncript);
     const cedula = CryptoJS.AES.decrypt(cedulaEncript, 'clave_secreta').toString(CryptoJS.enc.Utf8);
 var cedulaEncriptada= "";
+const contraseña = CryptoJS.AES.decrypt(contraseniaEncript, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+console.log(contraseña);
 
 let obtenerCedulaEncriptada=async()=>{
   const peticion= await fetch(servidorAPI+'Medico/findAllPacientes',{

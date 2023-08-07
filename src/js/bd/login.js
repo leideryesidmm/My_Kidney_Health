@@ -32,6 +32,8 @@ function isAuthenticated() {
      
         localStorage.setItem("authenticated", "true");
         const cedula= encodeURIComponent(paciente.cedula)
+        const contrasenia= encodeURIComponent(paciente.contrasenia)
+        localStorage.setItem("contrasenia", contrasenia);
         localStorage.setItem("cedula", cedula);
         location.href="principal.html?cedula=" + cedula;
     console.log(username);
