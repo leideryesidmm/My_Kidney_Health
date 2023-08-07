@@ -17,7 +17,12 @@
 </head>
 
 <body>
-    <div id="presc"></div>
+  <div class="navbar" name="navbar" id="navbar">
+    <div class="col-2"></div>
+    <div class="col-8"><h1 class="title-principal-app">Kidney Health</h1></div>
+    <div class="col-2"><input type="image" class="logout" src="../img/logo3.png" onclick="logout()"></div>
+  </div>
+  <br>
 
   <div class="text-center">
     <h3>Prescripción Actual de la diálisis</h3>
@@ -31,20 +36,14 @@
     </div>
     
     
+  
   <br>
-  <div class="row" id="date">
-    <div class="col-6">
-      <label for="desde">Desde:&nbsp</label>
-      <input type="date" id="desde" name="" value="">
-    </div>
-    <div class="col-6">
-      <label for="hasta">Hasta:&nbsp</label>
-      <input type="date" id="hasta" name="" value="">
-    </div>
+  <div class="row">
+    <div class="col-1"></div>
+    <div class="col-10"><div id="recamTable"></div></div>
+    <div class="col-1"></div>
   </div>
-  <br>
-  <div id="recamTable">
-  </div>
+  
 
   <div class="row">
     <div class="col-10"></div>
@@ -64,6 +63,7 @@
     <script src="../js/functions/prescripcion.js"></script>
     <script src="../js/bd/prescripcion.js"></script>
   <script src="../js/functions/recambios.js"></script>
+  <script src="../js/bd/login.js"></script>
   <script>
   mostrarPrescripcion(prescripciones());
   tablaRecambios(recambiosHechos());

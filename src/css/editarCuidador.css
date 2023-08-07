@@ -195,3 +195,10 @@ input {
       width: 100%;
     }
   }
+  .close{
+    border: none;
+    border-radius: 80%;
+    background-color: #ffffff;
+    opacity: 1;  
+    font-size: 24px;
+  }

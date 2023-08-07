@@ -1,4 +1,3 @@
-let servidorAPI="http://localhost:8081/";
     const cedulaEncript = decodeURIComponent(localStorage.getItem("cedula"));
     const contraseniaEncript = decodeURIComponent(localStorage.getItem("contrasenia"));
 
@@ -15,7 +14,7 @@ console.log(contraseña);
 var contraseniaEncriptada;
 
 let obtenerCedulaEncriptada=async()=>{
-  const peticion= await fetch(servidorAPI+'Medico/findAllPacientes',{
+  const peticion= await fetch(localStorage.getItem("servidorAPI")+'Medico/findAllPacientes',{
     method:'GET',
     headers:{
       "Accept":"application/json",
@@ -37,7 +36,7 @@ let obtenerCedulaEncriptada=async()=>{
 }
 
 let obtenerContraseniaEncriptada=async()=>{
-  const peticion= await fetch(servidorAPI+'Usuario/findAllUsuarios',{
+  const peticion= await fetch(localStorage.getItem("servidorAPI")+'Usuario/findAllUsuarios',{
     method:'GET',
     headers:{
       "Accept":"application/json",
@@ -66,7 +65,7 @@ let listarPacientes= async()=>{
   let pacienteInDto={
     cedula:cedulaEncriptada
   }
-    const peticion= await fetch(servidorAPI+"paciente/findPacienteByCedula",{
+    const peticion= await fetch(localStorage.getItem("servidorAPI")+"paciente/findPacienteByCedula",{
       method:"POST",
       headers: {
         "Accept":"application/json",
@@ -79,9 +78,9 @@ let pacienteAct={}
 console.log(paciente)
     let nombreDesencriptado= CryptoJS.AES.decrypt(paciente.nombre,'clave_secreta').toString(CryptoJS.enc.Utf8);
     console.log(nombreDesencriptado);
-    let celularDesencriptado= CryptoJS.AES.decrypt(paciente.nombre,'clave_secreta').toString(CryptoJS.enc.Utf8);
-    let direccionDesencriptada= CryptoJS.AES.decrypt(paciente.nombre,'clave_secreta').toString(CryptoJS.enc.Utf8);
-    let epsDesencriptada= CryptoJS.AES.decrypt(paciente.nombre,'clave_secreta').toString(CryptoJS.enc.Utf8);
+    let celularDesencriptado= CryptoJS.AES.decrypt(paciente.celular,'clave_secreta').toString(CryptoJS.enc.Utf8);
+    let direccionDesencriptada= CryptoJS.AES.decrypt(paciente.direccion,'clave_secreta').toString(CryptoJS.enc.Utf8);
+    let epsDesencriptada= CryptoJS.AES.decrypt(paciente.eps,'clave_secreta').toString(CryptoJS.enc.Utf8);
     let peso= paciente.peso;
     let pesoSeco=paciente.pesoSeco;
     let tiposangre=CryptoJS.AES.decrypt(paciente.tipoSangre,'clave_secreta').toString(CryptoJS.enc.Utf8);
@@ -105,7 +104,7 @@ let cuidadorActivo= async()=>{
   let pacienteInDto={
     cedula:cedulaEncriptada
   }
-  const peticion = await fetch(servidorAPI + "paciente/cuidador/findCuidadorActivo", {
+  const peticion = await fetch(localStorage.getItem("servidorAPI") + "paciente/cuidador/findCuidadorActivo", {
     method: "POST",
     headers: {
       "Accept": "application/json",
@@ -141,7 +140,7 @@ let alergias= async()=>{
     cedula:cedulaEncriptada
   }
   let msgalergias="";
-    const peticion= await fetch(servidorAPI+"paciente/alergia/listByPaciente",{
+    const peticion= await fetch(localStorage.getItem("servidorAPI")+"paciente/alergia/listByPaciente",{
       method:"POST",
       headers:{
         "Accept":"application/json",
@@ -179,7 +178,7 @@ let cambioContrasenia= async()=> {
   const contraseniaAnteriorEncriptada = CryptoJS.AES.encrypt(contraseniaAnterior, 'clave_secreta').toString();
   const contraseniaEncriptada = CryptoJS.AES.encrypt(nuevaContrasenia, 'clave_secreta').toString();
 
-  fetch(servidorAPI + "Usuario/cambiar_contrasenia", {
+  fetch(localStorage.getItem("servidorAPI") + "Usuario/cambiar_contrasenia", {
       method: "PATCH",
       body: JSON.stringify({ cedula: cedulaEncriptada, contrasenia: contraseniaEncriptada }),
       headers: {

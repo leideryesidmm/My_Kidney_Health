@@ -1,10 +1,9 @@
-let servidorAPI = "http://localhost:8081/";
     const cedulaEncript = decodeURIComponent(localStorage.getItem("cedula"));
     const cedula = CryptoJS.AES.decrypt(cedulaEncript, 'clave_secreta').toString(CryptoJS.enc.Utf8);
 var cedulaEncriptada= "";
 
 let obtenerCedulaEncriptada = async () => {
-  const peticion = await fetch(servidorAPI + 'Medico/findAllPacientes', {
+  const peticion = await fetch(localStorage.getItem("servidorAPI") + 'Medico/findAllPacientes', {
     method: 'GET',
     headers: {
       "Accept": "application/json",
@@ -34,7 +33,7 @@ let crearAlergia = async () => {
     let paciente = { cedula: await obtenerCedulaEncriptada() };
     let unionPacienteAlergiaInDto = { alergiaInDto: alergia, pacienteInDto: paciente }
 
-    fetch(servidorAPI + "paciente/alergia/crear", {
+    fetch(localStorage.getItem("servidorAPI") + "paciente/alergia/crear", {
       method: "POST",
       body: JSON.stringify(unionPacienteAlergiaInDto),
       headers: {
@@ -59,8 +58,7 @@ let crearAlergia = async () => {
 
 let listarAlergias = async () => {
   cedulaEncriptada = await obtenerCedulaEncriptada();
-
-  const peticion = await fetch(servidorAPI + "paciente/alergia/listByPaciente", {
+  const peticion = await fetch(localStorage.getItem("servidorAPI") + "paciente/alergia/listByPaciente", {
     method: "POST",
     headers: {
       "Accept": "application/json",
@@ -87,7 +85,7 @@ let editarAlergia = async (id_alergia) => {
   nombreInput = document.getElementById('nombreEditar' + id_alergia).value;
   let encryptedNombre = CryptoJS.AES.encrypt(nombreInput, 'clave_secreta').toString();
 
-  fetch(servidorAPI + "paciente/alergia/editar/" + id_alergia, {
+  fetch(localStorage.getItem("servidorAPI") + "paciente/alergia/editar/" + id_alergia, {
     method: "PATCH",
     body: JSON.stringify({ nombre: encryptedNombre }),
     headers: {
@@ -116,7 +114,7 @@ let inhabilitarAlergia = async (id_alergia) => {
   let paciente = { cedula: await obtenerCedulaEncriptada() };
   let unionPacienteAlergiaInDto = { alergiaInDto: { idAlergia: id_alergia }, pacienteInDto: paciente }
 
-  fetch(servidorAPI + "paciente/alergia/inactivar", {
+  fetch(localStorage.getItem("servidorAPI") + "paciente/alergia/inactivar", {
     method: "PATCH",
     headers: {
       "Accept": "application/json",

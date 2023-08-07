@@ -1,4 +1,4 @@
-let servidorAPI="http://localhost:8081/";
+
 const cedulaEncript = decodeURIComponent(localStorage.getItem("cedula"));
 console.log(cedulaEncript);
     const cedula = CryptoJS.AES.decrypt(cedulaEncript, 'clave_secreta').toString(CryptoJS.enc.Utf8);
@@ -10,7 +10,7 @@ let listarMedicamentos= async()=>{
   let pacienteInDto={
     cedula:cedulaEncript
   }
-    const peticion= await fetch(servidorAPI+"paciente/medicamento/findMedicamentoByPaciente",{
+    const peticion= await fetch(localStorage.getItem("servidorAPI")+"paciente/medicamento/findMedicamentoByPaciente",{
       method:"POST",
       headers:{
         "Accept":"application/json",
@@ -55,7 +55,7 @@ return medicamentosArreglo;
 }
 
 let cuidadorActivo= async()=>{
-    const peticion= await fetch(servidorAPI+"paciente/cuidador/findCuidadorActivo/"+cedula,{
+    const peticion= await fetch(localStorage.getItem("servidorAPI")+"paciente/cuidador/findCuidadorActivo/"+cedula,{
       method:"GET",
       headers:{
         "Accept":"application/json",
@@ -71,7 +71,7 @@ let cuidadorActivo= async()=>{
 }
 
 let alergias= async()=>{
-    const peticion= await fetch(servidorAPI+"paciente/alergia/listByPaciente/"+cedula,{
+    const peticion= await fetch(localStorage.getItem("servidorAPI")+"paciente/alergia/listByPaciente/"+cedula,{
       method:"GET",
       headers:{
         "Accept":"application/json",
@@ -93,7 +93,7 @@ let alergias= async()=>{
 }
 
 let listarVias= async()=>{
-  const peticion= await fetch(servidorAPI+"paciente/medicamento/viaAdministracion",{
+  const peticion= await fetch(localStorage.getItem("servidorAPI")+"paciente/medicamento/viaAdministracion",{
     method:"GET",
     headers:{
       "Accept":"application/json",
@@ -119,7 +119,7 @@ let encontrarMedicamento=async()=>{
   const idFormulaMedicamento = params.get('idFormulaMedicamento');
   console.log(idFormulaMedicamento);
 
-  const peticion= await fetch(servidorAPI+"paciente/medicamento/findById/"+idFormulaMedicamento,{
+  const peticion= await fetch(localStorage.getItem("servidorAPI")+"paciente/medicamento/findById/"+idFormulaMedicamento,{
     method:"GET",
     headers:{
       "Accept":"application/json",
@@ -182,7 +182,7 @@ let actualizarMedicamento=async ()=> {
   }
   console.log(formulamedicamento)
 
-  fetch(servidorAPI+"paciente/formulaMedicamento/actualizar/"+idFormulaMedicamento,{
+  fetch(localStorage.getItem("servidorAPI")+"paciente/formulaMedicamento/actualizar/"+idFormulaMedicamento,{
     method:"PATCH",
     body: JSON.stringify(formulamedicamento),
     headers:{
@@ -209,7 +209,7 @@ let actualizarMedicamento=async ()=> {
 }
 
 let eliminarMedicamento=async (idMedicamento)=> {
-  fetch(servidorAPI+"paciente/medicamento/eliminar/"+idMedicamento,{
+  fetch(localStorage.getItem("servidorAPI")+"paciente/medicamento/eliminar/"+idMedicamento,{
     method:"DELETE",
     headers:{
       "Accept":"application/json",
@@ -258,7 +258,7 @@ console.log(concentracion);
       "via_Administracion": document.getElementById("selectVias").value
   }
   console.log(formulamedicamento)
-  fetch(servidorAPI+"paciente/Medicamento/crear/",{
+  fetch(localStorage.getItem("servidorAPI")+"paciente/Medicamento/crear/",{
     method:"POST",
     body: JSON.stringify(formulamedicamento),
     headers:{

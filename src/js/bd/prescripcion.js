@@ -1,11 +1,10 @@
-let servidorAPI="http://localhost:8081/";
 const cedulaEncript = decodeURIComponent(localStorage.getItem("cedula"));
     const cedula = CryptoJS.AES.decrypt(cedulaEncript, 'clave_secreta').toString(CryptoJS.enc.Utf8);
     //console.log(cedula);
 var cedulaEncriptada= "";
 
 let prescripciones= async()=>{
-    const peticion= await fetch(servidorAPI+"paciente/prescripcion/prescripcionActual",{
+    const peticion= await fetch(localStorage.getItem("servidorAPI")+"paciente/prescripcion/prescripcionActual",{
       method:"POST",
       body:JSON.stringify({cedula:await obtenerCedulaEncriptada(cedula)}),
       headers:{
@@ -20,7 +19,7 @@ return prescripcion;
 }
 
 let obtenerCedulaEncriptada=async()=>{
-  const peticion= await fetch(servidorAPI+'Medico/findAllPacientes',{
+  const peticion= await fetch(localStorage.getItem("servidorAPI")+'Medico/findAllPacientes',{
     method:'GET',
     headers:{
       "Accept":"application/json",
@@ -79,7 +78,7 @@ let crearRecambio = async () => {
       pacienteInDto:paciente
     }
 
-    fetch (servidorAPI+"paciente/prescripcion/crearRecambio",{
+    fetch (localStorage.getItem("servidorAPI")+"paciente/prescripcion/crearRecambio",{
       method: 'POST',
       headers: {
         "Accept":"application/json",
@@ -126,7 +125,7 @@ let crearRecambio = async () => {
       "fecha":fechayhoraIni,
       "hora":fechayhoraFin
     };
-    fetch (servidorAPI+"paciente/recambio/crearRecambioHecho",{
+    fetch (localStorage.getItem("servidorAPI")+"paciente/recambio/crearRecambioHecho",{
       method: 'POST',
       body: JSON.stringify(recambioHechoInDto),
       headers: {
@@ -155,7 +154,7 @@ let crearRecambio = async () => {
   let recambiosHechos=async()=>{
     let ced=await obtenerCedulaEncriptada();
     console.log(ced)
-    const peticion= await fetch (servidorAPI+"paciente/recambio/findRecambioHechoByPaciente",{
+    const peticion= await fetch (localStorage.getItem("servidorAPI")+"paciente/recambio/findRecambioHechoByPaciente",{
       method: 'POST',
       body: JSON.stringify({"cedula":ced}),
       headers: {
