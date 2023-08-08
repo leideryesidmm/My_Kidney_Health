@@ -62,10 +62,18 @@ function isAuthenticated() {
 }
 
 let onload = async () => {
+  
+  let pathname=window.location.pathname
   if (isAuthenticated()) {
-    location.href = "principal.html";
-  }
-  else {
+    console.log("yesAuthenticated")
+    if(pathname.includes("login.html")){
+      location.href = "principal.html";
+    }
+  }else{
+    console.log("noAuthenticated")
+    if(!pathname.includes("login.html")){
+      location.href="login.html";
+    }
 
   }
 }
