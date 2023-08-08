@@ -9,83 +9,55 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
     
         <div class="navbar" name="navbar" id="navbar">
-            <a href="perfil.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a>
-            <h1 class="title">Cuidador</h1>
+            
+            <div class="col-2"><a href="cuidador.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a></div>
+        <div class="col-8"><h1 class="title">Cuidador</h1></div>
+        <div class="col-2"></div>
         </div>
-        <div class="container">
-            <br>
-<h3>Editar Cuidador Activo</h3>
-        <div class="contentform">
-        <div class="form-group">
-            <form id="editarCuidador">
-            <div class="name">
-                <div class="row align-items-center">
-                    <div class="col-4">
-                        <label for="cuidador">Cuidador:</label>
-                    </div>
-                    <div class="col-8">
-                        <input type="text" name="nombre" id="name" class="nombre">
-                    </div>
-                </div>
-                
-                <div class="cc" hidden>
-                    <div class="row align-items-center">
-                        <div class="col-4">
-                            <label for="ced">Cédula:</label>
-                        </div>
-                        <div class="col-8">
-                            <input type="text" name="cedula_cuidador" id="cedulaCuidador" class="cedula_cuidador">
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="parents">
-                    <div class="row align-items-center">
-                        <div class="col-5">
-                            <label for="parentesc">Parentesco:</label>
-                        </div>
-                        <div class="col-7">
-                            <select id="selectedParentesco" required></select>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="address">
-                    <div class="row align-items-center">
-                        <div class="col-4">
-                            <label for="add">Dirección:</label>
-                        </div>
-                        <div class="col-8">
-                            <input type="text" name="direccion" id="address" class="direccion">
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="tlf">
-                    <div class="row align-items-center">
-                        <div class="col-4">
-                            <label for="tel">Teléfono:</label>
-                        </div>
-                        <div class="col-8">
-                            <input type="text" name="telefono" id="telf" class="telefono">
-                        </div>
-                    </div>
-                </div>
-                </div>
-</form>
-        </div>
-        </div>
-
+        
+<div class="form-container">
+    <h5>Editar Cuidador</h5>
+<form id="editarCuidador">
+    <div class="cc" hidden>
+        <label for="cedulaCuidador">Cuidador:</label>
+        <input type="text" name="cedula_cuidador" id="cedulaCuidador" class="cedula_cuidador">
     </div>
+
+    <div class="name">
+        <label for="nombre">Nombre:</label>
+        <input type="text" name="nombre" id="name" class="nombre" required>
+    </div>
+
+    <div class="parents">
+        <label for="selectedParentesco">Parentesco:</label>
+        <select id="selectedParentesco" class="custom-select" required></select>
+    </div>
+
+    <div class="address">
+        <label for="add">Dirección:</label>
+        <input type="text" name="direccion" id="address" class="direccion"required>
+    </div>
+
+    <div class="tlf">
+        <label for="tel">Teléfono:</label>
+        <input type="text" name="telefono" id="telf" class="telefono" required>
+    </div>
+
+    </form>
     <div class="btn-container">
         <a href="cuidador.html" class="btn-cancelar">Cancelar</a>
         <button onclick="actualizarCuidador()" type="submit" class="btn-nuevo">Actualizar</button>
         
     </div>
+        </div>
+
+    
+    
 
     <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">

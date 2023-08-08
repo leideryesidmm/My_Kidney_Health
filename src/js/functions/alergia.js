@@ -5,10 +5,7 @@ let listAlergias = async (alergias) => {
     let cont = 1;
     console.log(alergias)
 
-    ms+=
-       '<a href="perfil.html" class="devolverseAlergia"><img src="../img/devolverseColor.png" alt="" id="icono"></a>'+
-        '<h1 class="title-alergias">Mis Alergias</h1>';
-    document.getElementById("navbar").innerHTML=ms;
+    
     if (alergias.length == 0) {
         msg += '<tr><td colspan="2"><h3 id="sinAlergias"><i>No hay alergias activas.</i></h3></td></tr>';
     }

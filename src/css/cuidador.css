@@ -11,10 +11,12 @@ h3 {
     font-weight: bold;}
 
 .container{
-    margin: 0;
-    padding: 0;
+    
     width: 100%;
+    text-align: center;
 }
+
+
 
 #icono {
   width: 30px;
@@ -51,26 +53,21 @@ h3 {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 90px;
 }
 
-.col {
-    padding: 0% 5%;
-}
 
-label {
-    min-width: 200px;
-}
+
 
 .btn-container {
     display: flex;
     justify-content:center;
-    margin-top: 10px;
-    margin-right: 5%;
+    align-items: center;
+    gap: 15px;
+
 }
 
-.btn-container a {
-    margin-left: 5%;
+.btn-container button, a {
+  width: 80px;
 }
 
 .cuidadores, .varCuidador, .nombre{
@@ -78,19 +75,18 @@ label {
     text-align: center;
 }
 
+
+
 .cambiarCuidador{
     
         background-color: #00DBA1;
         color: #fff;
         border: none;
         cursor: pointer;
-        padding: 3px 20px;
         font-size: 15px;
         font-family: 'Jost', sans-serif;
         border-radius: 5px;
         text-decoration: none;
-        margin-right: 3%;
-        margin-left: 7%;
         
 }
 
@@ -99,13 +95,10 @@ label {
     color: #fff;
     border: none;
     cursor: pointer;
-    padding: 3px 20px;
     font-size: 15px;
     font-family: 'Jost', sans-serif;
     border-radius: 5px;
     text-decoration: none;
-    margin-left: 1%;
-    margin-right: 27px;
 }
 
 .inhabilitarCuidador{
@@ -113,12 +106,10 @@ label {
     color: #fff;
     border: none;
     cursor: pointer;
-    padding: 3px 20px;
     font-size: 15px;
     font-family: 'Jost', sans-serif;
     border-radius: 5px;
     text-decoration: none;
-    margin-left: 1%;
 }
 
 .cuidadoresInactivos {
@@ -165,10 +156,11 @@ label {
     /* Agrega otros estilos personalizados aquí si es necesario */
   }
 
-  #img-editar img {
-    margin: 5.5px;
+  #edit img{
     width: 40px;
     height: 40px;
+    float: left;
+    margin-left: 10%;
   }
 
 
