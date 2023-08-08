@@ -1,7 +1,7 @@
 let listMedicamentos = async (medicamentos) => {
   medicamentos = await medicamentos;
   let msg = "";
-  let ms="";
+  let ms="<div class='accordion' id='accordionExample'>";
   let cont = 1;
 
       if(medicamentos!=null && medicamentos.length>0){
@@ -93,10 +93,10 @@ let listMedicamentos = async (medicamentos) => {
       "</div>" +
       "</div>" +
       "</div>" +
-      "</div>"+
-      '<br>';
+      "</div>";
     cont++;
   });
+  msg+="</div><br>"
 }
 
 else{
