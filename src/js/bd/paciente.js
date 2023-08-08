@@ -1,17 +1,10 @@
-let servidorAPI="http://localhost:8081/";
-    const cedulaEncript = decodeURIComponent(localStorage.getItem("cedula"));
-    const contraseniaEncript = decodeURIComponent(localStorage.getItem("contrasenia"));
+let servidorAPI = "http://localhost:8081/";
+const cedulaEncript = decodeURIComponent(localStorage.getItem("cedula"));
+const contraseniaEncript = decodeURIComponent(localStorage.getItem("contrasenia"));
 
-    console.log(cedulaEncript);
-
-    console.log(contraseniaEncript);
-    const cedula = CryptoJS.AES.decrypt(cedulaEncript, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-    const contrasenia = CryptoJS.AES.decrypt(contraseniaEncript, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-var cedulaEncriptada= "";
-
-const contraseña = CryptoJS.AES.decrypt(contraseniaEncript, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-console.log(contraseña);
-
+const cedula = CryptoJS.AES.decrypt(cedulaEncript, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+const contrasenia = CryptoJS.AES.decrypt(contraseniaEncript, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+var cedulaEncriptada = "";
 var contraseniaEncriptada;
 
 let obtenerCedulaEncriptada = async () => {
@@ -46,9 +39,9 @@ let obtenerContraseniaEncriptada = async () => {
   usuarios.forEach(usuario => {
     let decryptedContrasenia = CryptoJS.AES.decrypt(usuario.contrasenia, 'clave_secreta').toString(CryptoJS.enc.Utf8);
     const contraseniaCodificado = encodeURIComponent(decryptedContrasenia);
-    if (contrasenia === contraseniaCodificado){
+    if (contrasenia === contraseniaCodificado) {
       contraseniaEncriptada = usuario.contrasenia;
-    }    
+    }
   })
   console.log(contraseniaEncriptada);
   return contraseniaEncriptada;
@@ -153,42 +146,52 @@ let alergias = async () => {
 
 let cambioContrasenia = async () => {
   const cedulaEncriptada = await obtenerCedulaEncriptada();
-  console.log(cedulaEncriptada)
   const contraseniaEncriptadaBD = await obtenerContraseniaEncriptada();
+  let contraseniaBD = CryptoJS.AES.decrypt(contraseniaEncriptadaBD, 'clave_secreta').toString(CryptoJS.enc.Utf8);
 
   const contraseniaAnterior = document.getElementById("contraseniaanterior").value;
   const nuevaContrasenia = document.getElementById("newcontrasenia").value;
   console.log(nuevaContrasenia)
 
-  const contraseniaAnteriorEncriptada = CryptoJS.AES.encrypt(contraseniaAnterior, 'clave_secreta').toString();
-  const contraseniaEncriptada = CryptoJS.AES.encrypt(nuevaContrasenia, 'clave_secreta').toString();
+  if (contraseniaAnterior === contraseniaBD) {
+    const contraseniaEncriptada = CryptoJS.AES.encrypt(nuevaContrasenia, 'clave_secreta').toString();
 
-  let UsuarioInDto = { cedula: cedulaEncriptada, contrasenia: contraseniaEncriptada } 
-  console.log(usuarioInDto)
+    let usuarioInDto = { cedula: cedulaEncriptada, contrasenia: contraseniaEncriptada };
+    console.log(usuarioInDto);
 
-  fetch(servidorAPI + "Usuario/cambiar_contrasenia", {
-    method: "PATCH",
-    body: JSON.stringify(UsuarioInDto),
-    headers: {
-      "Accept": "application/json",
-      "Content-Type": "application/json"
-    }
-  })
-    .then(response => {
-      if (response.ok) {
-        alert("Contraseña cambiada exitosamente");
-       
-        document.getElementById("contraseniaanterior").value = "";
-        document.getElementById("nuevacontrasenia").value = "";
-        $('#nuevacontrasenia').modal('hide');
-      } 
-      else {
-        alert("Error al cambiar la contraseña");
+    fetch(servidorAPI + "Usuario/cambiar-contrasenia", {
+      method: "PATCH",
+      body: JSON.stringify(usuarioInDto), // Cambiado a UsuarioInDto en lugar de solo contraseniaEncriptada
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
       }
     })
-    .catch(error => {
-      console.error("Error:", error);
-      alert("Error al cambiar la contraseña");
-    });
-}
+      .then(response => {
+        if (response.ok) {
+          alert("Contraseña cambiada exitosamente");
+
+          document.getElementById("contraseniaanterior").value = "";
+          document.getElementById("newcontrasenia").value = "";
+          $('#nuevacontrasenia').modal('hide');
+          localStorage.removeItem("contrasenia");
+        } else {
+          alert("Error al cambiar la contraseña");
+        }
+      })
+      .catch(error => {
+        console.error("Error:", error);
+        alert("Error al cambiar la contraseña");
+      });
+  }
+  else {
+    alert("La contraseña actual ingresada no es correcta. Intentelo nuevamente");
+    document.getElementById("contraseniaanterior").value = "";
+    document.getElementById("newcontrasenia").value = "";
+    localStorage.removeItem("contrasenia");
+  }
+};
+
+
+
 
