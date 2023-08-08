@@ -14,70 +14,43 @@
 <body>
     
         <div class="navbar" name="navbar" id="navbar">
-            <a href="cuidador.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a>
-            <h1 class="title">Cuidador</h1>
+            <div class="col-2"><a href="cuidador.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a></div>
+            <div class="col-8"><h1 class="title">Cuidador</h1></div>
+            <div class="col-2">
+        </div>
         </div>
         <br>
         <div class="container">
             <h3>Agregar Cuidador</h3>
-        <div class="contentform">
-        <div class="form-group">
-            <form id="agregarCuidador">
 
+        </div>
+        <div class="form-container">
+            <form id="agregarCuidador">
                 <div class="cedCuidador">
-                    <div class="row">
-                        <div class="col-3">
-                    <label for="cedula">Cédula:</label>
-                </div>
-                <div class="col-2">
+                    <label for="cedula_cuidador">Cédula:</label>
                     <input type="text" name="cedula_cuidador" id="cedula_cuidador" class="cedula_cuidador" required>
                 </div>
-            </div>
-            </div>
-            <div class="name">
-                <div class="row">
-                    <div class="col-3">
-                <label for="cuidador">Cuidador:</label>
-            </div>
-            <div class="col-2">
-                <input type="text" name="nombre" id="nombre" class="nombre" required>
-            </div>
-        </div>
-        </div>
-        
-        <div class="parents">
-            <div class="row">
-                <div class="col-4">
-            <label for="parentesc">Parentesco:</label>
-        </div>
-        
-        <div class="col-6">
-            <select id="selectParentesco" class="custom-select" required></select>
-        </div>
-    </div>
-</div>
 
-            <div class="address">
-                <div class="row">
-                    <div class="col-3">
-                <label for="add">Dirección:</label>
-            </div>
-            <div class="col-2">
-                <input type="text" name="direccion" id="direccion" class="direccion" required>
-            </div>
-        </div>
-    </div>
+                <div class="name">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" name="nombre" id="nombre" class="nombre" required>
+                </div>
 
-            <div class="tlf">
-                <div class="row">
-                    <div class="col-3">
-                <label for="tel">Teléfono:</label>
-            </div>
-            <div class="col-2">
-                <input type="text" name="telefono" id="telefono" class="telefono" required>
-            </div>
-        </div>
-    </div>
+                <div class="parents">
+                    <label for="selectParentesco">Parentesco:</label>
+                    <select id="selectParentesco" class="custom-select" required></select>
+                </div>
+
+                <div class="address">
+                    <label for="selectParentesco">Dirección:</label>
+                    <input type="text" name="direccion" id="direccion" class="direccion" required>
+                </div>
+
+                <div class="tlf">
+                    <label for="tel">Teléfono:</label>
+                    <input type="text" name="telefono" id="telefono" class="telefono" required>
+                </div>
+            
 
     
     
@@ -86,8 +59,6 @@
         <button class="btn-nuevo" id="guardarCuidador">Guardar</button>
     </div>
 </form>
-</div>
-</div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
    <script src="../js/bd/cuidador.js">
@@ -125,6 +96,7 @@ obtenerCedulaEncriptada();
         </div>
       </div>
       </div>
-      
+      <script src="../js/bd/login.js"></script>
+      <script>onload()</script>
 </body>
 </html>

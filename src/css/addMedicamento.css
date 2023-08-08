@@ -28,7 +28,6 @@ h3 {
     justify-content: center;
     align-items: center;
     margin: 0 auto;
-    margin-right: 110px;
   }
   #icon {
     width: 30px;
@@ -111,7 +110,8 @@ h3 {
     border: none;
     border-radius: 80%;
     background-color: #ffffff;
-    opacity: 1;
+    opacity: 1;  
+    font-size: 24px;
   }
 .name input[type="text"]:focus,
 .via input[type="text"]:focus,

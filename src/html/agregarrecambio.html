@@ -19,8 +19,9 @@
 <body>
     <div>
         <div class="navbar" name="navbar" id="navbar">
-          <a href="prescripciones.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a>
-          <h1 class="title-recambio">Mis Recambios</h1>
+          <div class="col-2"><a href="prescripciones.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a></div>
+        <div class="col-8"><h1 class="title-alergias">Mis Recambios</h1></div>
+        <div class="col-2"></div>
         </div>
         <br>
         <h3>Agregar Recambio</h3>
@@ -236,12 +237,13 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
-<script src="../js/bd/recambio.js">
+<script src="../js/bd/prescripcion.js">
 </script>
-<script src="../js/functions/recambios.js">
-</script>
+<script src="../js/functions/recambios.js"></script>
+<script src="../js/bd/login.js"></script>
 <script>
   concentraciones()
+  onload()
 </script>
 </body>
 

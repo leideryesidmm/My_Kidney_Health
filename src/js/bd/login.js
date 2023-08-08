@@ -38,6 +38,7 @@ function isAuthenticated() {
         localStorage.setItem("authenticated", "true");
         const cedula= encodeURIComponent(paciente.cedula)
         localStorage.setItem("cedula", cedula);
+        localStorage.setItem("servidorAPI", servidorAPI);
         location.href="principal.html?cedula=" + cedula;
     console.log(username);
         return username;
@@ -51,7 +52,8 @@ function isAuthenticated() {
   
   // Función para manejar el cierre de sesión
   let logout=()=>{
-    localStorage.removeItem("authenticated");
+    localStorage.removeItem("authenticated")
+    localStorage.removeItem("servidorAPI");
     location.href="login.html";
 
 
@@ -60,10 +62,18 @@ function isAuthenticated() {
 }
 
 let onload = async () => {
+  
+  let pathname=window.location.pathname
   if (isAuthenticated()) {
-    location.href = "principal.html";
-  }
-  else {
+    console.log("yesAuthenticated")
+    if(pathname.includes("login.html")){
+      location.href = "principal.html";
+    }
+  }else{
+    console.log("noAuthenticated")
+    if(!pathname.includes("login.html")){
+      location.href="login.html";
+    }
 
   }
 }

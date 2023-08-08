@@ -6,15 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mis Recambios</title>
     <link rel="stylesheet" type="text/css" href="../css/index.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 
 <body>
-    <div class="recamb" id="recamb">
-
-    </div>
-
-    <div>
+    
+      <div class="navbar" name="navbar" id="navbar">
+        <div class="col-2"><a href="prescripciones.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a></div>
+        <div class="col-8"><h1 class="title-principal-app">Mis Recambios</h1></div>
+        <div class="col-2"></div>
+      </div>
+  
+      <br>
         <div class="row">
             <div class="col-6">
                 <div id="container">
@@ -44,10 +48,11 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
     <script src="../js/bd/recambio.js"></script>
-
     <script src="../js/functions/recambios.js"></script>
+    <script src="../js/bd/login.js"></script>
     <script>
          listRecambios();
+         onload();
     </script>
    
 

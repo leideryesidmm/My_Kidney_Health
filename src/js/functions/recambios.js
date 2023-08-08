@@ -3,13 +3,7 @@ let listRecambios = async (recambios) => {
     let msg = "";
     let cont = 1;
 
-    msg+=
-    '<div class="navbar" name="navbar" id="navbar">'+
-    '<a href="principal.html" class="devolverseRecambio"><img src="../img/devolverseColor.png" alt="" id="icon"></a>'+
-            '<h1 class="title-recambio">Mis Recambios</h1>'+
-    '</div>'+
-    '<br>';
-    document.getElementById("recamb").innerHTML=msg;
+    
 
     recambios.forEach((recambio) => {
       msg +=

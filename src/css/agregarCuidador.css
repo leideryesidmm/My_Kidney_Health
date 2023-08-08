@@ -13,11 +13,12 @@ h3 {
 }
     
 
-.container{
-    margin: 0;
-    padding: 0;
+.agregarCuidador{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+    margin: 0 auto;
     width: 100%;
-    max-width: 1000px;
 }
 .navbar {
   background-color: #04BAFC;
@@ -32,7 +33,6 @@ h3 {
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-  margin-right: 110px;
 }
 
 #icono {
@@ -40,104 +40,60 @@ h3 {
     height: 30px;
 }
 
-.agregarCuidador{
-  margin-left: 50px;
-}
+
 .navbar img{
   height: 30px;
   margin: 0;
   padding: 0;
   width: 30px;
-  margin-left: 20px;
 }
 
 .navbar h1{
   align-items: center;
 }
-.cedCuidador,
-.name, 
-.address,
-.tlf,
-.parentesc{
-    height: fit-content;
-    padding: 7px;
-}
 
-.cedCuidador input[type="text"],
-.name input[type="text"],
-.address input[type="text"],
-.tlf input[type="text"],
-.parentesc input[type="text"]{
-    padding: 5px;
-  }
-  
 
-.cedCuidador input[type="text"],
-.name input[type="text"],
-.address input[type="text"],
-.tlf input[type="text"],
-.parentesc input[type="text"]{
-    border-bottom: 1px solid gray;
-    transition: border-bottom-color 0.3s;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    content: "";
-  }
-
-.cedCuidador input[type="text"]:focus,
-.name input[type="text"]:focus,
-.address input[type="text"]:focus,
-.tlf input[type="text"]:focus,
-.parentesc input[type="text"]:focus{
-    border-bottom-color: transparent;
-    outline: none;
-    content: "";
-  }
-
-  .contentform {
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-    margin-left: 13%;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 10px;
-}
-
-.row {
-    display: flex;
-    align-items: center;
-  }
-
-.col {
-    flex-basis: 0;
-    flex-grow: 1;
-    max-width: 100%;
+  .form-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    margin: 0 auto;
 }
 
 label {
-    min-width: 200px;
+    color: #555;
+    font-weight: bold;
+    font-size: 14px;
+    transform: translateY(10px);
+    transition: transform 0.3s ease-in-out;
 }
 
-input {
-    flex: 1;
+input[type="text"]{
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.3s ease-in-out;
+}
+
+input:focus, textarea:focus {
+    border-color: #007bff;
+}
+
+input:focus + label, textarea:focus + label {
+    transform: translateY(-25px);
+    font-size: 12px;
 }
 
 .btn-container {
     display: flex;
     justify-content:center;
     margin-top: 10px;
-    margin-right: 5%;
+    gap: 20px;
 }
-
-.btn-container a {
-    margin-left: 5%;
-}
-
 
 .btn-cancelar{
     
@@ -150,7 +106,6 @@ input {
         font-family: 'Jost', sans-serif;
         border-radius: 5px;
         text-decoration: none;
-        margin-right: 3%;
         
 }
 
@@ -164,41 +119,24 @@ input {
     font-family: 'Jost', sans-serif;
     border-radius: 5px;
     text-decoration: none;
-    margin-left: 1%;
 }
-
-.parents .row {
-    display: flex;
-  }
-  .parents label {
-    margin-left: 5px;
-  }
-
-  .parents{
-    margin-right: 67px;
-  }
-
-  .row select {
-    text-align: center;
-    background-color: #cfcaca;
-    width: 180px;
-    height: 35px;
-    border-radius: none;
-    border: none;
-  }
-
-
-  select {
-    margin-left: 8px;
-  }
-
-  .row > div {
-    margin-bottom: 10px;
-  }
 
 .modal-body{
     text-align: center;
 }
+
+.cedCuidador input[type="text"]:focus,
+  .name input[type="text"]:focus,
+  .address input[type="text"]:focus,
+  .tlf input[type="text"]:focus,
+  .parentesc input[type="text"]:focus{
+      border-bottom-color: black;
+      border-top-color: transparent;
+      border-left-color: transparent;
+      border-right-color: transparent;
+      outline: none;
+      content: "";
+    }
 
 .modal-header h5{
     color: red;

@@ -31,33 +31,34 @@ let cuidadorPrincipal=async(cuidadores, cuidAntiguos)=>{
             '<label for="nombre" id="nombre" class="nombre">'+cuidadores.nombre+'</label>' +
         '</div>' +
       '<br>' +
-    '<div class="row">' +
-        '<div class="col-3 d-flex">' +
+    '<div class="row justify-content-center">' +
+        '<div class="col-6 d-flex align-items-center justify-content-center" style="margin-left: 10px; margin-right: 10px;">' +
             '<label for="cedCuidador" class="cedCuidador"><strong>Cédula:</strong></label>' +
         '<br>' +
         '<label for="cedula_cuidador" id="cedula_cuidador" class="cedula_cuidador">'+cuidadores.cedula+'</label>' +
         '</div>' +
-        '<div class="col-9 d-flex">' +
+        '<div class="col-5 d-flex align-items-center justify-content-center" style="margin-left: 10px; margin-right: 10px;">' +
             '<label for="varParentesco"><strong>Parentesco:</strong></label>' +
             '<br>' +
                 '<label for="parentesco" id="parentesco" class="parentesco">'+cuidadores.parentesco+'</label>' +
         '</div>' +
+        
         '</div>' +
         '<br>' +
-        '<div class="row">' +
-            '<div class="col-3 d-flex" id="tlf">' +
+        '<div class="row justify-content-center">' +
+            '<div class="col-6 d-flex align-items-center justify-content-center" style="margin-left: 10px; margin-right: 10px;" id="tlf">' +
                 '<label for="varTelefono"><strong>Teléfono:</strong></label>' +
                 '<br>' +
                 '<label for="telefono" id="telefono" class="telefono">'+cuidadores.telefono+'</label>' +
             '</div>' +
-            '<div class="col-9 d-flex" id="address">' +
+            '<div class="col-6 d-flex align-items-center justify-content-center" style="margin-left: 10px; margin-right: 10px;" id="address">' +
                 '<label for="varDirección"><strong>Dirección:</strong></label>' +
                 '<br>' +
                     '<label for="direccion" id="direccion" class="direccion">'+cuidadores.direccion+'</label>' +
             '</div>' +
             '</div>' +
 '</div>' +
-
+'<br>' +
     '<div class="btn-container">';
     if(cuidAntiguos.length>=1){
        msg+= '<button class="cambiarCuidador" type="submit" id="cambiar" onclick="cuidadoresInactivos(cuidadoresAntiguos())" "class="cambiarCuidador">Cambiar</button>'};

@@ -28,7 +28,6 @@ h3 {
   justify-content: center;
   align-items: center;
   margin: 6.5px;
-      margin-right: 110px;
     }
 
     #icon {
@@ -56,27 +55,9 @@ h3 {
       align-items: center;
   }
   
-  #selectVias{
-      text-align: center;
-      background-color: #cfcaca;
-      width: 162px;
-      height: 35px;
-      border-radius: none;
-      border: none;
-  }
+
   
-  .name, 
-  .descripcion,
-  .via,
-  .concentration,
-  .fechaIni,
-  .fechaFin,
-  .toma,
-  .dosisMed,
-  .intervalos{
-      height: fit-content;
-      padding: 10px;
-  }
+
   
   .name input[type="text"],
   .descripcion input[type="text"],
@@ -132,9 +113,11 @@ h3 {
     
     .contentform {
       display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
       flex-direction: column;
       width: 95%;
-      margin-left: 5%;
   }
   
   .form-group {

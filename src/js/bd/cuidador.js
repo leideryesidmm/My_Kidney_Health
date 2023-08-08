@@ -1,10 +1,9 @@
-let servidorAPI="http://localhost:8081/";
 const cedulaEncript = decodeURIComponent(localStorage.getItem("cedula"));
     const cedula = CryptoJS.AES.decrypt(cedulaEncript, 'clave_secreta').toString(CryptoJS.enc.Utf8);
 var cedulaEncriptada= "";
 
 let obtenerCedulaEncriptada=async()=>{
-  const peticion= await fetch(servidorAPI+'Medico/findAllPacientes',{
+  const peticion= await fetch(localStorage.getItem("servidorAPI")+'Medico/findAllPacientes',{
     method:'GET',
     headers:{
       "Accept":"application/json",
@@ -67,7 +66,7 @@ let crearCuidador = async () => {
       }
       console.log(cuidador);
       console.log(paciente);
-      fetch(servidorAPI + 'paciente/cuidador/crear', {
+      fetch(localStorage.getItem("servidorAPI") + 'paciente/cuidador/crear', {
         method: 'POST',
         headers: {
           "Accept":"application/json",
@@ -93,7 +92,7 @@ let crearCuidador = async () => {
 let cuidadorPorPaciente=async()=>{
   cedulaEncriptada=await obtenerCedulaEncriptada();
   console.log(cedulaEncriptada);
-  const peticion= await fetch(servidorAPI+'/paciente/cuidador/listCuidadorPacienteByPaciente',{
+  const peticion= await fetch(localStorage.getItem("servidorAPI")+'/paciente/cuidador/listCuidadorPacienteByPaciente',{
     method:'POST',
     headers:{
       "Accept":"application/json",
@@ -119,7 +118,7 @@ let cuidadorPorPaciente=async()=>{
     let cuidadoresAntiguos = async () => {
       const cuidadoresDesencriptados = new Set();
       cedulaEncriptada=await obtenerCedulaEncriptada();
-      const peticion= await fetch(servidorAPI+'/paciente/cuidador/listCuidadorPacienteByPaciente',{
+      const peticion= await fetch(localStorage.getItem("servidorAPI")+'/paciente/cuidador/listCuidadorPacienteByPaciente',{
         method:'POST',
         headers:{
           "Accept":"application/json",
@@ -135,7 +134,7 @@ let cuidadorPorPaciente=async()=>{
       } else {
         const cuidadores = await peticion.json();
     
-        const peticion2 = await fetch(servidorAPI + "paciente/cuidador/findCuidadorActivo", {
+        const peticion2 = await fetch(localStorage.getItem("servidorAPI") + "paciente/cuidador/findCuidadorActivo", {
           method: "POST",
           headers: {
             "Accept": "application/json",
@@ -202,7 +201,7 @@ let cuidadorPorPaciente=async()=>{
     
 
 let listaParentesco= async()=>{
-  const peticion= await fetch(servidorAPI+"Prueba/ListParentesco",{
+  const peticion= await fetch(localStorage.getItem("servidorAPI")+"Prueba/ListParentesco",{
     
     method:"GET",
     headers:{
@@ -225,7 +224,7 @@ let listaParentesco= async()=>{
 }
 
 let listarParentesco = async () => {
-  const peticion = await fetch(servidorAPI + "Prueba/ListParentesco", {
+  const peticion = await fetch(localStorage.getItem("servidorAPI") + "Prueba/ListParentesco", {
     method: "GET",
     headers: {
       "Accept": "application/json",
@@ -255,7 +254,7 @@ let listarParentesco = async () => {
 
 let cuidadorActivo= async()=>{
   cedulaEncriptada= await obtenerCedulaEncriptada();
-  const peticion = await fetch(servidorAPI + "paciente/cuidador/findCuidadorActivo", {
+  const peticion = await fetch(localStorage.getItem("servidorAPI") + "paciente/cuidador/findCuidadorActivo", {
     method: "POST",
     headers: {
       "Accept": "application/json",
@@ -299,7 +298,7 @@ let cuidadorActivo= async()=>{
 
     let encontrarCuidador = async () => {
       cedulaEncriptada=await obtenerCedulaEncriptada();
-      const peticion = await fetch(servidorAPI + "paciente/cuidador/findCuidadorActivo", {
+      const peticion = await fetch(localStorage.getItem("servidorAPI") + "paciente/cuidador/findCuidadorActivo", {
         method: "POST",
         headers: {
           "Accept": "application/json",
@@ -418,7 +417,7 @@ let cuidadorActivo= async()=>{
 let actualizarCuidador = async () => {
 
   cedulaEncriptada=await obtenerCedulaEncriptada();
-      const peticion = await fetch(servidorAPI + "paciente/cuidador/findCuidadorActivo", {
+      const peticion = await fetch(localStorage.getItem("servidorAPI") + "paciente/cuidador/findCuidadorActivo", {
         method: "POST",
         headers: {
           "Accept": "application/json",
@@ -448,7 +447,7 @@ let actualizarCuidador = async () => {
     cedulaCuidador: decryptedCedula
   };
 
-  fetch(servidorAPI + "paciente/cuidador/actualizar", {
+  fetch(localStorage.getItem("servidorAPI") + "paciente/cuidador/actualizar", {
     method: "PATCH",
     body: JSON.stringify(cuidador),
     headers: {
@@ -471,7 +470,7 @@ let actualizarCuidador = async () => {
 
 let cuidAntiguos = async () => {
   cedulaEncriptada=await obtenerCedulaEncriptada();
-  const peticion= await fetch(servidorAPI+'/paciente/cuidador/listCuidadorPacienteByPaciente',{
+  const peticion= await fetch(localStorage.getItem("servidorAPI")+'/paciente/cuidador/listCuidadorPacienteByPaciente',{
     method:'POST',
     headers:{
       "Accept":"application/json",
@@ -532,7 +531,7 @@ let reactivarCuidador = async (cedulaCuidador) => {
       pacienteInDto:paciente,
       cuidadorInDto:cuidAntiguo
     }
-      fetch(servidorAPI + "paciente/cuidador/reactivarCuidador", {
+      fetch(localStorage.getItem("servidorAPI") + "paciente/cuidador/reactivarCuidador", {
         method: "PATCH",
         body: JSON.stringify(
           cuidadorPaciente
@@ -548,7 +547,7 @@ let reactivarCuidador = async (cedulaCuidador) => {
               $('#successModal').modal('show');
             }
           } else {
-            fetch(servidorAPI + "paciente/cuidador/ReactivarCuidadorAntiguoSinActivo", {
+            fetch(localStorage.getItem("servidorAPI") + "paciente/cuidador/ReactivarCuidadorAntiguoSinActivo", {
               method: "PATCH",
               body: JSON.stringify(
                 cuidAntiguo
@@ -570,7 +569,7 @@ let reactivarCuidador = async (cedulaCuidador) => {
 
 let inhabilitarCuidador=async()=>{
   cedulaEncriptada=await obtenerCedulaEncriptada();
-      const peticion = await fetch(servidorAPI + "paciente/cuidador/findCuidadorActivo", {
+      const peticion = await fetch(localStorage.getItem("servidorAPI") + "paciente/cuidador/findCuidadorActivo", {
         method: "POST",
         headers: {
           "Accept": "application/json",
@@ -596,7 +595,7 @@ let inhabilitarCuidador=async()=>{
     cuidadorInDto:cuidador,
     pacienteInDto:paciente
   }
-  const peticion2= await fetch(servidorAPI + "paciente/cuidador/inhabilitarCuidadorActivo",{
+  const peticion2= await fetch(localStorage.getItem("servidorAPI") + "paciente/cuidador/inhabilitarCuidadorActivo",{
     method: "PATCH",
               body: JSON.stringify(
                 cuidadorPaciente
