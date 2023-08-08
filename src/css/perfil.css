@@ -10,7 +10,6 @@ body{
     margin: 0;
     padding: 0;
     width: 100%;
-    max-width: 1000px;
 }
 
 #btnguardar {
@@ -21,7 +20,19 @@ body{
   align-items: center;
 }
 
+.dataPeso, .dataAltura{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+p{
+  padding: 0 5px 0 0;
+}
+
+label{
+  padding: 0 3px 0 0;
+}
 
 #icono {
   width: 30px;
@@ -37,6 +48,9 @@ body{
   align-items: center; 
 }
 
+.name{
+  margin-bottom: 10px;
+}
 .navbar h1{
   align-items: center;
   
@@ -55,9 +69,7 @@ body{
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 6.5px;
-  margin-right: 134.5px;
-  font-size: 30px;
+  margin: 0 auto;
 }
 
 .editarPerfil img{
@@ -66,108 +78,21 @@ body{
     margin-left: auto;
 }
 
-.styled-checkbox{
-  background-color: #04BAFC;
-}
-
-
 .nombre{
-    text-align: center;
-    color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
 }
-
-.cms{
-  margin-right: 50px;
-}
-.rh{
-  margin-left: 1px;
-}
-
-
-
-.sangre{
-  margin-left:9px;
-}
-.cols{
-    display: block;
-}
-
-.primerosDatos{
-    display: flex;
-    justify-content: center;
-}
-
-.primerosDatos p{
-  padding-left: 2%;
-}
-
-.dataAltura, .dataPeso{
-    display: flex;
-    justify-content: center;
-    
-}
-
-.segundosDatos{
-    display: flex;
-    justify-content: center;
-    margin-left: 56px;
-}
-
-.telefono{
-  margin-left: 6px;
-}
-.celular{
-  margin-left: 6px;
-}
-
-.row{
-    display: flex;
-    justify-content: center;
-    width: 400px;
-}
-
-.col{
-flex: 1;
-margin: 0 5px;
-}
-
-.direction {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .direction label {
-    margin: 0;
-    padding: 0;
-  }
-
-
 
 .eps{
     color: #fff;
-}
-
-.checks{
-  display: flex;
-  justify-content: center;
-  margin-left: 52px;
 }
 
 .titleAlergia{
     color:#000;
     margin-left:50px;
 }
-
-.name{
-    margin: auto;
-}
-
-.tipo_sangre{
-  margin-left: 4px;
-}
-
 
 .nav-cuidador {
     display: flex;
@@ -181,9 +106,10 @@ margin: 0 5px;
   }
   
   .nav-cuidador p {
-    margin: 0 10%; /* Establece el margen a 0 */
+    margin: 0 auto;
     height: 25px;
-    
+    margin-left: 10px;
+    width: 100%;
   }
   
   .nombreCuidador,
@@ -199,16 +125,12 @@ margin: 0 5px;
  
 }
 
-
-
 .eps{
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 5%;
 }
-
-
 
 .titleAlergia,
 .dataAlergia {
@@ -238,7 +160,7 @@ margin: 0 5px;
 
 .dataCuidador{
     background-color: #E0E0E0;
-
+  width: 96%;
     
 }
 
@@ -247,60 +169,11 @@ margin: 0 5px;
     padding: 0;
   }
   
-  .container > * {
-    margin: 0;
-    padding: 0;
-  }
-  
-  .name {
-    margin-bottom: 0.5em;
-  }
-  
   .navbar {
     margin: 0;
     padding: 0;
   }
   
-  .nombre,
-  .peso,
-  .altura,
-  .nacimiento,
-  .tlf
-  {
-    margin: 0;
-    padding: 0;
-  }
-  
-  .primerosDatos,
-  .segundosDatos {
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
-  }
-  
-  .dataPeso,
-  .dataAltura {
-    display: flex;
-    align-items: center;
-  }
-  
-  .dataPeso p,
-  .dataAltura p {
-    margin: 0;
-  }
-  
-  .row {
-    display: flex;
-  }
-  
-  .row .col {
-    flex: 1;
-    margin-right: 0.5em;
-  }
-  
-  .row .col:last-child {
-    margin-right: 0;
-  }
-
   .info-cuidador {
     margin-bottom: 20px; 
     margin-left: 10px;
@@ -344,6 +217,27 @@ margin: 0 5px;
 .dataCuidadorUp{
   width: 96%;
   margin: 0 auto;
+}
+
+#hipertensionTrue{
+  margin-left: 10px;
+}
+
+.checks, .segundosDatos{
+  margin-bottom: 15px;
+}
+.devolverse{
+  margin-left: 20px;
+}
+
+.dataPeso, .dataAltura{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+.nacimiento{
+  margin-bottom: 0;
 }
 
 @media only screen and (max-width: 768px) {

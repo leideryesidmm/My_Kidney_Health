@@ -4,11 +4,6 @@ let listMedicamentos = async (medicamentos) => {
   let ms="";
   let cont = 1;
 
-  msg+='<div class="navbar" name="navbar" id="navbar">' +
-  '<a href="principal.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icon"></a>' +
-  '<h1 class="title">Medicamentos</h1>' +
-  '</div>'+        
-      '<br>';
       if(medicamentos!=null && medicamentos.length>0){
   medicamentos.forEach((medicamento) => {
     msg +=

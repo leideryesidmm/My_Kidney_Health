@@ -58,8 +58,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 3.5px;
-  margin-right: 120px;
+  margin: 0 auto;
+}
+
+label{
+  margin-left: 5px;
 }
 
 .title-principal-app{
@@ -278,8 +281,7 @@ tbody:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 3.5px;
-  margin-right: 100px;
+  margin: 0 auto;
 }
 
 .title-prescripcion{
