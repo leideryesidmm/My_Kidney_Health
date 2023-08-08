@@ -6,7 +6,8 @@ const contrasenia = CryptoJS.AES.decrypt(contraseniaEncript, 'clave_secreta').to
 var cedulaEncriptada = "";
 var contraseniaEncriptada;
 
-let obtenerCedulaEncriptada=async()=>{
+let obtenerCedulaEncriptada=async(id)=>{
+  let result = null ;
   const peticion= await fetch(localStorage.getItem("servidorAPI")+'Medico/findAllPacientes',{
     method:'GET',
     headers:{
@@ -15,39 +16,27 @@ let obtenerCedulaEncriptada=async()=>{
     }
   });
   const pacientes = await peticion.json();
+  console.log(pacientes)
   pacientes.forEach(paciente => {
     let decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, 'clave_secreta').toString(CryptoJS.enc.Utf8);
     const cedulaCodificado = encodeURIComponent(decryptedCedula);
-    if (cedula === cedulaCodificado)
-      cedulaEncriptada = paciente.cedula;
-
-  })
-  console.log(cedulaEncriptada);
-  return cedulaEncriptada;
-}
-
-let obtenerContraseniaEncriptada=async()=>{
-  const peticion= await fetch(localStorage.getItem("servidorAPI")+'Usuario/findAllUsuarios',{
-    method:'GET',
-    headers:{
-      "Accept":"application/json",
-      "Content-Type": "application/json"
-    }
-  });
-  const usuarios = await peticion.json();
-  usuarios.forEach(usuario => {
-    let decryptedContrasenia = CryptoJS.AES.decrypt(usuario.contrasenia, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-    const contraseniaCodificado = encodeURIComponent(decryptedContrasenia);
-    if (contrasenia === contraseniaCodificado) {
-      contraseniaEncriptada = usuario.contrasenia;
+    if (cedula === cedulaCodificado){   
+      console.log(id)   
+      if(id == 0){
+        result = paciente.cedula;
+      }
+      if(id == 1){
+        result = paciente.contrasenia;
+      }
     }
   })
-  console.log(contraseniaEncriptada);
-  return contraseniaEncriptada;
+  return result;
 }
+
 
 let listarPacientes = async () => {
-  let cedulaEncriptada = await obtenerCedulaEncriptada();
+  let cedulaEncriptada = await obtenerCedulaEncriptada(0);
+  console.log(cedulaEncriptada)
   let pacienteInDto = {
     cedula: cedulaEncriptada
   }
@@ -86,7 +75,7 @@ console.log(paciente)
 }
 
 let cuidadorActivo = async () => {
-  cedulaEncriptada = await obtenerCedulaEncriptada();
+  cedulaEncriptada = await obtenerCedulaEncriptada(0);
   let pacienteInDto = {
     cedula: cedulaEncriptada
   }
@@ -119,7 +108,7 @@ let cuidadorActivo = async () => {
 }
 
 let alergias = async () => {
-  let cedulaEncriptada = await obtenerCedulaEncriptada();
+  let cedulaEncriptada = await obtenerCedulaEncriptada(0);
   let pacienteInDto = {
     cedula: cedulaEncriptada
   }
@@ -152,8 +141,9 @@ let alergias = async () => {
 
 
 let cambioContrasenia = async () => {
-  const cedulaEncriptada = await obtenerCedulaEncriptada();
-  const contraseniaEncriptadaBD = await obtenerContraseniaEncriptada();
+  const cedulaEncriptada = await obtenerCedulaEncriptada(0);
+  const contraseniaEncriptadaBD = await obtenerCedulaEncriptada(1);
+
   let contraseniaBD = CryptoJS.AES.decrypt(contraseniaEncriptadaBD, 'clave_secreta').toString(CryptoJS.enc.Utf8);
 
   const contraseniaAnterior = document.getElementById("contraseniaanterior").value;
@@ -166,9 +156,9 @@ let cambioContrasenia = async () => {
     let usuarioInDto = { cedula: cedulaEncriptada, contrasenia: contraseniaEncriptada };
     console.log(usuarioInDto);
 
-    fetch(servidorAPI + "Usuario/cambiar-contrasenia", {
+    fetch(localStorage.getItem("servidorAPI")+"Usuario/cambiarContrasenia", {
       method: "PATCH",
-      body: JSON.stringify(usuarioInDto), // Cambiado a UsuarioInDto en lugar de solo contraseniaEncriptada
+      body: JSON.stringify(usuarioInDto), 
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json"
@@ -181,7 +171,6 @@ let cambioContrasenia = async () => {
           document.getElementById("contraseniaanterior").value = "";
           document.getElementById("newcontrasenia").value = "";
           $('#nuevacontrasenia').modal('hide');
-          localStorage.removeItem("contrasenia");
         } else {
           alert("Error al cambiar la contraseña");
         }
@@ -195,7 +184,6 @@ let cambioContrasenia = async () => {
     alert("La contraseña actual ingresada no es correcta. Intentelo nuevamente");
     document.getElementById("contraseniaanterior").value = "";
     document.getElementById("newcontrasenia").value = "";
-    localStorage.removeItem("contrasenia");
   }
 };
 
