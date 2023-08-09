@@ -77,6 +77,10 @@ label {
     transition: transform 0.3s ease-in-out;
 }
 
+h5{
+  text-align: center;
+}
+
 input[type="text"],input[type="number"],input[type="date"]{
     width: 100%;
     padding: 10px;

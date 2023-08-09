@@ -93,8 +93,7 @@ let listMedicamentos = async (medicamentos) => {
       "</div>" +
       "</div>" +
       "</div>" +
-      "</div>"+
-      '<br>';
+      "</div>";
     cont++;
   });
 }

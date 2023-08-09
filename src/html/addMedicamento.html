@@ -14,70 +14,69 @@
 <body>
     
         <div class="navbar" name="navbar" id="navbar">
-            <div class="col-2"><a href="medicamento.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a></div>
-    <div class="col-8"><h1 class="title">Medicamentos</h1></div>
-    <div class="col-2"></div>
+            <a href="medicamento.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icon"></a>
+            <h1 class="title">Medicamentos</h1>
+        </div>
+            <br>
+        <div class="form-container">
+            <h5>Agregar Medicamento</h5>
+        <div class="form-group">
+            <form>
+            <div class="name">
+                <label for="medicamento">Medicamento:</label>
+                <input type="text" name="medicamento" id="medicamento" class="medicamento" required>
+            </div>
+
+            <div class="descripcion">
+                <label for="descripcion">Descripción:</label>
+                <input type="text" name="descripcion" id="descripcion" class="descripcion" required>
+            </div>
+
+            <div class="via">
+                <label for="selectVias">Vía Administración:</label>
+                <select id="selectVias" class="custom-select"></select>
+            </div>
+
+            <div class="concentration">
+                <label for="concentracion">Concentración:</label>
+                <input type="number" name="concentracion" id="concentracion" class="concentracion" required>
+            </div>
+
+            <div class="fechaIni">
+                <label for="fecha_inicio">Fecha Inicio:</label>
+                <input type="date" name="fecha_inicio" id="fecha_inicio" class="fecha_inicio" required>
+            </div>
+
+            <div class="fechaFin">
+                <label for="fecha_fin">Fecha Finalización:</label>
+                <input type="date" name="fecha_fin" id="fecha_fin" class="fecha_fin" required>
+            </div>
+
+            <div class="toma">
+                <label for="tomas">Tomas diarias:</label>
+                <input type="number" name="tomas" id="tomas" class="tomas" required>
+            </div>
+
+            <div class="dosisMed">
+                <label for="dosis">Dosis:</label>
+                <input type="number" name="dosis" id="dosis" class="dosis" required>
+            </div>
+
+            <div class="intervalos">
+                <label for="intervalo">Tiempo entre tomas:</label>
+                <input type="number" name="intervalos_tiempo" id="intervalos_tiempo" class="intervalos_tiempo" required>
+            </div>
+
+</form>
+        </div>
         </div>
 
-
-
-        <div class="form-container">
-            <form id="agregarCuidador">
-                <div class="name">
-                    <label for="nameMed">Medicamento:</label>
-                    <input type="text" name="medicamento" id="medicamento" class="medicamento" required>
-                </div>
-
-                <div class="descripcion">
-                    <label for="descripcion">Descripción:</label>
-                    <input type="text" name="descripcion" id="descripcion" class="descripcion" required>
-                </div>
-
-                <div class="via">
-                    <label for="selectVias">Vía Administración:</label>
-                    <select id="selectVias" class="custom-select"></select>
-                </div>
-
-                <div class="concentration">
-                    <label for="concentracion">Concentración:</label>
-                    <input type="number" name="concentracion" id="concentracion" class="concentracion" required>
-                </div>
-
-                <div class="fechaIni">
-                    <label for="fecha_inicio">Fecha Inicio:</label>
-                    <input type="date" name="fecha_inicio" id="fecha_inicio" class="fecha_inicio" required>
-                </div>
-            
-                <div class="fechaFin">
-                    <label for="fecha_fin">Fecha Finalización:</label>
-                    <input type="date" name="fecha_fin" id="fecha_fin" class="fecha_fin" required>
-                </div>
-
-                <div class="toma">
-                    <label for="tomas">Tomas diarias:</label>
-                    <input type="number" name="tomas" id="tomas" class="tomas" required>
-                </div>
-
-                <div class="dosisMed">
-                    <label for="dosis">Dosis:</label>
-                    <input type="number" name="dosis" id="dosis" class="dosis" required>
-                </div>
-
-                <div class="intervalos">
-                    <label for="intervalo">Tiempo entre tomas:</label>
-                    <input type="number" name="intervalos_tiempo" id="intervalos_tiempo" class="intervalos_tiempo" required>
-                </div>
-
-    
-    
+    </div>
     <div class="btn-container">
         <a href="medicamento.html" class="btn-cancelar">Cancelar</a>
-        <button href="medicamento.html"onclick="crearMedicamento()" type="submit" class="btn-nuevo">Guardar</button>
+        <button onclick="crearMedicamento()" type="submit" class="btn-nuevo">Guardar</button>
     </div>
-</form>
-<br>
-</div>
-    
+
     <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -117,11 +116,9 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
       <script src="../js/functions/medicamento.js"></script>
     <script src="../js/bd/medicamento.js"></script>
-    <script src="../js/bd/login.js"></script>
 
     <script type="module">
         listarVias();
-        onload();
     </script>
 </body>
 </html>
