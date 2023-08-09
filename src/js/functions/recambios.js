@@ -84,7 +84,7 @@ let listRecambios = async (recambios) => {
     let cont=0;
     prescripcionDia=JSON.parse(localStorage.getItem('prescripcionActual'));
     let msg="";
-    msg+="<select class='form-select form-select-sm' aria-label='.form-select-lg example' id='selectConcentracion' required>"
+    msg+="<select  id='selectConcentracion' class='custom-select' required>"
          +"<option value=''>Seleccione...</option>";
          prescripcionDia.recambios.forEach(recambio => {
           msg+="<option value='"+recambio.idRecambio+"'>"+cardinalidad[cont]+' ('+recambio.concentracion+"%)</option>";

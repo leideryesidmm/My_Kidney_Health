@@ -14,21 +14,19 @@ h3 {
     
 
 
+
+.navbar {
+  background-color: #04BAFC;
+  
+}
+
+
 #icono {
   width: 30px;
     height: 30px;
     margin-top: 6px;
-  padding: 0;
   margin-left: 20px;
-}
-
-.navbar {
-  background-color: #04BAFC;
-  height: fit-content;
-  width: 100%;
-  display: flex;
-  justify-content: space-between; 
-  align-items: center; 
+  
 }
 
 .navbar h1{
@@ -67,6 +65,10 @@ h3 {
       font-size: 14px;
       transform: translateY(10px);
       transition: transform 0.3s ease-in-out;
+  }
+
+  input, select{
+    height: 35px;
   }
   
   input[type="text"]{

@@ -13,151 +13,126 @@
 </head>
 
 <body>
-    <div>
+   
         <div class="navbar" name="navbar" id="navbar">
           <div class="col-2"><a href="recambiosguardados.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a></div>
         <div class="col-8"><h1 class="title-alergias">Mis Recambios</h1></div>
         <div class="col-2"></div>
         </div>
         <br>
-        <h3>Editar Recambio</h3>
-        <div class="containerRec">
-            <div class="contentform">
-                <div class="form-group">
-                    
-                    <div class="hora">
-                        <div class="row">
-                            <div class="col">
-                                <label for="hor">Hora Drenaje:</label>
-                            </div>
-                            <div class="col">
-                                <input type="time" name="hora" id="hora" class="hora">
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="drenaje">
-                        <div class="row">
-                            <div class="col">
-                                <label for="dren">Drenaje:</label>
-                            </div>
-                            <div class="col">
-                                <input type="number" name="drenaje" id="editarDrenaje" class="drenaje">
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="concentracion">
-                        <div class="row">
-                            <div class="col">
-                                <label for="concentr">Concentración: </label>
-                            </div>
-                            <div class="col">
-                                <select class="form-select form-select-sm" aria-label=".form-select-lg example" id="editarSelectConcentracion">
-                                    <option value="">Seleccione...</option>
-                                  <option value="1.5%">1.5%</option>
-                                  <option value="2.5%">2.5%</option>
-                                  <option value="4.25%">4.25%</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
+        <div class="form-container">
+          <h5>Editar Recambio</h5>
+      <form id="editarMedicamento">
 
-                    <div class="caracteristica">
-                        <div class="row">
-                            <div class="col">
-                                <label for="caracLiq">Características del líquido:</label>
-                            </div>
-                            <div class="col">
-                                <select class="form-select form-select-sm" aria-label=".form-select-lg example" id="editarSelectLiquido">
-                                    <option selected>Seleccione...</option>
-                                    <option value="transparente">Transparente</option>
-                                    <option value="turbio">Turbio</option>
-                                    <option value="sanguinolento">Sanguinolento</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="contenedorImagenes" >
-                        <div class="opcion">
-                          <label for="editarOpcionPerfecto">
-                            <div class="imagen">
-                              <img src="../img/orificioPerfecto.png" alt="Orificio Perfecto" />
-                            </div>
-                          <input type="radio" name="opcion" id="editarOpcionPerfecto" value="perfecto" required/>
-                            Perfecto
-                          </label>
-                        </div>
-                        <div class="opcion">
-                          <label for="editarOpcionBueno">
-                            <div class="imagen">
-                              <img src="../img/orificioBueno.png" alt="Orificio bueno" />
-                            </div>
-                          <input type="radio" name="opcion" id="editarOpcionBueno" value="bueno" required/>
-                            Bueno
-                          </label>
-                        </div>
-                        <div class="opcion">
-                          <label for="editarOpcionEquivoco">
-                            <div class="imagen">
-                              <img src="../img/orificioEquivoco.png" alt="Orificio equivoco" />
-                            </div>
-                          <input type="radio" name="opcion" id="editarOpcionEquivoco" value="equivoco" required/>
-                            Equívoco
-                          </label>
-                        </div>
-                        <div class="opcion">
-                          <label for="editarOpcionInfeccionAguda">
-                            <div class="imagen">
-                              <img src="../img/orificioInfeccionAguda.png" alt="Infección aguda" />
-                            </div>
-                          <input type="radio" name="opcion" id="editarOpcionInfeccionAguda" value="infección aguda" required/>
-                            Inf. Aguda
-                          </label>
-                        </div>
-                        <div class="opcion">
-                          <label for="editarOpcionInfeccionCronica">
-                            <div class="imagen">
-                              <img src="../img/orificioInfeccionCronica.png" alt="Infección crónica" />
-                            </div>
-                          <input type="radio" name="opcion" id="editarOpcionInfeccionCronica" value="infección crónica" required/>
-                            Inf. Crónica
-                          </label>
-                        </div>
-                        <div class="opcion">
-                          <label for="editarOpcionTrauma">
-                            <div class="imagen">
-                              <img src="../img/orificioTrauma.png" alt="Orificio con Trauma" />
-                            </div>
-                          <input type="radio" name="opcion" id="editarOpcionTrauma" value="trauma" required/>
-                            Trauma
-                          </label>
-                        </div>
-                        <div class="opcion">
-                          <label for="editarOpcionInfeccionManguito" class="opcionInfeccionManguito">
-                            <div class="imagen">
-                              <img src="../img/orificioInfeccionManguito.png" alt="infección manguito" />
-                            </div>
-                          <input type="radio" name="opcion" id="editarOpcionInfeccionManguito" value="infección manguito" required/>
-                            Inf. Manguito
-                          </label>
-                        </div>
-                        
-                                      </div>
-
-                </div>
-            </div>
-            <div>
-                <div class="btn-container">
-                    <a href="recambiosGuardados.html" class="btn-cancelar">Cancelar</a>
-                    <button type="submit" class="btn-nuevo">Actualizar</button>
-                </div>
-            </div>
+        <div class="drenaje">
+          <label for="dren">Drenaje:</label>
+          <input type="number" name="drenaje" id="editDrenaje" class="drenaje" required>
         </div>
-    </div>
-    <script src="../js/bd/login.js"></script>
-    <script>onload()</script>
+  
+        <div class="concentracion">
+          <label for="fechaHoraIni">Fecha y hora inicial: </label>
+          <input type="datetime-local" id="editFechaHoraIni" name="fechaHora" class="form-control" required>
+        </div>
+      
+        <div class="concentracion">
+          <label for="fechaHoraFin">Fecha y hora Final: </label>
+          <input type="datetime-local" id="editFechaHoraFin" name="fechaHora" class="form-control" required>
+        </div>
+
+        <div class="concentracion">
+                  <label for="concentr" id="title-concent">Concentración: </label>
+              
+              <div class="col" id="concentra">
+                  
+              </div>
+          </div>
+        
+        <div class="caracteristica">
+          <label for="caracLiq">Características del líquido:</label>
+          <select class="form-select form-select-sm" id="editSelectLiquido" aria-label=".form-select-lg example" class="custom-select" required>
+              <option selected>Seleccione...</option>
+              <option value="transparente">Transparente</option>
+              <option value="turbio">Turbio</option>
+              <option value="sanguinolento">Sanguinolento</option>
+          </select>
+        </div>
+    
+
+        <br>
+        <div id="contenedorImagenes" >
+          <div class="opcion">
+            <label for="opcionPerfecto">
+              <div class="imagen">
+                <img src="../img/orificioPerfecto.png" alt="Orificio Perfecto" />
+              </div>
+            <input type="radio" name="opcion" id="editOpcionPerfecto" value="perfecto" required/>
+              Perfecto
+            </label>
+          </div>
+          <div class="opcion">
+            <label for="opcionBueno">
+              <div class="imagen">
+                <img src="../img/orificioBueno.png" alt="Orificio bueno" />
+              </div>
+            <input type="radio" name="opcion" id="editOpcionBueno" value="bueno" required/>
+              Bueno
+            </label>
+          </div>
+          <div class="opcion">
+            <label for="opcionEquivoco">
+              <div class="imagen">
+                <img src="../img/orificioEquivoco.png" alt="Orificio equivoco" />
+              </div>
+            <input type="radio" name="opcion" id="editOpcionEquivoco" value="equivoco" required/>
+              Equívoco
+            </label>
+          </div>
+          <div class="opcion">
+            <label for="opcionInfeccionAguda">
+              <div class="imagen">
+                <img src="../img/orificioInfeccionAguda.png" alt="Infección aguda" />
+              </div>
+            <input type="radio" name="opcion" id="editOpcionInfeccionAguda" value="infección aguda" required/>
+              Inf. Aguda
+            </label>
+          </div>
+          <div class="opcion">
+            <label for="opcionInfeccionCronica">
+              <div class="imagen">
+                <img src="../img/orificioInfeccionCronica.png" alt="Infección crónica" />
+              </div>
+            <input type="radio" name="opcion" id="editOpcionInfeccionCronica" value="infección crónica" required/>
+              Inf. Crónica
+            </label>
+          </div>
+          <div class="opcion">
+            <label for="opcionTrauma">
+              <div class="imagen">
+                <img src="../img/orificioTrauma.png" alt="Orificio con Trauma" />
+              </div>
+            <input type="radio" name="opcion" id="editOpcionTrauma" value="trauma" required/>
+              Trauma
+            </label>
+          </div>
+        </div>
+      
+          </form>
+          <div class="btn-container">
+            <a href="prescripciones.html" class="btn-cancelar">Cancelar</a>
+            <button type="submit" class="btn-nuevo" onclick="guardarRecambio()">Actualizar</button>
+        </div>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+        <script src="../js/bd/prescripcion.js">
+        </script>
+        <script src="../js/functions/recambios.js"></script>
+        <script src="../js/bd/login.js"></script>
+        <script>
+          concentraciones()
+          onload()
+        </script>
 </body>
 
 </html>
