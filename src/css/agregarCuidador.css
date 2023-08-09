@@ -11,15 +11,10 @@ h3 {
     font-weight: bold;
     font-size: 18px;
 }
-    
 
-.agregarCuidador{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-    margin: 0 auto;
-    width: 100%;
-}
+  
+
+
 .navbar {
   background-color: #04BAFC;
   margin: auto;
