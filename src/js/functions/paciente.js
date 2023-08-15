@@ -8,17 +8,35 @@ let perfil=async()=>{
 if(paciente!=null){
     msg+=
    
-    '<div class="container">'+
+    '<br><div class="container">'+
     '<div class="name">'+
 '<div class="row">'+
 '<div class="col-1"></div>'+
 
-'<div class="col-10 d-flex align-items-center justify-content-center"><h1 class="nombre" id="nombre" name="nombre">'+paciente.nombre+
-'</h1></div>'+
+'<div class="col-10 d-flex align-items-center justify-content-center"><h4 class="nombre" id="nombre" name="nombre">Datos Personales</h4></div>'+
 '<div class="col-1"></div>'+
 '</div>'+
 '</div>'+
 '<div class="primerosDatos">'+
+'<div class="row">'+
+    '<div class="col-1"></div>'+
+    '<div class="col-5 d-flex align-items-center justify-content-center">'+
+      '<div class="dataNombre">'+
+        '<b><p class="valor">Nombre:</p></b>'+
+        '<p class="nombre" id="nombre">'+paciente.nombre+'</p>'+
+      '</div>'+
+    '</div>'+
+    '<div class="col-5 d-flex align-items-center justify-content-center">'+
+      '<div class="dataCedula">'+
+        '<b><p class="valor">Documento:</p></b>'+
+        '<p class="documento" id="documento">'+paciente.cedula+'</p>'+
+      '</div>'+
+    '</div>'+
+    '<div class="col-1"></div>'+
+  '</div>'+
+
+
+
   '<div class="row">'+
     '<div class="col-1"></div>'+
     '<div class="col-5 d-flex align-items-center justify-content-center">'+
@@ -51,7 +69,7 @@ if(paciente!=null){
         '</label>'+
       '</div>'+
       '<div class="col-5 d-flex align-items-center justify-content-center">'+
-        '<b><label for="sangre" id="sangre" class="sangre">Sangre:</label></b>'+
+        '<b><label for="sangre" id="sangre" class="sangre">Tipo sanguíneo:</label></b>'+
         '<label for="tiposangre" class="tipo_sangre" id="tipo_sangre">'+paciente.tiposangre+'</label>'+
         '<label for="rh" class="rh" id="rh">'+paciente.rh+'</label>'+
       '</div>'+
@@ -63,9 +81,9 @@ if(paciente!=null){
 '<div class="segundosDatos">'+
     '<div class="row">'+
         '<div class="col-1"></div>'+
-        '<div class="col-5 d-flex flex-column align-items-center justify-content-center">'+
+        '<div class="col-5 d-flex flex-column align-items-center justify-content-center ">'+
             '<b><label for="nacimiento" id="nacimiento" class="nacimiento">'+
-                    'Nacimiento:'+
+                    'Fecha de Nacimiento:'+
                 '</label>'+
             '</b>'+
             '<label for="fechaNacimiento" id="fechaNacimiento" class="fechaNacimiento">'+paciente.nacimiento+
@@ -167,7 +185,14 @@ if(cuidador!=null && cuidador !== ""){
 else{
     msg+='<br><a href="cuidador.html"class="alerg-nueva" >Agregar Cuidador</a>';
 }
+
 document.getElementById("perfil").innerHTML = msg;
+
+let ms="";
+ms+='<div class="cerrar">'+
+        '<a class="btn" type="button" id="btnguardar" data-bs-toggle="modal" data-bs-target="#nuevacontrasenia">Cambiar contraseña</a>'+
+    '</div>';
+    document.getElementById("cambiarContrasenia").innerHTML= ms;
 }
 catch (error) {
     console.error("Error in perfil():", error);

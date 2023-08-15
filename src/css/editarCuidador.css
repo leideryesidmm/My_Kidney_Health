@@ -17,14 +17,13 @@ h3 {
 
 .navbar {
   background-color: #04BAFC;
-  
+  height: 62px;
 }
 
 
 #icono {
   width: 30px;
     height: 30px;
-    margin-top: 6px;
   margin-left: 20px;
   
 }
@@ -34,7 +33,6 @@ h3 {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 3.5px;
 }
 
 .form-container {
@@ -67,9 +65,7 @@ h3 {
       transition: transform 0.3s ease-in-out;
   }
 
-  input, select{
-    height: 35px;
-  }
+  
   
   input[type="text"]{
       width: 100%;

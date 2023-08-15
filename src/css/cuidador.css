@@ -28,7 +28,7 @@ h3 {
 
 .navbar {
   background-color: #04BAFC;
-  height: fit-content;
+  height: 62px;
   width: 100%;
   display: flex;
   justify-content: space-between; 
@@ -45,7 +45,7 @@ h3 {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 3.5px;
+  margin: 0 auto;
 }
 
 
@@ -68,6 +68,7 @@ h3 {
 
 .btn-container button, a {
   width: 80px;
+  height: 30px;
 }
 
 .cuidadores, .varCuidador, .nombre{
@@ -87,7 +88,9 @@ h3 {
         font-family: 'Jost', sans-serif;
         border-radius: 5px;
         text-decoration: none;
-        
+        display: flex;
+        justify-content: center;
+        align-items: center;        
 }
 
 .btn-nuevo{
@@ -99,6 +102,9 @@ h3 {
     font-family: 'Jost', sans-serif;
     border-radius: 5px;
     text-decoration: none;
+    display: flex;
+        justify-content: center;
+        align-items: center;
 }
 
 .inhabilitarCuidador{
@@ -110,6 +116,22 @@ h3 {
     font-family: 'Jost', sans-serif;
     border-radius: 5px;
     text-decoration: none;
+    display: flex;
+        justify-content: center;
+        align-items: center;
+}
+
+.cerrarInactivos{
+  background-color: #c71919;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    font-family: 'Jost', sans-serif;
+    border-radius: 5px;
+    text-decoration: none;
+    width: 80px;
+    height: 30px;
 }
 
 .cuidadoresInactivos {
@@ -153,16 +175,7 @@ h3 {
     border: none;
     padding: 0;
     margin: 0;
-    /* Agrega otros estilos personalizados aquí si es necesario */
   }
-
-  #edit img{
-    width: 40px;
-    height: 40px;
-    float: left;
-    margin-left: 10%;
-  }
-
 
 
 button img{
@@ -173,6 +186,13 @@ button img{
 #sinCuidador{
   color: #fa0808;
 }
+
+ #edit img{
+    width: 40px;
+    height: 40px;
+    float: left;
+    margin-left: 30%;
+  }
 
 @media only screen and (max-width: 768px) {
     /* For mobile phones: */

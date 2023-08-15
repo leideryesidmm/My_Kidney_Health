@@ -14,8 +14,9 @@
 <body>
     
         <div class="navbar" name="navbar" id="navbar">
-            <a href="medicamento.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icon"></a>
-            <h1 class="title">Medicamentos</h1>
+          <div class="col-2"><a href="principal.html" class="devolverse" id="icono"><img src="../img/devolverseColor.png" alt="" id="icono"></a></div>
+          <div class="col-8"><h1 class="title">Medicamentos</h1></div>
+          <div class="col-2"></div>
         </div>
             <br>
         <div class="form-container">
@@ -69,13 +70,14 @@
 
 </form>
         </div>
+        <div class="btn-container">
+          <a href="medicamento.html" class="btn-cancelar">Cancelar</a>
+          <button onclick="crearMedicamento()" type="submit" class="btn-nuevo">Guardar</button>
         </div>
-
+        
+      </div>
     </div>
-    <div class="btn-container">
-        <a href="medicamento.html" class="btn-cancelar">Cancelar</a>
-        <button onclick="crearMedicamento()" type="submit" class="btn-nuevo">Guardar</button>
-    </div>
+    
 
     <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">

@@ -26,10 +26,7 @@ body {
   .fil{
     background-color: #B2EAF2;
   }
-  .navbar{
-    background-color: #04BAFC;
-    height:fit-content;
-}
+  
 
 .fil {
   background-color: #B2EAF2;
@@ -37,10 +34,10 @@ body {
 
 .navbar {
   background-color: #04BAFC;
-  height: fit-content;
+  height: 62px;
   width: 100%;
   display: flex;
-  justify-content: space-between; 
+  justify-content: center; 
   align-items: center; 
 }
 
@@ -49,8 +46,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 6.5px;
-  margin-right: 110px;
 }
 
 .title-alergias{
@@ -71,6 +66,7 @@ label{
   justify-content: center;
   align-items: center;
   margin: 0 auto;
+  margin-bottom: 7px;
 }
 
 #icono {
@@ -190,19 +186,6 @@ h5 {
   margin: 1%;
 }
 
-.navbar input{
-  margin: 0;
-  padding: 0;
-  float: left;
-  width: 40px;
-  height: 40px;
-  background-color: #04BAFC;
-  border-radius: 50%;
-  margin-right: 20px;
-
-  
-}
-
 #derecho {
   text-align: right;
 }
@@ -240,10 +223,6 @@ tbody:hover {
   margin: auto;
 }
 
-#inhabilitar {
-  width: 20px;
-  height: 20px;
-}
 
 #icono {
   width: 30px;
@@ -289,8 +268,8 @@ tbody:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 0 auto;
   margin: 3.5px;
-  margin-right: 120.5px;
 }
 
 .devolverse{
@@ -317,4 +296,40 @@ tbody:hover {
   #recamTable,th{
     
     font-size: 80%;
+  }
+
+  .navbar input{
+    width: 40px;
+    height: 40px;
+    background-color: #04BAFC;
+  }
+  
+  .logo-principal{
+    width: 40px;
+    height: 40px;
+    background-color: #04BAFC;
+    border-radius: 50%;
+    float: right;
+  }
+
+  #editarAlergia, #inhabilitarAlergia{
+    width: 30px;
+    height: 30px;
+  }
+
+  .image-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .image-container a {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .modalAgregar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
   }

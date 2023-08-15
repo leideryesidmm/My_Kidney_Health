@@ -16,7 +16,7 @@ let login = async (event) => {
   let decryptedCedula = null;
   let contrasenia = null;
 
-  const peticion = await fetch(servidorAPI + 'Usuario/findAllUsuarios', {
+  const peticion = await fetch(servidorAPI + '/Medico/findAllPacientes', {
     method: 'GET',
     headers: {
       "Accept": "application/json",
@@ -27,6 +27,17 @@ let login = async (event) => {
   const pacientes = await peticion.json();
   console.log(pacientes);
 
+  const peticion2 = await fetch(servidorAPI + '/Medico/findAll', {
+    method: 'GET',
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    }
+  })
+  const medicos = await peticion2.json();
+  console.log(medicos);
+let pacienteEncontrado=false;
+let medicoEncontrado=false;
   pacientes.forEach(paciente => {
     decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, 'clave_secreta').toString(CryptoJS.enc.Utf8);
     console.log(decryptedCedula);
@@ -34,19 +45,45 @@ let login = async (event) => {
     console.log(contrasenia);
     console.log(username === decryptedCedula && password === contrasenia);
     if (username === decryptedCedula && password === contrasenia) {
-
       localStorage.setItem("authenticated", "true");
       const cedula = encodeURIComponent(paciente.cedula)
-      localStorage.setItem("cedula", cedula);
+      let usuario="paciente"
+      datos={
+      cedula:cedula, usuario:usuario
+      }
+      localStorage.setItem("datos", datos);
       localStorage.setItem("servidorAPI", servidorAPI);
-      location.href = "principal.html?cedula=" + cedula;
-      console.log(username);
+      location.href = "principal.html";
+      pacienteEncontrado=true;
       return username;
     }
-
-  })
-
-  // Si el bucle termina sin encontrar una coincidencia, muestra el mensaje de credenciales incorrectas
+  });
+    if(!pacienteEncontrado){
+      medicos.forEach(medico => {
+      decryptedCedula = CryptoJS.AES.decrypt(medico.cedula, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+      console.log(decryptedCedula);
+      contrasenia = CryptoJS.AES.decrypt(medico.contrasenia, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+      console.log(contrasenia);
+      if (username === decryptedCedula && password === contrasenia) {
+        localStorage.setItem("authenticated", "true");
+        const cedula = encodeURIComponent(medico.cedula)
+        let usuario="medico"
+        datos={
+        cedula:cedula, usuario:usuario
+        }
+        localStorage.setItem("datos", datos);
+        localStorage.setItem("servidorAPI", servidorAPI);
+        location.href = "pacientes.html";
+        medicoEncontrado=true;
+        return username;
+      }
+      })
+    }
+    else{
+      let msg="";
+      msg+='<p>!Datos Incorrectos¡</p>';
+      document.getElementById("datosIncorrectos").innerHTML=msg;
+    }
 
 }
 
@@ -76,4 +113,18 @@ let onload = async () => {
     }
 
   }
+}
+
+function passwordVisibility() {
+  var passwordInput = document.getElementById("password");
+  var icon = document.querySelector(".toggle-password");
+  if (passwordInput.type === "password") {
+    passwordInput.type = "text";
+    icon.classList.remove("fa-eye");
+    icon.classList.add("fa-eye-slash");
+} else {
+    passwordInput.type = "password";
+    icon.classList.remove("fa-eye-slash");
+    icon.classList.add("fa-eye");
+}
 }

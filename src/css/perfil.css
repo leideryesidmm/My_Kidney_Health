@@ -41,11 +41,11 @@ label{
 
 .navbar {
   background-color: #04BAFC;
-  height: fit-content;
+  height: 62px;
   width: 100%;
   display: flex;
   justify-content: space-between; 
-  align-items: center; 
+  align-items: center;
 }
 
 .name{
@@ -236,9 +236,12 @@ label{
   align-items: center;
   margin: 0 auto;
 }
-.nacimiento{
-  margin-bottom: 0;
-}
+.nacimiento,
+    .fechaNacimiento {
+        margin-bottom: 1px;
+    }
+
+
 
 @media only screen and (max-width: 768px) {
     /* For mobile phones: */

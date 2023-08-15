@@ -14,12 +14,17 @@ let listAlergias = async (alergias) => {
         alergias.forEach((alergia) => {
             msg +=
                 '<tr>' +
-                '<td>' + alergia.nombre + '</td>' +
-                '<td>' +
-                '<a href="" data-bs-toggle="modal" data-bs-target="#editaralergia' + cont + '"><img src="../img/editaraler.png"  alt="" id="inhabilitar"></a>' +
-                '<a href="" data-bs-toggle="modal" data-bs-target="#eliminaralergia' + cont + '"><img src="../img/inhabilitar.png" alt="" id="inhabilitar"></a>' +
-
-                '</td>' +
+                '<td style="width:70%">' + alergia.nombre + '</td>' +
+                '<td style="width:30%">'+
+  '<div class="image-container">'+
+    '<a href="" data-bs-toggle="modal" data-bs-target="#editaralergia' + cont + '">'+
+      '<img src="../img/editaraler.png" alt="" id="editarAlergia">'+
+    '</a>'+
+    '<a href="" data-bs-toggle="modal" data-bs-target="#eliminaralergia' + cont + '">'+
+      '<img src="../img/inhabilitar.png" alt="" id="inhabilitarAlergia">'+
+    '</a>'+
+  '</div>'+
+'</td>';
                 '</tr>' +
 
                 '<div>' +
