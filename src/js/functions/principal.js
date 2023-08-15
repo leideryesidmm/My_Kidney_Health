@@ -30,7 +30,7 @@ let principal =()=>{
         '</div>'+
         '<div class="col-6">'+
             '<div id="container">'+
-                '<a href="misRecambios.html"><img src="../img/recambios.png" alt=""></a>'+
+                '<a href="recambiosguardados.html"><img src="../img/recambios.png" alt=""></a>'+
             '</div>'+  
         '</div>'+
     '</div>'+

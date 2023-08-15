@@ -15,7 +15,7 @@
 <body>
     <div class="">
         <div class="navbar" name="navbar" id="navbar">
-            <div class="col-2"><a href="misrecambios.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a></div>
+            <div class="col-2"><a href="principal.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a></div>
         <div class="col-8"><h1 class="title-alergias">Mis Recambios</h1></div>
         <div class="col-2"></div>
         </div>
@@ -24,75 +24,8 @@
         <h3>Todos los recambios</h3>
         <div class="container">
             <div class="accordion" id="accordionExample">
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingOne">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" id="nombre">
-                            Recambio 07/07/2023-1
-                        </button>
-                    </h2>
-                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                        data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <div class="horaDren">
-                                <p><strong>Hora drenaje:</strong></p>
-                                <p class="hora" id="hora">
-                                    00:00:00
-                                </p>
-                            </div>
-
-                            <div class="concentr">
-                                <p><strong>Concentración:</strong></p>
-                                <p class="concentracion" id="concentracion">
-                                    <!--concentracion-->
-                                </p>
-                            </div>
-                            <div class="vol">
-                                <p><strong>Volumen:</strong></p>
-                                <p class="volumen" id="volumen">
-                                    <!--volumen-->
-                                </p>
-                            </div>
-                            <div class="drenaj">
-                                <p><strong>Drenaje:</strong></p>
-                                <p class="drenaje" id="drenaje">
-                                    <!--drenaje-->
-                                </p>
-                            </div>
-                            <div class="balan">
-                                <p><strong>Balance:</strong></p>
-                                <p class="balance" id="balance">
-                                    <!--balance-->
-                                </p>
-                            </div>
-                            <div class="liquid">
-                                <p><strong>Características del líquido:</strong></p>
-                                <p class="liquido" id="liquido">
-                                    <!--liquido-->
-                                </p>
-                            </div>
-                            <div class="orif">
-                                <p><strong>Estado del orificio:</strong></p>
-                                <p class="orificio" id="orificio">
-                                    <!--orificio-->
-                                </p>
-                            </div>
-
-                            <div class="btn-editar-container">
-                                <a href="editarRecambio.html" class="btn-editar"><img src="../img/editaraler.png"></a>
-                                <div>
-                                    <a href="" class="btn-inhabilitar" data-bs-toggle="modal"
-                                        data-bs-target="#eliminarrecambio"><img src="../img/inhabilitar.png" alt=""
-                                            id="inhabilitar-rec"></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item" id="acordeon1">
-                            <h2 class="accordion-header" id="headingTwo">
-                            </h2>
-                        </div>
-                    </div>
-                </div>
+                
+                
             </div>
             
             <br>
@@ -130,9 +63,14 @@
                 </div>
             </div>
         </div>
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
         <script src="../js/bd/login.js"></script>
-        <script>onload()</script>
+        <script src="../js/bd/prescripcion.js"></script>
+        <script src="../js/functions/recambios.js"></script>
+        <script>
+        onload()
+        listRecambios(recambiosHechos())
+        </script>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
     integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"

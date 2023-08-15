@@ -156,13 +156,13 @@ let cambioContrasenia = async () => {
     let usuarioInDto = { cedula: cedulaEncriptada, contrasenia: contraseniaEncriptada };
     console.log(usuarioInDto);
 
-    fetch(localStorage.getItem("servidorAPI")+"Usuario/cambiarContrasenia", {
-      method: "PATCH",
-      body: JSON.stringify(usuarioInDto), 
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      }
+    const peticion= await fetch(localStorage.getItem("servidorAPI")+"Usuario/cambiarContrasenia", {
+      method:"PATCH",
+      headers:{
+        "Accept":"application/json",
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify(usuarioInDto)
     })
       .then(response => {
         if (response.ok) {

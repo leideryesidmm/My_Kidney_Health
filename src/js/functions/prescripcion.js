@@ -13,7 +13,7 @@ let mostrarPrescripcion= async (prescripcion) => {
     let msg2=""
     prescripcion.unionPrescripcionDiasRecambios[0].recambios.forEach(recambio => {
     msg+=recambio.concentracion+' - ';
-    msg2+=recambio.intervaloTiempo+' - ';
+    msg2+=recambio.intervaloTiempo+' - ';selectConcentracion
     });
     msg=msg.substring(0, msg.length - 3);
     msg2=msg2.substring(0, msg2.length - 3);
@@ -40,7 +40,7 @@ let mostrarPrescripcion= async (prescripcion) => {
         +'<thead>'
         +'  <tr>'
         +'    <th>Recambio</th>'
-        +'    <th>Concentrasión</th>'
+        +'    <th>Concentración</th>'
         +'    <th>Tiempo</th>'
         +'  </tr>'
         +'</thead>'
