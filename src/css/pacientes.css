@@ -188,3 +188,12 @@ td {
 #btn-green {
 background-color: rgb(126, 224, 27);
 }
+
+.especialistas{
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-title{
+  text-align:center;
+}

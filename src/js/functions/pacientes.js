@@ -71,7 +71,7 @@ let habilitarPaciente = async (ced) => {
       body: JSON.stringify(PacienteInDto)
     });
 
-    if (response.ok) {      
+    if (response.ok) {
       location.reload();
     }
     else {
@@ -117,6 +117,9 @@ let pacientesTratados = async () => {
           '<a href="" data-bs-toggle="modal" data-bs-target="#inhabilitarpaciente' + cont + '" type="button">' +
           '<img src="../img/cesta.png" class="inhabilitar"/>' +
           '</a>' +
+          '<a href="" data-bs-toggle="modal" data-bs-target="#visita' + cont + '" type="button">' +
+          '<img src="../img/visita.png" class="actualizar"/>' +
+          '</a>' +
           '</td>' +
           '</tr>';
 
@@ -136,6 +139,69 @@ let pacientesTratados = async () => {
           '<div class="modal-footer">' +
           '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>' +
           '<button type="button" onclick="inhabilitarPaciente(' + paciente.cedula + ')"" class="btn btn-danger">Inhabilitar</button>' +
+          '</div>' +
+          '</div>' +
+          '</div>' +
+          '</div>';
+
+          msg +=
+          '<div class="modal" tabindex="-1" id="visita' + cont + '">' +
+          '<div class="modal-dialog">' +
+          '<div class="modal-content">' +
+          '<div class="modal-header">' +
+          '<h5 class="modal-title" >Visitas a Especialista</h5>' +
+          '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
+          '</div>' +
+          '<div class="modal-body">' +
+          '<div class="especialistas">'+
+          '<div class="row">'+
+          '<div class="col-6"><img src="../img/nefrologo.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">'+
+          '  <label class="form-check-label" for="flexCheckDefault">'+
+          '    Nefrólogo'+
+          '  </label>'+
+          '</div>'+
+            '<div class="col-6"><img src="../img/enfermera.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">'+
+              '  <label class="form-check-label" for="flexCheckDefault">'+
+              '    Enfermera'+
+              '  </label>'+
+              '</div>'+
+          '</div><br>'+
+        '<div class="row">'+
+          '<div class="col-6"><img src="../img/nutricion.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">'+
+          '  <label class="form-check-label" for="flexCheckDefault">'+
+          '    Nutricionista'+
+          '  </label>'+
+          '</div>'+
+            '<div class="col-6"><img src="../img/psicologo.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">'+
+              '  <label class="form-check-label" for="flexCheckDefault">'+
+              '    Psicólogo'+
+              '  </label>'+
+              '</div>'+
+          '</div><br>'+
+          '<div class="row">'+
+          '<div class="col-6"><img src="../img/asistencia.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">'+
+          '  <label class="form-check-label" for="flexCheckDefault">'+
+          '    Trabajador Social'+
+          '  </label>'+
+          '</div>'+
+            '<div class="col-6"><img src="../img/admision.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">'+
+              '  <label class="form-check-label" for="flexCheckDefault">'+
+              '    Aux. de Admisiones'+
+              '  </label>'+
+              '</div>'+
+          '</div><br>'+
+          '<div class="row text-center">'+
+          '<div class="col-12"><img src="../img/Farmacia.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">'+
+          '  <label class="form-check-label" for="flexCheckDefault">'+
+          '    Farmacia'+
+          '  </label>'+
+          '</div>'+
+          '</div>'+
+          '</div>' +
+          '</div>' +
+          '<div class="modal-footer">' +
+          '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>' +
+          '<button type="button" onclick="inhabilitarPaciente(' + paciente.cedula + ')"" class="btn btn-primary">Guardar</button>' +
           '</div>' +
           '</div>' +
           '</div>' +
@@ -173,7 +239,18 @@ let pacientesInhabilitados = async () => {
     let msg = "";
 
     if (pacientes != null && pacientes.length > 0) {
-      msg += '<br>' +
+      msg += '<div class="container">' +
+        '<h2>Pacientes Inhabilitados</h2>' +
+        '<div class="row">' +
+        '<div class="col-md-6">' +
+        '<input type="text" name="cedula-paciente" id="cedula-paciente" placeholder="Digite la cedula del paciente" class="form-control" />' +
+        '</div>' +
+        '<div class="col-md-6">' +
+        '<button type="button" class="btn btn-primary" id="buscar-paciente" data-dismiss="modal">Buscar</button>' +
+        '</div>' +
+        '<br>' +
+        '</div>' +
+        '<br>' +
         '<table class="pacientes">' +
         '<thead>' +
         '<tr>' +
@@ -182,9 +259,9 @@ let pacientesInhabilitados = async () => {
         '<th>Acciones</th>' +
         '</tr>' +
         '</thead>';
-        
-    pacientes.forEach((paciente) => {
-        
+
+      pacientes.forEach((paciente) => {
+
         msg +=
           '<tr>' +
           '<td>' + paciente.nombre + '</td>' +
@@ -194,9 +271,11 @@ let pacientesInhabilitados = async () => {
           '<img src="../img/actualizar.png" class="actualizar"/>' +
           '</a >' +
           '</td>' +
-          '</tr>';
+          '</tr>' +
+          '</div>' +
+          '</div>';
 
-          msg +=
+        msg +=
           '<div class="modal" tabindex="-1" id="habilitarpaciente' + cont + '">' +
           '<div class="modal-dialog">' +
           '<div class="modal-content">' +
@@ -216,26 +295,15 @@ let pacientesInhabilitados = async () => {
           '</div>' +
           '</div>' +
           '</div>';
-        
+
       });
-    } 
+    }
     else {
-      msg += '<br>' +
-        '<table class="pacientes">' +
-        '<thead>' +
-        '<tr>' +
-        '<th>Nombre</th>' +
-        '<th>Cédula</th>' +
-        '<th>Acciones</th>' +
-        '</tr>' +
-        '</thead>' +
-        '<tr>' +
-        '<td colspan="3">' + "No hay pacientes inhabilitados" + '</td>' +
-        '</tr>';
+      msg += ""
     }
     msg += '</table>';
     document.getElementById("pacientesinhabilitados").innerHTML = msg;
-  } 
+  }
   catch (error) {
     console.error("Error in pacientesTratados:", error);
   }
