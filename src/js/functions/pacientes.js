@@ -2,34 +2,36 @@
 var cedulaEncriptada = "";
 
 
-let obtenerCedulaEncriptada = async (cedulEncript) => {
-  const peticion = await fetch(servidorAPI + 'Medico/findAllPacientes', {
-    method: 'GET',
-    headers: {
-      "Accept": "application/json",
+let obtenerCedulaEncriptada=async(cedulaEncript)=>{
+  const peticion= await fetch(servidorAPI+'Medico/findAllPacientes',{
+    method:'GET',
+    headers:{
+      "Accept":"application/json",
       "Content-Type": "application/json"
     }
-  });
-  const pacientes = await peticion.json();
-  let cedulaEncriptada = "";
-
-  pacientes.forEach(paciente => {
-    let decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-    let decryptedParam = CryptoJS.AES.decrypt(cedulEncript, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-    if (decryptedParam === decryptedCedula)
-      cedulaEncriptada = paciente.cedula;
-  })
-  return cedulaEncriptada;
+      });
+      const pacientes=await peticion.json();
+      console.log(pacientes);
+      let cedulaEncriptada="";
+      pacientes.forEach(paciente=>{
+        let decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+        const cedulaCodificado = decodeURIComponent(decryptedCedula);
+        console.log(decryptedCedula);
+        if(cedulaEncript===cedulaCodificado)
+        cedulaEncriptada=paciente.cedula;
+        
+      })   
+      console.log(cedulaEncriptada);
+      return cedulaEncriptada;
 }
 
 
 let inhabilitarPaciente = async (ced) => {
   let cedula = ced.toString();
-  let cedEncriptada = CryptoJS.AES.encrypt(cedula, 'clave_secreta').toString();
-  let cedulaEncriptada = await obtenerCedulaEncriptada(cedEncriptada);
-
+  let cedulaEncriptada = await obtenerCedulaEncriptada(cedula);
+  console.log(cedulaEncriptada);
   try {
-    const PacienteInDto = { cedula: cedulaEncriptada };
+    const pacienteInDto = { cedula: cedulaEncriptada };
 
     const response = await fetch(servidorAPI + 'Medico/inhabilitarPaciente', {
       method: "PATCH",
@@ -37,7 +39,7 @@ let inhabilitarPaciente = async (ced) => {
         "Accept": "application/json",
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(PacienteInDto)
+      body: JSON.stringify(pacienteInDto)
     });
 
     if (response.ok) {
@@ -56,11 +58,10 @@ let inhabilitarPaciente = async (ced) => {
 
 let habilitarPaciente = async (ced) => {
   let cedula = ced.toString();
-  let cedEncriptada = CryptoJS.AES.encrypt(cedula, 'clave_secreta').toString();
-  let cedulaEncriptada = await obtenerCedulaEncriptada(cedEncriptada);
+  let cedulaEncriptada = await obtenerCedulaEncriptada(cedula);
 
   try {
-    const PacienteInDto = { cedula: cedulaEncriptada };
+    const pacienteInDto = { cedula: cedulaEncriptada };
 
     const response = await fetch(servidorAPI + 'Medico/reactivarPaciente', {
       method: "PATCH",
@@ -68,7 +69,7 @@ let habilitarPaciente = async (ced) => {
         "Accept": "application/json",
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(PacienteInDto)
+      body: JSON.stringify(pacienteInDto)
     });
 
     if (response.ok) {
@@ -234,6 +235,7 @@ let pacientesTratados = async () => {
 
 let pacientesInhabilitados = async () => {
   let cont = 1;
+
   try {
     const pacientes = await listarPacientesInactivos();
     let msg = "";
@@ -295,6 +297,7 @@ let pacientesInhabilitados = async () => {
           '</div>' +
           '</div>' +
           '</div>';
+          cont++;
 
       });
     }
@@ -311,4 +314,10 @@ let pacientesInhabilitados = async () => {
 
 
 pacientesTratados();
+
+function irPaciente(cedula){
+  localStorage.setItem("cedulaPaciente", cedula);
+  location.href="principal.html";
+}
+
 pacientesInhabilitados();
