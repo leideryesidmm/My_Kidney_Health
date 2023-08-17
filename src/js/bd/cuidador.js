@@ -1,8 +1,7 @@
-const cedulaEncript = decodeURIComponent(localStorage.getItem("cedula"));
-    const cedula = CryptoJS.AES.decrypt(cedulaEncript, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+
 var cedulaEncriptada= "";
 
-let obtenerCedulaEncriptada=async()=>{
+let obtenerCedulaEncriptada=async(cedula)=>{
   const peticion= await fetch(localStorage.getItem("servidorAPI")+'Medico/findAllPacientes',{
     method:'GET',
     headers:{
@@ -90,7 +89,21 @@ let crearCuidador = async () => {
 }
 
 let cuidadorPorPaciente=async()=>{
-  cedulaEncriptada=await obtenerCedulaEncriptada();
+  let data = localStorage.getItem("datos");
+  let dato=JSON.parse(data);
+  console.log(data);
+      let usuario = dato.usuario;
+      let cedul= decodeURIComponent(dato.cedula);
+      console.log(cedul);
+      console.log(usuario);
+
+      let cedulaEncriptada="";
+      if(usuario=="medico"){
+       cedulaEncriptada = await obtenerCedulaEncriptada(0,CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
+      console.log(cedulaEncriptada);}
+      else{
+        cedulaEncriptada=cedul;
+      }
   console.log(cedulaEncriptada);
   const peticion= await fetch(localStorage.getItem("servidorAPI")+'/paciente/cuidador/listCuidadorPacienteByPaciente',{
     method:'POST',
@@ -117,7 +130,21 @@ let cuidadorPorPaciente=async()=>{
 
     let cuidadoresAntiguos = async () => {
       const cuidadoresDesencriptados = new Set();
-      cedulaEncriptada=await obtenerCedulaEncriptada();
+      let data = localStorage.getItem("datos");
+  let dato=JSON.parse(data);
+  console.log(data);
+      let usuario = dato.usuario;
+      let cedul= decodeURIComponent(dato.cedula);
+      console.log(cedul);
+      console.log(usuario);
+
+      let cedulaEncriptada="";
+      if(usuario=="medico"){
+       cedulaEncriptada = await obtenerCedulaEncriptada(0,CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
+      console.log(cedulaEncriptada);}
+      else{
+        cedulaEncriptada=cedul;
+      }
       const peticion= await fetch(localStorage.getItem("servidorAPI")+'/paciente/cuidador/listCuidadorPacienteByPaciente',{
         method:'POST',
         headers:{
@@ -253,7 +280,21 @@ let listarParentesco = async () => {
 }
 
 let cuidadorActivo= async()=>{
-  cedulaEncriptada= await obtenerCedulaEncriptada();
+  let data = localStorage.getItem("datos");
+  let dato=JSON.parse(data);
+  console.log(data);
+      let usuario = dato.usuario;
+      let cedul= decodeURIComponent(dato.cedula);
+      console.log(cedul);
+      console.log(usuario);
+
+      let cedulaEncriptada="";
+      if(usuario=="medico"){
+       cedulaEncriptada = await obtenerCedulaEncriptada(0,CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
+      console.log(cedulaEncriptada);}
+      else{
+        cedulaEncriptada=cedul;
+      }
   const peticion = await fetch(localStorage.getItem("servidorAPI") + "paciente/cuidador/findCuidadorActivo", {
     method: "POST",
     headers: {
@@ -297,7 +338,21 @@ let cuidadorActivo= async()=>{
   
 
     let encontrarCuidador = async () => {
-      cedulaEncriptada=await obtenerCedulaEncriptada();
+      let data = localStorage.getItem("datos");
+      let dato=JSON.parse(data);
+      console.log(data);
+          let usuario = dato.usuario;
+          let cedul= decodeURIComponent(dato.cedula);
+          console.log(cedul);
+          console.log(usuario);
+    
+          let cedulaEncriptada="";
+          if(usuario=="medico"){
+           cedulaEncriptada = await obtenerCedulaEncriptada(0,CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
+          console.log(cedulaEncriptada);}
+          else{
+            cedulaEncriptada=cedul;
+          }
       const peticion = await fetch(localStorage.getItem("servidorAPI") + "paciente/cuidador/findCuidadorActivo", {
         method: "POST",
         headers: {
@@ -416,7 +471,21 @@ let cuidadorActivo= async()=>{
 
 let actualizarCuidador = async () => {
 
-  cedulaEncriptada=await obtenerCedulaEncriptada();
+  let data = localStorage.getItem("datos");
+  let dato=JSON.parse(data);
+  console.log(data);
+      let usuario = dato.usuario;
+      let cedul= decodeURIComponent(dato.cedula);
+      console.log(cedul);
+      console.log(usuario);
+
+      let cedulaEncriptada="";
+      if(usuario=="medico"){
+       cedulaEncriptada = await obtenerCedulaEncriptada(0,CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
+      console.log(cedulaEncriptada);}
+      else{
+        cedulaEncriptada=cedul;
+      }
       const peticion = await fetch(localStorage.getItem("servidorAPI") + "paciente/cuidador/findCuidadorActivo", {
         method: "POST",
         headers: {
@@ -469,7 +538,21 @@ let actualizarCuidador = async () => {
 }
 
 let cuidAntiguos = async () => {
-  cedulaEncriptada=await obtenerCedulaEncriptada();
+  let data = localStorage.getItem("datos");
+  let dato=JSON.parse(data);
+  console.log(data);
+      let usuario = dato.usuario;
+      let cedul= decodeURIComponent(dato.cedula);
+      console.log(cedul);
+      console.log(usuario);
+
+      let cedulaEncriptada="";
+      if(usuario=="medico"){
+       cedulaEncriptada = await obtenerCedulaEncriptada(0,CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
+      console.log(cedulaEncriptada);}
+      else{
+        cedulaEncriptada=cedul;
+      }
   const peticion= await fetch(localStorage.getItem("servidorAPI")+'/paciente/cuidador/listCuidadorPacienteByPaciente',{
     method:'POST',
     headers:{
@@ -513,7 +596,21 @@ else{
 };
 
 let reactivarCuidador = async (cedulaCuidador) => {
-  cedulaEncriptada=await obtenerCedulaEncriptada();
+  let data = localStorage.getItem("datos");
+  let dato=JSON.parse(data);
+  console.log(data);
+      let usuario = dato.usuario;
+      let cedul= decodeURIComponent(dato.cedula);
+      console.log(cedul);
+      console.log(usuario);
+
+      let cedulaEncriptada="";
+      if(usuario=="medico"){
+       cedulaEncriptada = await obtenerCedulaEncriptada(0,CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
+      console.log(cedulaEncriptada);}
+      else{
+        cedulaEncriptada=cedul;
+      }
   let cuidadoresAntiguos = await cuidAntiguos();
   cuidadoresAntiguos.forEach((cuidadorAntiguo) => {
     let cedCuidador = CryptoJS.AES.decrypt(cuidadorAntiguo.cedulaCuidador, 'clave_secreta').toString(CryptoJS.enc.Utf8);
@@ -568,7 +665,21 @@ let reactivarCuidador = async (cedulaCuidador) => {
 }
 
 let inhabilitarCuidador=async()=>{
-  cedulaEncriptada=await obtenerCedulaEncriptada();
+  let data = localStorage.getItem("datos");
+  let dato=JSON.parse(data);
+  console.log(data);
+      let usuario = dato.usuario;
+      let cedul= decodeURIComponent(dato.cedula);
+      console.log(cedul);
+      console.log(usuario);
+
+      let cedulaEncriptada="";
+      if(usuario=="medico"){
+       cedulaEncriptada = await obtenerCedulaEncriptada(0,CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
+      console.log(cedulaEncriptada);}
+      else{
+        cedulaEncriptada=cedul;
+      }
       const peticion = await fetch(localStorage.getItem("servidorAPI") + "paciente/cuidador/findCuidadorActivo", {
         method: "POST",
         headers: {

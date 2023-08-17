@@ -104,12 +104,14 @@ let pacientesTratados = async () => {
         '</thead>';
 
       pacientes.forEach((paciente) => {
+        let clave=encodeURIComponent(CryptoJS.AES.encrypt(paciente.cedula, "clave_secreta").toString())
+        console.log(clave);
         msg +=
           '<tr>' +
           '<td>' + paciente.nombre + '</td>' +
           '<td>' + paciente.cedula + '</td>' +
           '<td>' +
-          '<a href="principal.html?cedula=' + encodeURIComponent(CryptoJS.AES.encrypt(paciente.cedula, "clave_secreta").toString()) + '"class="icon-link" onclick="llenarInfoPaciente() type="button">' +
+          '<a class="icon-link" onclick="irPaciente(\'' + clave + '\')">' +
           '<img src="../img/ver.png" class="ver"/>' +
           '</a>' +
           '<a href="info-pacientes.html" type="button">' +
@@ -123,115 +125,58 @@ let pacientesTratados = async () => {
           '</a>' +
           '</td>' +
           '</tr>';
-
-        msg +=
-          '<div class="modal" tabindex="-1" id="inhabilitarpaciente' + cont + '">' +
-          '<div class="modal-dialog">' +
-          '<div class="modal-content">' +
-          '<div class="modal-header">' +
-          '<h5 class="modal-title">Inhabilitar Paciente</h5>' +
-          '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
-          '</div>' +
-          '<div class="modal-body">' +
-          '<p><b>¿Está seguro(a) de inhabilitar este paciente?</b></p>' +
-          '<label class="cedulaPaciente" id="cedulaPaciente"><b>Cédula: </b>' + paciente.cedula + '</label><br>' +
-          '<label class="cedulaPaciente" id="cedulaPaciente"><b>Nombre: </b>' + paciente.nombre + '</label>' +
-          '</div>' +
-          '<div class="modal-footer">' +
-          '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>' +
-          '<button type="button" onclick="inhabilitarPaciente(' + paciente.cedula + ')"" class="btn btn-danger">Inhabilitar</button>' +
-          '</div>' +
-          '</div>' +
-          '</div>' +
-          '</div>';
-
+          
+            msg +=
+              '<div class="modal" tabindex="-1" id="inhabilitarpaciente' + cont + '">' +
+              '<div class="modal-dialog">' +
+              '<div class="modal-content">' +
+              '<div class="modal-header">' +
+              '<h5 class="modal-title">Inhabilitar Paciente</h5>' +
+              '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
+              '</div>' +
+              '<div class="modal-body">' +
+              '<p><b>¿Está seguro(a) de inhabilitar este paciente?</b></p>' +
+              '<label class="cedulaPaciente" id="cedulaPaciente"><b>Cédula: </b>'+paciente.cedula+'</label><br>' +
+              '<label class="cedulaPaciente" id="cedulaPaciente"><b>Nombre: </b>'+paciente.nombre+'</label>' +
+              '</div>' +
+              '<div class="modal-footer">' +
+              '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>' +
+              '<button type="submit" onclick="inhabilitarPaciente(' + paciente.cedula + ')"" class="btn btn-danger">Inhabilitar</button>' +
+              '</div>' +
+              '</div>' +
+              '</div>' +
+              '</div>';
+              
+            cont++; // Increment the counter for modal IDs
+          });
+        } else {
           msg +=
-          '<div class="modal" tabindex="-1" id="visita' + cont + '">' +
-          '<div class="modal-dialog">' +
-          '<div class="modal-content">' +
-          '<div class="modal-header">' +
-          '<h5 class="modal-title" >Visitas a Especialista</h5>' +
-          '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
-          '</div>' +
-          '<div class="modal-body">' +
-          '<div class="especialistas">'+
-          '<div class="row">'+
-          '<div class="col-6"><img src="../img/nefrologo.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">'+
-          '  <label class="form-check-label" for="flexCheckDefault">'+
-          '    Nefrólogo'+
-          '  </label>'+
-          '</div>'+
-            '<div class="col-6"><img src="../img/enfermera.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">'+
-              '  <label class="form-check-label" for="flexCheckDefault">'+
-              '    Enfermera'+
-              '  </label>'+
-              '</div>'+
-          '</div><br>'+
-        '<div class="row">'+
-          '<div class="col-6"><img src="../img/nutricion.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">'+
-          '  <label class="form-check-label" for="flexCheckDefault">'+
-          '    Nutricionista'+
-          '  </label>'+
-          '</div>'+
-            '<div class="col-6"><img src="../img/psicologo.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">'+
-              '  <label class="form-check-label" for="flexCheckDefault">'+
-              '    Psicólogo'+
-              '  </label>'+
-              '</div>'+
-          '</div><br>'+
-          '<div class="row">'+
-          '<div class="col-6"><img src="../img/asistencia.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">'+
-          '  <label class="form-check-label" for="flexCheckDefault">'+
-          '    Trabajador Social'+
-          '  </label>'+
-          '</div>'+
-            '<div class="col-6"><img src="../img/admision.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">'+
-              '  <label class="form-check-label" for="flexCheckDefault">'+
-              '    Aux. de Admisiones'+
-              '  </label>'+
-              '</div>'+
-          '</div><br>'+
-          '<div class="row text-center">'+
-          '<div class="col-12"><img src="../img/Farmacia.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">'+
-          '  <label class="form-check-label" for="flexCheckDefault">'+
-          '    Farmacia'+
-          '  </label>'+
-          '</div>'+
-          '</div>'+
-          '</div>' +
-          '</div>' +
-          '<div class="modal-footer">' +
-          '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>' +
-          '<button type="button" onclick="inhabilitarPaciente(' + paciente.cedula + ')"" class="btn btn-primary">Guardar</button>' +
-          '</div>' +
-          '</div>' +
-          '</div>' +
-          '</div>';
-        cont++;
-      });
-    }
-    else {
-      msg +=
-        '<br>' +
-        '<table class="pacientes">' +
-        '<thead>' +
-        '<tr>' +
-        '<th>Nombre</th>' +
-        '<th>Cédula</th>' +
-        '<th>Acciones</th>' +
-        '</tr>' +
-        '</thead>' +
-        '<tr>' +
-        '<td colspan="3">' + "No hay pacientes Registrados" + '</td>' +
-        '</tr>';
-    }
-    msg += '</table>';
-    document.getElementById("pacientes").innerHTML = msg;
-  }
-  catch (error) {
-    console.error("Error in pacientesTratados:", error);
-  }
-};
+            '<br>' +
+            '<table class="pacientes">' +
+            '<thead>' +
+            '<tr>' +
+            '<th>Nombre</th>' +
+            '<th>Cédula</th>' +
+            '<th>Acciones</th>' +
+            '</tr>' +
+            '</thead>' +
+            '<tr>' +
+            '<td colspan="3">' + "No hay pacientes Registrados" + '</td>' +
+            '</tr>';
+        }
+        msg += '</table>';
+        document.getElementById("pacientes").innerHTML = msg;
+      } catch (error) {
+        console.error("Error in pacientesTratados:", error);
+      }
+    };
+
+
+function irPaciente(cedula){
+  localStorage.setItem("cedulaPaciente", cedula);
+  location.href="principal.html";
+}
+
 
 let pacientesInhabilitados = async () => {
   let cont = 1;

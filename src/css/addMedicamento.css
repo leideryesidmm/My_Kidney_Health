@@ -12,11 +12,12 @@ h3 {
 }
 
 .navbar {
-    background-color: #04BAFC;
-    margin: auto;
-    margin: 0;
-    padding: 0;
-  }
+  background-color: #04BAFC;
+  margin: auto;
+  margin: 0;
+  padding: 0;
+  height: 62px;
+}
   
   .title {
     color: #fff;
@@ -59,7 +60,7 @@ h3 {
     font-size: 24px;
   }
 
-  .name input[type="text"]:focus,
+   .name input[type="text"]:focus,
   .via input[type="text"]:focus,
   .descripcion input[type="text"]:focus,
   .concentration input[type="number"]:focus,
@@ -126,17 +127,12 @@ input:focus + label {
     justify-content: center;
     align-items: center;
     margin: 0 auto;
-    margin-top: 10px;
 
-}
-
-.btn-container a {
-    margin-left: 5%;
 }
 
 .btn-cancelar{
     
-        background-color: #00DBA1;
+        background-color: gray;
         color: #fff;
         border: none;
         cursor: pointer;

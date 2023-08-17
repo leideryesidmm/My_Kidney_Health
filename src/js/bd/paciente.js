@@ -1,27 +1,25 @@
-    const cedulaEncript = decodeURIComponent(localStorage.getItem("cedula"));
-    const contraseniaEncript = decodeURIComponent(localStorage.getItem("contrasenia"));
 
-const cedula = CryptoJS.AES.decrypt(cedulaEncript, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-const contrasenia = CryptoJS.AES.decrypt(contraseniaEncript, 'clave_secreta').toString(CryptoJS.enc.Utf8);
 var cedulaEncriptada = "";
 var contraseniaEncriptada;
+dat= localStorage.getItem("datos");
 
-let obtenerCedulaEncriptada=async(id)=>{
-  let result = null ;
+let obtenerCedulaEncriptada=async(id, cedula)=>{
+  let result = "";
+  console.log(cedula);
   const peticion= await fetch(localStorage.getItem("servidorAPI")+'Medico/findAllPacientes',{
     method:'GET',
     headers:{
       "Accept":"application/json",
       "Content-Type": "application/json"
     }
-  });
-  const pacientes = await peticion.json();
-  console.log(pacientes)
-  pacientes.forEach(paciente => {
-    let decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-    const cedulaCodificado = encodeURIComponent(decryptedCedula);
-    if (cedula === cedulaCodificado){   
-      console.log(id)   
+      });
+      const pacientes=await peticion.json();
+      console.log(pacientes);
+      pacientes.forEach(paciente=>{
+        let decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+        console.log(decryptedCedula);
+        if(cedula===decryptedCedula){   
+        console.log("ENTRO");
       if(id == 0){
         result = paciente.cedula;
       }
@@ -29,14 +27,29 @@ let obtenerCedulaEncriptada=async(id)=>{
         result = paciente.contrasenia;
       }
     }
-  })
+    })
+    
   return result;
 }
 
 
 let listarPacientes = async () => {
-  let cedulaEncriptada = await obtenerCedulaEncriptada(0);
-  console.log(cedulaEncriptada)
+
+  let data = localStorage.getItem("datos");
+  let dato=JSON.parse(data);
+  console.log(data);
+      let usuario = dato.usuario;
+      let cedul= decodeURIComponent(dato.cedula);
+      console.log(cedul);
+      console.log(usuario);
+
+      let cedulaEncriptada="";
+      if(usuario=="medico"){
+       cedulaEncriptada = await obtenerCedulaEncriptada(0,CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
+      console.log(cedulaEncriptada);}
+      else{
+        cedulaEncriptada=cedul;
+      }
   let pacienteInDto = {
     cedula: cedulaEncriptada
   }
@@ -52,7 +65,7 @@ let pacienteAct={}
     const paciente=await peticion.json();
 console.log(paciente)
     let nombreDesencriptado= CryptoJS.AES.decrypt(paciente.nombre,'clave_secreta').toString(CryptoJS.enc.Utf8);
-    console.log(nombreDesencriptado);
+    let cedulaDesencriptado= CryptoJS.AES.decrypt(paciente.cedula,'clave_secreta').toString(CryptoJS.enc.Utf8);
     let celularDesencriptado= CryptoJS.AES.decrypt(paciente.nombre,'clave_secreta').toString(CryptoJS.enc.Utf8);
     let direccionDesencriptada= CryptoJS.AES.decrypt(paciente.nombre,'clave_secreta').toString(CryptoJS.enc.Utf8);
     let epsDesencriptada= CryptoJS.AES.decrypt(paciente.nombre,'clave_secreta').toString(CryptoJS.enc.Utf8);
@@ -65,17 +78,31 @@ console.log(paciente)
     let fecha=nacimiento[0];
     let diabetes=paciente.diabetes;
     let hipertension=paciente.hipertension;
-    console.log(hipertension);
+    let cedula=cedulaDesencriptado;
 
   pacienteAct = {
-    nombre: nombreDesencriptado, celular: celularDesencriptado, direccion: direccionDesencriptada, eps: epsDesencriptada, peso: peso, pesoSeco: pesoSeco, tiposangre: tiposangre, rh: rh, altura: altura, nacimiento: fecha, diabetes: diabetes, hipertension: hipertension
+    nombre: nombreDesencriptado, cedula:cedula, celular: celularDesencriptado, direccion: direccionDesencriptada, eps: epsDesencriptada, peso: peso, pesoSeco: pesoSeco, tiposangre: tiposangre, rh: rh, altura: altura, nacimiento: fecha, diabetes: diabetes, hipertension: hipertension
 
   }
   return pacienteAct;
 }
 
 let cuidadorActivo = async () => {
-  cedulaEncriptada = await obtenerCedulaEncriptada(0);
+  let data = localStorage.getItem("datos");
+  let dato=JSON.parse(data);
+  console.log(data);
+      let usuario = dato.usuario;
+      let cedul= decodeURIComponent(dato.cedula);
+      console.log(cedul);
+      console.log(usuario);
+
+      let cedulaEncriptada="";
+      if(usuario=="medico"){
+       cedulaEncriptada = await obtenerCedulaEncriptada(0,CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
+      console.log(cedulaEncriptada);}
+      else{
+        cedulaEncriptada=cedul;
+      }
   let pacienteInDto = {
     cedula: cedulaEncriptada
   }
@@ -108,7 +135,21 @@ let cuidadorActivo = async () => {
 }
 
 let alergias = async () => {
-  let cedulaEncriptada = await obtenerCedulaEncriptada(0);
+  let data = localStorage.getItem("datos");
+  let dato=JSON.parse(data);
+  console.log(data);
+      let usuario = dato.usuario;
+      let cedul= decodeURIComponent(dato.cedula);
+      console.log(cedul);
+      console.log(usuario);
+
+      let cedulaEncriptada="";
+      if(usuario=="medico"){
+       cedulaEncriptada = await obtenerCedulaEncriptada(0,CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
+      console.log(cedulaEncriptada);}
+      else{
+        cedulaEncriptada=cedul;
+      }
   let pacienteInDto = {
     cedula: cedulaEncriptada
   }
@@ -141,10 +182,25 @@ let alergias = async () => {
 
 
 let cambioContrasenia = async () => {
-  const cedulaEncriptada = await obtenerCedulaEncriptada(0);
-  const contraseniaEncriptadaBD = await obtenerCedulaEncriptada(1);
+  
+  let data = localStorage.getItem("datos");
+  let dato=JSON.parse(data);
+  console.log(data);
+      let cedul= decodeURIComponent(dato.cedula);
+      console.log(cedul);
+
+      let cedulaEncriptada="";
+      let contraseniaEncriptadaBD="";
+      let decryptedCedula = CryptoJS.AES.decrypt(cedul, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+       cedulaEncriptada = await obtenerCedulaEncriptada(0,decryptedCedula);
+      console.log(decryptedCedula);
+
+        contraseniaEncriptadaBD = await obtenerCedulaEncriptada(1,decryptedCedula);
+      console.log(cedulaEncriptada);
+
 
   let contraseniaBD = CryptoJS.AES.decrypt(contraseniaEncriptadaBD, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+  console.log(contraseniaBD);
 
   const contraseniaAnterior = document.getElementById("contraseniaanterior").value;
   const nuevaContrasenia = document.getElementById("newcontrasenia").value;
