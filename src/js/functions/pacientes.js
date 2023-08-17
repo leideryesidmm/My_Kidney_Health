@@ -1,5 +1,5 @@
 
-var cedulaEncriptada= "";
+var cedulaEncriptada = "";
 
 
 let obtenerCedulaEncriptada=async(cedulaEncript)=>{
@@ -26,6 +26,66 @@ let obtenerCedulaEncriptada=async(cedulaEncript)=>{
 }
 
 
+let inhabilitarPaciente = async (ced) => {
+  let cedula = ced.toString();
+  let cedEncriptada = CryptoJS.AES.encrypt(cedula, 'clave_secreta').toString();
+  let cedulaEncriptada = await obtenerCedulaEncriptada(cedEncriptada);
+
+  try {
+    const PacienteInDto = { cedula: cedulaEncriptada };
+
+    const response = await fetch(servidorAPI + 'Medico/inhabilitarPaciente', {
+      method: "PATCH",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(PacienteInDto)
+    });
+
+    if (response.ok) {
+      $('#inhabilitarpaciente').modal('hide');
+      location.reload();
+    }
+    else {
+      console.error("Error al inhabilitar paciente:", response.status);
+    }
+  }
+  catch (error) {
+    console.error("Error al inhabilitar paciente:", error);
+  }
+};
+
+
+let habilitarPaciente = async (ced) => {
+  let cedula = ced.toString();
+  let cedEncriptada = CryptoJS.AES.encrypt(cedula, 'clave_secreta').toString();
+  let cedulaEncriptada = await obtenerCedulaEncriptada(cedEncriptada);
+
+  try {
+    const PacienteInDto = { cedula: cedulaEncriptada };
+
+    const response = await fetch(servidorAPI + 'Medico/reactivarPaciente', {
+      method: "PATCH",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(PacienteInDto)
+    });
+
+    if (response.ok) {
+      location.reload();
+    }
+    else {
+      console.error("Error al inhabilitar paciente:", response.status);
+    }
+  }
+  catch (error) {
+    console.error("Error al inhabilitar paciente:", error);
+  }
+};
+
 let pacientesTratados = async () => {
   let cont = 1;
   try {
@@ -34,7 +94,7 @@ let pacientesTratados = async () => {
 
     let msg = "";
     if (pacientes != null && pacientes.length > 0) {
-      
+
       msg += '<br>' +
         '<table class="pacientes">' +
         '<thead>' +
@@ -42,7 +102,7 @@ let pacientesTratados = async () => {
         '<th>Nombre</th>' +
         '<th>Cédula</th>' +
         '<th>Acciones</th>' +
-        '</tr>'+
+        '</tr>' +
         '</thead>';
 
       pacientes.forEach((paciente) => {
@@ -58,13 +118,16 @@ let pacientesTratados = async () => {
           '</a>' +
           '<a href="info-pacientes.html" type="button">' +
           '<img src="../img/lapiz.png" class="actualizar"/>' +
-          '</a>'+
-          '<a href="" data-bs-toggle="modal" data-bs-target="#inhabilitarpaciente'+cont+'" type="button">' +
+          '</a>' +
+          '<a href="" data-bs-toggle="modal" data-bs-target="#inhabilitarpaciente' + cont + '" type="button">' +
           '<img src="../img/cesta.png" class="inhabilitar"/>' +
+          '</a>' +
+          '<a href="" data-bs-toggle="modal" data-bs-target="#visita' + cont + '" type="button">' +
+          '<img src="../img/visita.png" class="actualizar"/>' +
           '</a>' +
           '</td>' +
           '</tr>';
-          console.log(msg);
+          
             msg +=
               '<div class="modal" tabindex="-1" id="inhabilitarpaciente' + cont + '">' +
               '<div class="modal-dialog">' +
@@ -110,49 +173,29 @@ let pacientesTratados = async () => {
       }
     };
 
-let irPaciente=async(cedula)=>{
-  localStorage.setItem("cedulaPaciente", cedula);
-  console.log(localStorage.getItem("cedulaPaciente"));
-  location.href="principal.html";
-}
+
 
 
 
 let pacientesInhabilitados = async () => {
   let cont = 1;
   try {
-    // Call listarPacientes and await its result
     const pacientes = await listarPacientesInactivos();
-
     let msg = "";
-    if (pacientes != null && pacientes.length > 0) {
-      
-      msg += '<br>' +
-        '<table class="pacientes">' +
-        '<thead>' +
-        '<tr>' +
-        '<th>Nombre</th>' +
-        '<th>Cédula</th>' +
-        '<th>Acciones</th>' +
-        '</tr>'+
-        '</thead>';
 
-      pacientes.forEach((paciente) => {
-        
-        localStorage.setItem("cedulaPaciente", paciente.cedula);
-        msg +=
-          '<tr>' +
-          '<td>' + paciente.nombre + '</td>' +
-          '<td>' + paciente.cedula + '</td>' +
-          '<td>' +
-          '<a href=""  type="button">' +
-          '<img src="../img/actualizar.png" class="actualizar"/>' +
-          '</a>' +
-          '</td>' +
-          '</tr>';
-      });
-    } else {
-      msg += '<br>' +
+    if (pacientes != null && pacientes.length > 0) {
+      msg += '<div class="container">' +
+        '<h2>Pacientes Inhabilitados</h2>' +
+        '<div class="row">' +
+        '<div class="col-md-6">' +
+        '<input type="text" name="cedula-paciente" id="cedula-paciente" placeholder="Digite la cedula del paciente" class="form-control" />' +
+        '</div>' +
+        '<div class="col-md-6">' +
+        '<button type="button" class="btn btn-primary" id="buscar-paciente" data-dismiss="modal">Buscar</button>' +
+        '</div>' +
+        '<br>' +
+        '</div>' +
+        '<br>' +
         '<table class="pacientes">' +
         '<thead>' +
         '<tr>' +
@@ -160,80 +203,57 @@ let pacientesInhabilitados = async () => {
         '<th>Cédula</th>' +
         '<th>Acciones</th>' +
         '</tr>' +
-        '</thead>' +
-        '<tr>' +
-        '<td colspan="3">' + "No hay pacientes inhabilitados" + '</td>' +
-        '</tr>';
+        '</thead>';
+
+      pacientes.forEach((paciente) => {
+
+        msg +=
+          '<tr>' +
+          '<td>' + paciente.nombre + '</td>' +
+          '<td>' + paciente.cedula + '</td>' +
+          '<td>' +
+          '<a  href="" data-bs-toggle="modal" data-bs-target="#habilitarpaciente' + cont + '" type="button">' +
+          '<img src="../img/actualizar.png" class="actualizar"/>' +
+          '</a >' +
+          '</td>' +
+          '</tr>' +
+          '</div>' +
+          '</div>';
+
+        msg +=
+          '<div class="modal" tabindex="-1" id="habilitarpaciente' + cont + '">' +
+          '<div class="modal-dialog">' +
+          '<div class="modal-content">' +
+          '<div class="modal-header">' +
+          '<h5 class="modal-title">Habilitar Paciente</h5>' +
+          '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
+          '</div>' +
+          '<div class="modal-body">' +
+          '<p><b>¿Está seguro(a) de habilitar nuevamente este paciente?</b></p>' +
+          '<label class="cedulaPaciente" id="cedulaPaciente"><b>Cédula: </b>' + paciente.cedula + '</label><br>' +
+          '<label class="cedulaPaciente" id="cedulaPaciente"><b>Nombre: </b>' + paciente.nombre + '</label>' +
+          '</div>' +
+          '<div class="modal-footer">' +
+          '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>' +
+          '<button type="button" onclick="habilitarPaciente(' + paciente.cedula + ')"" class="btn" id="btn-green">Habilitar</button>' +
+          '</div>' +
+          '</div>' +
+          '</div>' +
+          '</div>';
+
+      });
+    }
+    else {
+      msg += ""
     }
     msg += '</table>';
     document.getElementById("pacientesinhabilitados").innerHTML = msg;
-  } catch (error) {
+  }
+  catch (error) {
     console.error("Error in pacientesTratados:", error);
   }
 };
 
-// let inhabilitarPaciente = async (ced) => {
-//   let pacienteInDto;
-//   const pacientes = await listarPacientes();
-//   pacientes.forEach((paciente) => {
-//    pacienteInDto = { cedula: ced };
-// });
 
-//   fetch(localStorage.getItem("servidorAPI" + "Medico/inhabilitarPaciente", {
-//     method: "PATCH",
-//     headers: {
-//       "Accept": "application/json",
-//       "Content-Type": "application/json"
-//     },
-//     body: JSON.stringify(pacienteInDto)
-//   })
-  
-
-//     .then(response => {
-//       console.log(response)
-//       if (response.ok) {
-//         $('#inhabilitarpaciente' + ced).modal('hide');
-//         location.reload();
-//       }
-//     })
-//     .catch(error => {
-//       console.error(error);
-//     })
-//   );
-  
-
-// }
-
-let inhabilitarPaciente = async (ced) => {
-  let cedEncriptada = CryptoJS.AES.encrypt(ced, 'clave_secreta').toString();
-  console.log(cedEncriptada)
-  let cedulaEncriptada = await obtenerCedulaEncriptada();
-  console.log(cedulaEncriptada)
-  try {  
-    const pacienteInDto = { cedula: cedulaEncriptada };
-    console.log(pacienteInDto)
-
-    const response = await fetch(servidorAPI+'Medico/inhabilitarPaciente', {
-      method: "PATCH",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(pacienteInDto)
-  });
-
-    if (response.ok) {
-      $('#inhabilitarpaciente' + cedulaEncriptada).modal('hide');
-      //location.reload();
-    } else {
-      console.error("Error al inhabilitar paciente:", response.status);
-    }
-  } catch (error) {
-    console.error("Error al inhabilitar paciente:", error);
-  }
-};
-
-// Call the pacientesTratados function to populate the table
 pacientesTratados();
-inhabilitarPaciente();
 pacientesInhabilitados();
