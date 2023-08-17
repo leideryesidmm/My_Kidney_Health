@@ -70,7 +70,7 @@ if(usuario=="paciente"){
   '<div class="col-md-6 col-12 my-sm-2 d-flex flex-column align-items-center">'+
   '<div class="grid-item">'+
       '<div class="d-flex justify-content-center align-items-center" id="container">'+
-          '<a href="recambios.html"><img src="../img/recambios.png" alt=""></a>'+
+          '<a href="recambiosguardados.html"><img src="../img/recambios.png" alt=""></a>'+
       '</div>'+
       '<div class="grid-item-content" class="col-md-6 col-12 text-center"  id="textcontainer" >'+
           '<h5><b>Historial</b></h5>'+
@@ -116,7 +116,7 @@ if(usuario=="paciente"){
     '</div>'+
     '<div class="col-md-6 col-12 my-sm-2 d-flex flex-column align-items-center">'+
         '<div class="d-flex justify-content-center align-items-center" id="container2">'+
-            '<a href="recambios.html"><img src="../img/recambios.png" alt=""></a>'+
+            '<a href="recambiosguardados.html"><img src="../img/recambios.png" alt=""></a>'+
         '</div>'+
         '<div class="col-md-6 col-12 text-center"  id="textcontainer2">'+
             '<h5><b>Historial</b></h5>'+

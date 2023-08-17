@@ -174,7 +174,10 @@ let pacientesTratados = async () => {
     };
 
 
-
+function irPaciente(cedula){
+  localStorage.setItem("cedulaPaciente", cedula);
+  location.href="principal.html";
+}
 
 
 let pacientesInhabilitados = async () => {
