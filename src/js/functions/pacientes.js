@@ -2,7 +2,7 @@
 var cedulaEncriptada= "";
 
 
-let obtenerCedulaEncriptada=async(cedulEncript)=>{
+let obtenerCedulaEncriptada=async(cedulaEncript)=>{
   const peticion= await fetch(servidorAPI+'Medico/findAllPacientes',{
     method:'GET',
     headers:{
@@ -17,7 +17,7 @@ let obtenerCedulaEncriptada=async(cedulEncript)=>{
         let decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, 'clave_secreta').toString(CryptoJS.enc.Utf8);
         const cedulaCodificado = decodeURIComponent(decryptedCedula);
         console.log(decryptedCedula);
-        if(cedulEncript===cedulaCodificado)
+        if(cedulaEncript===cedulaCodificado)
         cedulaEncriptada=paciente.cedula;
         
       })   
@@ -46,12 +46,14 @@ let pacientesTratados = async () => {
         '</thead>';
 
       pacientes.forEach((paciente) => {
+        let clave=encodeURIComponent(CryptoJS.AES.encrypt(paciente.cedula, "clave_secreta").toString())
+        console.log(clave);
         msg +=
           '<tr>' +
           '<td>' + paciente.nombre + '</td>' +
           '<td>' + paciente.cedula + '</td>' +
           '<td>' +
-          '<a href="principal.html?cedula='+encodeURIComponent(CryptoJS.AES.encrypt(paciente.cedula, "clave_secreta").toString())+'"class="icon-link" onclick="llenarInfoPaciente() type="button">' +
+          '<a class="icon-link" onclick="irPaciente(\'' + clave + '\')">' +
           '<img src="../img/ver.png" class="ver"/>' +
           '</a>' +
           '<a href="info-pacientes.html" type="button">' +
@@ -62,7 +64,7 @@ let pacientesTratados = async () => {
           '</a>' +
           '</td>' +
           '</tr>';
-          
+          console.log(msg);
             msg +=
               '<div class="modal" tabindex="-1" id="inhabilitarpaciente' + cont + '">' +
               '<div class="modal-dialog">' +
@@ -108,7 +110,11 @@ let pacientesTratados = async () => {
       }
     };
 
-
+let irPaciente=async(cedula)=>{
+  localStorage.setItem("cedulaPaciente", cedula);
+  console.log(localStorage.getItem("cedulaPaciente"));
+  location.href="principal.html";
+}
 
 
 
@@ -201,7 +207,7 @@ let pacientesInhabilitados = async () => {
 let inhabilitarPaciente = async (ced) => {
   let cedEncriptada = CryptoJS.AES.encrypt(ced, 'clave_secreta').toString();
   console.log(cedEncriptada)
-  let cedulaEncriptada = await obtenerCedulaEncriptada(cedEncriptada);
+  let cedulaEncriptada = await obtenerCedulaEncriptada();
   console.log(cedulaEncriptada)
   try {  
     const pacienteInDto = { cedula: cedulaEncriptada };

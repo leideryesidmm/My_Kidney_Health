@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../css/agg-pacientes.css">
 <link href="https://fonts.googleapis.com/css2?family=Jost&display=swap" rel="stylesheet">
-
-
   <title>Registrar Pacientes</title>
 </head>
 <body>
@@ -17,14 +15,8 @@
         <ul>
           <li><a href="pacientes.html">Pacientes</a></li>
           <li><a href="prescripcion.html">Prescripción</a></li>
-          <li>
-            Seguimiento
-            <ul class="submenu">
-              <li><a href="especialista.html">Especialista</a></li>
-              <li><a href="examenes.html">Examenes</a></li>
-            </ul>
-          </li>
-          <li><a href="login.html">Cerrar sesión</a></li>
+          <li><a href="seguimiento.html">Seguimiento</a></li>
+          <li><a href="gestion-credenciales.html">Nombre</a></li>
         </ul>
       </nav>
     </div>
@@ -37,12 +29,13 @@
         <form id="paciente-form">
           <div class="form-row">
             <div class="form-column">
+              <form action="add-paciente" type="submit"></form>
               <label for="nombre">Nombre del paciente:</label>
               <br>
               <input type="text" id="nombre" name="nombre" required>
             </div>
             <div class="form-column">
-              <label for="documento">Documento de identidad:</label>
+              <label for="documento">Documento:</label>
               <br>
               <input type="text" id="documento" name="documento" required>
             </div>
@@ -85,6 +78,18 @@
           </div>
           <div class="form-row">
             <div class="form-column">
+              <label for="peso">Peso:</label>
+              <br>
+              <input type="text" id="peso" name="peso" required>
+            </div>
+            <div class="form-column">
+              <label for="pesoseco">Peso Seco:</label>
+              <br>
+              <input type="text" id="pesoseco" name="pesoseco" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-column">
               <label for="direccion">Dirección:</label>
               <br>
               <input type="text" id="direccion" name="direccion" required>
@@ -104,17 +109,22 @@
             <div class="form-column">
               <label for="hipertension">Hipertensión:</label>
               <input type="checkbox" id="hipertension" name="hipertension">
+              <br>
               <label for="diabetes">Diabetes:</label>
               <input type="checkbox" id="diabetes" name="diabetes">
             </div>
           </div>
-          <button type="submit">Guardar</button>
+          <div class="btn-save">
+          <button onclick="crearPaciente()">Guardar</button>
+        </div>
         </form>
         <div id="success-message" style="display: none;">Los datos del paciente se han guardado exitosamente.</div>
       </div>
     </div>
   </main>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
   <script src="../js/bd/agg-pacientes.js"></script>
+  
 </body>
 </html>

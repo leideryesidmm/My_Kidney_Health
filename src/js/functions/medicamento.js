@@ -109,9 +109,12 @@ else{
             
             '<div class="row">'+
                 '<div class="col-10"></div>'+
-                '<div class="col-2">'+
-                    '<a href="addMedicamento.html?cedula='+cedulaEncript+'"><img src="../img/nuevo.png" alt="" id="icono"></a>'+
-                    '<br>'+
+                '<div class="col-2">';
+                let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
+    if(usuario=="paciente"){
+                    ms+='<a href="addMedicamento.html"><img src="../img/nuevo.png" alt="" id="icono"></a>';
+    }
+                    ms+='<br>'+
                 '</div>'+
             '</div>';
             document.getElementById("btn-nuevo").innerHTML=ms;

@@ -1,3 +1,16 @@
+const data = localStorage.getItem("datos");
+const dato=JSON.parse(data);
+console.log(data);
+    let usuario = dato.usuario;
+    console.log(usuario);
+if(usuario=="paciente"){
+     ced = decodeURIComponent(dato.cedula);
+}
+else{
+    cedulEncriptad = localStorage.getItem("cedulaPaciente")
+    ced=decodeURIComponent(cedulEncriptad);
+}
+
 let perfil=async()=>{
         try {
           const paciente = await listarPacientes();
@@ -130,13 +143,19 @@ if(alergia!=null && alergia !== ""){
             '<p class="dataAlergia" id="dataAlergia" name="dataAlergia">'+alergia+
             '</p>'+ 
     '</div>'+
-    '<br>'+
-    '<a href="alergias.html"class="alerg-nueva" >Agregar Alergia</a>'+
     '<br>';
+    let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
+    if(usuario=="medico"){
+    msg+='<a href="alergias.html"class="alerg-nueva" >Agregar Alergia</a>'+
+    '<br>';
+    }
 }
 else{
-    msg+='<br><a href="alergias.html"class="alerg-nueva" >Agregar Alergia</a>'+
-    '<br>';
+  let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
+  if(usuario=="medico"){
+  msg+='<br><a href="alergias.html"class="alerg-nueva" >Agregar Alergia</a>'+
+  '<br>';
+  }
 }
 if(cuidador!=null && cuidador !== ""){
    msg+=
@@ -157,9 +176,13 @@ if(cuidador!=null && cuidador !== ""){
     '</div>'+
     '</div>'+
     '<div class="col-2">'+
-        '<div class="addCuidador">'+
-        '<a href="cuidador.html"><img src="../img/irCuidador.png" alt="Agregar Cuidador" /></a>'+
-    '</div>'+
+        '<div class="addCuidador">';
+        let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
+    if(usuario=="paciente"){
+      msg+=
+        '<a href="cuidador.html"><img src="../img/irCuidador.png" alt="Agregar Cuidador" /></a>';
+    }
+    msg+='</div>'+
         '</div>'+
         '</div>'+
     '</div>'+
@@ -183,17 +206,23 @@ if(cuidador!=null && cuidador !== ""){
 '</div>';
 }
 else{
-    msg+='<br><a href="cuidador.html"class="alerg-nueva" >Agregar Cuidador</a>';
+  let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
+  if(usuario=="paciente"){
+    msg+=
+      '<a href="cuidador.html"><img src="../img/irCuidador.png" alt="Agregar Cuidador" /></a>';
+  }
 }
 
 document.getElementById("perfil").innerHTML = msg;
-
+let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
+    if(usuario=="paciente"){
 let ms="";
 ms+='<div class="cerrar">'+
         '<a class="btn" type="button" id="btnguardar" data-bs-toggle="modal" data-bs-target="#nuevacontrasenia">Cambiar contraseña</a>'+
     '</div>';
     document.getElementById("cambiarContrasenia").innerHTML= ms;
 }
+        }
 catch (error) {
     console.error("Error in perfil():", error);
 }

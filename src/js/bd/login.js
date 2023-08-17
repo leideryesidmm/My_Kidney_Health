@@ -8,10 +8,7 @@ let login = async (event) => {
   event.preventDefault();
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
-  console.log("username");
-  console.log(username);
-  console.log("password");
-  console.log(password);
+ 
 
   let decryptedCedula = null;
   let contrasenia = null;
@@ -51,7 +48,8 @@ let medicoEncontrado=false;
       datos={
       cedula:cedula, usuario:usuario
       }
-      localStorage.setItem("datos", datos);
+      const data = JSON.stringify(datos);
+      localStorage.setItem("datos", data);
       localStorage.setItem("servidorAPI", servidorAPI);
       location.href = "principal.html";
       pacienteEncontrado=true;
@@ -66,12 +64,13 @@ let medicoEncontrado=false;
       console.log(contrasenia);
       if (username === decryptedCedula && password === contrasenia) {
         localStorage.setItem("authenticated", "true");
-        const cedula = encodeURIComponent(medico.cedula)
+        const cedulaMedico = encodeURIComponent(medico.cedula)
         let usuario="medico"
         datos={
-        cedula:cedula, usuario:usuario
+        cedula:cedulaMedico, usuario:usuario
         }
-        localStorage.setItem("datos", datos);
+        const data = JSON.stringify(datos);
+        localStorage.setItem("datos", data);
         localStorage.setItem("servidorAPI", servidorAPI);
         location.href = "pacientes.html";
         medicoEncontrado=true;
@@ -79,9 +78,9 @@ let medicoEncontrado=false;
       }
       })
     }
-    else{
+    if(!pacienteEncontrado && !medicoEncontrado){
       let msg="";
-      msg+='<p>!Datos Incorrectos¡</p>';
+      msg+='<p class="error">!Datos Incorrectos¡</p>';
       document.getElementById("datosIncorrectos").innerHTML=msg;
     }
 
@@ -91,6 +90,8 @@ let medicoEncontrado=false;
 let logout = () => {
   localStorage.removeItem("authenticated")
   localStorage.removeItem("servidorAPI");
+  localStorage.removeItem("datos");
+  localStorage.removeItem("cedulaPaciente");
   location.href = "login.html";
 
 

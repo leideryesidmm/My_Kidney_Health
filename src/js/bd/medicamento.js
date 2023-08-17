@@ -1,14 +1,49 @@
-
-const cedulaEncript = decodeURIComponent(localStorage.getItem("cedula"));
-console.log(cedulaEncript);
-    const cedula = CryptoJS.AES.decrypt(cedulaEncript, 'clave_secreta').toString(CryptoJS.enc.Utf8);
 var cedulaEncriptada= "";
+
+let obtenerCedulaEncriptada=async(cedula)=>{
+  const peticion= await fetch(localStorage.getItem("servidorAPI")+'Medico/findAllPacientes',{
+    method:'GET',
+    headers:{
+      "Accept":"application/json",
+      "Content-Type": "application/json"
+    }
+      });
+      const pacientes=await peticion.json();
+      console.log(pacientes);
+      pacientes.forEach(paciente=>{
+        let decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+        const cedulaCodificado = encodeURIComponent(decryptedCedula);
+        console.log(decryptedCedula);
+        if(cedula===cedulaCodificado)
+        cedulaEncriptada=paciente.cedula;
+        
+      })   
+      return cedulaEncriptada;
+}
 
 
 let listarMedicamentos= async()=>{
+
+
+  let data = localStorage.getItem("datos");
+  let dato=JSON.parse(data);
+  console.log(data);
+      let usuario = dato.usuario;
+      let cedul= decodeURIComponent(dato.cedula);
+      console.log(cedul);
+      console.log(usuario);
+      let cedEncriptada="";
+      let cedulaEncriptada="";
+      if(usuario=="medico"){
+       cedEncriptada = await obtenerCedulaEncriptada(CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
+      console.log(cedulaEncriptada);}
+      else{
+        cedEncriptada=cedul;
+      }
+
   const medDesencriptados = new Set();
   let pacienteInDto={
-    cedula:cedulaEncript
+    cedula:cedEncriptada
   }
     const peticion= await fetch(localStorage.getItem("servidorAPI")+"paciente/medicamento/findMedicamentoByPaciente",{
       method:"POST",
@@ -158,6 +193,21 @@ let encontrarMedicamento=async()=>{
 }
 //formulaMedicamento/actualizar/{id_formula_medicamento}
 let actualizarMedicamento=async ()=> {
+  let data = localStorage.getItem("datos");
+  let dato=JSON.parse(data);
+  console.log(data);
+      let usuario = dato.usuario;
+      let cedul= decodeURIComponent(dato.cedula);
+      console.log(cedul);
+      console.log(usuario);
+      let cedEncriptada="";
+      let cedulaEncriptada="";
+      if(usuario=="medico"){
+       cedEncriptada = await obtenerCedulaEncriptada(CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
+      console.log(cedulaEncriptada);}
+      else{
+        cedEncriptada=cedul;
+      }
   let idFormulaMedicamento=document.getElementById("idMedicamento").value
   console.log(idFormulaMedicamento);
 
@@ -176,7 +226,7 @@ let actualizarMedicamento=async ()=> {
       "fechaIni": document.getElementById("fecha_inicio").value+"T00:00:00.001Z",
       "intervaloTiempo": document.getElementById("intervalos_tiempo").value,
       "nombre": nombreEncriptado,
-      "paciente": cedulaEncript,
+      "paciente": cedEncriptada,
       "tomas": document.getElementById("tomas").value,
       "via_Administracion": document.getElementById("selectVias").value
   }
@@ -236,7 +286,21 @@ let eliminarMedicamento=async (idMedicamento)=> {
 }
 
 let crearMedicamento=async ()=> {
-
+  let data = localStorage.getItem("datos");
+  let dato=JSON.parse(data);
+  console.log(data);
+      let usuario = dato.usuario;
+      let cedul= decodeURIComponent(dato.cedula);
+      console.log(cedul);
+      console.log(usuario);
+      let cedEncriptada="";
+      let cedulaEncriptada="";
+      if(usuario=="medico"){
+       cedEncriptada = await obtenerCedulaEncriptada(CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
+      console.log(cedulaEncriptada);}
+      else{
+        cedEncriptada=cedul;
+      }
   let concentracion=document.getElementById("concentracion").value;
   let descripcion=document.getElementById("descripcion").value;
   let nombre=document.getElementById("medicamento").value;
@@ -253,7 +317,7 @@ console.log(concentracion);
       "fechaIni": document.getElementById("fecha_inicio").value+"T00:00:00.001Z",
       "intervaloTiempo": document.getElementById("intervalos_tiempo").value,
       "nombre": nombreEncriptado,
-      "paciente": cedulaEncript,
+      "paciente": cedEncriptada,
       "tomas": document.getElementById("tomas").value,
       "via_Administracion": document.getElementById("selectVias").value
   }

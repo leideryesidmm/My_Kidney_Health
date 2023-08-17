@@ -37,6 +37,15 @@ input[type="password"]:focus{
   align-items: center;
 }
 
+.error{
+  color: red;
+  font-style: italic;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
 .title{
   color: #fff;
   display: flex;

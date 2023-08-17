@@ -28,7 +28,7 @@ let validarPaciente = async () => {
   return false;
 }
  
- let crearPaciente=async()=> {
+let crearPaciente=async()=> {
   var  existe= await validarPaciente();
   console.log(existe);
       var nombre = document.getElementById('nombre').value;
@@ -66,7 +66,8 @@ let validarPaciente = async () => {
        rh : rh,
        tipoSangre : CryptoJS.AES.encrypt(tiposangre, 'clave_secreta').toString(),
        diabetes:diabetes,
-       hipertension:hipertension
+       hipertension:hipertension,
+       activo:true
 
       }
 
@@ -91,8 +92,7 @@ console.log(decryptedNombre);
         console.log(data);
         const successMessage = document.getElementById("success-message");
         successMessage.style.display = "block";
-        pacienteForm.form.style.display = "none";
-
+        location.href="pacientes.html"
       })
     }
       else{
@@ -114,7 +114,6 @@ console.log(decryptedNombre);
       if (peticion.status === 200 || peticion.status === 204) {
         const pacientes = await peticion.json();
 
-        // Map the patients array to decrypt each patient's cedula and nombre
         const pacientesDesencriptados = pacientes
         .filter(paciente => paciente.activo)
         .map(paciente => {
@@ -127,7 +126,7 @@ console.log(decryptedNombre);
           };
         });
 
-        return pacientesDesencriptados; // Return the array of patients
+        return pacientesDesencriptados;
       }
     } else {
       console.error("Error fetching patients:", peticion.status);
