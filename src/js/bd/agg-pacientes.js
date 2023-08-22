@@ -1,4 +1,30 @@
- let servidorAPI="http://localhost:8081/";
+let servidorAPI="http://localhost:8081/";
+
+ let listarEps = async () => {
+  const peticion = await fetch(localStorage.getItem("servidorAPI") + "Prueba/ListEps", {
+    method: "GET",
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    }
+  });
+
+  const selectEps = document.getElementById('selectEps');
+
+  if (selectEps.length === 0) {
+    const epss = await peticion.json();
+    const optionSeleccionar = document.createElement('option');
+    optionSeleccionar.textContent = "Seleccione";
+    selectEps.appendChild(optionSeleccionar);
+    epss.forEach(eps => {
+      const option = document.createElement('option');
+      option.value = eps.idEps;
+      option.textContent = eps.nombre;
+      selectEps.appendChild(option);
+    });
+  }
+
+}
 
 let validarPaciente = async () => {
   let documento = document.getElementById('documento').value;
@@ -27,16 +53,40 @@ let validarPaciente = async () => {
 
   return false;
 }
- 
-let crearPaciente=async()=> {
+
+/*let guardarImagen=async(event)=>{
+event.preventDefault();
+let cedula = JSON.parse(localStorage.getItem("datos")).cedula;
+let foto=event.target.img-foto.files[0]
+console.log(cedula);
+let unionPacienteFotoInDto={
+  cedula:cedula, foto:foto
+}
+fetch(servidorAPI+"paciente/foto", {
+  method: 'POST',
+  headers: {
+    "Accept":"application/json",
+"Content-Type":"application/json"
+  },
+  body: JSON.stringify(
+    unionPacienteFotoInDto
+  )
+});
+}*/
+
+let crearPaciente=async(event)=> {
+  event.preventDefault();
   var  existe= await validarPaciente();
   console.log(existe);
       var nombre = document.getElementById('nombre').value;
       var documento = document.getElementById('documento').value;
       var fechaNacimiento = document.getElementById('fecha').value+'T02:45:05.101Z';
-      var eps = document.getElementById('eps').value;
+      var selectedOption = selectEps.options[selectEps.selectedIndex];
+      var eps = selectedOption.value;
+      var selectOptionDoc = selectTipo.options[selectTipo.selectedIndex];
+      var tipoDocumento=selectOptionDoc.value;
+      console.log(tipoDocumento);
       var estatura = document.getElementById('estatura').value;
-      var edad = document.getElementById('edad').value;
       var tiposangre = document.getElementById('tiposangre').value;
       var rh = document.getElementById('rh').value;
       var direccion = document.getElementById('direccion').value;
@@ -44,12 +94,14 @@ let crearPaciente=async()=> {
       var ocupacion = document.getElementById('ocupacion').value;
       var peso = document.getElementById('peso').value;
       var pesoSeco = document.getElementById('pesoseco').value;
+      var correo= document.getElementById('correo').value;
      var  documentoEncriptado = CryptoJS.AES.encrypt(documento, 'clave_secreta').toString();
      var telefonoEncriptado = CryptoJS.AES.encrypt(telefono, 'clave_secreta').toString();
      var nombreEncriptado = CryptoJS.AES.encrypt(nombre, 'clave_secreta').toString();
+     var correo = CryptoJS.AES.encrypt(correo, 'clave_secreta').toString();
+     var  tipoDocumentoEncriptado = CryptoJS.AES.encrypt(tipoDocumento, 'clave_secreta').toString();
      var diabetes = document.getElementById('diabetes').checked;
      var hipertension = document.getElementById('hipertension').checked;
-  console.log(diabetes, hipertension);
       const pacienteInDto = {
 
        altura : estatura,
@@ -57,7 +109,7 @@ let crearPaciente=async()=> {
        celular : telefonoEncriptado,
        contrasenia:documentoEncriptado,
        direccion : CryptoJS.AES.encrypt(direccion, 'clave_secreta').toString(),
-       eps : CryptoJS.AES.encrypt(eps, 'clave_secreta').toString(),
+       eps : parseInt(eps,10),
        fechaNacimiento : fechaNacimiento,
        nombre : nombreEncriptado,
        ocupacion : CryptoJS.AES.encrypt(ocupacion, 'clave_secreta').toString(),
@@ -65,8 +117,10 @@ let crearPaciente=async()=> {
        pesoSeco : pesoSeco,   
        rh : rh,
        tipoSangre : CryptoJS.AES.encrypt(tiposangre, 'clave_secreta').toString(),
+       correo:correo,
        diabetes:diabetes,
        hipertension:hipertension,
+       tipo_documento:tipoDocumentoEncriptado,
        activo:true
 
       }
@@ -87,12 +141,10 @@ console.log(decryptedNombre);
           pacienteInDto
         )
       })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        const successMessage = document.getElementById("success-message");
-        successMessage.style.display = "block";
-        location.href="pacientes.html"
+      .then(response => {
+        if (response.ok) {
+            $('#successModal').modal('show');
+          }
       })
     }
       else{

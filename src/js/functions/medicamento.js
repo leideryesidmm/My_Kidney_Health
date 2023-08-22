@@ -101,7 +101,7 @@ let listMedicamentos = async (medicamentos) => {
 
 else{
   msg+=
-  '<b><p class="sinMedicamentos">No tienes medicamentos registrados<p></b>';
+  '<b><p class="sinMedicamentos">No tiene medicamentos registrados<p></b>';
 }
   document.getElementById("acordeon1").innerHTML = msg;
 

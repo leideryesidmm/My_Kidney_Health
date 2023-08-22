@@ -146,11 +146,6 @@ td {
 }
 
 
-.btn-nuevo-container {
-  text-align: left;
-  margin-top: 10px;
-}
-
 .btn-filtrar {
   background-color: #00DBA1;
   color: #ffffff;
@@ -168,12 +163,14 @@ td {
   cursor: pointer;
   padding: 10px 40px;
   font-size: 18px;
-  border-radius: 10%;
+  border-radius: 10px; 
   margin-left: 80%;
+  text-decoration: none;
+  color: inherit;
 }
 
-.btn-nuevo-container button {
-  padding: 5px 10px;
+a {
+  padding: 5px ;
 }
 
 .actualizar,
@@ -182,7 +179,6 @@ td {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  margin: 2%;
 }
 
 #btn-green {

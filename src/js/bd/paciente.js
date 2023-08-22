@@ -33,7 +33,7 @@ let obtenerCedulaEncriptada=async(id, cedula)=>{
 }
 
 
-let listarPacientes = async () => {
+let listaPacientes = async () => {
 
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
@@ -66,9 +66,12 @@ let pacienteAct={}
 console.log(paciente)
     let nombreDesencriptado= CryptoJS.AES.decrypt(paciente.nombre,'clave_secreta').toString(CryptoJS.enc.Utf8);
     let cedulaDesencriptado= CryptoJS.AES.decrypt(paciente.cedula,'clave_secreta').toString(CryptoJS.enc.Utf8);
-    let celularDesencriptado= CryptoJS.AES.decrypt(paciente.nombre,'clave_secreta').toString(CryptoJS.enc.Utf8);
-    let direccionDesencriptada= CryptoJS.AES.decrypt(paciente.nombre,'clave_secreta').toString(CryptoJS.enc.Utf8);
-    let epsDesencriptada= CryptoJS.AES.decrypt(paciente.nombre,'clave_secreta').toString(CryptoJS.enc.Utf8);
+    let celularDesencriptado= CryptoJS.AES.decrypt(paciente.celular,'clave_secreta').toString(CryptoJS.enc.Utf8);
+    let direccionDesencriptada= CryptoJS.AES.decrypt(paciente.direccion,'clave_secreta').toString(CryptoJS.enc.Utf8);
+    let ocupacionDesencriptada= CryptoJS.AES.decrypt(paciente.ocupacion,'clave_secreta').toString(CryptoJS.enc.Utf8);
+    let correoDesencriptada= CryptoJS.AES.decrypt(paciente.correo,'clave_secreta').toString(CryptoJS.enc.Utf8);
+    let tipoDocumentoDesencriptada= CryptoJS.AES.decrypt(paciente.tipo_documento,'clave_secreta').toString(CryptoJS.enc.Utf8);
+    let epsDesencriptada= paciente.eps.nombre;
     let peso= paciente.peso;
     let pesoSeco=paciente.pesoSeco;
     let tiposangre=CryptoJS.AES.decrypt(paciente.tipoSangre,'clave_secreta').toString(CryptoJS.enc.Utf8);
@@ -79,9 +82,12 @@ console.log(paciente)
     let diabetes=paciente.diabetes;
     let hipertension=paciente.hipertension;
     let cedula=cedulaDesencriptado;
+    let ocupacion=ocupacionDesencriptada;
+    let correo=correoDesencriptada;
+    let tipo_documento=tipoDocumentoDesencriptada;
 
   pacienteAct = {
-    nombre: nombreDesencriptado, cedula:cedula, celular: celularDesencriptado, direccion: direccionDesencriptada, eps: epsDesencriptada, peso: peso, pesoSeco: pesoSeco, tiposangre: tiposangre, rh: rh, altura: altura, nacimiento: fecha, diabetes: diabetes, hipertension: hipertension
+    nombre: nombreDesencriptado, cedula:cedula, celular: celularDesencriptado, direccion: direccionDesencriptada, eps: epsDesencriptada, peso: peso, pesoSeco: pesoSeco, tiposangre: tiposangre, rh: rh, altura: altura, nacimiento: fecha, diabetes: diabetes, hipertension: hipertension, ocupacion:ocupacion, correo:correo, tipo_documento:tipo_documento
 
   }
   return pacienteAct;
@@ -130,7 +136,6 @@ let cuidadorActivo = async () => {
   else {
     return null;
   }
-
 
 }
 
@@ -243,6 +248,256 @@ let cambioContrasenia = async () => {
   }
 };
 
+let encontrarPaciente = async () => {
+  let data = localStorage.getItem("datos");
+  let dato=JSON.parse(data);
+  console.log(data);
+      let usuario = dato.usuario;
+      let cedul= decodeURIComponent(dato.cedula);
+      console.log(cedul);
+      console.log(usuario);
+
+      let cedulaEncriptada="";
+      if(usuario=="medico"){
+       cedulaEncriptada = await obtenerCedulaEncriptada(0,CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPacienteEditar")), "clave_secreta").toString(CryptoJS.enc.Utf8));
+      console.log(cedulaEncriptada);}
+      else{
+        cedulaEncriptada=cedul;
+      }
+  const peticion = await fetch(localStorage.getItem("servidorAPI") + "paciente/findPacienteByCedula", {
+    method: "POST",
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    },
+    body:JSON.stringify({
+      cedula:cedulaEncriptada
+    })
+  });
+
+  const paciente = await peticion.json();
+console.log(paciente);
+  let pacienteActual={
+    cedula:paciente.cedula, contrasenia:paciente.contrasenia, rh:paciente.rh,
+    tipoSangre:paciente.tipoSangre
+  }
+  console.log(paciente);
+  if(usuario=="paciente"){
+  var decryptedNombre = CryptoJS.AES.decrypt(paciente.nombre, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+  document.getElementById("nombre").value = decryptedNombre;
+  var fechaNacimiento = paciente.fechaNacimiento.split("T")[0];
+  document.getElementById("fecha").value = fechaNacimiento;
+  var decryptedDireccion = CryptoJS.AES.decrypt(paciente.direccion, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+  document.getElementById("direccion").value = decryptedDireccion;
+  console.log(decryptedDireccion);
+  var decryptedTelefono = CryptoJS.AES.decrypt(paciente.celular, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+  console.log(decryptedTelefono);
+  document.getElementById("telefono").value = decryptedTelefono;
+  if(paciente.ocupacion!=""){
+    var decryptedOcupacion = CryptoJS.AES.decrypt(paciente.ocupacion, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+    document.getElementById("ocupacion").value = decryptedOcupacion;
+    }
+    if(paciente.correo!=""){
+      var decryptedCorreo = CryptoJS.AES.decrypt(paciente.correo, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+      document.getElementById("correo").value = decryptedCorreo;
+    }
+  }
+  else{
+    var decryptedNombre = CryptoJS.AES.decrypt(paciente.nombre, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+  document.getElementById("nombre").value = decryptedNombre;
+
+  var decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+  document.getElementById("documento").value = decryptedCedula;
 
 
+  if(paciente.hipertension==true){
+    console.log(paciente.hipertension);
+  document.getElementById("hipertension").checked=true;
+  }
+  if(paciente.diabetes==true){
+  document.getElementById("diabetes").checked=true;
+  }
+  var peso = paciente.peso;
+  document.getElementById("peso").value = peso;
+  var pesoseco=paciente.pesoSeco;
+  document.getElementById("pesoseco").value = pesoseco;
+  
 
+  const selectEps = document.getElementById('selectedEps');
+  const descripcionEps= paciente.eps.nombre;
+  console.log(descripcionEps);
+  
+  Array.from(selectEps.options).forEach((option, index) => {
+    if (option.textContent === descripcionEps) {
+      selectEps.selectedIndex = index;
+    }
+  })
+  var decryptedEstatura = paciente.altura;
+  document.getElementById("estatura").value=decryptedEstatura;
+}
+  return pacienteActual;
+}
+
+let listaEps = async () => {
+  const peticion = await fetch(localStorage.getItem("servidorAPI") + "Prueba/ListEps", {
+    method: "GET",
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    }
+  });
+
+  const selectEps = document.getElementById('selectedEps');
+  
+
+  if (selectEps.length === 0) {
+    const epss = await peticion.json();
+    const optionSeleccionar = document.createElement('option');
+    optionSeleccionar.textContent = "Seleccione";
+    selectEps.appendChild(optionSeleccionar);
+    epss.forEach(eps => {
+      const option = document.createElement('option');
+      option.value = eps.idEps;
+      option.textContent = eps.nombre;
+      selectEps.appendChild(option);
+    });
+  }
+  encontrarPaciente();
+}
+
+function cancelar(){
+  location.href=localStorage.getItem("url");
+}
+
+let actualizarPaciente = async (event) => {  
+  event.preventDefault();
+
+  let data = localStorage.getItem("datos");
+  let dato=JSON.parse(data);
+  console.log(data);
+      let usuario = dato.usuario;
+      let cedul= decodeURIComponent(dato.cedula);
+      console.log(cedul);
+      console.log(usuario);
+
+      let cedulaEncriptada="";
+      if(usuario=="medico"){
+       cedulaEncriptada = await obtenerCedulaEncriptada(0,CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPacienteEditar")), "clave_secreta").toString(CryptoJS.enc.Utf8));
+      console.log(cedulaEncriptada);}
+      else{
+        cedulaEncriptada=cedul;
+      }
+  var pacienteInDto = {
+    cedula: cedulaEncriptada
+  }
+    const peticion= await fetch(localStorage.getItem("servidorAPI")+"paciente/findPacienteByCedula",{
+      method:"POST",
+      headers: {
+        "Accept":"application/json",
+    "Content-Type":"application/json"
+      },
+      body: JSON.stringify(pacienteInDto)
+});
+    const paciente=await peticion.json();
+    
+  
+  console.log(paciente);
+  if(usuario=="paciente"){
+
+  let nombre = document.getElementById("nombre").value;
+  let fechaNacimiento= document.getElementById("fecha").value;
+  let telefono = document.getElementById("telefono").value;
+  let direccion = document.getElementById("direccion").value;
+  let eps = paciente.eps.idEps;
+  let selectTipoDocumento = selectedDocumento.options[selectedDocumento.selectedIndex];
+  let tipo_documento = selectTipoDocumento.value;
+  let peso = paciente.peso;
+  let pesoseco=paciente.pesoSeco;
+  let ocupacion=document.getElementById("ocupacion").value;
+  let correo=document.getElementById("correo").value;
+  let estatura=paciente.altura;
+  var diabetes = paciente.diabetes;
+     var hipertension = paciente.hipertension;
+      
+
+  pacienteInDto = {
+    direccion: CryptoJS.AES.encrypt(direccion, 'clave_secreta').toString(),
+    fechaNacimiento: fechaNacimiento+"T00:00:00.000Z",
+    peso:parseInt(peso,10),
+    pesoSeco:parseInt(pesoseco,10),
+    nombre: CryptoJS.AES.encrypt(nombre, 'clave_secreta').toString(),
+    eps: parseInt(eps,10),
+    celular: CryptoJS.AES.encrypt(telefono, 'clave_secreta').toString(),
+    ocupacion: CryptoJS.AES.encrypt(ocupacion, 'clave_secreta').toString(),
+    correo: CryptoJS.AES.encrypt(correo, 'clave_secreta').toString(),
+    activo:true,
+    cedula:cedulaEncriptada,
+    tipoSangre:paciente.tipoSangre,
+    tipo_documento:CryptoJS.AES.encrypt(tipo_documento, 'clave_secreta').toString(),
+    rh:paciente.rh,
+    contrasenia:paciente.contrasenia,
+    altura:estatura,
+    diabetes:diabetes,
+    hipertension:hipertension
+  };
+}
+else{
+  let nombre = paciente.nombre;
+  let fechaNacimiento=paciente.fechaNacimiento;
+  let telefono = paciente.celular;
+  let direccion = paciente.direccion;
+  let tipo_documento= paciente.tipo_documento;
+  let selectedOption = selectedEps.options[selectedEps.selectedIndex];
+  let eps = selectedOption.value;
+  let peso = document.getElementById("peso").value;
+  let pesoseco=document.getElementById("pesoseco").value;
+  let ocupacion=paciente.ocupacion;
+  let correo=paciente.correo;
+  let estatura=document.getElementById("estatura").value;;
+  var diabetes = document.getElementById('diabetes').checked;
+  var hipertension = document.getElementById('hipertension').checked;
+
+  pacienteInDto = {
+    direccion: direccion,
+    fechaNacimiento: fechaNacimiento,
+    peso:parseInt(peso,10),
+    pesoSeco:parseInt(pesoseco,10),
+    nombre: nombre,
+    eps: parseInt(eps,10),
+    celular: telefono,
+    ocupacion: ocupacion,
+    correo: correo,
+    activo:true,
+    cedula:cedulaEncriptada,
+    tipoSangre:paciente.tipoSangre,
+    tipo_documento:tipo_documento,
+    rh:paciente.rh,
+    contrasenia:paciente.contrasenia,
+    altura:parseInt(estatura,10),
+    diabetes:diabetes,
+    hipertension:hipertension
+  };
+  console.log(pacienteInDto);
+}
+
+
+  fetch(localStorage.getItem("servidorAPI") + "paciente/actualizar", {
+    method: "PATCH",
+    body: JSON.stringify(pacienteInDto),
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    }
+  })
+    .then(response => {
+      if (response.ok) {
+        if (response.status === 200 || response.status === 204) {
+          $('#successModal').modal('show');
+        }
+      } else {
+      }
+    })
+    .catch(error => {
+      console.error(error);
+    });
+}

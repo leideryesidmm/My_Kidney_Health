@@ -100,7 +100,7 @@ header {
 
 
 #container2 {
-    width: 230px;
+    width: 250px;
     height: 150px;
     background-color: rgb(0, 219, 161, .48);
     display: flex;
@@ -130,7 +130,7 @@ header {
 }
 
 #textcontainer2 {
-  width: 230px;
+  width: 250px;
   height: 30px;
   margin: auto;
   background-color: #e7e7e7;
@@ -407,4 +407,27 @@ tbody:hover {
     font-style: italic;
     margin-right: 5px;
     margin-left: 5px;
+  }
+
+  #paciente, #documento{
+    color: #837f7f;
+    text-align: center;
+    font-style: italic;
+  }
+
+  .dataPaciente{
+    margin: 10px;
+  justify-content: center;
+  align-items: center;
+    margin: 0 auto;
+    padding: 0;
+    font-family: 'Jost', sans-serif;
+    padding: 20px;
+    height: fit-content;
+    font-size: 20px;
+    text-align: left;
+    width: fit-content;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   }

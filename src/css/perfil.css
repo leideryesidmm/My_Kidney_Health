@@ -6,11 +6,6 @@ body{
   flex-direction: column;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;}
 
-.container{
-    margin: 0;
-    padding: 0;
-    width: 100%;
-}
 
 #btnguardar {
   background-color: #89898f;
@@ -18,13 +13,13 @@ body{
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 0 auto;
+  width: 350px;
 }
 
-.dataPeso, .dataAltura{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+
+
+
 
 p{
   padding: 0 5px 0 0;
@@ -56,6 +51,7 @@ label{
   
 }
 
+
 #icon {
   width: 30px;
     height: 30px;
@@ -64,12 +60,13 @@ label{
   margin-left: 20px;
 }
 
-.title{
-  color: #fff;
+.subtitle{
+  color: #000;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0 auto;
+  align-items: center;
 }
 
 .editarPerfil img{
@@ -78,16 +75,7 @@ label{
     margin-left: auto;
 }
 
-.nombre{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-}
 
-.eps{
-    color: #fff;
-}
 
 .titleAlergia{
     color:#000;
@@ -95,15 +83,18 @@ label{
 }
 
 .nav-cuidador {
-    display: flex;
+    display: column;
     align-items: flex-start;
     justify-content: space-between;
     background-color: #00DBA1;
     opacity: 0.48;
-    height: auto;
-    width: 100%;
-    
+    height: fit-content;
+    width: 350px;
+    align-items: center;
+    margin: 0 auto;
   }
+
+
   
   .nav-cuidador p {
     margin: 0 auto;
@@ -111,33 +102,21 @@ label{
     margin-left: 10px;
     width: 100%;
   }
+
+  
   
   .nombreCuidador,
   .cuidador {
     color: #fff;
-    font-size: 20px;
+    font-size: 24px;
   }
-
-  .eps-nav,
-.alergias,
-.dataCuidador {
-  margin-bottom: 0.5em;
- 
-}
-
-.eps{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 5%;
-}
 
 .titleAlergia,
 .dataAlergia {
   margin: 0;
 }
 
-.alergiasPac h6,
+.alergiasPac h3,
 .dataAlergia{
   display: flex;
   justify-content: center;
@@ -149,35 +128,25 @@ label{
     font-size: 15px;
   }
   
-  .addCuidador {
-    width: 40px;
-    height: 40px;
-    float: right;
-    margin-top: 1%;
-    margin-right: 10%;
-  margin-left: 0;
-  }
+  
 
 .dataCuidador{
     background-color: #E0E0E0;
-  width: 96%;
+  width: 350px;
+  margin: 0 auto;
     
 }
 
-.container {
-    margin: 0;
-    padding: 0;
-  }
+.valor{
+  text-align: center;
+}
+
   
   .navbar {
     margin: 0;
     padding: 0;
   }
   
-  .info-cuidador {
-    margin-bottom: 20px; 
-    margin-left: 10px;
-}
 
 .alerg-nueva{
     background-color: #00DBA1;
@@ -191,61 +160,104 @@ label{
     text-decoration: none;
     margin-left: 1%;
     margin-right: 27px;
+    margin-top: 5px;
     float: right;
     opacity: 0.60;
 }
 
+.cuidador-nuevo{
+  background-color: #00DBA1;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 3px 20px;
+  font-size: 15px;
+  font-family: 'Jost', sans-serif;
+  border-radius: 5px;
+  text-decoration: none;
+  margin-left: 1%;
+  margin-right: 10%;
+  float: right;
+  opacity: 0.60;
+  
+}
 
-.info-cuidador p {
+.ver-cuidador{
+  background-color: #085774;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 3px 20px;
+  font-size: 20px;
+  font-family: 'Jost', sans-serif;
+  border-radius: 5px;
+  text-decoration: none;
+  opacity: 0.60;
+  width: fit-content;
+  margin-left: 50%;
+}
+
+.title {
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.inf-cuidador p {
     margin: 0 5%; 
     font-size: 20px;
+    
+}
+.info-cuidador p {
+  margin: 0 5%; 
+  font-size: 17px;
+  
 }
 
-.eps-nav{
-  background-color: #00DBA1;
-  opacity: 0.48;
-  height: 40px;
-  width: 96%;
-  margin: 0 auto;
-  margin-top: 10px;
-}
-
-.dataCuidador{
-  margin: 0 auto;
-}
 
 .dataCuidadorUp{
   width: 96%;
   margin: 0 auto;
 }
 
-#hipertensionTrue{
-  margin-left: 10px;
-}
 
-.checks, .segundosDatos{
-  margin-bottom: 15px;
-}
+
 .devolverse{
   margin-left: 20px;
 }
 
-.dataPeso, .dataAltura{
-  display: flex;
+.personales, .medicos, .fotografia{
+ 
+  margin: 10px;
   justify-content: center;
   align-items: center;
-  margin: 0 auto;
+    margin: 0 auto;
+    padding: 0;
+    color: #000000;
+    font-family: 'Jost', sans-serif;
+    padding: 20px;
+    height: fit-content;
+    font-size: 20px;
+    text-align: left;
+    width: 70%;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
-.nacimiento,
-    .fechaNacimiento {
-        margin-bottom: 1px;
-    }
 
-
+.datos {
+  display: flex;
+  justify-content: space-between; 
+  gap:15px;
+}
 
 @media only screen and (max-width: 768px) {
     /* For mobile phones: */
     [class*="col-"] {
       width: 100%;
+    }
+    .datos{
+      flex-direction: column;
     }
   }

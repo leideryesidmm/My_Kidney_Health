@@ -116,6 +116,7 @@ body {
   }
 
   #data2{
+    
     color: #555;
     font-weight: bold;
     font-size: 14px;
@@ -213,9 +214,19 @@ body {
     }
 
 
-    #selectEps, #selectTipo{
+    #selectedEps{
        
       width: 80%;
+      height: 20%;
+       padding: 10px;
+       margin: 5px 0;
+       border: 1px solid #ccc;
+       border-radius: 5px;
+       transition: border-color 0.3s ease-in-out;
+   }
+
+   #selectedDocumento{
+    width: 80%;
       height: 20%;
        padding: 10px;
        margin: 5px 0;
@@ -265,10 +276,16 @@ body {
     
 
     #enf{
-      display: column;
       border-color: #555;
       margin-top: 4%;
-      margin: 0 auto;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hipertension, .diabetes{
+      display: flex;
+      justify-content: start;
+      align-items: start;
     }
   
   /* Estilos responsivos */
@@ -277,3 +294,8 @@ body {
       width: 100%;
     }
   }
+
+   
+
+   
+  

@@ -9,9 +9,17 @@ let principal =()=>{
     }
     else{
         ms+=
-        '<div class="col-2"><a href="pacientes.html" class="atras"><img src="../img/devolverseColor.png" alt="" id="icono"></a></div>'+
-        '<div class="col-8"><h1 class="title-principal-app">Mi Salud Renal</h1></div>'+
-        '<div class="col-2"><input type="image" class="logout" src="../img/log-out-white.png" onclick="logout()"></div>';
+        '<div class="header-container">'+
+      '<div class="logo"><img src="../img/logo3.png" alt="">'+
+      '</div>'+
+      '<nav>'+
+        '<ul>'+
+          '<li><a href="pacientes.html">Pacientes</a></li>'+
+          '<li><a href="gestion-credenciales.html">'+usuario.nombre+'</a></li>'+
+          '<li><input type="image" class="logout" src="../img/log-out-white.png" onclick="logout()"></div></li>'
+        '</ul>'+
+      '</nav>'+
+    '</div>';
     }
     document.getElementById("navbar").innerHTML=ms;
 
@@ -84,7 +92,13 @@ if(usuario=="paciente"){
 }else{
     msg+=   
     '<br>'+
+
+    '<div class="dataPaciente">'+
+    '<h2 id="paciente">Paciente: '+localStorage.getItem("nombrePaciente")+'<h2>'+
+    '<h4 id="documento">Documento: '+CryptoJS.AES.decrypt((decodeURIComponent(localStorage.getItem("cedulaPaciente"))),"clave_secreta").toString(CryptoJS.enc.Utf8)+'<h4>'+
+    '</div>'+
     '<div>'+
+    '<br>'+
     '<div class="row">'+
     '<div class="col-md-6 col-12 my-sm-2 d-flex flex-column align-items-center">'+
         '<div class="d-flex justify-content-center align-items-center" id="container2">'+

@@ -80,7 +80,7 @@ let medicoEncontrado=false;
     }
     if(!pacienteEncontrado && !medicoEncontrado){
       let msg="";
-      msg+='<p class="error">!Datos Incorrectos¡</p>';
+      msg+='<p class="error">¡Datos Incorrectos!</p>';
       document.getElementById("datosIncorrectos").innerHTML=msg;
     }
 
