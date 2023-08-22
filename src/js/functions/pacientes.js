@@ -30,7 +30,10 @@ let inhabilitarPaciente = async (ced) => {
   let cedula = ced.toString();
   let cedulaEncriptada = await obtenerCedulaEncriptada(cedula);
   console.log(cedulaEncriptada);
+  let cedulaEncriptada = await obtenerCedulaEncriptada(cedula);
+  console.log(cedulaEncriptada);
   try {
+    const pacienteInDto = { cedula: cedulaEncriptada };
     const pacienteInDto = { cedula: cedulaEncriptada };
 
     const response = await fetch(servidorAPI + 'Medico/inhabilitarPaciente', {
@@ -39,6 +42,7 @@ let inhabilitarPaciente = async (ced) => {
         "Accept": "application/json",
         "Content-Type": "application/json"
       },
+      body: JSON.stringify(pacienteInDto)
       body: JSON.stringify(pacienteInDto)
     });
 
@@ -59,8 +63,10 @@ let inhabilitarPaciente = async (ced) => {
 let habilitarPaciente = async (ced) => {
   let cedula = ced.toString();
   let cedulaEncriptada = await obtenerCedulaEncriptada(cedula);
+  let cedulaEncriptada = await obtenerCedulaEncriptada(cedula);
 
   try {
+    const pacienteInDto = { cedula: cedulaEncriptada };
     const pacienteInDto = { cedula: cedulaEncriptada };
 
     const response = await fetch(servidorAPI + 'Medico/reactivarPaciente', {
@@ -69,6 +75,7 @@ let habilitarPaciente = async (ced) => {
         "Accept": "application/json",
         "Content-Type": "application/json"
       },
+      body: JSON.stringify(pacienteInDto)
       body: JSON.stringify(pacienteInDto)
     });
 
@@ -148,7 +155,7 @@ let pacientesTratados = async () => {
               '</div>' +
               '</div>' +
               '</div>';
-
+              
             msg +=
           '<div class="modal" tabindex="-1" id="visita' + cont + '">' +
           '<div class="modal-dialog">' +
@@ -160,55 +167,55 @@ let pacientesTratados = async () => {
           '<div class="modal-body">' +
           '<label class="cedulaPaciente" id="cedulaPaciente"><b>Cédula: </b>' + paciente.cedula + '</label><br>' +
           '<label class="cedulaPaciente" id="cedulaPaciente"><b>Nombre: </b>' + paciente.nombre + '</label><br>' +
-          '<div class="especialistas"><br>'+
+          '<div class="especialistas"><br><form id="checkboxForm">'+
           '<div class="row">'+
-          '<div class="col-6"><img src="../img/nefrologo.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">'+
+          '<div class="col-6"><img src="../img/nefrologo.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="nefrologia" id="nefrologia">'+
           '  <label class="form-check-label" for="flexCheckDefault">'+
           '    Nefrólogo'+
           '  </label>'+
           '</div>'+
-            '<div class="col-6"><img src="../img/enfermera.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">'+
+            '<div class="col-6"><img src="../img/enfermera.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="enfermeria" id="enfermeria">'+
               '  <label class="form-check-label" for="flexCheckDefault">'+
               '    Enfermera'+
               '  </label>'+
               '</div>'+
           '</div><br>'+
         '<div class="row">'+
-          '<div class="col-6"><img src="../img/nutricion.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">'+
+          '<div class="col-6"><img src="../img/nutricion.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="nutricion" id="nutricion">'+
           '  <label class="form-check-label" for="flexCheckDefault">'+
           '    Nutricionista'+
           '  </label>'+
           '</div>'+
-            '<div class="col-6"><img src="../img/psicologo.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">'+
+            '<div class="col-6"><img src="../img/psicologo.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="psicologia" id="psicologia">'+
               '  <label class="form-check-label" for="flexCheckDefault">'+
               '    Psicólogo'+
               '  </label>'+
               '</div>'+
           '</div><br>'+
           '<div class="row">'+
-          '<div class="col-6"><img src="../img/asistencia.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">'+
+          '<div class="col-6"><img src="../img/asistencia.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="trabajoSocial" id="trabajoSocial">'+
           '  <label class="form-check-label" for="flexCheckDefault">'+
           '    Trabajador Social'+
           '  </label>'+
           '</div>'+
-            '<div class="col-6"><img src="../img/admision.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">'+
+            '<div class="col-6"><img src="../img/admision.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="auxiliarAdmisiones" id="auxiliarAdmisiones">'+
               '  <label class="form-check-label" for="flexCheckDefault">'+
               '    Aux. de Admisiones'+
               '  </label>'+
               '</div>'+
           '</div><br>'+
           '<div class="row text-center">'+
-          '<div class="col-12"><img src="../img/Farmacia.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">'+
+          '<div class="col-12"><img src="../img/Farmacia.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="farmacia" id="farmacia">'+
           '  <label class="form-check-label" for="flexCheckDefault">'+
           '    Farmacia'+
           '  </label>'+
           '</div>'+
-          '</div>'+
+          '</div></form>'+
           '</div>' +
           '</div>' +
           '<div class="modal-footer">' +
           '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>' +
-          '<button type="button" onclick="inhabilitarPaciente(' + paciente.cedula + ')"" class="btn btn-primary">Guardar</button>' +
+          '<button type="submit"  id="guardarVisita" onclick="crearVisita()" class="btn btn-primary">Guardar</button>' +
           '</div>' +
           '</div>' +
           '</div>' +
@@ -254,6 +261,7 @@ function editarPaciente(cedula){
 
 let pacientesInhabilitados = async () => {
   let cont = 1;
+
 
   try {
     const pacientes = await listarPacientesInactivos();
@@ -317,6 +325,7 @@ let pacientesInhabilitados = async () => {
           '</div>' +
           '</div>';
           cont++;
+          cont++;
 
       });
     }
@@ -331,22 +340,49 @@ let pacientesInhabilitados = async () => {
   }
 };
 
+let crearVisita = async () => {
+  let idCita=1;
+  var checkboxes = document.querySelectorAll("input[name='visita']:checked");
+  var visitaEspecialistaDto = {
+    cita: idCita // Agregar el ID de la cita
+  };
+  
+  Array.from(checkboxes).forEach(function (checkbox) {
+    visitaEspecialistaDto[checkbox.value] = true;
+  });
+
+  console.log(visitaEspecialistaDto);
+
+  if (Object.keys(visitaEspecialistaDto).length > 0) {
+      const response = await fetch(servidorAPI + 'Medico/visitaEspecialista', {
+          method: "POST",
+          body: JSON.stringify(visitaEspecialistaDto),
+          headers: {
+              "Accept": "application/json",
+              "Content-Type": "application/json"
+          }
+      })
+      .then(response => {
+          console.log(response);
+          if (response.ok) {
+              $('#visita').modal('hide');
+              location.reload();
+          } else {
+              $('#errorModal').modal('show');
+          }
+      })
+      .catch(error => {
+          console.error(error);
+      });
+  } else {
+      alert("Selecciona al menos un checkbox para guardar.");
+  }
+};
+
+
+
+    
+
 
 pacientesTratados();
 pacientesInhabilitados();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
