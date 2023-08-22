@@ -356,5 +356,5 @@ else{
           '</div>';
 
           document.getElementById("container").innerHTML=msg;
-          document.getElementById("selectedDocumento").value = localStorage.getItem("documento");
+           document.getElementById("selectedDocumento").value = localStorage.getItem("documento");
 }

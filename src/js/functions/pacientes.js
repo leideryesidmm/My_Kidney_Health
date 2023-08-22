@@ -30,10 +30,7 @@ let inhabilitarPaciente = async (ced) => {
   let cedula = ced.toString();
   let cedulaEncriptada = await obtenerCedulaEncriptada(cedula);
   console.log(cedulaEncriptada);
-  let cedulaEncriptada = await obtenerCedulaEncriptada(cedula);
-  console.log(cedulaEncriptada);
   try {
-    const pacienteInDto = { cedula: cedulaEncriptada };
     const pacienteInDto = { cedula: cedulaEncriptada };
 
     const response = await fetch(servidorAPI + 'Medico/inhabilitarPaciente', {
@@ -42,7 +39,6 @@ let inhabilitarPaciente = async (ced) => {
         "Accept": "application/json",
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(pacienteInDto)
       body: JSON.stringify(pacienteInDto)
     });
 
@@ -63,10 +59,8 @@ let inhabilitarPaciente = async (ced) => {
 let habilitarPaciente = async (ced) => {
   let cedula = ced.toString();
   let cedulaEncriptada = await obtenerCedulaEncriptada(cedula);
-  let cedulaEncriptada = await obtenerCedulaEncriptada(cedula);
 
   try {
-    const pacienteInDto = { cedula: cedulaEncriptada };
     const pacienteInDto = { cedula: cedulaEncriptada };
 
     const response = await fetch(servidorAPI + 'Medico/reactivarPaciente', {
@@ -75,7 +69,6 @@ let habilitarPaciente = async (ced) => {
         "Accept": "application/json",
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(pacienteInDto)
       body: JSON.stringify(pacienteInDto)
     });
 
