@@ -227,29 +227,6 @@ let cuidadorPorPaciente=async()=>{
     };
     
 
-let listaParentesco= async()=>{
-  const peticion= await fetch(localStorage.getItem("servidorAPI")+"Prueba/ListParentesco",{
-    
-    method:"GET",
-    headers:{
-      "Accept":"application/json",
-      "Content-Type":"application/json"
-    }
-  });
-  const selectParentesco = document.getElementById('selectParentesco');
-  const parentescos=await peticion.json();
-  const optionSeleccionar = document.createElement('option');
-  optionSeleccionar.textContent = "Seleccione";
-  selectParentesco.appendChild(optionSeleccionar);
-  parentescos.forEach(parentesco=>{
-    const option = document.createElement('option');
-    option.value = parentesco.idParentesco;
-    option.textContent = parentesco.descripcion;
-    selectParentesco.appendChild(option);
-  });
-
-}
-
 let listarParentesco = async () => {
   const peticion = await fetch(localStorage.getItem("servidorAPI") + "Prueba/ListParentesco", {
     method: "GET",
@@ -274,8 +251,6 @@ let listarParentesco = async () => {
       selectParentesco.appendChild(option);
     });
   }
-
- 
   encontrarCuidador();
 }
 
@@ -331,11 +306,6 @@ let cuidadorActivo= async()=>{
   document.getElementById("parentesco").innerText = cuidador.cuidador.parentesco.descripcion;*/
   return cuidadorDesencriptado;
 }
-
-
-
-    
-  
 
     let encontrarCuidador = async () => {
       let data = localStorage.getItem("datos");

@@ -111,10 +111,12 @@ let pacientesTratados = async () => {
           '<td>' + paciente.nombre + '</td>' +
           '<td>' + paciente.cedula + '</td>' +
           '<td>' +
-          '<a class="icon-link" onclick="irPaciente(\'' + clave + '\')">' +
+          '<a class="icon-link" onclick="irPaciente(\'' + clave + '\', \'' + paciente.nombre + '\')">' +
           '<img src="../img/ver.png" class="ver"/>' +
-          '</a>' +
-          '<a href="info-pacientes.html" type="button">' +
+          '</a>';
+          var urlActual = window.location.href;
+          localStorage.setItem("url", urlActual);
+          msg+='<a class="icon-link" onclick="editarPaciente(\'' + clave + '\')">' +
           '<img src="../img/lapiz.png" class="actualizar"/>' +
           '</a>' +
           '<a href="" data-bs-toggle="modal" data-bs-target="#inhabilitarpaciente' + cont + '" type="button">' +
@@ -309,14 +311,21 @@ let pacientesTratados = async () => {
 };
 
 
-function irPaciente(cedula) {
+function irPaciente(cedula, nombre){
   localStorage.setItem("cedulaPaciente", cedula);
-  location.href = "principal.html";
+  localStorage.setItem("nombrePaciente", nombre);
+  location.href="principal.html";
+}
+
+function editarPaciente(cedula){
+  localStorage.setItem("cedulaPacienteEditar", cedula);
+  location.href="editarPaciente.html";
 }
 
 
 let pacientesInhabilitados = async () => {
   let cont = 1;
+
 
   try {
     const pacientes = await listarPacientesInactivos();
@@ -379,7 +388,7 @@ let pacientesInhabilitados = async () => {
           '</div>' +
           '</div>' +
           '</div>';
-        cont++;
+          cont++;
 
       });
     }
