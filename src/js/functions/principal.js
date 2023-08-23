@@ -1,10 +1,9 @@
 let principal = () => {
     let ms = "";
     let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
-    console.log(localStorage.getItem("datos"))
     if (usuario == "paciente") {
         ms +=
-            '<div class="col-2" align="left"><input type="image" class="logo-principal" src="../img/logo3.png"></div>' +
+            '<div class="col-2"><input type="image" class="logo-principal" src="../img/logo3.png"></div>' +
             '<div class="col-8"><h1 class="title-principal-app">Mi Salud Renal</h1></div>' +
             '<div class="col-2"><input type="image" class="logout" src="../img/log-out-white.png" onclick="logout()"></div>';
     }
@@ -21,7 +20,14 @@ let principal = () => {
             '<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>' +
             '<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>' +
             '</svg>' +
-            '<li><a href="gestion-credenciales.html" id="nombreUsuario"></a></li>' +
+            '<li>'+
+            '<div class="dropdown">'+
+            '<button class="btn btn dropdown-toggle" type="button" id="nombreUsuario" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>'+
+            '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">'+
+            '<a class="dropdown-item" href="#">Cambiar Contraseña</a>'+
+            '<a class="dropdown-item" onclick="logout()">Cerrar sesión</a>'+
+            '</div></div>'+
+            '</li>' +
             '</ul></nav>' +
             '</div>' +
             '</div>' +
@@ -67,81 +73,86 @@ let principal = () => {
             '</div>' +
 
 
-'<div class="row">'+
-  '<div class="col-md-6 col-12 my-sm-2 d-flex flex-column align-items-center">'+
-  '<div class="grid-item">'+
-      '<div class="d-flex justify-content-center align-items-center" id="container">'+
-          '<a href="medicamento.html"><img src="../img/medicamentos.png" alt=""></a>'+
-      '</div>'+
-      '<div class="grid-item-content" class="col-md-6 col-12  text-center" id="textcontainer">'+
-          '<h5><b>Medicamentos</b></h5>'+
-      '</div>'+
-      '<div class="description" class="col-md-6 col-12 text-center" >'+
-      '<p>En esta sección podrá ver, agregar o modificar los medicamentos<p>'+
-      '</div>'+
-      '</div>'+
-  '</div>'+
-  '<div class="col-md-6 col-12 my-sm-2 d-flex flex-column align-items-center">'+
-  '<div class="grid-item">'+
-      '<div class="d-flex justify-content-center align-items-center" id="container">'+
-          '<a href="recambiosguardados.html"><img src="../img/recambios.png" alt=""></a>'+
-      '</div>'+
-      '<div class="grid-item-content" class="col-md-6 col-12 text-center"  id="textcontainer" >'+
-          '<h5><b>Historial</b></h5>'+
-      '</div>'+
-      '<div class="description" class="col-md-6 col-12 text-center" >'+
-      '<p>En esta sección podrá ver el historial de recambios<p>'+
-      '</div>'+
-  '</div>'+
-  '</div>'+
-'</div>';
-}else{
-    msg+=   
-    '<br>'+
-    '<div>'+
-    '<div class="row">'+
-    '<div class="col-md-6 col-12 my-sm-2 d-flex flex-column align-items-center">'+
-        '<div class="d-flex justify-content-center align-items-center" id="container2">'+
-            '<a href="perfil.html"><img src="../img/perfil.png" alt=""></a>'+
-        '</div>'+
-        '<div class="col-md-6 col-12  text-center" id="textcontainer2">'+
-            '<h5><b>Información del paciente</b></h5>'+
-        '</div>'+
-    '</div>'+
-    '<div class="col-md-6 col-12 my-sm-2 d-flex flex-column align-items-center">'+
-        '<div class="d-flex justify-content-center align-items-center" id="container2">'+
-            '<a href="prescripciones.html"><img src="../img/prescripcion.png" alt=""></a>'+
-        '</div>'+
-        '<div class="col-md-6 col-12 text-center"  id="textcontainer2">'+
-            '<h5><b>Prescripciones</b></h5>'+
-        '</div>'+
-    '</div>'+
-  '</div>'+
-  
-  
-  '<div class="row">'+
-    '<div class="col-md-6 col-12 my-sm-2 d-flex flex-column align-items-center">'+
-        '<div class="d-flex justify-content-center align-items-center" id="container2">'+
-            '<a href="medicamento.html"><img src="../img/medicamentos.png" alt=""></a>'+
-        '</div>'+
-        '<div class="col-md-6 col-12  text-center" id="textcontainer2">'+
-            '<h5><b>Medicamentos</b></h5>'+
-        '</div>'+
-    '</div>'+
-    '<div class="col-md-6 col-12 my-sm-2 d-flex flex-column align-items-center">'+
-        '<div class="d-flex justify-content-center align-items-center" id="container2">'+
-            '<a href="recambiosguardados.html"><img src="../img/recambios.png" alt=""></a>'+
-        '</div>'+
-        '<div class="col-md-6 col-12 text-center"  id="textcontainer2">'+
-            '<h5><b>Historial</b></h5>'+
-        '</div>'+
-    '</div>'+
-  '</div>';
-}
+            '<div class="row">' +
+            '<div class="col-md-6 col-12 my-sm-2 d-flex flex-column align-items-center">' +
+            '<div class="grid-item">' +
+            '<div class="d-flex justify-content-center align-items-center" id="container">' +
+            '<a href="medicamento.html"><img src="../img/medicamentos.png" alt=""></a>' +
+            '</div>' +
+            '<div class="grid-item-content" class="col-md-6 col-12  text-center" id="textcontainer">' +
+            '<h5><b>Medicamentos</b></h5>' +
+            '</div>' +
+            '<div class="description" class="col-md-6 col-12 text-center" >' +
+            '<p>En esta sección podrá ver, agregar o modificar los medicamentos<p>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="col-md-6 col-12 my-sm-2 d-flex flex-column align-items-center">' +
+            '<div class="grid-item">' +
+            '<div class="d-flex justify-content-center align-items-center" id="container">' +
+            '<a href="recambiosguardados.html"><img src="../img/recambios.png" alt=""></a>' +
+            '</div>' +
+            '<div class="grid-item-content" class="col-md-6 col-12 text-center"  id="textcontainer" >' +
+            '<h5><b>Historial</b></h5>' +
+            '</div>' +
+            '<div class="description" class="col-md-6 col-12 text-center" >' +
+            '<p>En esta sección podrá ver el historial de recambios<p>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>';
+    } else {
+        msg +=
+            '<br>' +
+
+            '<div class="dataPaciente">' +
+            '<h2 id="paciente">Paciente: ' + localStorage.getItem("nombrePaciente") + '<h2>' +
+            '<h4 id="documento">Documento: ' + CryptoJS.AES.decrypt((decodeURIComponent(localStorage.getItem("cedulaPaciente"))), "clave_secreta").toString(CryptoJS.enc.Utf8) + '<h4>' +
+            '</div>' +
+            '<div>' +
+            '<br>' +
+            '<div class="row">' +
+            '<div class="col-md-6 col-12 my-sm-2 d-flex flex-column align-items-center">' +
+            '<div class="d-flex justify-content-center align-items-center" id="container2">' +
+            '<a href="perfil.html"><img src="../img/perfil.png" alt=""></a>' +
+            '</div>' +
+            '<div class="col-md-6 col-12  text-center" id="textcontainer2">' +
+            '<h5><b>Información del paciente</b></h5>' +
+            '</div>' +
+            '</div>' +
+            '<div class="col-md-6 col-12 my-sm-2 d-flex flex-column align-items-center">' +
+            '<div class="d-flex justify-content-center align-items-center" id="container2">' +
+            '<a href="prescripciones.html"><img src="../img/prescripcion.png" alt=""></a>' +
+            '</div>' +
+            '<div class="col-md-6 col-12 text-center"  id="textcontainer2">' +
+            '<h5><b>Prescripciones</b></h5>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+
+
+            '<div class="row">' +
+            '<div class="col-md-6 col-12 my-sm-2 d-flex flex-column align-items-center">' +
+            '<div class="d-flex justify-content-center align-items-center" id="container2">' +
+            '<a href="medicamento.html"><img src="../img/medicamentos.png" alt=""></a>' +
+            '</div>' +
+            '<div class="col-md-6 col-12  text-center" id="textcontainer2">' +
+            '<h5><b>Medicamentos</b></h5>' +
+            '</div>' +
+            '</div>' +
+            '<div class="col-md-6 col-12 my-sm-2 d-flex flex-column align-items-center">' +
+            '<div class="d-flex justify-content-center align-items-center" id="container2">' +
+            '<a href="recambiosguardados.html"><img src="../img/recambios.png" alt=""></a>' +
+            '</div>' +
+            '<div class="col-md-6 col-12 text-center"  id="textcontainer2">' +
+            '<h5><b>Historial</b></h5>' +
+            '</div>' +
+            '</div>' +
+            '</div>';
+    }
 
     document.getElementById("cont-principal").innerHTML = msg;
 }
-
 
 let nombreNavBar = async () => {
     let usuario = JSON.parse(localStorage.getItem("datos")).cedula;
@@ -174,4 +185,4 @@ function actualizarNombreEnNavbar(nombre) {
     document.getElementById("nombreUsuario").textContent = nombre;
 }
 
-nombreNavBar();
+nombreNavBar(); 

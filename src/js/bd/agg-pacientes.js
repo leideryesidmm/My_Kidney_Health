@@ -1,4 +1,3 @@
-let servidorAPI="http://localhost:8081/";
 
  let listarEps = async () => {
   const peticion = await fetch(localStorage.getItem("servidorAPI") + "Prueba/ListEps", {

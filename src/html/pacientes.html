@@ -9,9 +9,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Jost&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.0.4/popper.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -26,7 +26,14 @@
                 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
                 <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
               </svg>
-              <li><a href="gestion-credenciales.html" id="nombreUsuario"></a></li>
+              <li>
+                <div class="dropdown">
+                  <button class="btn btn dropdown-toggle" type="button" id="nombreUsuario" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#">Cambiar Contraseña</a>
+                  <a class="dropdown-item" href="login.html" onclick="logout()">Cerrar sesión</a>
+                  </div></div>
+              </li>
             </ul></nav>
         </div>
       </div>      
@@ -79,11 +86,13 @@
     crossorigin="anonymous"></script>
 
   <script src="../js/bd/agg-pacientes.js"></script>
+  <script src="../js/bd/login.js"></script>
   <script src="../js/functions/pacientes.js"></script>
 
   </script>
   <script>
     pacientesTratados(listarPacientes());
+    
   </script>
 </body>
 </html>
