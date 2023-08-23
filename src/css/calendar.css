@@ -1,0 +1,148 @@
+*, *:before, *:after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    
+}
+
+:root {
+    --color-bg-calendar: rgba(4, 186, 252, 0.2);
+    --color-cell: #000000;
+    --color-cell-disabled: #424649;
+    
+}
+
+.root {
+    padding: 15px 15px;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+}
+
+
+
+.calendar {
+    padding: 20px 10px;
+    background-color: var(--color-bg-calendar);
+    border-radius: 3px;
+    width: 100%;
+    max-width: 300px;
+    font-family: sans-serif;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2); 
+    
+}
+
+.calendar__header {
+    color: rgb(0, 0, 0);
+    display: flex;
+    justify-content: space-between;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+
+.calendar .control {
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0 5px;
+}
+
+.grid__header, .grid__body {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.grid__header {
+    color: rgb(0, 0, 0);
+    margin-bottom: 20px;
+}
+
+.grid__body {
+    grid-auto-rows: 40px;
+    color: var(--color-cell);
+}
+
+.grid__cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.grid__cell--gd {
+    cursor: pointer;
+}
+
+.grid__cell--selected {
+    color: white;
+    background-color: #04BAFC;
+    border-radius: 50%;
+    border: 2px solid #04BAFC;
+    box-shadow: 0 0 0 2px white inset;
+}
+
+.grid__cell--disabled {
+    color: var(--color-cell-disabled);
+    cursor: not-allowed;
+}
+
+
+ 
+  h3{
+    text-align: center;
+    align-items: center;
+    display: flex;
+  }
+  .card-mayor{
+    padding: 20px;
+  }
+  .card-menor{
+    margin-left: 5px;
+    margin-top: 5px;
+    margin-right: 0px;
+    max-width: 350px;
+  }
+  .estado{
+  display:grid;
+  
+  margin:  0 auto;
+  align-items: center;
+    color: white;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-right-width: 1px;
+  border-style: solid;
+  border-color: black;
+  }
+  .datos{
+    margin-left: 2px;
+  }
+  .acciones{
+    display: grid;
+    align-items: center;
+  }
+  #vertical{
+    writing-mode: vertical-rl;
+  text-orientation: upright;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  
+  margin:  0 auto;
+  align-items: center;
+  }
+  .centrado{
+    margin: 0 auto;
+  }
+  h3 {
+    text-align: center;
+    font-weight: bold;
+    margin: 0 auto;
+  }
+  .fechaInicio{
+    
+  }

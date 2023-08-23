@@ -9,7 +9,7 @@ let obtenerCedulaEncriptada=async()=>{
       "Accept":"application/json",
       "Content-Type": "application/json"
     }
-      });
+    });
       const pacientes=await peticion.json();
       console.log(pacientes);
       pacientes.forEach(paciente=>{

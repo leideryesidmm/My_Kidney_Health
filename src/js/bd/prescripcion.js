@@ -167,4 +167,23 @@ let crearRecambio = async () => {
         return recambiosHechos2
   }
 
-
+  let recambiosPorFecha=async(prescripcionDia,fecha)=>{
+    let user=JSON.parse(localStorage.getItem("datos"))
+    let cedula=""
+            if(user.usuario=="medico"){
+                 cedula=JSON.parse(localStorage.getItem("cedulaPaciente"));
+            }else{
+                 cedula=user.cedula;
+            }
+    const peticion= await fetch (localStorage.getItem("servidorAPI")+"paciente/recambio/findRecambioHechoByPaciente/"+fecha,{
+      method: 'POST',
+      body: JSON.stringify(prescripcionDia),
+      headers: {
+        "Accept":"application/json",
+        "Content-Type":"application/json"
+      }
+    })
+    let recambios=await peticion.json()
+    console.log(recambios);
+        return recambios
+  }
