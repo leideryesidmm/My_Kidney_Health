@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Jost&display=swap" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../css/editarPaciente.css">
+  <title>Editar Pacientes</title>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <div class="logo">Logo</div>
+      <nav>
+        <ul>
+          <li><a href="pacientes.html">Pacientes</a></li>
+          <li><a href="prescripcion.html">Prescripción</a></li>
+          <li><a href="login.html">Cerrar sesión</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <div class="container" id="container">
+      
+    
+          
+        
+        
+    </div>
+  </main>
+
+  <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="successModalLabel">Aviso</h5>
+          <a href="javascript:void(0);"><button onclick="redireccionar()" type="button" class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button></a>
+        </div>
+        <div class="modal-body">
+          <p>Los datos del paciente han sido modificados exitosamente.</p>
+        </div>
+        <div class="modal-footer">
+          <a href="javascript:void(0);"><button onclick="redireccionar()" type="button" class="btn btn-primary">Aceptar</button></a>
+        </div>
+        
+        <script>
+          let url = localStorage.getItem("url");
+          function redireccionar() {
+            if (url) {
+              window.location.href = url;
+            } else {
+              alert("No se ha encontrado una URL almacenada en el localStorage.");
+            }
+          }
+        </script>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+  <script src="../js/bd/paciente.js"></script>
+  <script src="../js/functions/paciente.js"></script>
+  <script>
+    encontrarPaciente();
+    editarPaciente();
+    listaEps();
+  </script>
+</body>
+</html>

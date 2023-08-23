@@ -14,21 +14,18 @@ h3 {
     
 
 
-#icono {
-  width: 30px;
-    height: 30px;
-    margin-top: 6px;
-  padding: 0;
-  margin-left: 20px;
-}
 
 .navbar {
   background-color: #04BAFC;
-  height: fit-content;
-  width: 100%;
-  display: flex;
-  justify-content: space-between; 
-  align-items: center; 
+  height: 62px;
+}
+
+
+#icono {
+  width: 30px;
+    height: 30px;
+  margin-left: 20px;
+  
 }
 
 .navbar h1{
@@ -36,7 +33,6 @@ h3 {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 3.5px;
 }
 
 .form-container {
@@ -68,6 +64,8 @@ h3 {
       transform: translateY(10px);
       transition: transform 0.3s ease-in-out;
   }
+
+  
   
   input[type="text"]{
       width: 100%;

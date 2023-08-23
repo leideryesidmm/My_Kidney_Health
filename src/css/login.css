@@ -7,24 +7,34 @@ body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-@media only screen and (max-width: 768px) {
-  /* For mobile phones: */
-  [class*="col-"] {
-    width: 100%;
+input[type="text"]:focus,
+input[type="password"]:focus{
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-left-color: transparent;
+    border-bottom-color: rgb(236, 224, 224);
+    outline: none;
+    content: "";
   }
-}
 
 .navbar{
   background-color: #04BAFC;
   margin:auto;
   height:fit-content;
   width: 100%;
-  margin: 0;
-  padding: 0;
 }
 
 .navbar h1{
   align-items: center;
+}
+
+.error{
+  color: red;
+  font-style: italic;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
 }
 
 .title{
@@ -37,7 +47,6 @@ body {
 }
 
 
-
 .right-section {
   flex: 1;
   display: flex;
@@ -45,8 +54,45 @@ body {
   justify-content: center;
   align-items: center;
   background-color: #fff;
-  padding: 20px;
   width: 100%;
+}
+
+.form-container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  width: 330px;
+  margin: 0 auto;
+}
+
+label {
+  color: #555;
+  font-weight: bold;
+  font-size: 14px;
+  padding: 3%;
+  transform: translateY(10px);
+  transition: transform 0.3s ease-in-out;
+}
+
+
+
+input[type="text"], input[type="password"]{
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: border-color 0.3s ease-in-out;
+}
+
+input:focus, textarea:focus {
+  border-color: #007bff;
+}
+
+input:focus + label, textarea:focus + label {
+  transform: translateY(-25px);
+  font-size: 12px;
 }
 
 
@@ -56,34 +102,21 @@ margin-top: 0;
 }
 
 p {
-font-size: 18px;
-margin-bottom: 20px;
+font-size: 15px;
 color: black;
 font-weight: bold;
 }
 
-form {
-width: 100%;
-max-width: 300px;
-color: black;
-}
-
-label {
-display: block;
-margin-bottom: 5px;
-}
-
-
-
-button {
+.inicio {
 background-color: #00DBA1;
 color: #fff;
 border: none;
-cursor: pointer;
-padding: 4% 34%;
-border-radius: 4px;
+width: 100%;
+height: 40px;
 font-size: 15px;
+border-radius: 15px; 
 }
+
 
 
 a {
@@ -101,21 +134,9 @@ text-decoration: underline;
 .username,
 .password {
     height: fit-content;
-    padding: 10px;
     width: 100%;
 }
 
-input[type="text"],
-input[type="password"]{
-    padding: 5px;
-    border-bottom: 1px solid gray;
-    transition: border-bottom-color 0.3s;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    content: "";
-   
-}
 
 .logo img {
   display: flex;
@@ -123,6 +144,30 @@ input[type="password"]{
   justify-content: center;
   align-items: center;
   border-radius: 50%;
+  width: 150px;
+  height: 150px;
+}
+
+.username, .password{
+  height: 35px;
+}
+
+.contrasenia{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.input-container {
+  position: relative;
+  width: 100%;
+}
+        
+.toggle-password {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
 }
 
 

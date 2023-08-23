@@ -3,12 +3,6 @@ let cuidadorPrincipal=async(cuidadores, cuidAntiguos)=>{
     console.log(cuidadores);
     cuidAntiguos=await cuidAntiguos;
     let msg="";
-    let ms='<a href="perfil.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a>'+
-    '<h1 class="title">Cuidador</h1>'+
-    '<div id="img-editar">'+
-
-    '</div>';
-    document.getElementById("navbar").innerHTML=ms;
     if(cuidadores==null){
         msg+=
             '<h3 id="sinCuidador"><i>"No hay un cuidador activo"</i></h3>'+
@@ -17,7 +11,7 @@ let cuidadorPrincipal=async(cuidadores, cuidAntiguos)=>{
                 msg+=
             '<button class="cambiarCuidador" type="submit" id="cambiar" onclick="cuidadoresInactivos'+ '(cuidadoresAntiguos())" "class="cambiarCuidador">Cambiar</button>';
         }
-            msg+='<a href="agregarCuidador.html" class="btn-nuevo" id="nuevo">Nuevo</a>' +
+            msg+='<a href="agregarCuidador.html" type="submit" class="btn-nuevo" id="nuevo">Nuevo</a>' +
         '</div>';   
     }
     else{
@@ -98,7 +92,7 @@ let cuidadoresInactivos = async (cuidadores) => {
       }
     });}
     msg += '</table>';
-    msg += '<button class="inhabilitarCuidador" onclick="cerrarCuidAnt()" type="submit" id="inhabilitar"' + '" "class="cerrarCambiarCuidador">Cerrar</button>'
+    msg += '<button class="cerrarInactivos" onclick="cerrarCuidAnt()" type="submit" id="inhabilitar"' + '" "class="cerrarCambiarCuidador">Cerrar</button>'
     document.getElementById("cuidadoresAntiguos").innerHTML = msg;
   };
 

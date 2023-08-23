@@ -38,14 +38,14 @@ let listMedicamentos = async (medicamentos) => {
       "</p>" +
       "</div>" +
       '<div class="fechaIni">' +
-      "<p><strong>Fecha inicio:</strong></p>" +
+      "<p><strong>Fecha inicio: </strong></p>" +
       '<p class="fecha_inicio" id="fecha_inicio">' +
-      " "+formatearFechas(medicamento.fechaIni)+"</p>" +
+      " " + formatearFechas(medicamento.fechaIni)+"</p>" +
       "</div> " +
       '<div class="fechaFin">' +
-      "<p><strong>Fecha Finalización:</strong></p>" +
-      '<p class="fecha_fin" id="fecha_fin">' +
-      " "+formatearFechas(medicamento.fechaFin)+"</p>" +
+      "<p><strong>Fecha Finalización: </strong></p>" +
+      '<p class="fecha_fin" id="fecha_fin">' + 
+      " " + formatearFechas(medicamento.fechaFin)+"</p>" +
       "</div>" +
       '<div class="dos">' +
       "<p><strong>Dosis:</strong></p>" +
@@ -101,7 +101,7 @@ let listMedicamentos = async (medicamentos) => {
 
 else{
   msg+=
-  '<b><p class="sinMedicamentos">No tienes medicamentos registrados<p></b>';
+  '<b><p class="sinMedicamentos">No tiene medicamentos registrados<p></b>';
 }
   document.getElementById("acordeon1").innerHTML = msg;
 
@@ -109,9 +109,12 @@ else{
             
             '<div class="row">'+
                 '<div class="col-10"></div>'+
-                '<div class="col-2">'+
-                    '<a href="addMedicamento.html?cedula='+cedulaEncript+'"><img src="../img/nuevo.png" alt="" id="icono"></a>'+
-                    '<br>'+
+                '<div class="col-2">';
+                let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
+    if(usuario=="paciente"){
+                    ms+='<a href="addMedicamento.html"><img src="../img/nuevo.png" alt="" id="icono"></a>';
+    }
+                    ms+='<br>'+
                 '</div>'+
             '</div>';
             document.getElementById("btn-nuevo").innerHTML=ms;
