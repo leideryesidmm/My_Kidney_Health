@@ -113,35 +113,35 @@ h2 {
   padding: 5px 10px;
 }
 
-.pacientes {
+.pacientes, .pacientesInhabilitados {
   width: 100%;
 
 }
 
 .pacientes th,
-td {
+td, .pacientesInhabilitados th, td {
   width: 300px;
   margin-top: auto;
   text-align: center;
   vertical-align: middle;
 }
 
-.pacientes td{
+.pacientes td, .pacientesInhabilitados td{
   height: 60px;
 }
 
 
-.pacientes thead {
+.pacientes thead, .pacientesInhabilitados thead {
   background-color: #B2EAF2;
 
 }
 
-.pacientes thead:hover {
+.pacientes thead:hover, .pacientesInhabilitados thead:hover {
   background-color: #04BAFC;
   color: white;
 }
 
-.pacientes tbody:hover {
+.pacientes tbody:hover, .pacientesInhabilitados tbody:hover {
   background-color: #e7e7e7;
 }
 

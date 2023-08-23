@@ -33,8 +33,9 @@ let obtenerCedulaEncriptada=async(id, cedula)=>{
 }
 
 
-let listaPacientes = async () => {
 
+
+let listaPacientes = async () => {
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
   console.log(data);

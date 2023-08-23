@@ -1,12 +1,16 @@
 let listMedicamentos = async (medicamentos) => {
   medicamentos = await medicamentos;
   let msg = "";
-  let ms="<div class='accordion' id='accordionExample'>";
+  let ms="";
   let cont = 1;
+  
 
       if(medicamentos!=null && medicamentos.length>0){
+        let medicamentosRecetadosHTML = ""; 
+        let medicamentosNoRecetadosHTML = ""; 
   medicamentos.forEach((medicamento) => {
-    msg +=
+     let medicamentoHTML  =
+     '<div class="accordion" id="accordionExample">'+
       '<div class="accordion-item">' +
       '<h2 class="accordion-header" id="flush-heading' + cont + '">' +
       '<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse' +
@@ -94,31 +98,32 @@ let listMedicamentos = async (medicamentos) => {
       "</div>" +
       "</div>" +
       "</div>";
-    cont++;
-  });
-  msg+="</div><br>"
-}
-
-else{
-  msg+=
-  '<b><p class="sinMedicamentos">No tiene medicamentos registrados<p></b>';
-}
-  document.getElementById("acordeon1").innerHTML = msg;
-
-  ms+=
-            
-            '<div class="row">'+
-                '<div class="col-10"></div>'+
-                '<div class="col-2">';
-                let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
-    if(usuario=="paciente"){
-                    ms+='<a href="addMedicamento.html"><img src="../img/nuevo.png" alt="" id="icono"></a>';
+    
+      if (medicamento.recetado == true) {
+        medicamentosRecetadosHTML += medicamentoHTML;
+      } else {
+        medicamentosNoRecetadosHTML += medicamentoHTML;
+      }
+      cont++;
+    });
+    console.log(medicamentosRecetadosHTML);
+    console.log(medicamentosNoRecetadosHTML);
+    if (medicamentosRecetadosHTML !== "") {
+      msg += '<h2>Medicamentos Recetados</h2><br>' + medicamentosRecetadosHTML;
     }
-                    ms+='<br>'+
-                '</div>'+
-            '</div>';
-            document.getElementById("btn-nuevo").innerHTML=ms;
-}
+    if (medicamentosNoRecetadosHTML !== "") {
+      msg +=
+        '<br><h2>Medicamentos No Recetados</h2><br>' + medicamentosNoRecetadosHTML;
+    }
+  } else {
+    msg +=
+      '<b><p class="sinMedicamentos">No tiene medicamentos registrados<p></b>';
+  }
+
+  ms += msg + "</div><br>";
+
+  document.getElementById("acordeon1").innerHTML = ms;
+};
 
 let formatearFechas= function(fechaOriginal){
 

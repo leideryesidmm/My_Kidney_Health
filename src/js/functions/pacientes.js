@@ -94,7 +94,7 @@ let pacientesTratados = async () => {
     if (pacientes != null && pacientes.length > 0) {
 
       msg += '<br>' +
-        '<table class="pacientes">' +
+        '<table class="pacientes" id="pacientes">' +
         '<thead>' +
         '<tr>' +
         '<th>Nombre</th>' +
@@ -123,6 +123,9 @@ let pacientesTratados = async () => {
           '<img src="../img/cesta.png" class="inhabilitar"/>' +
           '</a>' +
           '<a href="" data-bs-toggle="modal" data-bs-target="#visita' + cont + '" type="button">' +
+          '<img src="../img/visita.png" class="actualizar"/>' +
+          '</a>' +
+          '<a href="" data-bs-toggle="modal" data-bs-target="#chequeo' + cont + '" type="button">' +
           '<img src="../img/visita.png" class="actualizar"/>' +
           '</a>' +
           '</td>' +
@@ -213,6 +216,74 @@ let pacientesTratados = async () => {
           '</div>' +
           '</div>' +
           '</div>';
+
+          msg +=
+          '<div class="modal" tabindex="-1" id="chequeo' + cont + '">' +
+          '<div class="modal-dialog modal-lg">' +
+          '<div class="modal-content">' +
+          '<div class="modal-header">' +
+          '<h5 class="modal-title">Seguimiento Mensual</h5>' +
+          '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
+          '</div>' +
+          '<div class="modal-body">' +
+          '<label class="cedulaPaciente" id="cedulaPaciente"><b>Cédula: </b>' + paciente.cedula + '</label>&nbsp&nbsp&nbsp&nbsp&nbsp' +
+          '<label class="cedulaPaciente" id="cedulaPaciente"><b>Nombre: </b>' + paciente.nombre + '</label>' +
+          '<div class="">' +
+          '<div class="row">' +
+          '<div class="col-6 p-3">' +
+          '<div class="row border p-2">' +
+          '<div class="centrar-label col-6"><label class="form-label" for="tensionArterial">Tension Arterial</label></div>' +
+          '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="tensionArterial" /></div>' +
+          '</div>' +
+          '<div class="row mt-2 border p-2">' +
+          '<div class="centrar-label col-6"><label class="form-label" for="colesterolTotal">Colesterol Total</label></div>' +
+          '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="colesterolTotal" /></div>' +
+          '</div>' +
+          '<div class="row mt-2 border p-2">' +
+          '<div class="centrar-label col-6"><label class="form-label" for="glicemia"> Glicemia</label></div>' +
+          '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="glicemia" /></div>' +
+          '</div>' +
+          '<div class="row mt-2 border p-2">' +
+          '<div class="centrar-label col-6"><label class="form-label" for="triglicerios">Triglicerios:</label></div>' +
+          '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="triglicerios" /></div>' +
+          '</div>' +
+          '<div class="row mt-2 border p-2">' +
+          '<div class="centrar-label col-6"><label class="form-label" for="ldh">LDH:</label></div>' +
+          '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="ldh" /></div>' +
+          '</div>' +
+          '</div>' +
+          '<div class="col-6 p-3">' +
+          '<div class="row border p-2">' +
+          '<div class="centrar-label col-6"><label class="form-label" for="hemoglobina"> Hemoglobina</label></div>' +
+          '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="hemoglobina" /></div>' +
+          '</div>' +
+          '<div class="row mt-2 border p-2">' +
+          '<div class="centrar-label col-6"><label class="form-label" for="fosforo">Fósforo:</label></div>' +
+          '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="fosforo" /></div>' +
+          '</div>' +
+          '<div class="row mt-2 border p-2">' +
+          '<div class="centrar-label col-6"><label class="form-label" for="potasio">Potasio:</label></div>' +
+          '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="potasio" /></div>' +
+          '</div>' +
+          '<div class="row mt-2 border p-2">' +
+          '<div class="centrar-label col-6"><label class="form-label" for="nitrogenoUreico">Nitrógeno Uréico:</label></div>' +
+          '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="nitrogenoUreico" /></div>' +
+          '</div>' +
+          '<div class="row mt-2 border p-2">' +
+          '<div class="centrar-label col-6"><label class="form-label" for="hdl">HDL:</label></div>' +
+          '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="hdl" /></div>' +
+          '</div>' +
+          '</div>' +
+          ' </div>' +
+          '</div>' +
+          '</div>' +
+          '<div class="modal-footer">' +
+          '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>' +
+          '<button type="submit" onclick="crearChequeoMensual(' + paciente.cedula + ')"" class="btn btn-primary">Guardar</button>' +
+          '</div>' +
+          '</div>' +
+          '</div>' +
+          '</div>';
         cont++;
       });
     }
@@ -232,12 +303,17 @@ let pacientesTratados = async () => {
         '</tr>';
     }
     msg += '</table>';
-    document.getElementById("pacientes").innerHTML = msg;
+    document.getElementById("paciente").innerHTML = msg;
   }
   catch (error) {
     console.error("Error in pacientesTratados:", error);
   }
-};
+  new DataTable('#pacientes', {
+    language: {
+        url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json',
+    },
+});
+}
 
 
 function irPaciente(cedula, nombre){
@@ -263,17 +339,8 @@ let pacientesInhabilitados = async () => {
     if (pacientes != null && pacientes.length > 0) {
       msg += '<div class="container">' +
         '<h2>Pacientes Inhabilitados</h2>' +
-        '<div class="row">' +
-        '<div class="col-md-6">' +
-        '<input type="text" name="cedula-paciente" id="cedula-paciente" placeholder="Digite la cedula del paciente" class="form-control" />' +
-        '</div>' +
-        '<div class="col-md-6">' +
-        '<button type="button" class="btn btn-primary" id="buscar-paciente" data-dismiss="modal">Buscar</button>' +
-        '</div>' +
         '<br>' +
-        '</div>' +
-        '<br>' +
-        '<table class="pacientes">' +
+        '<table class="pacientesInhabilitados" id="pacientesInhabilitados">' +
         '<thead>' +
         '<tr>' +
         '<th>Nombre</th>' +
@@ -318,7 +385,6 @@ let pacientesInhabilitados = async () => {
           '</div>' +
           '</div>';
           cont++;
-          cont++;
 
       });
     }
@@ -331,6 +397,11 @@ let pacientesInhabilitados = async () => {
   catch (error) {
     console.error("Error in pacientesTratados:", error);
   }
+  new DataTable('#pacientesInhabilitados', {
+    language: {
+        url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json',
+    },
+});
 };
 
 let crearVisita = async () => {
@@ -372,10 +443,38 @@ let crearVisita = async () => {
   }
 };
 
+let nombreNavBar= async () => {
+  let usuario = JSON.parse(localStorage.getItem("datos")).cedula;
+  const cedulaDecrypt = decodeURIComponent(usuario);
+  console.log(cedulaDecrypt)
+  let usuarioInDto = {cedula : cedulaDecrypt}
+  console.log(usuarioInDto)
+  try {
+      const response = await fetch(localStorage.getItem("servidorAPI") + "Usuario/cedula", {
+        method: "POST",
+        body: JSON.stringify(usuarioInDto),
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        }
+      });    
+      if (response.ok) {
+        const usuarioData = await response.json();
+        console.log(usuarioData)
+        const nombreUsuario = usuarioData.nombre; 
+        nombreDecrypt =CryptoJS.AES.decrypt(nombreUsuario, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+        actualizarNombreEnNavbar(nombreDecrypt);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
+  function actualizarNombreEnNavbar(nombre) {
+    document.getElementById("nombreUsuario").textContent = nombre;
+  }
+  
 
-    
-
-
+nombreNavBar();
 pacientesTratados();
 pacientesInhabilitados();

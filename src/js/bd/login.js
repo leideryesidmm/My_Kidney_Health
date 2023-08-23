@@ -51,6 +51,7 @@ let medicoEncontrado=false;
       const data = JSON.stringify(datos);
       localStorage.setItem("datos", data);
       localStorage.setItem("servidorAPI", servidorAPI);
+      console.log(localStorage.setItem("datos", data))
       location.href = "principal.html";
       pacienteEncontrado=true;
       return username;
@@ -71,6 +72,7 @@ let medicoEncontrado=false;
         }
         const data = JSON.stringify(datos);
         localStorage.setItem("datos", data);
+        console.log(data)
         localStorage.setItem("servidorAPI", servidorAPI);
         location.href = "pacientes.html";
         medicoEncontrado=true;
@@ -92,11 +94,11 @@ let logout = () => {
   localStorage.removeItem("servidorAPI");
   localStorage.removeItem("datos");
   localStorage.removeItem("cedulaPaciente");
+  localStorage.removeItem("url");
+  localStorage.removeItem("documento");
+  localStorage.removeItem("cedulaPacienteEditar");
   location.href = "login.html";
-
-
-
-  location.href = "login.html";
+  
 }
 
 let onload = async () => {

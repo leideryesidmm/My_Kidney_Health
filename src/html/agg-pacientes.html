@@ -35,7 +35,10 @@
             <div class="form-column">
               <label for="nombre" id="data">Nombre del paciente:<label id="asq">*</label></label>
               <br>
+              <div class="input-nombre">
               <input type="text" class="nombre" id="nombre" name="nombre" required>
+              <i class="fa-light fa-circle-xmark" style="color: #ed0202;"></i>
+            </div>
             </div>
             <div class="form-column">
               <label for="fecha" id="data">Fecha de nacimiento:<label id="asq">*</label></label>
@@ -77,9 +80,9 @@
           </div>
           <div class="form-row">
             <div class="form-column">
-              <label for="telefono" id="data">Teléfono:<label id="asq">*</label></label>
+              <label for="telefono" id="data" >Teléfono:<label id="asq">*</label></label>
               <br>
-              <input type="text" class="telefono" id="telefono" name="telefono" required>
+              <input type="tel" class="telefono" id="telefono" name="telefono" pattern="\([0-9]{3}\) [0-9]{3}[ -][0-9]{4}" required>
             </div>
             <div class="form-column">
               <label for="tiposangre" id="data">Grupo Sanguíneo:<label id="asq">*</label></label>
@@ -120,7 +123,7 @@
             <div class="form-column">
               <label for="correo" id="data">Correo:</label>
               <br>
-              <input type="text" class="correo" id="correo" name="correo">
+              <input type="email" class="correo" id="correo" name="correo">
             </div>
           </div>
           <div class="form-row">
@@ -210,5 +213,6 @@
   <script src="../js/bd/agg-pacientes.js"></script>
   <script src="../js/bd/paciente.js"></script>
   <script>listarEps()</script>
+  <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
 </body>
 </html>

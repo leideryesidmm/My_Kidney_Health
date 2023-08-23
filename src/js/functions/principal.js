@@ -9,17 +9,23 @@ let principal =()=>{
     }
     else{
         ms+=
-        '<div class="header-container">'+
-      '<div class="logo"><img src="../img/logo3.png" alt="">'+
-      '</div>'+
-      '<nav>'+
-        '<ul>'+
-          '<li><a href="pacientes.html">Pacientes</a></li>'+
-          '<li><a href="gestion-credenciales.html">'+usuario.nombre+'</a></li>'+
-          '<li><input type="image" class="logout" src="../img/log-out-white.png" onclick="logout()"></div></li>'
-        '</ul>'+
-      '</nav>'+
-    '</div>';
+        '<header>' +
+            '<div class="row">' +
+            '<div class="col-md-4 logo" align="left"><img src="../img/logo3.png" alt=""></div>' +
+            '<div class="col-md-4 text-center"><h1>Mi Salud Renal</h1></div>' +
+            '<div class="col-md-4" id="navPacientes">' +
+            '<nav><ul>' +
+            '<li><a href="pacientes.html">Pacientes</a></li>' +
+            '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">' +
+            '<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>' +
+            '<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>' +
+            '</svg>' +
+            '<li><a href="gestion-credenciales.html" id="nombreUsuario"></a></li>' +
+            '</ul></nav>' +
+            '</div>' +
+            '</div>' +
+            '</header>'+
+            '<div class="col-2"><input type="image" class="logout" src="../img/log-out-white.png" onclick="logout()"></div>';
     }
     document.getElementById("navbar").innerHTML=ms;
 
@@ -28,6 +34,7 @@ let principal =()=>{
 
         
 if(usuario=="paciente"){
+    console.log(localStorage.getItem("datos").usuario);
     msg+=   
   '<br>'+
   '<div>'+

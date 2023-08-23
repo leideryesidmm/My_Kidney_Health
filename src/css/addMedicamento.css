@@ -16,7 +16,7 @@ h3 {
   margin: auto;
   margin: 0;
   padding: 0;
-  height: 62px;
+  height: 70px;
 }
   
   .title {
@@ -37,6 +37,7 @@ h3 {
   #icono {
     width: 30px;
       height: 30px;
+
   }
   
   .navbar img{
@@ -44,11 +45,13 @@ h3 {
     margin: 0;
     padding: 0;
     width: 30px;
-    margin-left: 20px;
+    vertical-align: middle;
   }
 
 .navbar h1{
+  display: flex;
     align-items: center;
+    vertical-align: middle;
 }
 
 
@@ -156,6 +159,26 @@ input:focus + label {
     text-decoration: none;
     margin-left: 1%;
 }
+
+.recetado {
+  display: flex;
+  align-items: center;
+  
+}
+
+.opciones {
+  margin-left: 10px;
+}
+
+#desc, #si, #no{
+  transform: translateY(5px);
+}
+
+#desc, #receta{
+  margin-right: 10px;
+}
+
+
 
 
 @media only screen and (max-width: 768px) {

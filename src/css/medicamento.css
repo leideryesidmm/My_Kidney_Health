@@ -15,7 +15,7 @@ body{
   margin: auto;
   margin: 0;
   padding: 0;
-  height: 62px;
+  height: 70px;
 }
 
 .sinMedicamentos{
@@ -48,8 +48,12 @@ body{
   
 }
 
+h2{
+  text-align: center;
+}
+
 .btn-nuevo-container {
-    text-align: left;
+    text-align: right;
     margin-top: 10px;
   }
   
@@ -61,12 +65,9 @@ body{
     padding: 10px 20px;
     font-size: 15px;
     font-family: 'Jost', sans-serif;
-    border-radius: 50%;
-    display: flex;
-    justify-content: end; 
-    margin-right: 13px;  
-    float: right;
+    border-radius: 5px;
     text-decoration: none;
+    margin-left: 3.5%;
   }
 
   .btn-editar-container {
