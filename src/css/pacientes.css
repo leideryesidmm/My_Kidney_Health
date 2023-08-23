@@ -110,12 +110,12 @@ h2 {
   padding: 5px 10px;
 }
 
-.pacientes, .pacientesInhabilitados {
+.paciente, .pacientesInhabilitados {
   width: 100%;
 
 }
 
-.pacientes th,
+.paciente th,
 td, .pacientesInhabilitados th, td {
   width: 300px;
   margin-top: auto;
@@ -123,22 +123,22 @@ td, .pacientesInhabilitados th, td {
   vertical-align: middle;
 }
 
-.pacientes td, .pacientesInhabilitados td{
+.paciente td, .pacientesInhabilitados td{
   height: 60px;
 }
 
 
-.pacientes thead, .pacientesInhabilitados thead {
+.paciente thead, .pacientesInhabilitados thead {
   background-color: #B2EAF2;
 
 }
 
-.pacientes thead:hover, .pacientesInhabilitados thead:hover {
+.paciente thead:hover, .pacientesInhabilitados thead:hover {
   background-color: #04BAFC;
   color: white;
 }
 
-.pacientes tbody:hover, .pacientesInhabilitados tbody:hover {
+.paciente tbody:hover, .pacientesInhabilitados tbody:hover {
   background-color: #e7e7e7;
 }
 
