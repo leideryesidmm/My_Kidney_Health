@@ -96,7 +96,7 @@ label{
 #container2 {
     width: 250px;
     height: 150px;
-    background-color: rgb(0, 219, 161, .48);
+    background-image: linear-gradient(#F5FBFE, #B3E9FF);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -106,7 +106,8 @@ label{
 #container {
   width: 100%; /* Ancho en píxeles */
   height: 250px;
-  background-color: rgba(0, 219, 161, 0.48); /* Uso de rgba para transparencia */
+  /* background-color: rgba(0, 219, 161, 0.48); Uso de rgba para transparencia */
+  background-image: linear-gradient(#F5FBFE, #B3E9FF);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -327,14 +328,14 @@ tbody:hover {
   }
 
   .navbar input{
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     background-color: #04BAFC;
   }
   
   .logo-principal{
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     background-color: #04BAFC;
     border-radius: 50%;
     float: right;
