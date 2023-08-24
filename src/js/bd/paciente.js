@@ -383,7 +383,7 @@ let actualizarPaciente = async (event) => {
 
       let cedulaEncriptada="";
       if(usuario=="medico"){
-       cedulaEncriptada = await obtenerCedulaEncriptada(0,CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPacienteEditar")), "clave_secreta").toString(CryptoJS.enc.Utf8));
+       cedulaEncriptada = await obtenerCedulaEncriptada(0,CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
       console.log(cedulaEncriptada);}
       else{
         cedulaEncriptada=cedul;
