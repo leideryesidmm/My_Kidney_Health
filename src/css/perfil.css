@@ -252,6 +252,7 @@ label{
   gap:15px;
 }
 
+
 @media only screen and (max-width: 768px) {
     /* For mobile phones: */
     [class*="col-"] {
@@ -261,3 +262,19 @@ label{
       flex-direction: column;
     }
   }
+
+  .input-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.toggle-password,
+.toggle-password-new {
+    position: absolute;
+    right: 10px; 
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}

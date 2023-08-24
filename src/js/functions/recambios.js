@@ -3,6 +3,12 @@ let listRecambios = async (recambios) => {
     let msg = "";
     let cont = 1;
 
+    let data = localStorage.getItem("datos");
+  let dato=JSON.parse(data);
+  console.log(data);
+      let usuario = dato.usuario;
+      console.log(usuario);
+
     
 
     recambios.forEach((recambio) => {
@@ -13,7 +19,7 @@ let listRecambios = async (recambios) => {
       +'        Recambio 07/07/2023-1'
       +'    </button>'
       +'</h2>'
-      +'<div id="collapseOne'+cont+'" class="accordion-collapse collapse show" aria-labelledby="headingOne'+cont+'"'
+      +'<div id="collapseOne'+cont+'" class="accordion-collapse collapse" aria-labelledby="headingOne'+cont+'"'
       +'    data-bs-parent="#accordionExample">'
       +'    <div class="accordion-body">'
       +'        <div class="horaDren">'
@@ -57,16 +63,18 @@ let listRecambios = async (recambios) => {
       +'            <p class="orificio" id="orificio">'
       +'                <!--orificio-->'
       +'            </p>'
-      +'        </div>'
-      +'        <div class="btn-editar-container">'
+      +'        </div>';
+          if(usuario=="paciente"){
+              msg+='<div class="btn-editar-container">'
       +'            <a href="editarRecambio.html" class="btn-editar"><img src="../img/editaraler.png"></a>'
       +'            <div>'
       +'                <a href="" class="btn-inhabilitar" data-bs-toggle="modal"'
       +'                    data-bs-target="#eliminarrecambio"><img src="../img/inhabilitar.png" alt=""'
       +'                        id="inhabilitar-rec"></a>'
       +'            </div>'
-      +'        </div>'
-      +'    </div>'
+      +'        </div>';
+              }
+              msg+='</div>'
       +'    <div class="accordion-item" id="acordeon1">'
       +'        <h2 class="accordion-header" id="headingTwo">'
       +'        </h2>'
@@ -77,6 +85,17 @@ let listRecambios = async (recambios) => {
     });
     document.getElementById("accordionExample").innerHTML = msg;
   
+    let ms="";
+    if(usuario=="paciente"){
+      console.log(usuario);
+      ms+='<div class="row">'+
+      '<div class="col-10"></div>'+
+      '<div class="col-2">'+
+          '<a href="agregarRecambio.html"><img src="../img/nuevo.png" alt="" id="icono"></a>'+
+      '</div>'+
+  '</div>';
+  document.getElementById("agregar").innerHTML=ms;
+    }
   }
 
   let concentraciones= async () => {

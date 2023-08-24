@@ -243,12 +243,12 @@ let editarPaciente=async()=>{
             '<div class="form-column">'+
               '<label for="nombre" id="data">Nombre del paciente:<label id="asq">*</label></label>'+
               '<br>'+
-              '<input type="text" class="nombre" id="nombre" name="nombre" required>'+
+              '<input type="text" enterkeyhint="next"  class="nombre" id="nombre" name="nombre" required>'+
             '</div>'+
             '<div class="form-column">'+
               '<label for="fecha" id="data">Fecha de nacimiento:<label id="asq">*</label></label>'+
               '<br>'+
-              '<input type="date" class="fecha" id="fecha" name="fecha" required>'+
+              '<input type="date"  class="fecha" id="fecha" name="fecha" required>'+
             '</div>'+
           '</div>'+
           '<div class="form-row">'+
@@ -268,26 +268,26 @@ let editarPaciente=async()=>{
           '<div class="form-column">'+
               '<label for="telefono" id="data">Teléfono:<label id="asq">*</label></label>'+
               '<br>'+
-              '<input type="text" class="telefono" id="telefono" name="telefono" required>'+
+              '<input type="text" enterkeyhint="next"  class="telefono" id="telefono" name="telefono" required>'+
             '</div>'+
           '</div>'+
           '<div class="form-row">'+
           '<div class="form-column">'+
           '<label for="direccion" id="data">Dirección:<label id="asq">*</label></label>'+
           '<br>'+
-          '<input type="text" class="direccion" id="direccion" name="direccion" required>'+
+          '<input type="text" enterkeyhint="next" enterkeyhint="previous"  class="direccion" id="direccion" name="direccion" required>'+
         '</div>'+
             '<div class="form-column">'+
               '<label for="ocupacion" id="data">Ocupación:</label>'+
               '<br>'+
-              '<input type="text" class="ocupacion" id="ocupacion" name="ocupacion" placeholder="Ocupación">'+
+              '<input type="text" enterkeyhint="next" enterkeyhint="previous"  class="ocupacion" id="ocupacion" name="ocupacion" placeholder="Ocupación">'+
             '</div>'+
             
           '</div>'+
           '<div class="form-column">'+
               '<label for="correo" id="data">Correo:</label>'+
               '<br>'+
-              '<input type="text" class="correo" id="correo" name="correo" placeholder="Correo Electrónico">'+
+              '<input type="text" enterkeyhint="send"  class="correo" id="correo" name="correo" placeholder="Correo Electrónico">'+
             '</div>';}
 
            

@@ -155,9 +155,13 @@ let principal = () => {
 }
 
 let nombreNavBar = async () => {
-    let usuario = JSON.parse(localStorage.getItem("datos")).cedula;
+    let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
+        let usu = dato.usuario;
+        let usuario= decodeURIComponent(dato.cedula);
     const cedulaDecrypt = decodeURIComponent(usuario);
     console.log(cedulaDecrypt)
+    if(usu=="medico"){
     let usuarioInDto = { cedula: cedulaDecrypt }
     console.log(usuarioInDto)
     try {
@@ -179,6 +183,7 @@ let nombreNavBar = async () => {
     } catch (error) {
         console.error(error);
     }
+}
 };
 
 function actualizarNombreEnNavbar(nombre) {

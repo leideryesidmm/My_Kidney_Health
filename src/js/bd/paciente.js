@@ -32,7 +32,59 @@ let obtenerCedulaEncriptada=async(id, cedula)=>{
   return result;
 }
 
+let cambioContraseniaAlIniciar=async(event)=>{
+  event.preventDefault();
+  let data = localStorage.getItem("datos");
+  let dato=JSON.parse(data);
+      let cedul= decodeURIComponent(dato.cedula);
+  event.preventDefault();
+    const newcontrasenia = document.getElementById("newcontrasenia").value;
+    console.log(cedul);
+    if (newcontrasenia === "" ) {
+      document.getElementById("errorMensaje").innerText = "Por favor ingrese una nueva contraseña.";
+  }
 
+  let nuevaContrasenia=CryptoJS.AES.encrypt(newcontrasenia, 'clave_secreta').toString();
+  let  usuarioInDto={
+    cedula:cedul, contrasenia:nuevaContrasenia
+  }
+  if (newcontrasenia !== "") {
+    fetch(localStorage.getItem("servidorAPI") + "Usuario/cambioContraseniaPrimeraVez", {
+      method: "PATCH",
+      body: JSON.stringify(usuarioInDto),
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => {
+        if (response.ok) {
+          $('#successModal').modal('show');
+        } else {
+          $('#successModal').modal('show');
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });     
+}
+
+}
+
+function passwordVisibilityActual(inputId, iconClass) {
+  var passwordInput = document.getElementById(inputId);
+  var icon = document.querySelector("." + iconClass);
+
+  if (passwordInput.type === "password") {
+    passwordInput.type = "text";
+    icon.classList.remove("fa-eye");
+    icon.classList.add("fa-eye-slash");
+  } else {
+    passwordInput.type = "password";
+    icon.classList.remove("fa-eye-slash");
+    icon.classList.add("fa-eye");
+  }
+}
 
 
 let listaPacientes = async () => {
@@ -79,7 +131,9 @@ console.log(paciente)
     let rh=paciente.rh;
     let altura=paciente.altura;
     let nacimiento=paciente.fechaNacimiento.split('T');
-    let fecha=nacimiento[0];
+    let fechaNacimiento=nacimiento[0];
+    let fecha=new Date(fechaNacimiento).toLocaleDateString();
+
     let diabetes=paciente.diabetes;
     let hipertension=paciente.hipertension;
     let cedula=cedulaDesencriptado;

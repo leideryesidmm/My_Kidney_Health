@@ -59,8 +59,11 @@ let listarMedicamentos= async()=>{
       let concentracionDesencriptada=CryptoJS.AES.decrypt(medicamento.concentracion, "clave_secreta").toString(CryptoJS.enc.Utf8);
       let descripcionDesencriptada=CryptoJS.AES.decrypt(medicamento.descripcion, "clave_secreta").toString(CryptoJS.enc.Utf8);
       let dosis=medicamento.dosis;
-      let fechaIni= medicamento.fechaIni.split("T")[0];
-      let fechaFin= medicamento.fechaFin.split("T")[0];
+      let fechaIni= medicamento.fechaIni.split("T");
+      let fechaInicial=fechaIni[0];
+      let fechaInicio=new Date(fechaInicial).toLocaleDateString();
+      let fechaFin= medicamento.fechaFin.split("T");
+      let fechaFinalizacion=new Date(fechaFin).toLocaleDateString();
       let intervaloDesencriptado=medicamento.intervaloTiempo;
       let nombreDesencriptado=CryptoJS.AES.decrypt(medicamento.nombre, "clave_secreta").toString(CryptoJS.enc.Utf8);
       let tomasDesencriptadas=medicamento.tomas;
@@ -72,8 +75,8 @@ let listarMedicamentos= async()=>{
         concentracion:concentracionDesencriptada,
         descripcion:descripcionDesencriptada,
         dosis:dosis,
-        fechaIni:fechaIni,
-        fechaFin:fechaFin,
+        fechaIni:fechaInicio,
+        fechaFin:fechaFinalizacion,
         intervaloTiempo:intervaloDesencriptado,
         nombre:nombreDesencriptado,
         tomas:tomasDesencriptadas,
