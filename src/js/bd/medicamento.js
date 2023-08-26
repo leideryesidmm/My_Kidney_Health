@@ -66,6 +66,7 @@ let listarMedicamentos= async()=>{
       let tomasDesencriptadas=medicamento.tomas;
       let viaAdministracionDesencriptada=medicamento.viaAdministracion.descripcion;
       let idFormulaMedicamento=medicamento.idFormulaMedicamento;
+      let recetado=medicamento.recetado;
 
       const medicamentosDesencriptados={
         concentracion:concentracionDesencriptada,
@@ -77,7 +78,8 @@ let listarMedicamentos= async()=>{
         nombre:nombreDesencriptado,
         tomas:tomasDesencriptadas,
         via_Administracion:viaAdministracionDesencriptada,
-        idFormulaMedicamento:idFormulaMedicamento
+        idFormulaMedicamento:idFormulaMedicamento,
+        recetado:recetado
       }
 
       medDesencriptados.add(JSON.stringify(medicamentosDesencriptados));
@@ -304,6 +306,12 @@ let crearMedicamento=async ()=> {
   let concentracion=document.getElementById("concentracion").value;
   let descripcion=document.getElementById("descripcion").value;
   let nombre=document.getElementById("medicamento").value;
+  const receta = document.querySelector('input[type="radio"][name="receta"]');
+  let recetado=false;
+  if(receta.checked){
+   recetado=true;
+  }
+ 
 console.log(concentracion);
   let concentracionEncriptada=CryptoJS.AES.encrypt(concentracion,"clave_secreta").toString();
   let descripcionEncriptada=CryptoJS.AES.encrypt(descripcion,"clave_secreta").toString();
@@ -319,7 +327,8 @@ console.log(concentracion);
       "nombre": nombreEncriptado,
       "paciente": cedEncriptada,
       "tomas": document.getElementById("tomas").value,
-      "via_Administracion": document.getElementById("selectVias").value
+      "via_Administracion": document.getElementById("selectVias").value,
+      "recetado": recetado
   }
   console.log(formulamedicamento)
   fetch(localStorage.getItem("servidorAPI")+"paciente/Medicamento/crear/",{

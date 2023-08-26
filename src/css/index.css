@@ -32,9 +32,16 @@ body {
   background-color: #B2EAF2;
 }
 
+
+
+.logo img {
+  width: 50px;
+  height: 50px;
+}
+
 .navbar {
   background-color: #04BAFC;
-  height: 62px;
+  height: 70px;
   width: 100%;
   display: flex;
   justify-content: center; 
@@ -85,24 +92,11 @@ label{
 }
 
 
-header {
-  width: 100%;
-  background-color: #04BAFC;
-  color: #fff;
-}
-
-.header-container {
-  display: flex;
-  justify-content: space-evenly;
-  ;
-  align-items: center;
-}
-
 
 #container2 {
     width: 250px;
     height: 150px;
-    background-color: rgb(0, 219, 161, .48);
+    background-image: linear-gradient(#F5FBFE, #B3E9FF);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -112,7 +106,8 @@ header {
 #container {
   width: 100%; /* Ancho en píxeles */
   height: 250px;
-  background-color: rgba(0, 219, 161, 0.48); /* Uso de rgba para transparencia */
+  /* background-color: rgba(0, 219, 161, 0.48); Uso de rgba para transparencia */
+  background-image: linear-gradient(#F5FBFE, #B3E9FF);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -153,10 +148,7 @@ header {
 }
 
 img{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
+  
 }
 
 
@@ -340,14 +332,14 @@ tbody:hover {
   }
 
   .navbar input{
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     background-color: #04BAFC;
   }
   
   .logo-principal{
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     background-color: #04BAFC;
     border-radius: 50%;
     float: right;
@@ -408,6 +400,72 @@ tbody:hover {
     margin-right: 5px;
     margin-left: 5px;
   }
+
+
+  
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline-block;
+  margin-right: 40px;
+  position: relative;
+}
+
+nav ul li a {
+  color: #fff;
+  display: block;
+  text-decoration: none;
+}
+
+nav ul li:hover>ul {
+  display: block;
+  background-color: #63d0ff;
+}
+
+nav ul ul {
+  width: 120px;
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #63d0ff;
+  padding: 0;
+}
+
+nav ul ul li {
+  width: 120px;
+  float: none;
+  display: list-item;
+  position: relative;
+}
+
+nav ul ul li a {
+  padding: 10px 15px;
+  color: #fff;
+}
+
+nav ul ul li a:hover {
+  background-color: #bedfec;
+}
+
+nav ul ul ul {
+  top: 0;
+  left: 100%;
+}
+
+nav ul:before,
+nav ul:after {
+  content: " ";
+  display: table;
+}
+
+nav ul:after {
+  clear: both;
+}
 
   #paciente, #documento{
     color: #837f7f;

@@ -1,4 +1,3 @@
-let servidorAPI="http://localhost:8081/";
 
  let listarEps = async () => {
   const peticion = await fetch(localStorage.getItem("servidorAPI") + "Prueba/ListEps", {
@@ -78,6 +77,7 @@ let crearPaciente=async(event)=> {
   event.preventDefault();
   var  existe= await validarPaciente();
   console.log(existe);
+  let expresionCorreo= /\w+@\.+[a-z]/;
       var nombre = document.getElementById('nombre').value;
       var documento = document.getElementById('documento').value;
       var fechaNacimiento = document.getElementById('fecha').value+'T02:45:05.101Z';

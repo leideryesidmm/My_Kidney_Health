@@ -33,8 +33,9 @@ let obtenerCedulaEncriptada=async(id, cedula)=>{
 }
 
 
-let listaPacientes = async () => {
 
+
+let listaPacientes = async () => {
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
   console.log(data);
@@ -259,7 +260,7 @@ let encontrarPaciente = async () => {
 
       let cedulaEncriptada="";
       if(usuario=="medico"){
-       cedulaEncriptada = await obtenerCedulaEncriptada(0,CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPacienteEditar")), "clave_secreta").toString(CryptoJS.enc.Utf8));
+       cedulaEncriptada = await obtenerCedulaEncriptada(0,CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
       console.log(cedulaEncriptada);}
       else{
         cedulaEncriptada=cedul;
@@ -382,7 +383,7 @@ let actualizarPaciente = async (event) => {
 
       let cedulaEncriptada="";
       if(usuario=="medico"){
-       cedulaEncriptada = await obtenerCedulaEncriptada(0,CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPacienteEditar")), "clave_secreta").toString(CryptoJS.enc.Utf8));
+       cedulaEncriptada = await obtenerCedulaEncriptada(0,CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
       console.log(cedulaEncriptada);}
       else{
         cedulaEncriptada=cedul;

@@ -36,7 +36,7 @@ let perfil=async()=>{
     let ms="";
     
     let usuario2 = JSON.parse(localStorage.getItem("datos")).usuario;
-    if(usuario2=="usuario"){
+    if(usuario2=="paciente"){
     ms+='Mi perfil';
     }
     else{
@@ -231,13 +231,14 @@ catch (error) {
 let editarPaciente=async()=>{
   let msg="";
 
-msg+='<div class="form-container">'+
-        '<h1>Editar Paciente</h1>'+
-        '<p id="campos"><b>*</b> Campos requeridos</p>'+
-        '<form id="paciente-form" onsubmit="actualizarPaciente(event)">';
+
 
         let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
   if(usuario=="paciente"){
+    msg+='<div class="form-container">'+
+        '<h2>Editar mi perfil</h2>'+
+        '<p id="campos"><b>*</b> Campos requeridos</p>'+
+        '<form id="paciente-form" onsubmit="actualizarPaciente(event)">';
         msg+='<div class="form-row">'+
             '<div class="form-column">'+
               '<label for="nombre" id="data">Nombre del paciente:<label id="asq">*</label></label>'+
@@ -291,6 +292,11 @@ msg+='<div class="form-container">'+
 
            
 else{
+
+  msg+='<div class="form-container">'+
+        '<h1>Editar Paciente</h1>'+
+        '<p id="campos"><b>*</b> Campos requeridos</p>'+
+        '<form id="paciente-form" onsubmit="actualizarPaciente(event)">';
           msg+=
           '<div class="form-row">'+
             '<div class="form-column">'+
@@ -356,5 +362,5 @@ else{
           '</div>';
 
           document.getElementById("container").innerHTML=msg;
-           document.getElementById("selectedDocumento").value = localStorage.getItem("documento");
+          document.getElementById("selectedDocumento").value = localStorage.getItem("documento");
 }
