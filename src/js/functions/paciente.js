@@ -1,3 +1,4 @@
+
 const data = localStorage.getItem("datos");
 const dato=JSON.parse(data);
     var usuario = dato.usuario;
@@ -376,3 +377,4 @@ else{
           document.getElementById("selectedDocumento").value = localStorage.getItem("documento");
          
 }
+
