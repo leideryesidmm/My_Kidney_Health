@@ -66,12 +66,14 @@ let mostrarPrescripcion2= async (prescripcion) => {
     }
 }
 
-let mostrarPrescripcion= async (prescripcion, fecha, hechos) => {
+let mostrarPrescripcion= async (prescripcion, fecha, recambios) => {
+    recambios=await recambios;
+    console.log(recambios)
     let prescripcionDiaHoy1=await prescripcionDiaFecha(prescripcion, fecha)
-    console.log(await prescripcion)
     localStorage.setItem('prescripcionActual', JSON.stringify(prescripcionDiaHoy1));
     prescripcion=await prescripcion;
     let msg="";
+    let accion="";
     let hoy=new Date()
     let datos1=await datos();
     msg+='<div class="row align-items-center">';
@@ -79,8 +81,69 @@ let mostrarPrescripcion= async (prescripcion, fecha, hechos) => {
     prescripcionDiaHoy1.recambios.forEach(recambio => {
         msg+='<div class="col-lg-5 card card-menor">'
         +'<div class="row">'
-        +`    <div class="col-2 estado" style="${false ? 'background-color:slategray;': 'background-color:#e6b216;'}">`        
-        +'        <div class="text-center">'
+        +`    <div class="col-2 estado" style="`;
+        if(recambios[cont]!=null){
+            msg+='background-color:rgb(11, 158, 11);">';
+            if(fecha.getFullYear() === hoy.getFullYear() &&
+            fecha.getMonth() === hoy.getMonth() &&
+            (fecha.getDate() === hoy.getDate()||fecha.getDate() === hoy.getDate()-1)){
+                accion='<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">'
+                +'<path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>'
+                +'<path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>'
+                +'</svg>'
+                +'<a style="color:black" href="editarRecambio.html?idRecambioHecho='+recambios[cont].idRecambioHecho+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">'
+                +'<path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>'
+                +'</svg></a>';
+            }
+            else{
+                if(fecha.getFullYear() < hoy.getFullYear() ||
+                (fecha.getFullYear() === hoy.getFullYear() &&
+                  fecha.getMonth() < hoy.getMonth()) ||
+                (fecha.getFullYear() === hoy.getFullYear() &&
+                  fecha.getMonth() === hoy.getMonth() &&
+                  fecha.getDate() < (hoy.getDate()-1))){
+                accion='<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">'
+                +'<path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>'
+                +'<path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>'
+                +'</svg>';
+            }
+            }
+        }else{
+            if(fecha.getFullYear() === hoy.getFullYear() &&
+            fecha.getMonth() === hoy.getMonth() &&
+            fecha.getDate() === hoy.getDate()){
+                msg+='background-color:#e6b216;">';
+                accion='<a style="color:black" href="agregarRecambio.html?idRecambio='+recambio.idRecambio+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">'
+                    +'<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>'
+                    +'<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>'
+                    +'</svg></a>';
+          }else{
+            if(fecha.getFullYear() < hoy.getFullYear() ||
+            (fecha.getFullYear() === hoy.getFullYear() &&
+              fecha.getMonth() < hoy.getMonth()) ||
+            (fecha.getFullYear() === hoy.getFullYear() &&
+              fecha.getMonth() === hoy.getMonth() &&
+              fecha.getDate() < (hoy.getDate()-1))){
+                msg+='background-color:#f73c3c;">';
+            }else{
+                if(fecha.getFullYear() === hoy.getFullYear() &&
+                fecha.getMonth() === hoy.getMonth() &&
+                fecha.getDate() === (hoy.getDate()-1)){
+                    msg+='background-color:rgb(252, 168, 59);">';
+                    accion='<a style="color:black" href="agregarRecambio.html?idRecambio='+recambio.idRecambio+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">'
+                    +'<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>'
+                    +'<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>'
+                    +'</svg></a>';
+                } else{
+                    msg+='background-color:slategray;">';
+                }
+            }
+          }
+        }
+        'background-color:#e6b216;">'
+        
+        
+        msg+='        <div class="text-center">'
         +'            <h6 id="vertical">'
         +'                H'
         +'            </h6>'
@@ -93,37 +156,8 @@ let mostrarPrescripcion= async (prescripcion, fecha, hechos) => {
         msg+=datos1[cont];
 
         msg+= '   <div id="acciones" class="col-2  acciones">';
-        //Pregunta si es hoy
-        if( fecha.getFullYear() === hoy.getFullYear() &&
-            fecha.getMonth() === hoy.getMonth() &&
-            fecha.getDate() === hoy.getDate()){
-                //Preguntar si esta hecho o no, si esta hecho puede ver y editar, sino entonces añade
-                if(true){
-                    msg+='<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">'
-                    +'<path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>'
-                    +'<path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>'
-                    +'</svg>'
-                    +'<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">'
-                    +'<path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>'
-                    +'</svg>'
-                }
-        }
-        //pregunta si es fecha antes de hoy
-        if(fecha.getFullYear() < hoy.getFullYear() ||
-        (fecha.getFullYear() === hoy.getFullYear() &&
-          fecha.getMonth() < hoy.getMonth()) ||
-        (fecha.getFullYear() === hoy.getFullYear() &&
-          fecha.getMonth() === hoy.getMonth() &&
-          fecha.getDate() < hoy.getDate())){
+        msg+=accion;
 
-            //Preguntar si fue hecho o no, si esta hecho puede ver si no no hace nada
-            if(true){
-                msg+='<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">'
-                +'<path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>'
-                +'<path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>'
-                +'</svg>'
-            }
-        }
         msg+='</div>'
             +'</div>'
             +'</div>'
@@ -131,7 +165,7 @@ let mostrarPrescripcion= async (prescripcion, fecha, hechos) => {
     
     
     msg+='</div>';
-    document.getElementById("prescri").innerHTML=msg;
+    document.getElementById("recambios").innerHTML=msg;
 }
 
 let prescripcionDiaFecha= async (prescripcion,fecha) =>{
@@ -185,10 +219,7 @@ let tablaRecambios=async(recambios)=>{
     let cont=0;
     prescripcionDia=JSON.parse(localStorage.getItem('prescripcionActual'));
     let msg="";
-    
-    console.log(prescripcionDia)
     prescripcionDia.recambios.forEach(recambio => {
-        console.log(recambio);
         msg='<div class="col-8">'
         +'        <div class="datos">'
         +'<h5>'+cardinalidad[cont]+'</h5>'
@@ -198,8 +229,6 @@ let tablaRecambios=async(recambios)=>{
         +'</div>';
         data.push(msg);
           cont++;
-          console.log(cont)
     });
-    console.log(data)
     return data;
   }

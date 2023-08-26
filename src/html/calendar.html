@@ -41,7 +41,7 @@
                 <div class="row align-items-center">
                     <div class="col-lg-5 card card-menor">
                         <div class="row">
-                            <div class="col-2 estado" style="background-color:slategray">
+                            <div class="col-2 estado" style="background-color:rgb(252, 168, 59)">
                                 
                                 <div class="text-center">
                                     <h6 id="vertical">
@@ -207,24 +207,15 @@
   <script>
     let prescripcionactual= prescripciones();
     cargar(prescripcionactual);
-    mostrarPrescripcion(prescripcionactual, new Date());
-
-  tablaRecambios(recambiosHechos());
-  onload();
+    mostrarPrescripcion(prescripcionactual, new Date(),recambiosPorFecha(prescripcionDiaFecha(prescripcionactual,new Date()),new Date()));
+    onload();
   </script>
 
     <script type="text/javascript">
         let calendar = new Calendar('calendar');
         calendar.getElement().addEventListener('change', e => {
             let seleccionado=new Date(calendar.value().format('YYYY-MM-DDT03:24:00'));
-            let user=JSON.parse(localStorage.getItem("datos"))
-            console.log(user)
-            if(user.usuario=="medico"){
-                let recambios=recambiosPorFecha(prescripcionDiaFecha(prescripcionactual,seleccionado,JSON.parse(localStorage.getItem("cedulaPaciente"))), seleccionado);
-            }else{
-                let recambios=recambiosPorFecha(prescripcionDiaFecha(prescripcionactual,seleccionado,user.cedula), seleccionado);
-            }
-            mostrarPrescripcion(seleccionado, prescripcionDiaFecha(prescripcionactual,seleccionado));
+            mostrarPrescripcion(prescripcionactual, seleccionado, recambiosPorFecha(prescripcionDiaFecha(prescripcionactual,seleccionado),seleccionado));
             
         });
         document.querySelector(".close").addEventListener("click", function() {

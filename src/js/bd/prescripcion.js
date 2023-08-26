@@ -5,16 +5,13 @@ let prescripciones= async()=>{
 
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
-  console.log(data);
       let usuario = dato.usuario;
       let cedul= decodeURIComponent(dato.cedula);
-      console.log(cedul);
-      console.log(usuario);
       let cedEncriptada="";
       let cedulaEncriptada="";
       if(usuario=="medico"){
        cedulaEncriptada = await obtenerCedulaEncriptada(CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
-      console.log(cedulaEncriptada);}
+      ;}
       else{
         cedulaEncriptada=cedul;
       }
@@ -27,8 +24,7 @@ let prescripciones= async()=>{
       }
 });
     const prescripcion=await peticion.json();
-    
-    //console.log(prescripcion)
+    console.log(prescripcion.unionPrescripcionDiasRecambios)
 return prescripcion;
 }
 
@@ -41,7 +37,6 @@ let obtenerCedulaEncriptada=async(cedula)=>{
     }
       });
       const pacientes=await peticion.json();
-      console.log(pacientes);
       pacientes.forEach(paciente=>{
         let decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, 'clave_secreta').toString(CryptoJS.enc.Utf8);
         if(cedula===decryptedCedula)
@@ -84,16 +79,13 @@ let crearRecambio = async () => {
 
     let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
-  console.log(data);
       let usuario = dato.usuario;
       let cedul= decodeURIComponent(dato.cedula);
-      console.log(cedul);
-      console.log(usuario);
       let cedEncriptada="";
       let cedulaEncriptada="";
       if(usuario=="medico"){
        cedEncriptada = await obtenerCedulaEncriptada(CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
-      console.log(cedulaEncriptada);}
+      }
       else{
         cedEncriptada=cedul;
       }
@@ -137,7 +129,61 @@ let crearRecambio = async () => {
         orificio= opcion.value}
     })
     var drenaje = document.getElementById('drenaje').value;
-    var concentracionSelect = document.getElementById("selectConcentracion").value;
+    const valores = window.location.search;
+    const urlParams = new URLSearchParams(valores);
+    var concentracionSelect = urlParams.get('idRecambio');;
+    var liquidoSelect = document.getElementById('selectLiquido').value;
+    var fechayhoraIni=document.getElementById("fechaHoraIni").value;
+    var fechayhoraFin=document.getElementById("fechaHoraFin").value;
+
+    let drenajeEncriptado=CryptoJS.AES.encrypt(drenaje, 'clave_secreta').toString();
+    let liquidoEncriptado=CryptoJS.AES.encrypt(liquidoSelect, 'clave_secreta').toString();
+    let orificioEncriptada=CryptoJS.AES.encrypt(orificio, 'clave_secreta').toString();
+
+    let recambioHechoInDto={
+      "caracteristicaLiquido": liquidoEncriptado,
+      "drenajeDialisis": drenajeEncriptado,
+      "orificioSalida": orificioEncriptada,
+      "recambio": concentracionSelect,
+      "fecha":fechayhoraIni,
+      "hora":fechayhoraFin
+    };
+    fetch (localStorage.getItem("servidorAPI")+"paciente/recambio/crearRecambioHecho",{
+      method: 'POST',
+      body: JSON.stringify(recambioHechoInDto),
+      headers: {
+        "Accept":"application/json",
+        "Content-Type":"application/json"
+      }
+    })
+    .then(response => {
+      if (response.ok) {
+      if(drenaje<2000){
+         $('#modal2').modal('show');
+      }else
+      $('#successModal').modal('show');
+
+      } else {
+        $('#modal3').modal('show');
+      }
+    })
+    .catch(error => {
+      console.error(error);
+      // Mostrar mensaje de error en la consola o en la interfaz de usuario
+    })
+     
+  }
+
+  let editarRecambio=async()=>{
+    let orificio;
+    document.getElementsByName("opcion").forEach(opcion => {
+      if(opcion.checked==true){
+        orificio= opcion.value}
+    })
+    var drenaje = document.getElementById('drenaje').value;
+    const valores = window.location.search;
+    const urlParams = new URLSearchParams(valores);
+    var concentracionSelect = urlParams.get('idRecambio');;
     var liquidoSelect = document.getElementById('selectLiquido').value;
     var fechayhoraIni=document.getElementById("fechaHoraIni").value;
     var fechayhoraFin=document.getElementById("fechaHoraFin").value;
@@ -183,16 +229,13 @@ let crearRecambio = async () => {
   let recambiosHechos=async()=>{
     let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
-  console.log(data);
       let usuario = dato.usuario;
       let cedul= decodeURIComponent(dato.cedula);
-      console.log(cedul);
-      console.log(usuario);
       let cedEncriptada="";
       let cedulaEncriptada="";
       if(usuario=="medico"){
        ced = await obtenerCedulaEncriptada(CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
-      console.log(cedulaEncriptada);}
+      }
       else{
         ced=cedul;
       }
@@ -205,11 +248,13 @@ let crearRecambio = async () => {
       }
     })
     let recambiosHechos2=await peticion.json()
-    console.log(recambiosHechos2);
         return recambiosHechos2
   }
 
-  let recambiosPorFecha=async(prescripcionDia,fecha)=>{
+  let recambiosPorFecha=async(recambios,fecha)=>{
+    recambios=await recambios;
+    recambios=recambios.recambios;
+    console.log(recambios)
     let user=JSON.parse(localStorage.getItem("datos"))
     let cedula=""
             if(user.usuario=="medico"){
@@ -217,15 +262,15 @@ let crearRecambio = async () => {
             }else{
                  cedula=user.cedula;
             }
-    const peticion= await fetch (localStorage.getItem("servidorAPI")+"paciente/recambio/findRecambioHechoByPaciente/"+fecha,{
+    const peticion= await fetch (localStorage.getItem("servidorAPI")+"paciente/recambio/findRecambioHechosByPrescripcionDiaAndFecha/"+fecha,{
       method: 'POST',
-      body: JSON.stringify(prescripcionDia),
+      body: JSON.stringify(recambios),
       headers: {
         "Accept":"application/json",
         "Content-Type":"application/json"
       }
     })
-    let recambios=await peticion.json()
-    console.log(recambios);
-        return recambios
+    let recambioshechos=await peticion.json()
+    console.log(recambioshechos);
+        return recambioshechos
   }
