@@ -53,7 +53,7 @@ let crearAlergia = async () => {
         console.log(response)
         if (response.ok) {
           $('#agregaralergia').modal('hide');
-          //location.reload();
+          location.reload();
         } else {
           $('#errorModal').modal('show');
         }

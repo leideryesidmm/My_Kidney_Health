@@ -123,6 +123,12 @@ body {
     transition: transform 0.3s ease-in-out; 
     
   }
+  
+  .devolverse{
+    width: 30px;
+      height: 30px;
+    margin-left: 20px;
+  }
 
   .form-row{
     display: flex;
@@ -284,6 +290,11 @@ body {
       justify-content: start;
       align-items: start;
     }
+
+    
+#nombreUsuario{
+  color: white;
+}
   
   /* Estilos responsivos */
   @media (max-width: 768px) {
