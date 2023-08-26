@@ -55,6 +55,7 @@ let medicoEncontrado=false;
       console.log(localStorage.setItem("datos", data))
       let cambiado=paciente.cambio_contrasenia;
       localStorage.setItem("cambiado", cambiado);
+      console.log(cambiado)
       if(!cambiado){
         location.href="cambiarContrasenia.html"
         pacienteEncontrado=true;

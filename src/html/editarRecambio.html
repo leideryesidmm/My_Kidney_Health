@@ -40,15 +40,7 @@
           <label for="fechaHoraFin">Fecha y hora Final: </label>
           <input type="datetime-local"   id="editFechaHoraFin" name="fechaHora" class="form-control" required>
         </div>
-
-        <div class="concentracion">
-                  <label for="concentr" id="title-concent">Concentración: </label>
-              
-              <div class="col" id="concentra">
-                  
-              </div>
-          </div>
-        
+        <label for="">Por favor selecciona la imagen a la cual es más parecida si orificio de </label>
         <div class="caracteristica">
           <label for="caracLiq">Características del líquido:</label>
           <select class="form-select form-select-sm" id="editSelectLiquido" aria-label=".form-select-lg example" class="custom-select" required>
@@ -63,7 +55,7 @@
         <br>
         <div id="contenedorImagenes" >
           <div class="opcion">
-            <label for="opcionPerfecto">
+            <label for="editOpcionPerfecto">
               <div class="imagen">
                 <img src="../img/orificioPerfecto.png" alt="Orificio Perfecto" />
               </div>
@@ -72,7 +64,7 @@
             </label>
           </div>
           <div class="opcion">
-            <label for="opcionBueno">
+            <label for="editOpcionBueno">
               <div class="imagen">
                 <img src="../img/orificioBueno.png" alt="Orificio bueno" />
               </div>
@@ -81,7 +73,7 @@
             </label>
           </div>
           <div class="opcion">
-            <label for="opcionEquivoco">
+            <label for="editOpcionEquivoco">
               <div class="imagen">
                 <img src="../img/orificioEquivoco.png" alt="Orificio equivoco" />
               </div>
@@ -90,7 +82,7 @@
             </label>
           </div>
           <div class="opcion">
-            <label for="opcionInfeccionAguda">
+            <label for="editOpcionInfeccionAguda">
               <div class="imagen">
                 <img src="../img/orificioInfeccionAguda.png" alt="Infección aguda" />
               </div>
@@ -99,7 +91,7 @@
             </label>
           </div>
           <div class="opcion">
-            <label for="opcionInfeccionCronica">
+            <label for="editOpcionInfeccionCronica">
               <div class="imagen">
                 <img src="../img/orificioInfeccionCronica.png" alt="Infección crónica" />
               </div>
@@ -108,7 +100,7 @@
             </label>
           </div>
           <div class="opcion">
-            <label for="opcionTrauma">
+            <label for="editOpcionTrauma">
               <div class="imagen">
                 <img src="../img/orificioTrauma.png" alt="Orificio con Trauma" />
               </div>
@@ -130,7 +122,6 @@
         <script src="../js/functions/recambios.js"></script>
         <script src="../js/bd/login.js"></script>
         <script>
-          concentraciones()
           onload()
         </script>
 </body>

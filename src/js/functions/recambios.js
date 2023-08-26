@@ -135,18 +135,3 @@ let listRecambios = async (recambios) => {
   document.getElementById("agregar").innerHTML=ms;
     }
   }
-
-  let concentraciones= async () => {
-    let cardinalidad=["Primer Recambio","Segundo Recambio", "Tercer Recambio", "Cuarto Recambio", "Quinto Recambio"]
-    let cont=0;
-    prescripcionDia=JSON.parse(localStorage.getItem('prescripcionActual'));
-    let msg="";
-    msg+="<select  id='selectConcentracion' class='custom-select' required>"
-         +"<option value=''>Seleccione...</option>";
-         prescripcionDia.recambios.forEach(recambio => {
-          msg+="<option value='"+recambio.idRecambio+"'>"+cardinalidad[cont]+' ('+recambio.concentracion+"%)</option>";
-          cont++;
-    });
-       msg+="</select>";
-    document.getElementById("concentra").innerHTML=msg;
-  }

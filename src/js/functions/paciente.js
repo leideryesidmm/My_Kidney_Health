@@ -64,7 +64,7 @@ if(paciente!=null){
           '</div>'+
           '<div class="fechaNacimiento">'+
             '<label for="fecha"><b>Fecha de Nacimiento:</b></label>'+
-            '<label for="" id="fechaNac">'+paciente.nacimiento+'</label>'+
+            '<label for="" id="fechaNac">'+paciente.nacimiento.toLocaleDateString()+'</label>'+
           '</div>'+
           '<div class="edad">'+
             '<label for="edad"><b>Edad:</b></label>'+
@@ -88,13 +88,15 @@ if(paciente!=null){
               '<label for="correo"><b>Correo:</b></label>'+
               '<label for="" id="correo">'+paciente.correo+'</label>'+
             '</div>';}
+            msg+='<img alt="" id="imagen">';
           let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
           var urlActual = window.location.href;
           console.log(paciente.tipo_documento);
             localStorage.setItem("url", urlActual);
             localStorage.setItem("documento", paciente.tipo_documento);
           if(usuario=="paciente"){
-          msg+='<a href="editarPaciente.html"class="alerg-nueva" >Editar Perfil</a>';
+            msg+=
+          '<a href="editarPaciente.html"class="alerg-nueva" >Editar Perfil</a>';
           }
           
       msg+='</div>'+
@@ -231,8 +233,6 @@ catch (error) {
 let editarPaciente=async()=>{
   let msg="";
 
-
-
         let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
   if(usuario=="paciente"){
     msg+='<div class="form-container">'+
@@ -288,6 +288,18 @@ let editarPaciente=async()=>{
               '<label for="correo" id="data">Correo:</label>'+
               '<br>'+
               '<input type="text" enterkeyhint="send"  class="correo" id="correo" name="correo" placeholder="Correo Electrónico">'+
+            '</div>'+
+            '<div class="container">'+
+            '<input type="file" value="Subir Foto" name="imageFile" id="imageFile">'+
+            '</div>'+
+            '<div class="buttons">'+
+            '<div class="btn-save">'+
+              '<a href="perfil.html" class="cancelar">Cancelar</a>'+
+            '</div>'+
+            '<div class="btn-save">'+
+              '<button type="submit" class="guardarPac">Actualizar</button>'+
+            '</div>'+
+            '</div>'
             '</div>';}
 
            
@@ -347,20 +359,20 @@ else{
               '<label for="diabetes" id="data2">Diabetes:</label>'+
               '<input type="checkbox" id="diabetes" name="diabetes">'+
               '</div>'+
+            '</div>'+'<div class="buttons">'+
+            '<div class="btn-save">'+
+              '<button onclick="cancelar()" class="cancelar">Cancelar</button>'+
+            '</div>'+
+            '<div class="btn-save">'+
+              '<button type="submit" class="guardarPac">Actualizar</button>'+
+            '</div>'+
             '</div>';
 }
           
-          msg+='<div class="buttons">'+
-          '<div class="btn-save">'+
-            '<button onclick="cancelar()" class="cancelar">Cancelar</button>'+
-          '</div>'+
-          '<div class="btn-save">'+
-            '<button type="submit" class="guardarPac">Actualizar</button>'+
-          '</div>'+
-          '</div>'+
-        '</form>'+
-          '</div>';
+          msg+=
+        '</form>';
 
           document.getElementById("container").innerHTML=msg;
           document.getElementById("selectedDocumento").value = localStorage.getItem("documento");
+         
 }

@@ -39,7 +39,7 @@ let principal = () => {
     let msg = "";
 
 
-    if (usuario == "paciente") {
+    
         msg +=
             '<br>' +
             '<div>' +
@@ -101,55 +101,7 @@ let principal = () => {
             '</div>' +
             '</div>' +
             '</div>';
-    } else {
-        msg +=
-            '<br>' +
-
-            '<div class="dataPaciente">' +
-            '<h2 id="paciente">Paciente: ' + localStorage.getItem("nombrePaciente") + '<h2>' +
-            '<h4 id="documento">Documento: ' + CryptoJS.AES.decrypt((decodeURIComponent(localStorage.getItem("cedulaPaciente"))), "clave_secreta").toString(CryptoJS.enc.Utf8) + '<h4>' +
-            '</div>' +
-            '<div>' +
-            '<br>' +
-            '<div class="row">' +
-            '<div class="col-md-6 col-12 my-sm-2 d-flex flex-column align-items-center">' +
-            '<div id="container2">' +
-            '<a href="perfil.html"><img src="../img/perfil.png" width="100px" height="100px" alt=""></a>' +
-            '</div>' +
-            '<div class="col-md-6 col-12  text-center" id="textcontainer2">' +
-            '<h5><b>Información del paciente</b></h5>' +
-            '</div>' +
-            '</div>' +
-            '<div class="col-md-6 col-12 my-sm-2 d-flex flex-column align-items-center">' +
-            '<div id="container2">' +
-            '<a href="prescripciones.html"><img src="../img/prescripcion.png" width="150px" height="150px"  alt=""></a>' +
-            '</div>' +
-            '<div class="col-md-6 col-12 text-center"  id="textcontainer2">' +
-            '<h5><b>Prescripciones</b></h5>' +
-            '</div>' +
-            '</div>' +
-            '</div>' +
-
-
-            '<div class="row">' +
-            '<div class="col-md-6 col-12 my-sm-2 d-flex flex-column align-items-center">' +
-            '<div id="container2">' +
-            '<a href="medicamento.html"><img src="../img/medicamentos.png" width="150px" height="150px"  alt=""></a>' +
-            '</div>' +
-            '<div class="col-md-6 col-12  text-center" id="textcontainer2">' +
-            '<h5><b>Medicamentos</b></h5>' +
-            '</div>' +
-            '</div>' +
-            '<div class="col-md-6 col-12 my-sm-2 d-flex flex-column align-items-center">' +
-            '<div id="container2">' +
-            '<a href="recambiosguardados.html"><img src="../img/recambios.png" width="150px" height="150px"  alt=""></a>' +
-            '</div>' +
-            '<div class="col-md-6 col-12 text-center"  id="textcontainer2">' +
-            '<h5><b>Historial</b></h5>' +
-            '</div>' +
-            '</div>' +
-            '</div>';
-    }
+    
 
     document.getElementById("cont-principal").innerHTML = msg;
 }
