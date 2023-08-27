@@ -243,6 +243,26 @@ body {
        transition: border-color 0.3s ease-in-out;
    }
 
+   #selectedCantidad{
+    width: 95%;
+    height: 20%;
+     padding: 10px;
+     margin: 5px 0;
+     border: 1px solid #ccc;
+     border-radius: 5px;
+     transition: border-color 0.3s ease-in-out;
+   }
+
+   #selectedOrificio{
+    width: 95%;
+    height: 20%;
+     padding: 10px;
+     margin: 5px 0;
+     border: 1px solid #ccc;
+     border-radius: 5px;
+     transition: border-color 0.3s ease-in-out;
+   }
+
    #selectedDocumento{
     width: 95%;
       height: 20%;
