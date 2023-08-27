@@ -28,6 +28,11 @@ header {
     display: inline-block;
     margin-right: 40px;
   }
+
+  .container{
+    margin: 0 auto;
+    width: 95%;
+  }
   
   nav ul li a {
     color: #fff;

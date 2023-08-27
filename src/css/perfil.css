@@ -32,6 +32,7 @@ label{
 #icono {
   width: 30px;
     height: 30px;
+    vertical-align: middle
 }
 
 .navbar {
@@ -39,7 +40,7 @@ label{
   height: 70px;
   width: 100%;
   display: flex;
-  justify-content: space-between; 
+  justify-content: center; 
   align-items: center;
 }
 
@@ -143,10 +144,7 @@ label{
 }
 
   
-  .navbar {
-    margin: 0;
-    padding: 0;
-  }
+ 
   
 
 .alerg-nueva{
@@ -223,10 +221,19 @@ label{
   margin: 0 auto;
 }
 
-
+.row{
+  display: flex;
+  justify-content: center;
+  display: inline-block;
+    vertical-align: top;
+  margin: 0 auto;
+}
 
 .devolverse{
   margin-left: 20px;
+  display: flex;
+  align-items: center;
+  width: 5%;
 }
 
 .personales{
@@ -259,15 +266,7 @@ label{
 }
 
 
-@media only screen and (max-width: 768px) {
-    /* For mobile phones: */
-    [class*="col-"] {
-      width: 100%;
-    }
-    .datos{
-      flex-direction: column;
-    }
-  }
+
 
   .input-container {
     position: relative;
@@ -301,4 +300,30 @@ label{
   max-width: 100%;
   max-height: 100%;
   border-radius: 50%;
+}
+
+input[type="password"]:focus{
+  border-top-color: transparent;
+  border-right-color: transparent;
+  border-left-color: transparent;
+  border-bottom-color: #89898f;
+  outline: none;
+  content: "";
+}
+
+#newcontrasenia, #contraseniaanterior{
+  width: 100%;
+  height: 40px;
+  border-radius: 5px;
+  border-color: #89898f;
+}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  [class*="col-"]:not(.no-effect) {
+    width: 100%;
+  }
+  .datos{
+    flex-direction: column;
+  }
 }

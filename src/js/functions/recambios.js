@@ -47,14 +47,15 @@ let listRecambios = async (recambios) => {
       let usuario = dato.usuario;
       console.log(usuario);
 
-    
+    console.log(recambios);
 
     recambios.forEach((recambio) => {
+      fecha=recambio.fecha.split("T");
       msg +='<div class="accordion-item">'
       +'<h2 class="accordion-header" id="flush-heading'+cont+'">'
       +'    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"'
       +'        data-bs-target="#collapseOne'+cont+'" aria-expanded="false" aria-controls="collapseOne'+cont+'" id="nombre">'
-      +'        Recambio 07/07/2023-1'
+      +'        Recambio '+fecha[0]
       +'    </button>'
       +'</h2>'
       +'<div id="collapseOne'+cont+'" class="accordion-collapse collapse" aria-labelledby="headingOne'+cont+'"'
@@ -63,43 +64,44 @@ let listRecambios = async (recambios) => {
       +'        <div class="horaDren">'
       +'            <p><strong>Hora drenaje:</strong></p>'
       +'            <p class="hora" id="hora">'
-      +'                00:00:00'
+      +'                '+fecha[1]
       +'            </p>'
       +'        </div>'
       +'        <div class="concentr">'
       +'            <p><strong>Concentración:</strong></p>'
       +'            <p class="concentracion" id="concentracion">'
-      +'                <!--concentracion-->'
+      +'                '+recambio.recambio.concentracion+' %'
       +'            </p>'
       +'        </div>'
       +'        <div class="vol">'
       +'            <p><strong>Volumen:</strong></p>'
       +'            <p class="volumen" id="volumen">'
-      +'                <!--volumen-->'
+      +'               2.000 ml'
       +'            </p>'
       +'        </div>'
       +'        <div class="drenaj">'
       +'            <p><strong>Drenaje:</strong></p>'
       +'            <p class="drenaje" id="drenaje">'
-      +'               <!--drenaje-->'
+      +'            '+(CryptoJS.AES.decrypt(decodeURIComponent(recambio.drenajeDialisis), "clave_secreta").toString(CryptoJS.enc.Utf8))
       +'            </p>'
       +'        </div>'
       +'        <div class="balan">'
       +'            <p><strong>Balance:</strong></p>'
       +'            <p class="balance" id="balance">'
-      +'                <!--balance-->'
+      +'                '+(parseInt(CryptoJS.AES.decrypt(decodeURIComponent(recambio.drenajeDialisis), "clave_secreta").toString(CryptoJS.enc.Utf8),10)-2000)
       +'            </p>'
       +'        </div>'
       +'        <div class="liquid">'
       +'            <p><strong>Características del líquido:</strong></p>'
       +'            <p class="liquido" id="liquido">'
-      +'                <!--liquido-->'
+      +'                '+CryptoJS.AES.decrypt(decodeURIComponent(recambio.caracteristicaLiquido), "clave_secreta").toString(CryptoJS.enc.Utf8)
+
       +'            </p>'
       +'        </div>'
       +'        <div class="orif">'
       +'            <p><strong>Estado del orificio:</strong></p>'
       +'            <p class="orificio" id="orificio">'
-      +'                <!--orificio-->'
+      +'                '+CryptoJS.AES.decrypt(decodeURIComponent(recambio.orificioSalida), "clave_secreta").toString(CryptoJS.enc.Utf8)
       +'            </p>'
       +'        </div>';
           if(usuario=="paciente"){

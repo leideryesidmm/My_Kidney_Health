@@ -334,6 +334,37 @@ tbody:hover {
     float: right;
   }
 
+  #nombreCrear{
+    width: 100%;
+  height: 40px;
+  border-radius: 5px;
+  border-color: #89898f;
+  }
+
+  #nombreCrear:focus{
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-left-color: transparent;
+    border-bottom-color: #89898f;
+    outline: none;
+    content: "";
+  }
+
+  #nombreEditar{
+    width: 100%;
+    height: 40px;
+    border-radius: 5px;
+    border-color: #89898f;
+  }
+
+  #nombreEditar:focus{
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-left-color: transparent;
+    border-bottom-color: #89898f;
+    outline: none;
+    content: "";
+  }
 
   #editar, #inhabilitar{
     width: 40px;

@@ -160,9 +160,43 @@ h2{
   padding: 0;
   margin-left: 20px;
 }
+
+.btn-flotante {
+	font-size: 16px; /* Cambiar el tamaño de la tipografia */
+	text-transform: uppercase; /* Texto en mayusculas */
+	font-weight: bold; /* Fuente en negrita o bold */
+	color: #ffffff; /* Color del texto */
+	border-radius: 5px; /* Borde del boton */
+	letter-spacing: 2px; /* Espacio entre letras */
+	
+	position: fixed;
+	right: 40px;
+	
+	}
+	.btn-flotante:hover {
+	background-color: #0292c7; 
+	box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.3);
+	width: 70px;
+  height: 70px;
+   border-radius: 50%;
+	}
+
+  #redondo{
+    background-color: #04BAFC;
+    border-radius: 50%;
+    width: 60px;
+  height: 60px;
+  background-image: none;
+  }
+
   @media only screen and (max-width: 768px) {
     /* For mobile phones: */
     [class*="col-"] {
       width: 100%;
     }
+    .btn-flotante {
+      font-size: 14px;
+      bottom: 20px;
+      right: 20px;
+      }
   }

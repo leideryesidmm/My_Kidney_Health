@@ -348,17 +348,14 @@ else{
               '<input type="text" class="estatura" id="estatura" name="estatura" placeholder="Estatura en cm">'+
             '</div>'+         
           '</div>'+
-          
-          
-         
             '<div class="form-column" id="enf">'+
             '<div class="hipertension">'+
-              '<label for="hipertension" id="data2">Hipertensión:</label>'+
-              '<input type="checkbox" id="hipertension" name="hipertension">'+
+              '<label for="hipertension" id="data2">Hipertensión: </label> ' +
+              ' <input type="checkbox" id="hipertension" name="hipertension">'+
               '</div>'+
               '<div class="diabetes">'+
-              '<label for="diabetes" id="data2">Diabetes:</label>'+
-              '<input type="checkbox" id="diabetes" name="diabetes">'+
+              '<label for="diabetes" id="data2">Diabetes: </label> ' +
+              ' <input type="checkbox" id="diabetes" name="diabetes">'+
               '</div>'+
             '</div>'+'<div class="buttons">'+
             '<div class="btn-save">'+
