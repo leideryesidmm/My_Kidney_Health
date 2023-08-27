@@ -3,9 +3,9 @@ let principal = () => {
     let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
     if (usuario == "paciente") {
         ms +=
-            '<div class="col-2"><input type="image" class="logo-principal" src="../img/logo3.png"></div>' +
-            '<div class="col-8"><h1 class="title-principal-app">Mi Salud Renal</h1></div>' +
-            '<div class="col-2"><input type="image" class="logout" src="../img/log-out-white.png" onclick="logout()"></div>';
+            '<div class="col-2 no-effect"><input type="image" class="logo-principal" src="../img/logo3.png"></div>' +
+            '<div class="col-8 no-effect"><h1 class="title-principal-app">Mi Salud Renal</h1></div>' +
+            '<div class="col-2 no-effect"><input type="image" class="logout" src="../img/log-out-white.png" onclick="logout()"></div>';
     }
     else {
         ms +=
@@ -38,7 +38,14 @@ let principal = () => {
 
     let msg = "";
 
-
+        if(usuario=="medico"){
+            msg +=
+            '<br>' +
+            '<div class="dataPaciente">' +
+            '<h2 id="paciente">Paciente: ' + localStorage.getItem("nombrePaciente") + '<h2>' +
+            '<h4 id="documento">Documento: ' + CryptoJS.AES.decrypt((decodeURIComponent(localStorage.getItem("cedulaPaciente"))), "clave_secreta").toString(CryptoJS.enc.Utf8) + '<h4>' +
+            '</div>';
+        }
     
         msg +=
             '<br>' +
@@ -48,13 +55,23 @@ let principal = () => {
             '<div class="grid-item">' +
             '<div id="container">' +
             '<a href="perfil.html"><img src="../img/perfil.png" width="160px" height="160px" alt=""></a>' +
-            '</div>' +
-            '<div class="grid-item-content" class="col-md-6 col-12  text-center" id="textcontainer">' +
+            '</div>';
+            
+            if (usuario == "paciente") {
+                msg+='<div class="grid-item-content" class="col-md-6 col-12  text-center" id="textcontainer">' +
             '<h5><b>Mi Perfil</b></h5>' +
             '</div>' +
-            '<div class="description" class="col-md-6 col-12 text-center" >' +
-            '<p>En esta sección podrá ver su información personal y médica<p>' +
+            '<div class="description" class="col-md-6 col-12 text-center" >'+
+            '<p>En esta sección podrá ver su información personal y médica<p>';
+            }
+            else{
+                msg+='<div class="grid-item-content" class="col-md-6 col-12  text-center" id="textcontainer">' +
+            '<h5><b>Información del paciente</b></h5>' +
             '</div>' +
+            '<div class="description" class="col-md-6 col-12 text-center" >'+
+                '<p>En esta sección podrá ver la información personal y médica del paciente<p>';
+                }
+            msg+='</div>' +
             '</div>' +
             '</div>' +
             '<div class="col-md-6 col-12 my-sm-2 d-flex flex-column align-items-center">' +
@@ -65,9 +82,14 @@ let principal = () => {
             '<div class="grid-item-content" class="col-md-6 col-12 text-center"  id="textcontainer">' +
             '<h5><b>Prescripciones</b></h5>' +
             '</div>' +
-            '<div class="description" class="col-md-6 col-12 text-center" >' +
-            '<p>En esta sección podrá ver la prescipción actual agregar recambios<p>' +
-            '</div>' +
+            '<div class="description" class="col-md-6 col-12 text-center" >';
+            if (usuario == "paciente") {
+            msg+='<p>En esta sección podrá ver la prescipción actual y agregar sus recambios<p>';
+            }
+            else{
+                msg+='<p>En esta sección podrá ver la prescipción actual y los recambios realizados por el paciente<p>';
+            }
+            msg+='</div>' +
             '</div>' +
             '</div>' +
             '</div>' +
@@ -82,9 +104,14 @@ let principal = () => {
             '<div class="grid-item-content" class="col-md-6 col-12  text-center" id="textcontainer">' +
             '<h5><b>Medicamentos</b></h5>' +
             '</div>' +
-            '<div class="description" class="col-md-6 col-12 text-center" >' +
-            '<p>En esta sección podrá ver, agregar o modificar los medicamentos<p>' +
-            '</div>' +
+            '<div class="description" class="col-md-6 col-12 text-center" >';
+            if (usuario == "paciente") {
+                msg+='<p>En esta sección podrá ver, agregar o modificar los medicamentos<p>';
+            }
+            else{
+                msg+='<p>En esta sección podrá ver los medicamentos administrados por el paciente<p>';   
+            }
+            msg+='</div>' +
             '</div>' +
             '</div>' +
             '<div class="col-md-6 col-12 my-sm-2 d-flex flex-column align-items-center">' +
@@ -95,8 +122,8 @@ let principal = () => {
             '<div class="grid-item-content" class="col-md-6 col-12 text-center"  id="textcontainer" >' +
             '<h5><b>Historial</b></h5>' +
             '</div>' +
-            '<div class="description" class="col-md-6 col-12 text-center" >' +
-            '<p>En esta sección podrá ver el historial de recambios<p>' +
+            '<div class="description" class="col-md-6 col-12 text-center" >'+
+            '<p>En esta sección podrá ver el historial de recambios hechos de meses anteriores<p>' +
             '</div>' +
             '</div>' +
             '</div>' +

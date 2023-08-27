@@ -26,13 +26,14 @@ let obtenerCedulaEncriptada=async(cedula)=>{
 let crearCuidador = async () => {
   document.getElementById('agregarCuidador').addEventListener('submit', async function(event) {
     event.preventDefault();
-    console.log(cedulaEncriptada);
+    let data = localStorage.getItem("datos");
+  let dato=JSON.parse(data);
+      let cedul= decodeURIComponent(dato.cedula);
     let cuidadores = await cuidadorPorPaciente();
     console.log(cuidadores);
     var cedula_cuidador = document.getElementById('cedula_cuidador').value;
     var nombre = document.getElementById('nombre').value;
-    var parentesc = document.getElementById('parentesco');
-    var selectedOption = selectParentesco.options[selectParentesco.selectedIndex];
+    var selectedOption = selectedParentesco.options[selectedParentesco.selectedIndex];
     var parentesco = selectedOption.value;
     var direccion = document.getElementById('direccion').value;
     var telefono = document.getElementById('telefono').value;
@@ -52,14 +53,14 @@ let crearCuidador = async () => {
         
         cedulaCuidador: encryptedCedulaC,
         nombre: encryptedNombre,
-        parentesco: parentesco,
+        parentesco: parseInt(parentesco,10),
         direccion: encryptedDireccion,
         telefono: encryptedTelefono
       }
       let paciente={
-        cedula:cedulaEncriptada
+        cedula:cedul
       }
-      let cuidadorPaciente={
+      let unionCuidadorPacienteInDto={
         cuidadorInDto:cuidador,
         pacienteInDto:paciente
       }
@@ -72,7 +73,7 @@ let crearCuidador = async () => {
       "Content-Type":"application/json"
         },
         body: JSON.stringify(
-          cuidadorPaciente
+          unionCuidadorPacienteInDto
         )
       })
       .then(response => response.json())
@@ -225,34 +226,62 @@ let cuidadorPorPaciente=async()=>{
         return CuidadoresDesencriptadosSinRepetir;
       }
     };
+
+    let listaParentesco = async () => {
+      const peticion = await fetch(localStorage.getItem("servidorAPI") + "Prueba/ListParentesco", {
+        method: "GET",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        }
+      });
+      
+      const selectParentesco = document.getElementById('selectedParentesco');
+      
+      
+      if (selectParentesco.length === 0) {
+        const parentescos = await peticion.json();
+        const optionSeleccionar = document.createElement('option');
+        optionSeleccionar.textContent = "Seleccione";
+        selectParentesco.appendChild(optionSeleccionar);
+        parentescos.forEach(parentesco => {
+          const option = document.createElement('option');
+          option.value = parentesco.idParentesco;
+          option.textContent = parentesco.descripcion;
+          selectParentesco.appendChild(option);
+        });
+      }
+    }
     
 
-let listarParentesco = async () => {
-  const peticion = await fetch(localStorage.getItem("servidorAPI") + "Prueba/ListParentesco", {
-    method: "GET",
-    headers: {
-      "Accept": "application/json",
-      "Content-Type": "application/json"
+    let listarParentesco = async () => {
+      const peticion = await fetch(localStorage.getItem("servidorAPI") + "Prueba/ListParentesco", {
+        method: "GET",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        }
+      });
+      
+      const selectParentesco = document.getElementById('selectedParentesco');
+      
+      
+      if (selectParentesco.length === 0) {
+        const parentescos = await peticion.json();
+        const optionSeleccionar = document.createElement('option');
+        optionSeleccionar.textContent = "Seleccione";
+        selectParentesco.appendChild(optionSeleccionar);
+        parentescos.forEach(parentesco => {
+          const option = document.createElement('option');
+          option.value = parentesco.idParentesco;
+          option.textContent = parentesco.descripcion;
+          selectParentesco.appendChild(option);
+        });
+      }
+      
+      encontrarCuidador();
     }
-  });
-
-  const selectParentesco = document.getElementById('selectedParentesco');
-  
-  // Verificar si el select ya tiene opciones
-  if (selectParentesco.length === 0) {
-    const parentescos = await peticion.json();
-    const optionSeleccionar = document.createElement('option');
-    optionSeleccionar.textContent = "Seleccione";
-    selectParentesco.appendChild(optionSeleccionar);
-    parentescos.forEach(parentesco => {
-      const option = document.createElement('option');
-      option.value = parentesco.idParentesco;
-      option.textContent = parentesco.descripcion;
-      selectParentesco.appendChild(option);
-    });
-  }
-  encontrarCuidador();
-}
+    
 
 let cuidadorActivo= async()=>{
   let data = localStorage.getItem("datos");

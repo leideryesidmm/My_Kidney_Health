@@ -106,7 +106,11 @@ let mostrarPrescripcion2= async (prescripcion) => {
 
 let mostrarPrescripcion= async (prescripcion, fecha, recambios) => {
     recambios=await recambios;
-    console.log(recambios)
+    if(recambios==null){
+        let msg="";
+        msg+='<h3>No hay recambios prescritos para la fecha: '+new Date(fecha).toLocaleDateString()+'</h3>';
+        document.getElementById("recambios").innerHTML=msg;
+    }
     let prescripcionDiaHoy1=await prescripcionDiaFecha(prescripcion, fecha)
     localStorage.setItem('prescripcionActual', JSON.stringify(prescripcionDiaHoy1));
     prescripcion=await prescripcion;

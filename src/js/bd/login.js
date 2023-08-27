@@ -115,10 +115,17 @@ let logout = () => {
 let onload = async () => {
   let pathname = window.location.pathname
   if (isAuthenticated()) {
-    if (pathname.includes("login.html")) {
-      if(localStorage.getItem("cambiado")=="true"){
-      location.href = "principal.html";
+    if (pathname.includes("login.html") || pathname.includes("index.html") ) {
+      if(usuario=="medico"){
+        location.href="pacientes.html";
       }
+      else{
+      if(localStorage.getItem("cambiado")=="true"){
+      location.href = "principal.html";}
+      else{
+        location.href="cambiarContrasenia.html"
+      }
+        }
     }
   } else {
     console.log("noAuthenticated")

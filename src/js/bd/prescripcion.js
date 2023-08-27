@@ -172,7 +172,28 @@ let crearRecambio = async () => {
       // Mostrar mensaje de error en la consola o en la interfaz de usuario
     })
      
+  
   }
+
+  let llenarFormEditarRecambio=async()=>{
+    const urlParams = new URLSearchParams(window.location.search);
+    const idRecambioHecho = urlParams.get('idRecambioHecho');
+    let 
+
+    const peticion= await fetch (localStorage.getItem("servidorAPI")+"paciente/prescripcion/findRecambioHechoById/"+idRecambioHecho,{
+      method: 'POST',
+      body: JSON.stringify(pacienteInDto),
+      headers: {
+        "Accept":"application/json",
+        "Content-Type":"application/json"
+      }
+    })
+    let recambioHecho=await peticion.json()
+    document.getElementById("drenaje").innerText=CryptoJS.AES.decrypt(recambioHecho.drenajeDialisis, "clave_secreta").toString(CryptoJS.enc.Utf8); 
+  }
+  
+
+
 
   let editarRecambio=async()=>{
     let orificio;
@@ -257,6 +278,9 @@ let crearRecambio = async () => {
 
   let recambiosPorFecha=async(recambios,fecha)=>{
     recambios=await recambios;
+    if(recambios==undefined){
+      return null
+    }
     recambios=recambios.recambios;
     console.log(recambios)
     let user=JSON.parse(localStorage.getItem("datos"))

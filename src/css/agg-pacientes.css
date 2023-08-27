@@ -186,7 +186,7 @@ body {
         border-top-color: transparent;
         border-right-color: transparent;
         border-left-color: transparent;
-        border-bottom-color: gray;
+        border-bottom-color: #89898f;
         outline: none;
         content: "";
       }

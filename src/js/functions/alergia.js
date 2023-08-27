@@ -53,7 +53,7 @@ let listAlergias = async (alergias) => {
               '</div>' +
               '<div class="modal-body">' +
               '<p>Nombre Actual: ' + alergia.nombre + '</p>' +
-              '<input type="text" id="nombreEditar' + alergia.idAlergia + '" class="form-control" placeholder="Inserte nuevo nombre de alergia">' +
+              '<input type="text" id="nombreEditar"' + alergia.idAlergia + '"  placeholder="Inserte nuevo nombre de alergia">' +
               '</div>' +
               '<div class="modal-footer">' +
               '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>' +

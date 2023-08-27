@@ -189,6 +189,7 @@ let encontrarMedicamento=async()=>{
   document.getElementById("fecha_fin").value=fechaFormateada;
   document.getElementById("tomas").value=medicamento.tomas;
   document.getElementById("dosis").value=medicamento.dosis;
+  document.getElementById("recetado").value=medicamento.recetado;
   document.getElementById("intervalos_tiempo").value=medicamento.intervaloTiempo;
   console.log(medicamento.viaAdministracion.idViaAdministracion);
   const selectVias = document.getElementById("selectVias");
@@ -233,7 +234,8 @@ let actualizarMedicamento=async ()=> {
       "nombre": nombreEncriptado,
       "paciente": cedEncriptada,
       "tomas": document.getElementById("tomas").value,
-      "via_Administracion": document.getElementById("selectVias").value
+      "via_Administracion": document.getElementById("selectVias").value,
+      "recetado":document.getElementById("recetado").value
   }
   console.log(formulamedicamento)
 

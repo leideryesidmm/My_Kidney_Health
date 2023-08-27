@@ -135,6 +135,12 @@ body {
     justify-content: center;
     align-items: center;
     margin: 0 auto;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  }
+  
+  h2{
+    text-align: center;
   }
   
   
@@ -152,7 +158,7 @@ body {
     text-align: left;
   }
   
-  button {
+  .guardarPac {
     background-color: #63D0FF;
     color: #ffffff;
     border: none;
@@ -162,6 +168,14 @@ body {
     margin: 0 auto;
     border-radius: 10px;
   }
+
+  .btn-cerrar{
+   border: none;
+   background-color: #fff;
+   font-size: 40px;
+  }
+
+
 
   .form-container {
     color: #000000;
@@ -192,7 +206,7 @@ body {
         border-top-color: transparent;
         border-right-color: transparent;
         border-left-color: transparent;
-        border-bottom-color: gray;
+        border-bottom-color: #89898f;
         outline: none;
         content: "";
       }
@@ -289,17 +303,48 @@ body {
       display: flex;
       justify-content: start;
       align-items: start;
+     
     }
 
     
 #nombreUsuario{
   color: white;
 }
+
+.cancelar{
+    
+  background-color: gray;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 3px 20px;
+  font-size: 15px;
+  font-family: 'Jost', sans-serif;
+  border-radius: 5px;
+  text-decoration: none;
+  margin-right: 3%;        
+}
+
+.guardarPac{
+background-color: #04BAFC;
+color: #fff;
+border: none;
+cursor: pointer;
+padding: 3px 20px;
+font-size: 15px;
+font-family: 'Jost', sans-serif;
+border-radius: 5px;
+text-decoration: none;
+margin-left: 1%;
+}
   
   /* Estilos responsivos */
   @media (max-width: 768px) {
     .form-column {
       width: 100%;
+    }
+    .buttons{
+      width: 100px;
     }
   }
 
