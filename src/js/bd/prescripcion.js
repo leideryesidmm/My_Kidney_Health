@@ -145,8 +145,8 @@ let crearRecambio = async () => {
       "drenajeDialisis": drenajeEncriptado,
       "orificioSalida": orificioEncriptada,
       "recambio": concentracionSelect,
-      "fecha":fechayhoraIni,
-      "hora":fechayhoraFin
+      "hora_ini":fechayhoraIni,
+      "hora_fin":fechayhoraFin
     };
     fetch (localStorage.getItem("servidorAPI")+"paciente/recambio/crearRecambioHecho",{
       method: 'POST',
