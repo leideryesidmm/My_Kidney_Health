@@ -4,6 +4,7 @@ function isAuthenticated() {
   return localStorage.getItem("authenticated") === "true";
 }
 
+
 let login = async (event) => {
   event.preventDefault();
   const username = document.getElementById("username").value;
@@ -35,7 +36,7 @@ let login = async (event) => {
   console.log(medicos);
 let pacienteEncontrado=false;
 let medicoEncontrado=false;
-  pacientes.forEach(paciente => {
+  pacientes.forEach(async paciente => {
     decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, 'clave_secreta').toString(CryptoJS.enc.Utf8);
     console.log(decryptedCedula);
     contrasenia = CryptoJS.AES.decrypt(paciente.contrasenia, 'clave_secreta').toString(CryptoJS.enc.Utf8);
@@ -52,9 +53,19 @@ let medicoEncontrado=false;
       localStorage.setItem("datos", data);
       localStorage.setItem("servidorAPI", servidorAPI);
       console.log(localStorage.setItem("datos", data))
+      let cambiado=paciente.cambio_contrasenia;
+      localStorage.setItem("cambiado", cambiado);
+      console.log(cambiado)
+      if(!cambiado){
+        location.href="cambiarContrasenia.html"
+        pacienteEncontrado=true;
+      return cambiado;
+      }
+      else{
       location.href = "principal.html";
       pacienteEncontrado=true;
-      return username;
+      return cambiado;
+      }
     }
   });
     if(!pacienteEncontrado){
@@ -102,12 +113,12 @@ let logout = () => {
 }
 
 let onload = async () => {
-
   let pathname = window.location.pathname
   if (isAuthenticated()) {
-    console.log("yesAuthenticated")
     if (pathname.includes("login.html")) {
+      if(localStorage.getItem("cambiado")=="true"){
       location.href = "principal.html";
+      }
     }
   } else {
     console.log("noAuthenticated")

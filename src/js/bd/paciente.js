@@ -1,7 +1,7 @@
 
 var cedulaEncriptada = "";
 var contraseniaEncriptada;
-dat= localStorage.getItem("datos");
+let dat= localStorage.getItem("datos");
 
 let obtenerCedulaEncriptada=async(id, cedula)=>{
   let result = "";
@@ -32,7 +32,59 @@ let obtenerCedulaEncriptada=async(id, cedula)=>{
   return result;
 }
 
+let cambioContraseniaAlIniciar=async(event)=>{
+  event.preventDefault();
+  let data = localStorage.getItem("datos");
+  let dato=JSON.parse(data);
+      let cedul= decodeURIComponent(dato.cedula);
+  event.preventDefault();
+    const newcontrasenia = document.getElementById("newcontrasenia").value;
+    console.log(cedul);
+    if (newcontrasenia === "" ) {
+      document.getElementById("errorMensaje").innerText = "Por favor ingrese una nueva contraseña.";
+  }
 
+  let nuevaContrasenia=CryptoJS.AES.encrypt(newcontrasenia, 'clave_secreta').toString();
+  let  usuarioInDto={
+    cedula:cedul, contrasenia:nuevaContrasenia
+  }
+  if (newcontrasenia !== "") {
+    fetch(localStorage.getItem("servidorAPI") + "Usuario/cambioContraseniaPrimeraVez", {
+      method: "PATCH",
+      body: JSON.stringify(usuarioInDto),
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => {
+        if (response.ok) {
+          $('#successModal').modal('show');
+        } else {
+          $('#successModal').modal('show');
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });     
+}
+
+}
+
+function passwordVisibilityActual(inputId, iconClass) {
+  var passwordInput = document.getElementById(inputId);
+  var icon = document.querySelector("." + iconClass);
+
+  if (passwordInput.type === "password") {
+    passwordInput.type = "text";
+    icon.classList.remove("fa-eye");
+    icon.classList.add("fa-eye-slash");
+  } else {
+    passwordInput.type = "password";
+    icon.classList.remove("fa-eye-slash");
+    icon.classList.add("fa-eye");
+  }
+}
 
 
 let listaPacientes = async () => {
@@ -79,7 +131,9 @@ console.log(paciente)
     let rh=paciente.rh;
     let altura=paciente.altura;
     let nacimiento=paciente.fechaNacimiento.split('T');
-    let fecha=nacimiento[0];
+    let fechaNacimiento=nacimiento[0];
+    let fecha=new Date(fechaNacimiento);
+
     let diabetes=paciente.diabetes;
     let hipertension=paciente.hipertension;
     let cedula=cedulaDesencriptado;
@@ -302,6 +356,20 @@ console.log(paciente);
       var decryptedCorreo = CryptoJS.AES.decrypt(paciente.correo, 'clave_secreta').toString(CryptoJS.enc.Utf8);
       document.getElementById("correo").value = decryptedCorreo;
     }
+    console.log(paciente.foto);
+  if (paciente.foto!=null) {
+    console.log("ENTRO AL IF DE PACIENTE FOTO")
+    const binaryString = window.atob(paciente.foto);
+  const byteArray = new Uint8Array(binaryString.length);
+  for (let i = 0; i < binaryString.length; i++) {
+    byteArray[i] = binaryString.charCodeAt(i);
+  }
+  const blob = new Blob([byteArray], { type: 'image/jpeg' });
+
+  const imageUrl = URL.createObjectURL(blob);
+  console.log(imageUrl);
+  document.getElementById("imageFile").value = imageUrl;
+  }
   }
   else{
     var decryptedNombre = CryptoJS.AES.decrypt(paciente.nombre, 'clave_secreta').toString(CryptoJS.enc.Utf8);
@@ -372,7 +440,12 @@ function cancelar(){
 
 let actualizarPaciente = async (event) => {  
   event.preventDefault();
-
+  let foto= document.getElementById("imageFile").files.length;
+  console.log(foto);
+  if(foto>0){
+    console.log("ENTRO AL IF COMO PEDRO POR SU CASA")
+  subirFoto();
+  }
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
   console.log(data);
@@ -502,3 +575,64 @@ else{
       console.error(error);
     });
 }
+
+let subirFoto = async () => {
+  console.log("ENTRO AL METODO DE SUBIR FOTO");
+  let dato = JSON.parse(dat);
+  let cedul = decodeURIComponent(dato.cedula);
+console.log(cedul);
+  const formData = new FormData();
+  const imageFile = document.getElementById("imageFile").files[0];
+  formData.append("foto", imageFile);
+  formData.append("cedula", cedul);
+console.log(formData);
+  fetch(localStorage.getItem("servidorAPI") + "paciente/upload-image", {
+    method: "POST",
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      console.log("ENTRO AL IF DE SUBIR FOTO");
+      alert("Imagen subida exitosamente");
+    } else {
+      console.log("ENTRO AL ELSE DE SUBIR FOTO");
+      alert("Error al subir la imagen");
+    }
+  });
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    await perfil();
+
+    const mostrarFoto = async () => {
+    let ced = JSON.parse(dat);
+    let cedul = decodeURIComponent(ced.cedula);
+    const usuarioInDto = {
+      cedula: cedul
+    };
+
+    fetch(localStorage.getItem("servidorAPI") + "Usuario/imagen", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(usuarioInDto)
+    })
+      .then(response => response.blob())
+      .then(blob => {
+        const imgElement=document.getElementById("imagen");
+        if (blob.size!=0) {
+          const imageUrl = URL.createObjectURL(blob);
+          imgElement.src = imageUrl;
+        } else {
+          imgElement.style.display = "none";
+        }
+      });
+  };
+  mostrarFoto();
+} catch (error) {
+  console.error("Error in DOMContentLoaded:", error);
+}
+});

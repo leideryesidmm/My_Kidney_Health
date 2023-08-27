@@ -80,14 +80,14 @@ let listMedicamentos = async (medicamentos) => {
       "</p>" +
       "</div>" +
       '<div class="fechaIni">' +
-      "<p><strong>Fecha inicio: </strong></p>" +
+      "<p><strong>Fecha inicio: </strong></p> " +
       '<p class="fecha_inicio" id="fecha_inicio">' +
-      " " + formatearFechas(medicamento.fechaIni)+"</p>" +
+      " " + medicamento.fechaIni+"</p>" +
       "</div> " +
       '<div class="fechaFin">' +
-      "<p><strong>Fecha Finalización: </strong></p>" +
+      "<p><strong>Fecha Finalización: </strong></p> " +
       '<p class="fecha_fin" id="fecha_fin">' + 
-      " " + formatearFechas(medicamento.fechaFin)+"</p>" +
+      " " + medicamento.fechaFin+"</p>" +
       "</div>" +
       '<div class="dos">' +
       "<p><strong>Dosis:</strong></p>" +

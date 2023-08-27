@@ -26,13 +26,6 @@ body {
   .fil{
     background-color: #B2EAF2;
   }
-  
-
-.fil {
-  background-color: #B2EAF2;
-}
-
-
 
 .logo img {
   width: 50px;
@@ -145,10 +138,6 @@ label{
   background-color: rgba(255, 255, 255, 0.856); /* Añade un fondo semi-transparente para mayor legibilidad */
   padding: 10px;
   text-align: center;
-}
-
-img{
-  
 }
 
 
@@ -332,8 +321,8 @@ tbody:hover {
   }
 
   .navbar input{
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
     background-color: #04BAFC;
   }
   
@@ -344,6 +333,7 @@ tbody:hover {
     border-radius: 50%;
     float: right;
   }
+
 
   #editar, #inhabilitar{
     width: 40px;
@@ -489,3 +479,5 @@ nav ul:after {
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   }
+
+  

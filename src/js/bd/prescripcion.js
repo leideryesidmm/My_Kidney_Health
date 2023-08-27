@@ -239,9 +239,13 @@ let crearRecambio = async () => {
       else{
         ced=cedul;
       }
+
+      let pacienteInDto={
+        cedula:ced
+      }
     const peticion= await fetch (localStorage.getItem("servidorAPI")+"paciente/recambio/findRecambioHechoByPaciente",{
       method: 'POST',
-      body: JSON.stringify({"cedula":ced}),
+      body: JSON.stringify(pacienteInDto),
       headers: {
         "Accept":"application/json",
         "Content-Type":"application/json"

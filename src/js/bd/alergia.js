@@ -75,24 +75,26 @@ let listarAlergias = async () => {
 
       let cedulaEncriptada="";
       if(usuario=="medico"){
-       cedulaEncriptada = await obtenerCedulaEncriptada(0,CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
+       cedulaEncriptada = await obtenerCedulaEncriptada(CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
       console.log(cedulaEncriptada);}
       else{
         cedulaEncriptada=cedul;
       }
       console.log(cedulaEncriptada);
+      pacienteInDto={
+        cedula:cedulaEncriptada
+      }
+
   const peticion = await fetch(localStorage.getItem("servidorAPI") + "paciente/alergia/listByPaciente", {
     method: "POST",
     headers: {
       "Accept": "application/json",
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({
-      cedula: cedulaEncriptada
-    })
+    body: JSON.stringify(pacienteInDto)
   });
   const alergias = await peticion.json();
-
+  console.log(alergias);
   let listAlergias = [];
 
   alergias.forEach(nombres => {
