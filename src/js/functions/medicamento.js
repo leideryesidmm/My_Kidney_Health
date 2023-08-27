@@ -1,6 +1,7 @@
+let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
 let NavBarMedicamento = () => {
   let ms = "";
-  let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
+  
   if (usuario == "paciente") {
       ms +=          
     '<div class="col-2"><a href="principal.html" class="devolverse" id="icono"><img src="../img/devolverseColor.png" alt="" id="icono"></a></div>'+
@@ -106,8 +107,9 @@ let listMedicamentos = async (medicamentos) => {
       '<p class="intervalo_tiempo" id="intervalo_tiempo">' +
       medicamento.intervaloTiempo +
       "</p>" +
-      "</div>" +
-      '<div class="btn-editar-container">' +
+      "</div>";
+      if(usuario==="paciente"){
+        medicamentoHTML+='<div class="btn-editar-container">' +
       '<a href="editarMedicamento.html?idFormulaMedicamento='+medicamento.idFormulaMedicamento+'" class="btn-editar"><img src="../img/editaraler.png"></a>' +
       '<div><a href="" class="btn-inhabilitar" data-bs-toggle="modal" data-bs-target="#inhabilitarMedicamento' +
       cont +
@@ -130,10 +132,10 @@ let listMedicamentos = async (medicamentos) => {
       '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>' +
       '<button type="submit" onclick="eliminarMedicamento('+medicamento.idFormulaMedicamento+')" class="btn btn-danger">Eliminar</button>' +
       "</div>" +
-      "</div>" +
-      "</div>" +
-      "</div>" +
-      "</div>" +
+      "</div>";}
+      medicamentoHTML+="</div>"+
+      "</div>"+
+      "</div>"+ 
       "</div>" +
       "</div>";
     
@@ -177,6 +179,14 @@ const day = ('0' + fecha.getDate()).slice(-2);
 const fechaFormateada = `${year}-${month}-${day}`;
 return fechaFormateada;
 }
+
+if(usuario=="paciente"){
+let msge="";
+msge+=
+' <a class="btn-flotante" href="addMedicamento.html"><button id="redondo" class="btn text-white"><h3>+</h3></button></a>';
+document.getElementById("flotante").innerHTML=msge;
+}
+      
 
 
   
