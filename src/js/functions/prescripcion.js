@@ -103,13 +103,21 @@ let mostrarPrescripcion2= async (prescripcion) => {
     document.getElementById("prescri").innerHTML=msg;
     }
 }
+function formatearFecha(fecha) {
+    var dia = fecha.getDate().toString().padStart(2, '0');
+    var mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
+    var año = fecha.getFullYear();
+  
+    return `${dia}-${mes}-${año}`;
+  }
 
 let mostrarPrescripcion= async (prescripcion, fecha, recambios) => {
     recambios=await recambios;
     if(recambios==null){
         let msg="";
-        msg+='<h3>No hay recambios prescritos para la fecha: '+new Date(fecha).toLocaleDateString()+'</h3>';
+        msg+='<h3>No hay recambios prescritos para la fecha seleccionada</h3>';
         document.getElementById("recambios").innerHTML=msg;
+        return;
     }
     let prescripcionDiaHoy1=await prescripcionDiaFecha(prescripcion, fecha)
     localStorage.setItem('prescripcionActual', JSON.stringify(prescripcionDiaHoy1));
@@ -118,7 +126,6 @@ let mostrarPrescripcion= async (prescripcion, fecha, recambios) => {
     let accion="";
     let hoy=new Date()
     let datos1=await datos();
-    msg+='<div class="row align-items-center">';
     let cont=0;
     prescripcionDiaHoy1.recambios.forEach(recambio => {
         msg+='<div class="col-lg-5 card card-menor">'

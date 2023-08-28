@@ -37,8 +37,12 @@
                     </div>
             </div>   <br><br>
             <div class="col-lg-8 root align-items-center"><br>
-                <div class="centrado align-items-center" id="recambios">
-                <div class="row align-items-center">
+                <div class="centrado align-items-center">
+                    
+                <div class="row text-center align-items-center">
+                    <h6 id="fecha" class="align-items-center text-center centrado"></h6>
+                </div><br>
+                <div class="row align-items-center" id="recambios">
                     <div class="col-lg-5 card card-menor">
                         <div class="row">
                             <div class="col-2 estado" style="background-color:rgb(252, 168, 59)">
@@ -207,6 +211,7 @@
   <script>
     let prescripcionactual= prescripciones();
     cargar(prescripcionactual);
+    document.getElementById("fecha").innerText="Recambios de la fecha: "+formatearFecha(new Date());
     mostrarPrescripcion(prescripcionactual, new Date(),recambiosPorFecha(prescripcionDiaFecha(prescripcionactual,new Date()),new Date()));
     onload();
   </script>
@@ -215,9 +220,9 @@
         let calendar = new Calendar('calendar');
         calendar.getElement().addEventListener('change', e => {
             let seleccionado=new Date(calendar.value().format('YYYY-MM-DDT03:24:00'));
+            document.getElementById("fecha").innerText="Recambios de la fecha: "+calendar.value().format('DD-MM-YYYY');
             localStorage.setItem("fecha_real",seleccionado)
             mostrarPrescripcion(prescripcionactual, seleccionado, recambiosPorFecha(prescripcionDiaFecha(prescripcionactual,seleccionado),seleccionado));
-            
         });
         document.querySelector(".close").addEventListener("click", function() {
   document.getElementById("modal").style.display = "none";
