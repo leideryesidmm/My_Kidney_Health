@@ -193,7 +193,27 @@ let crearRecambio = async () => {
       }
     })
     let recambioHecho=await peticion.json()
-    document.getElementById("drenaje").innerText=CryptoJS.AES.decrypt(recambioHecho.drenajeDialisis, "clave_secreta").toString(CryptoJS.enc.Utf8); 
+    document.getElementById("editDrenaje").innerText=CryptoJS.AES.decrypt(recambioHecho.drenajeDialisis, "clave_secreta").toString(CryptoJS.enc.Utf8); 
+    document.getElementById("editHoraIni").innerText=recambioHecho.hora_ini;
+    document.getElementById("editHoraFin").innerText=recambioHecho.hora_fin; 
+    const caracteristicaLiquido=CryptoJS.AES.decrypt(recambioHecho.caracteristicaLiquido, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+    const orificioSalida=CryptoJS.AES.decrypt(recambioHecho.orificioSalida, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+    const selectLiquido = document.getElementById("editSelectLiquido");
+
+for (let i = 0; i < selectLiquido.options.length; i++) {
+    if (selectLiquido.options[i].value === caracteristicaLiquido) {
+        selectLiquido.options[i].selected = true;
+        break;
+    }
+}
+const inputRadios = document.querySelectorAll('input[type="radio"][name="opcion"]');
+
+for (let i = 0; i < inputRadios.length; i++) {
+    if (inputRadios[i].value === orificioSalida) {
+        inputRadios[i].checked = true;
+        break;
+    }
+}
   }
   
 

@@ -2,10 +2,10 @@ let NavBarPrescripcion = () => {
     let ms = "";
     let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
     if (usuario == "paciente") {
-        ms +=          
-        '<div class="col-2"><a href="principal.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a></div>'+
-        '<div class="col-8"><h1 class="title-principal-app">Prescripciones</h1></div>'+
-        '<div class="col-2"></div>';
+        ms +=
+            '<div class="col-2"><a href="principal.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a></div>' +
+            '<div class="col-8"><h1 class="title-principal-app">Prescripciones</h1></div>' +
+            '<div class="col-2"></div>';
     }
     else {
         ms +=
@@ -20,13 +20,13 @@ let NavBarPrescripcion = () => {
             '<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>' +
             '<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>' +
             '</svg>' +
-            '<li>'+
-            '<div class="dropdown">'+
-            '<button class="btn btn dropdown-toggle" type="button" id="nombreUsuario" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>'+
-            '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">'+
-            '<a class="dropdown-item" href="#">Cambiar Contraseña</a>'+
-            '<a class="dropdown-item" onclick="logout()">Cerrar sesión</a>'+
-            '</div></div>'+
+            '<li>' +
+            '<div class="dropdown">' +
+            '<button class="btn btn dropdown-toggle" type="button" id="nombreUsuario" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>' +
+            '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
+            '<a class="dropdown-item" href="#">Cambiar Contraseña</a>' +
+            '<a class="dropdown-item" onclick="logout()">Cerrar sesión</a>' +
+            '</div></div>' +
             '</li>' +
             '</ul></nav>' +
             '</div>' +
@@ -34,9 +34,207 @@ let NavBarPrescripcion = () => {
             '</header>';
     }
     document.getElementById("navbar").innerHTML = ms;
+}
+
+let agregarPrescripcion = async () => {
+    let msg = "";
+
+    msg += '<div class="form-container">' +
+        '<h2>Agregar Prescripción</h2>' +
+        '<p id="campos"><b>*</b> Campos requeridos</p>' +
+        '<form id="paciente-form" onsubmit="actualizarPaciente(event)">';
+    msg +=
+        '<div class="form-row">' +
+        '<div class="form-column">' +
+        '<label for="cantidad" id="data">Cantidad de Prescripciones:</label>' +
+        '<br>' +
+        '<input type="text" class="cantidad" id="cantidad" name="cantidad" placeholder="Digite la cantidad de prescripciones">' +
+        '</div>' +
+        
+        '</div>' +
+        '<div class="form-row">' +
+        '<div class="form-column">' +
+        '<label for="recambios" id="data">Cantidad de Recambios:<label id="asq">*</label></label>' +
+        '<br>' +
+        '<select class="custom-select" id="selectedCantidad" onchange="generarSelects()" >'+
+                '<option value="0">0</option>'+
+                '<option value="1">1</option>'+
+                '<option value="2">2</option>'+
+                '<option value="3">3</option>'+
+                '<option value="4">4</option>'+
+                '<option value="5">5</option>'+
+              '</select>'+
+        '</div>' +
+        '<div class="form-column">' +
+        '<label for="rango" id="data">Rango de Recambios:<label id="asq">*</label></label>' +
+        '<br>' +
+        '<input type="text" class="rango" id="rango" name="rango" placeholder="Horas" required>' +
+        '</div>' +
+
+        '</div>' +
+        '<div class="form-row">' +
+        '<div class="form-column">' +
+        '<div id="selectContainer" class="margentop"></div>'+
+        '</div>' +
+        '<div class="form-column">' +
+        '<label for="orificio" id="data">Orificio:</label>' +
+        '<br>' +
+              '<select id="selectedOrificio" class="custom-select">'+
+                '<option value="">Seleccione...</option>'+
+                '<option value="perfecto">Perfecto</option>'+
+                '<option value="bueno">Bueno</option>'+
+                '<option value="equivoco">Equívoco</option>'+
+                '<option value="infeccionAguda">Infección Aguda</option>'+
+                '<option value="infeccionCronica">Infeccion Crónica</option>'+
+                '<option value="trauma">Trauma</option>'+
+              '</select>'+
+        '</div>' +
+        '<div class="form-column" id="enf">' +
+        '<div class="nocheSeca">' +
+        '<label for="nocheSeca" id="data2">Noche Seca: &nbsp</label>' +
+        '<input type="checkbox" id="nocheSeca" name="nocheSeca">' +
+        '</div>' +               
+        
+        '</div>' + 
+        '<div class="form-column" id="enf">' +
+        '<div class="nocheSeca">' +
+        '<label for="nocheSeca" id="data2"> &nbsp</label>' +
+        '</div>' +                      
+        
+        '</div>' + 
+        '<div class="form-row">' +
+        '<div class="nocheSeca">' +
+        '<label for="nocheSeca" id="data2">Lunes:&nbsp</label>' +
+        '<input type="checkbox" id="lunes" name="dias">&nbsp' +
+        '<label for="nocheSeca" id="data2">Martes: &nbsp</label>' +
+        '<input type="checkbox" id="martes" name="dias">&nbsp' +
+        '<label for="nocheSeca" id="data2">Miercoles: &nbsp</label>' +
+        '<input type="checkbox" id="miercoles" name="dias">&nbsp' +
+        '<label for="nocheSeca" id="data2">Jueves: &nbsp</label>' +
+        '<input type="checkbox" id="jueves" name="dias">&nbsp' +
+        '<label for="nocheSeca" id="data2">Viernes: &nbsp</label>' +
+        '<input type="checkbox" id="viernes" name="dias">&nbsp' +
+        '<label for="nocheSeca" id="data2">Sábado: &nbsp</label>' +
+        '<input type="checkbox" id="sabado" name="dias">&nbsp' +
+        '<label for="nocheSeca" id="data2">Domingo: &nbsp</label>&nbsp' +
+        '<input type="checkbox" id="domingo" name="dias">&nbsp' +
+        '</div>' +              
+        
+        '</div>' + 
+        
+        '<div class="buttons">' +
+        '<div class="btn-save">' +
+        '<button onclick="cancelar()" class="cancelar">Cancelar</button>' +
+        '</div>' +
+        '<div class="btn-save">' +
+        '<button type="submit" class="guardarPac">Actualizar</button>' +
+        '</div>' +
+        '</div>';
+
+
+msg +=
+    '</form>';
+
+document.getElementById("container").innerHTML = msg;
+           
+<<<<<<< HEAD
   }
 
-let cargar=async (prescripcion)=>{
+
+  function generarSelects() {
+    var cantidad = document.getElementById("selectedCantidad").value;
+    var container = document.getElementById("selectContainer");
+    container.className = "row";
+    container.innerHTML = ""; // Limpiar el contenedor antes de generar nuevos selects
+
+    for (var i = 0; i < cantidad; i++) {
+      var labelContainer = document.createElement("div");
+      labelContainer.className = "select-container";
+      labelContainer.className = "";
+      labelContainer.className = "col-5 centrar-label mt-2";
+
+      var selectContainer = document.createElement("div");
+      selectContainer.className = "select-container";
+      selectContainer.className = "col-3";
+
+      var select = document.createElement("select");
+      select.className = "form-control";
+      var id = "concentracion" + (i + 1); // ID único para el select
+      select.id = id;
+
+      var opciones = ["Seleccione...", "1.25%", "2.5%", "4.25%"];
+
+      for (var j = 0; j < opciones.length; j++) {
+        var option = document.createElement("option");
+        option.value = opciones[j];
+        option.text = opciones[j];
+        select.appendChild(option);
+      }
+
+      var label = document.createElement("label");
+      label.className = "form-label";
+
+      label.for = id;
+      label.innerText = "Concentración " + (i + 1) + ":"; // Texto del label
+
+      labelContainer.appendChild(label);
+      selectContainer.appendChild(select);
+
+      container.appendChild(labelContainer);
+      container.appendChild(selectContainer);
+    }
+=======
+>>>>>>> e5ca6b0b4e2ca3c56c4feeff198fc2b34a896b83
+  }
+
+
+  function generarSelects() {
+    var cantidad = document.getElementById("selectedCantidad").value;
+    var container = document.getElementById("selectContainer");
+    container.className = "row";
+    container.innerHTML = ""; // Limpiar el contenedor antes de generar nuevos selects
+
+    for (var i = 0; i < cantidad; i++) {
+      var labelContainer = document.createElement("div");
+      labelContainer.className = "select-container";
+      labelContainer.className = "";
+      labelContainer.className = "col-5 centrar-label mt-2";
+
+      var selectContainer = document.createElement("div");
+      selectContainer.className = "select-container";
+      selectContainer.className = "col-3";
+
+      var select = document.createElement("select");
+      select.className = "form-control";
+      var id = "concentracion" + (i + 1); // ID único para el select
+      select.id = id;
+
+      var opciones = ["Seleccione...", "1.25%", "2.5%", "4.25%"];
+
+      for (var j = 0; j < opciones.length; j++) {
+        var option = document.createElement("option");
+        option.value = opciones[j];
+        option.text = opciones[j];
+        select.appendChild(option);
+      }
+
+      var label = document.createElement("label");
+      label.className = "form-label";
+
+      label.for = id;
+      label.innerText = "Concentración " + (i + 1) + ":"; // Texto del label
+
+      labelContainer.appendChild(label);
+      selectContainer.appendChild(select);
+
+      container.appendChild(labelContainer);
+      container.appendChild(selectContainer);
+    }
+  }
+
+
+
+  let cargar=async (prescripcion)=>{
     prescripcion=await prescripcion;
     document.getElementById("fechaP").innerText=prescripcion.cita.fecha.split("T")[0]
 }
@@ -281,3 +479,4 @@ let tablaRecambios=async(recambios)=>{
     });
     return data;
   }
+
