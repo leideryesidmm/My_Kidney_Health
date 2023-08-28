@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prescripciones</title>
+  <link rel="stylesheet" type="text/css" href="../css/index.css">
+  <link rel="stylesheet" type="text/css" href="../css/pacientes.css">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+</head>
+
+<body>
+  <div class="navbar" name="navbar" id="navbar">
+  </div>
+  <br>
+
+  <div class="text-center">
+    <h3>Prescripción Actual de la diálisis</h3>
+    <h5 id="fechaP"></h5>
+    <h6 id="tipo"></h6>
+  </div>
+  <br>
+  <div>
+    <div id="prescri">
+      
+    </div>
+    
+    
+  
+  <br>
+  <div class="row">
+    <div class="col-1"></div>
+    <div class="col-10"><div id="recamTable"></div></div>
+    <div class="col-1"></div>
+  </div>
+  
+
+  <div class="row">
+    <div class="col-10"></div>
+    <div class="col-2">
+        <a href="agregarRecambio.html"><img class="flotan" src="../img/nuevo.png" alt="" id="icono"></a>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+    integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+    integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+    crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+    
+    <script src="../js/functions/prescripcion.js"></script>
+    <script src="../js/bd/prescripcion.js"></script>
+  <script src="../js/functions/recambios.js"></script>
+  <script src="../js/bd/login.js"></script>
+  <script src="../js/functions/principal.js"></script>
+  <script>
+  mostrarPrescripcion(prescripciones());
+  tablaRecambios(recambiosHechos());
+  onload();
+  NavBarPrescripcion();
+        nombreNavBar();
+  </script>
+</body>
+
+</html>

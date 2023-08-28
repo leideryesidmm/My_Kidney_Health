@@ -10,6 +10,9 @@
     <link rel="stylesheet" type="text/css" href="../css/addRecambio.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Jost&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 
 <body>
@@ -28,22 +31,22 @@
 
         <div class="drenaje">
           <label for="dren">Drenaje:</label>
-          <input type="number" name="drenaje" id="editDrenaje" class="drenaje" required>
+          <input type="number" name="drenaje" id="drenaje" class="drenaje" required>
         </div>
   
         <div class="concentracion">
           <label for="fechaHoraIni">Fecha y hora inicial: </label>
-          <input type="datetime-local"  id="editHoraIni" name="fechaHora" class="form-control" required>
+          <input type="datetime-local"  id="fechaHoraIni" name="fechaHora" class="form-control" required>
         </div>
       
         <div class="concentracion">
           <label for="fechaHoraFin">Fecha y hora Final: </label>
-          <input type="datetime-local"   id="editHoraFin" name="fechaHora" class="form-control" required>
+          <input type="datetime-local"   id="fechaHoraFin" name="fechaHora" class="form-control" required>
         </div>
         
         <div class="caracteristica">
           <label for="caracLiq">Características del líquido:</label>
-          <select class="form-select form-select-sm" id="editSelectLiquido" aria-label=".form-select-lg example" class="custom-select" required>
+          <select class="form-select form-select-sm" id="selectLiquido" aria-label=".form-select-lg example" class="custom-select" required>
               <option selected>Seleccione...</option>
               <option value="transparente">Transparente</option>
               <option value="turbio">Turbio</option>
@@ -55,56 +58,56 @@
         <br>
         <div id="contenedorImagenes" >
           <div class="opcion">
-            <label for="editOpcionPerfecto">
+            <label for="opcionPerfecto">
               <div class="imagen">
                 <img src="../img/orificioPerfecto.png" alt="Orificio Perfecto" />
               </div>
-            <input type="radio" name="opcion" id="editOpcionPerfecto" value="perfecto" required/>
+            <input type="radio" name="opcion" id="opcionPerfecto" value="perfecto" required/>
               Perfecto
             </label>
           </div>
           <div class="opcion">
-            <label for="editOpcionBueno">
+            <label for="opcionBueno">
               <div class="imagen">
                 <img src="../img/orificioBueno.png" alt="Orificio bueno" />
               </div>
-            <input type="radio" name="opcion" id="editOpcionBueno" value="bueno" required/>
+            <input type="radio" name="opcion" id="opcionBueno" value="bueno" required/>
               Bueno
             </label>
           </div>
           <div class="opcion">
-            <label for="editOpcionEquivoco">
+            <label for="opcionEquivoco">
               <div class="imagen">
                 <img src="../img/orificioEquivoco.png" alt="Orificio equivoco" />
               </div>
-            <input type="radio" name="opcion" id="editOpcionEquivoco" value="equivoco" required/>
+            <input type="radio" name="opcion" id="opcionEquivoco" value="equivoco" required/>
               Equívoco
             </label>
           </div>
           <div class="opcion">
-            <label for="editOpcionInfeccionAguda">
+            <label for="opcionInfeccionAguda">
               <div class="imagen">
                 <img src="../img/orificioInfeccionAguda.png" alt="Infección aguda" />
               </div>
-            <input type="radio" name="opcion" id="editOpcionInfeccionAguda" value="infección aguda" required/>
+            <input type="radio" name="opcion" id="opcionInfeccionAguda" value="infección aguda" required/>
               Inf. Aguda
             </label>
           </div>
           <div class="opcion">
-            <label for="editOpcionInfeccionCronica">
+            <label for="opcionInfeccionCronica">
               <div class="imagen">
                 <img src="../img/orificioInfeccionCronica.png" alt="Infección crónica" />
               </div>
-            <input type="radio" name="opcion" id="editOpcionInfeccionCronica" value="infección crónica" required/>
+            <input type="radio" name="opcion" id="opcionInfeccionCronica" value="infección crónica" required/>
               Inf. Crónica
             </label>
           </div>
           <div class="opcion">
-            <label for="editOpcionTrauma">
+            <label for="opcionTrauma">
               <div class="imagen">
                 <img src="../img/orificioTrauma.png" alt="Orificio con Trauma" />
               </div>
-            <input type="radio" name="opcion" id="editOpcionTrauma" value="trauma" required/>
+            <input type="radio" name="opcion" id="opcionTrauma" value="trauma" required/>
               Trauma
             </label>
           </div>
@@ -113,8 +116,64 @@
           </form>
           <div class="btn-container">
             <a href="prescripciones.html" class="btn-cancelar">Cancelar</a>
-            <button type="submit" class="btn-nuevo" onclick="guardarRecambio()">Actualizar</button>
+            <button type="submit" class="btn-nuevo" onclick="editarRecambio()">Actualizar</button>
         </div>
+        </div>
+
+        <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Aviso</h5>
+                <a href="prescripciones.html"><button type="button" class="close" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button></a>
+              </div>
+              <div class="modal-body">
+                <p>Su recambio se ha editado exitosamente</p>
+              </div>
+              <div class="modal-footer">
+                <a href="prescripciones.html"><button href="prescripciones.html" type="button" class="btn btn-primary">Aceptar</button></a>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+        <div class="modal fade" id="modal3" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Aviso</h5>
+                <a href="prescripciones.html"><button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button></a>
+              </div>
+              <div class="modal-body">
+                <p>Lo sentimos, no se pudo editar su recambio</p>
+              </div>
+              <div class="modal-footer">
+                <a href="prescripciones.html"><button href="prescripciones.html" type="button" class="btn btn-primary">Aceptar</button></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Alerta</h5>
+                <a href="prescripciones.html"><button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button></a>
+              </div>
+              <div class="modal-body">
+                <p>Esta expulsando menos liquido de lo debido, consulte a su medico</p>
+              </div>
+              <div class="modal-footer">
+                <a href="prescripciones.html"><button href="prescripciones.html" type="button" class="btn btn-primary">Aceptar</button></a>
+              </div>
+            </div>
+          </div>
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
         <script src="../js/bd/prescripcion.js">
@@ -123,6 +182,7 @@
         <script src="../js/bd/login.js"></script>
         <script>
           onload()
+          llenarFormEditarRecambio()
         </script>
 </body>
 

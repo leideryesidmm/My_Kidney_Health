@@ -182,23 +182,22 @@ let crearRecambio = async () => {
   let llenarFormEditarRecambio=async()=>{
     const urlParams = new URLSearchParams(window.location.search);
     const idRecambioHecho = urlParams.get('idRecambioHecho');
-    let 
-
+    console.log(idRecambioHecho);
     const peticion= await fetch (localStorage.getItem("servidorAPI")+"paciente/prescripcion/findRecambioHechoById/"+idRecambioHecho,{
       method: 'POST',
-      body: JSON.stringify(pacienteInDto),
       headers: {
         "Accept":"application/json",
         "Content-Type":"application/json"
       }
     })
     let recambioHecho=await peticion.json()
-    document.getElementById("editDrenaje").innerText=CryptoJS.AES.decrypt(recambioHecho.drenajeDialisis, "clave_secreta").toString(CryptoJS.enc.Utf8); 
-    document.getElementById("editHoraIni").innerText=recambioHecho.hora_ini;
-    document.getElementById("editHoraFin").innerText=recambioHecho.hora_fin; 
+    console.log(recambioHecho)
+    document.getElementById("drenaje").value=CryptoJS.AES.decrypt(recambioHecho.drenajeDialisis, "clave_secreta").toString(CryptoJS.enc.Utf8); 
+    document.getElementById("fechaHoraIni").value=recambioHecho.hora_ini;
+    document.getElementById("fechaHoraFin").value=recambioHecho.hora_fin;
     const caracteristicaLiquido=CryptoJS.AES.decrypt(recambioHecho.caracteristicaLiquido, 'clave_secreta').toString(CryptoJS.enc.Utf8);
     const orificioSalida=CryptoJS.AES.decrypt(recambioHecho.orificioSalida, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-    const selectLiquido = document.getElementById("editSelectLiquido");
+    const selectLiquido = document.getElementById("selectLiquido");
 
 for (let i = 0; i < selectLiquido.options.length; i++) {
     if (selectLiquido.options[i].value === caracteristicaLiquido) {
@@ -225,10 +224,12 @@ for (let i = 0; i < inputRadios.length; i++) {
       if(opcion.checked==true){
         orificio= opcion.value}
     })
+    
+    let fecha_real=new Date(localStorage.getItem("fecha_real"));
     var drenaje = document.getElementById('drenaje').value;
     const valores = window.location.search;
     const urlParams = new URLSearchParams(valores);
-    var concentracionSelect = urlParams.get('idRecambio');;
+    var idRecambioHecho = urlParams.get('idRecambioHecho');
     var liquidoSelect = document.getElementById('selectLiquido').value;
     var fechayhoraIni=document.getElementById("fechaHoraIni").value;
     var fechayhoraFin=document.getElementById("fechaHoraFin").value;
@@ -241,11 +242,11 @@ for (let i = 0; i < inputRadios.length; i++) {
       "caracteristicaLiquido": liquidoEncriptado,
       "drenajeDialisis": drenajeEncriptado,
       "orificioSalida": orificioEncriptada,
-      "recambio": concentracionSelect,
-      "fecha":fechayhoraIni,
-      "hora":fechayhoraFin
+      "fecha_real":`${fecha_real.getFullYear()}-${(fecha_real.getMonth() + 1).toString().padStart(2, '0')}-${fecha_real.getDate().toString().padStart(2, '0')}T${fecha_real.getHours().toString().padStart(2, '0')}:${fecha_real.getMinutes().toString().padStart(2, '0')}`,
+      "hora_ini":fechayhoraIni,
+      "hora_fin":fechayhoraFin
     };
-    fetch (localStorage.getItem("servidorAPI")+"paciente/recambio/crearRecambioHecho",{
+    fetch (localStorage.getItem("servidorAPI")+"paciente/recambio/editarRecambioHecho/"+idRecambioHecho,{
       method: 'POST',
       body: JSON.stringify(recambioHechoInDto),
       headers: {
@@ -310,7 +311,8 @@ for (let i = 0; i < inputRadios.length; i++) {
     let user=JSON.parse(localStorage.getItem("datos"))
     let cedula=""
             if(user.usuario=="medico"){
-                 cedula=JSON.parse(localStorage.getItem("cedulaPaciente"));
+              console.log(localStorage.getItem("cedulaPaciente"))
+                 cedula=localStorage.getItem("cedulaPaciente");
             }else{
                  cedula=user.cedula;
             }
