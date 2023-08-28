@@ -137,6 +137,54 @@ msg +=
 
 document.getElementById("container").innerHTML = msg;
            
+<<<<<<< HEAD
+  }
+
+
+  function generarSelects() {
+    var cantidad = document.getElementById("selectedCantidad").value;
+    var container = document.getElementById("selectContainer");
+    container.className = "row";
+    container.innerHTML = ""; // Limpiar el contenedor antes de generar nuevos selects
+
+    for (var i = 0; i < cantidad; i++) {
+      var labelContainer = document.createElement("div");
+      labelContainer.className = "select-container";
+      labelContainer.className = "";
+      labelContainer.className = "col-5 centrar-label mt-2";
+
+      var selectContainer = document.createElement("div");
+      selectContainer.className = "select-container";
+      selectContainer.className = "col-3";
+
+      var select = document.createElement("select");
+      select.className = "form-control";
+      var id = "concentracion" + (i + 1); // ID único para el select
+      select.id = id;
+
+      var opciones = ["Seleccione...", "1.25%", "2.5%", "4.25%"];
+
+      for (var j = 0; j < opciones.length; j++) {
+        var option = document.createElement("option");
+        option.value = opciones[j];
+        option.text = opciones[j];
+        select.appendChild(option);
+      }
+
+      var label = document.createElement("label");
+      label.className = "form-label";
+
+      label.for = id;
+      label.innerText = "Concentración " + (i + 1) + ":"; // Texto del label
+
+      labelContainer.appendChild(label);
+      selectContainer.appendChild(select);
+
+      container.appendChild(labelContainer);
+      container.appendChild(selectContainer);
+    }
+=======
+>>>>>>> e5ca6b0b4e2ca3c56c4feeff198fc2b34a896b83
   }
 
 
@@ -424,3 +472,4 @@ let tablaRecambios=async(recambios)=>{
     });
     return data;
   }
+
