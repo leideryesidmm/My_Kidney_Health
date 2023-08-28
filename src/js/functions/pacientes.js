@@ -122,12 +122,12 @@ let pacientesTratados = async () => {
           '<a href="" data-bs-toggle="modal" data-bs-target="#inhabilitarpaciente' + cont + '" type="button">' +
           '<img src="../img/cesta.png" class="inhabilitar"/>' +
           '</a>' +
-          '<a href="" data-bs-toggle="modal" data-bs-target="#visita' + cont + '" type="button">' +
-          '<img src="../img/visita.png" class="actualizar"/>' +
-          '</a>' +
-          '<a href="" data-bs-toggle="modal" data-bs-target="#chequeo' + cont + '" type="button">' +
-          '<img src="../img/visita.png" class="actualizar"/>' +
-          '</a>' +
+          // '<a href="" data-bs-toggle="modal" data-bs-target="#visita' + cont + '" type="button">' +
+          // '<img src="../img/visita.png" class="actualizar"/>' +
+          // '</a>' +
+          // '<a href="" data-bs-toggle="modal" data-bs-target="#chequeo' + cont + '" type="button">' +
+          // '<img src="../img/visita.png" class="actualizar"/>' +
+          // '</a>' +
           '</td>' +
           '</tr>';
 
