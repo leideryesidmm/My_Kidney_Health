@@ -137,7 +137,6 @@ msg +=
 
 document.getElementById("container").innerHTML = msg;
            
-<<<<<<< HEAD
   }
 
 
@@ -183,8 +182,6 @@ document.getElementById("container").innerHTML = msg;
       container.appendChild(labelContainer);
       container.appendChild(selectContainer);
     }
-=======
->>>>>>> e5ca6b0b4e2ca3c56c4feeff198fc2b34a896b83
   }
 
 
