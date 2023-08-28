@@ -128,10 +128,11 @@ let crearRecambio = async () => {
       if(opcion.checked==true){
         orificio= opcion.value}
     })
+    let fecha_real=new Date(localStorage.getItem("fecha_real"));
     var drenaje = document.getElementById('drenaje').value;
     const valores = window.location.search;
     const urlParams = new URLSearchParams(valores);
-    var concentracionSelect = urlParams.get('idRecambio');;
+    var concentracionSelect = urlParams.get('idRecambio');
     var liquidoSelect = document.getElementById('selectLiquido').value;
     var fechayhoraIni=document.getElementById("fechaHoraIni").value;
     var fechayhoraFin=document.getElementById("fechaHoraFin").value;
@@ -145,9 +146,12 @@ let crearRecambio = async () => {
       "drenajeDialisis": drenajeEncriptado,
       "orificioSalida": orificioEncriptada,
       "recambio": concentracionSelect,
+      "fecha_real":`${fecha_real.getFullYear()}-${(fecha_real.getMonth() + 1).toString().padStart(2, '0')}-${fecha_real.getDate().toString().padStart(2, '0')}T${fecha_real.getHours().toString().padStart(2, '0')}:${fecha_real.getMinutes().toString().padStart(2, '0')}`,
       "hora_ini":fechayhoraIni,
       "hora_fin":fechayhoraFin
     };
+    console.log("este es el recambio que se hizo:")
+    console.log(recambioHechoInDto)
     fetch (localStorage.getItem("servidorAPI")+"paciente/recambio/crearRecambioHecho",{
       method: 'POST',
       body: JSON.stringify(recambioHechoInDto),

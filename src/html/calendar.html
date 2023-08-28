@@ -215,6 +215,7 @@
         let calendar = new Calendar('calendar');
         calendar.getElement().addEventListener('change', e => {
             let seleccionado=new Date(calendar.value().format('YYYY-MM-DDT03:24:00'));
+            localStorage.setItem("fecha_real",seleccionado)
             mostrarPrescripcion(prescripcionactual, seleccionado, recambiosPorFecha(prescripcionDiaFecha(prescripcionactual,seleccionado),seleccionado));
             
         });
