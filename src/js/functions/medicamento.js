@@ -12,9 +12,10 @@ let NavBarMedicamento = () => {
       ms +=
           '<header>' +
           '<div class="row">' +
-          '<div class="col-md-4 logo" align="left"><img src="../img/logo3.png" alt=""></div>' +
-          '<div class="col-md-4 text-center"><h1>Medicamentos</h1></div>' +
-          '<div class="col-md-4" id="navPacientes">' +
+          '<div class="col-1 no-effect"><a href="principal.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" width="30px" height="30px"></a></div>'+
+          '<div class="col-3 logo" align="left"><img src="../img/logo3.png" alt=""></div>' +
+          '<div class="col-4 text-center"><h1>Medicamentos</h1></div>' +
+          '<div class="col-4" id="navPacientes">' +
           '<nav><ul>' +
           '<li><a href="pacientes.html">Pacientes</a></li>' +
           '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">' +
@@ -25,7 +26,7 @@ let NavBarMedicamento = () => {
           '<div class="dropdown">'+
           '<button class="btn btn dropdown-toggle" type="button" id="nombreUsuario" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>'+
           '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">'+
-          '<a class="dropdown-item" href="#">Cambiar Contraseña</a>'+
+          '<a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#nuevacontrasenia">Cambiar Contraseña</a>'+
           '<a class="dropdown-item" onclick="logout()">Cerrar sesión</a>'+
           '</div></div>'+
           '</li>' +
@@ -153,7 +154,7 @@ let listMedicamentos = async (medicamentos) => {
     }
     if (medicamentosNoRecetadosHTML !== "") {
       msg +=
-        '<br><h2>Medicamentos No Recetados</h2><br>' + medicamentosNoRecetadosHTML;
+        '<br><h2>Otros Medicamentos</h2><br>' + medicamentosNoRecetadosHTML;
     }
   } else {
     msg +=

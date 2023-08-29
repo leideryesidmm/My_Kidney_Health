@@ -181,6 +181,13 @@ h2{
    border-radius: 50%;
 	}
 
+  .devolverse{
+    width: 30px;
+    height: 50px;
+    margin-left: 20px;
+  }
+
+
   #redondo{
     background-color: #04BAFC;
     border-radius: 50%;

@@ -40,6 +40,11 @@ h3 {
 
   }
   
+  #logo {
+    width: 50px;
+      height: 50px;
+
+  }
   .navbar img{
     height: 30px;
     margin: 0;
@@ -181,6 +186,11 @@ input:focus + label {
 
 #desc, #receta{
   margin-right: 10px;
+}
+
+.logo{
+  width: 50px;
+  height: 50px;
 }
 
 
