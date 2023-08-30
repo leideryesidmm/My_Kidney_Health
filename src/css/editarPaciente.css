@@ -19,16 +19,22 @@ body {
     padding: 10px;
   }
   
-  .header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
+ 
   .logo {
     font-size: 20px;
   }
+
   
+  
+  .navbar {
+    background-color: #04BAFC;
+    height: 70px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   nav ul {
     list-style-type: none;
     margin: 0;
@@ -126,7 +132,7 @@ body {
   
   .devolverse{
     width: 30px;
-      height: 30px;
+    height: 30px;
     margin-left: 20px;
   }
 
@@ -218,6 +224,13 @@ body {
         transform: translateY(10px);
         transition: transform 0.3s ease-in-out;
     }
+
+    #prueba {
+      color: #555;
+      font-weight: bold;
+      font-size: 14px;
+      transition: transform 0.3s ease-in-out;
+  }
   
     
     

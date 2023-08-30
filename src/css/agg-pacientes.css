@@ -19,10 +19,18 @@ body {
     padding: 10px;
   }
   
-  .header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  .devolverse img{
+    width: 30px;
+    height: 30px;
+    margin-left: 20px;
+  }
+
+  .navbar {
+    background-color: #04BAFC;
+    margin: auto;
+    margin: 0;
+    padding: 0;
+    height: 70px;
   }
   
   .logo {

@@ -3,7 +3,7 @@ let principal = () => {
     let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
     if (usuario == "paciente") {
         ms +=
-            '<div class="col-2 no-effect"><input type="image" class="logo-principal" src="../img/logo3.png"></div>' +
+            '<div class="col-2 no-effect"><input type="image" id="logo-principal" src="../img/logo3.png"></div>' +
             '<div class="col-8 no-effect"><h1 class="title-principal-app">Mi Salud Renal</h1></div>' +
             '<div class="col-2 no-effect"><input type="image" class="logout" src="../img/log-out-white.png" onclick="logout()"></div>';
     }
@@ -11,9 +11,10 @@ let principal = () => {
         ms +=
             '<header>' +
             '<div class="row">' +
-            '<div class="col-md-4 logo" align="left"><img src="../img/logo3.png" alt=""></div>' +
-            '<div class="col-md-4 text-center"><h1>Mi Salud Renal</h1></div>' +
-            '<div class="col-md-4" id="navPacientes">' +
+            '<div class="col-1 no-effect"><a href="pacientes.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" width="30px" height="30px"></a></div>'+
+            '<div class="col-3 logo" align="left"><img src="../img/logo3.png" alt=""></div>' +
+            '<div class="col-4 text-center"><h1>Mi Salud Renal</h1></div>' +
+            '<div class="col-4" id="navPacientes">' +
             '<nav><ul>' +
             '<li><a href="pacientes.html">Pacientes</a></li>' +
             '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">' +
@@ -24,7 +25,7 @@ let principal = () => {
             '<div class="dropdown">'+
             '<button class="btn btn dropdown-toggle" type="button" id="nombreUsuario" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>'+
             '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">'+
-            '<a class="dropdown-item" href="#">Cambiar Contraseña</a>'+
+            '<a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#nuevacontrasenia">Cambiar Contraseña</a>'+
             '<a class="dropdown-item" onclick="logout()">Cerrar sesión</a>'+
             '</div></div>'+
             '</li>' +
@@ -182,15 +183,16 @@ let NavBarEditar = () => {
             '<div class="col-md-4" id="navPacientes">' +
             '</div>' +
             '</div>' +
-            '</header>'
+        '</header>'
     }
     else {
         ms +=
             '<header>' +
             '<div class="row">' +
-            '<div class="col-md-4 logo" align="left"><img src="../img/logo3.png" alt=""></div>' +
-            '<div class="col-md-4 text-center"><h1>Mi Salud Renal</h1></div>' +
-            '<div class="col-md-4" id="navPacientes">' +
+            '<div class="col-1 no-effect"><a href="perfil.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" width="30px" height="30px"></a></div>'+
+            '<div class="col-3 logo" align="left"><img src="../img/logo3.png" alt=""></div>' +
+            '<div class="col-4 text-center"><h1>Mi Salud Renal</h1></div>' +
+            '<div class="col-4" id="navPacientes">' +
             '<nav><ul>' +
             '<li><a href="pacientes.html">Pacientes</a></li>' +
             '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">' +
@@ -201,7 +203,7 @@ let NavBarEditar = () => {
             '<div class="dropdown">'+
             '<button class="btn btn dropdown-toggle" type="button" id="nombreUsuario" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>'+
             '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">'+
-            '<a class="dropdown-item" href="#">Cambiar Contraseña</a>'+
+            '<a class="dropdown-item" href="#"  data-bs-toggle="modal" data-bs-target="#nuevacontrasenia">Cambiar Contraseña</a>'+
             '</div></div>'+
             '</li>' +
             '</ul></nav>' +
