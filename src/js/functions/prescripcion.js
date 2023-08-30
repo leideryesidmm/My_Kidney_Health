@@ -383,7 +383,8 @@ let mostrarPrescripcion= async (prescripcion, fecha, recambios) => {
 }
 
 let verRecambio=async(idRecambio)=>{
-  console.log(idRecambio)
+  try {
+  console.log("SDVSDV")
   let recambio=JSON.parse(localStorage.getItem("recambios"))[idRecambio];
   console.log(recambio)
   document.getElementById("inicio").innerText=recambio.hora_ini.replace("T", " ");
@@ -393,7 +394,11 @@ let verRecambio=async(idRecambio)=>{
   document.getElementById("estadoOrificio").innerText=decodeURIComponent(CryptoJS.AES.decrypt(recambio.orificioSalida, 'clave_secreta').toString(CryptoJS.enc.Utf8));
   document.getElementById("caracteristicaliquido").innerText=decodeURIComponent(CryptoJS.AES.decrypt(recambio.caracteristicaLiquido, 'clave_secreta').toString(CryptoJS.enc.Utf8));
   
+    
   $('#verRecambio').modal('show');
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 let prescripcionDiaFecha= async (prescripcion,fecha) =>{
