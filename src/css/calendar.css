@@ -143,3 +143,11 @@
     font-weight: bold;
     margin: 0 auto;
   }
+  .icon-hover {
+    transition: transform 0.3s; /* Agrega una transición suave */
+  }
+
+  .icon-hover:hover {
+    color: #04BAFC;
+    transform: scale(1.5); /* Escala la imagen al 110% */
+  }

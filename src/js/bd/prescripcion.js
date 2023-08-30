@@ -129,6 +129,7 @@ let crearRecambio = async () => {
         orificio= opcion.value}
     })
     let fecha_real=new Date(localStorage.getItem("fecha_real"));
+    console.log(fecha_real)
     var drenaje = document.getElementById('drenaje').value;
     const valores = window.location.search;
     const urlParams = new URLSearchParams(valores);

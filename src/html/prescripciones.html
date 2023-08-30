@@ -201,6 +201,52 @@
         <div class="col-10"><div id="recamTable"></div></div>
         <div class="col-1"></div>
       </div>
+      <div class="modal fade" id="verRecambio" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="successModalLabel">Recambio de la fecha: 29/08/2023</h5>
+              <a href="prescripciones.html"><button type="button" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button></a>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-lg-12">
+                    <dl class="d-flex" style="margin-bottom: 0;">
+                        <dt class="me-3"><p>Inicio: </p></dt>
+                        <dd style="margin-left: 10px;"><p id="inicio"> ##/##/#### ##:##</p></dd>
+                    </dl>
+                    <dl class="d-flex" style="margin-bottom: 0;">
+                        <dt class="me-3"><p>Final: </p></dt>
+                        <dd style="margin-left: 10px;"><p id="final"> ##/##/#### ##:##</p></dd>
+                    </dl>
+                    <dl class="d-flex" style="margin-bottom: 0;">
+                        <dt class="me-3"><p>Concentración: </p></dt>
+                        <dd style="margin-left: 10px;"><p id="concentracion">4.25%</p></dd>
+                    </dl>
+                    <dl class="d-flex" style="margin-bottom: 0;">
+                        <dt class="me-3"><p>Drenaje: </p></dt>
+                        <dd style="margin-left: 10px;"><p id="drenaje">3450</p></dd>
+                    </dl>
+                    <dl class="d-flex" style="margin-bottom: 0;">
+                        <dt class="me-3"><p>Estado del orificio: </p></dt>
+                        <dd style="margin-left: 10px;"><p id="estadoOrificio">Equivoco</p></dd>
+                    </dl>
+                    <dl class="d-flex" style="margin-bottom: 0;">
+                        <dt class="me-3"><p>Característica del liquido: </p></dt>
+                        <dd style="margin-left: 10px;"><p id="caracteristicaliquido">Sanguinolento</p></dd>
+                    </dl>
+                </div>
+            </div>
+            
+            </div>
+            <div class="modal-footer">
+              <a href="prescripciones.html"><button href="prescripciones.html" type="button" class="btn btn-primary">Aceptar</button></a>
+            </div>
+          </div>
+        </div>
+      </div>
     <script  type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script  type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/es.js"></script>
     <script  type="text/javascript" src="../js/functions/calendar.js"></script>
@@ -211,22 +257,21 @@
     integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
     crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
-
-      
-    <script>
+<style></style>
+<script>
         $(document).ready(function () {
+          // Inicializa el tooltip
           $('[data-toggle="tooltip"]').tooltip();
       
-          // Agregar evento click además de mouseenter para dispositivos móviles
-          if ('ontouchstart' in window) {
-            $('[data-toggle="tooltip"]').on('click', function () {
-              $(this).tooltip('show');
-              // Ocultar el tooltip después de un tiempo en dispositivos móviles
-              setTimeout(function () {
-                $('[data-toggle="tooltip"]').tooltip('hide');
-              }, 2000); // Cambia el tiempo a tu preferencia
-            });
-          }
+          // Agrega el evento click para mostrar el tooltip en dispositivos móviles
+          $('[data-toggle="tooltip"]').on('click', function () {
+            var self = this;
+            $(self).tooltip('show');
+            // Oculta el tooltip después de un tiempo en dispositivos móviles
+            setTimeout(function () {
+              $(self).tooltip('hide');
+            }, 2000); // Cambia el tiempo a tu preferencia
+          });
         });
       </script>
     
@@ -242,6 +287,7 @@
     let prescripcionactual= prescripciones();
     cargar(prescripcionactual);
     document.getElementById("fecha").innerText="Recambios de la fecha: "+formatearFecha(new Date());
+    localStorage.setItem("fecha_real",new Date())
     mostrarPrescripcion(prescripcionactual, new Date(),recambiosPorFecha(prescripcionDiaFecha(prescripcionactual,new Date()),new Date()));
     onload();
         tablaRecambios(recambiosHechos());
