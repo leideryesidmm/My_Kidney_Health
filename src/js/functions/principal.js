@@ -183,7 +183,7 @@ let NavBarEditar = () => {
             '<div class="col-md-4" id="navPacientes">' +
             '</div>' +
             '</div>' +
-            '</header>'
+        '</header>'
     }
     else {
         ms +=

@@ -19,16 +19,22 @@ body {
     padding: 10px;
   }
   
-  .header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
+ 
   .logo {
     font-size: 20px;
   }
+
   
+  
+  .navbar {
+    background-color: #04BAFC;
+    height: 70px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   nav ul {
     list-style-type: none;
     margin: 0;

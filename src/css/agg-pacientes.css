@@ -25,10 +25,12 @@ body {
     margin-left: 20px;
   }
 
-  .header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  .navbar {
+    background-color: #04BAFC;
+    margin: auto;
+    margin: 0;
+    padding: 0;
+    height: 70px;
   }
   
   .logo {
