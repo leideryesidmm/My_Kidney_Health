@@ -27,7 +27,7 @@
 
         <div class="form-container">
           <h5>Agregar Recambio</h5>
-      <form id="editarMedicamento">
+      <form id="editarMedicamento" onsubmit="guardarRecambio(event)">
 
         <div class="drenaje">
           <label for="dren">Drenaje:</label>
@@ -112,12 +112,12 @@
             </label>
           </div>
         </div>
-      
+        <div class="btn-container">
+          <a href="prescripciones.html" class="btn-cancelar">Cancelar</a>
+          <button type="submit" class="btn-nuevo">Agregar</button>
+      </div>
           </form>
-          <div class="btn-container">
-            <a href="prescripciones.html" class="btn-cancelar">Cancelar</a>
-            <button type="submit" class="btn-nuevo" onclick="guardarRecambio()">Agregar</button>
-        </div>
+          
         </div>
 
     <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">

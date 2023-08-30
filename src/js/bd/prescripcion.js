@@ -122,7 +122,8 @@ let crearRecambio = async () => {
 
 
 
-  let guardarRecambio=async()=>{
+  let guardarRecambio=async(event)=>{
+    event.preventDefault();
     let orificio;
     document.getElementsByName("opcion").forEach(opcion => {
       if(opcion.checked==true){
