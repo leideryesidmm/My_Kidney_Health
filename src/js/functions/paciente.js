@@ -221,7 +221,7 @@ let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
     if(usuario=="paciente"){
 let ms="";
 ms+='<div class="cerrar">'+
-        '<a class="btn" type="button" id="btnguardar">Cambiar contraseña</a>'+
+'<a class="btn" type="button" id="btnguardar" data-bs-toggle="modal" data-bs-target="#nuevacontrasenia">Cambiar contraseña</a>'+
     '</div>';
     document.getElementById("cambiarContrasenia").innerHTML= ms;
 }

@@ -3,7 +3,7 @@ let principal = () => {
     let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
     if (usuario == "paciente") {
         ms +=
-            '<div class="col-2 no-effect"><input type="image" class="logo-principal" src="../img/logo3.png"></div>' +
+            '<div class="col-2 no-effect"><input type="image" id="logo-principal" src="../img/logo3.png"></div>' +
             '<div class="col-8 no-effect"><h1 class="title-principal-app">Mi Salud Renal</h1></div>' +
             '<div class="col-2 no-effect"><input type="image" class="logout" src="../img/log-out-white.png" onclick="logout()"></div>';
     }
