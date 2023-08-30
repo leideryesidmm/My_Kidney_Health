@@ -186,51 +186,6 @@ document.getElementById("container").innerHTML = msg;
   }
 
 
-  function generarSelects() {
-    var cantidad = document.getElementById("selectedCantidad").value;
-    var container = document.getElementById("selectContainer");
-    container.className = "row";
-    container.innerHTML = ""; // Limpiar el contenedor antes de generar nuevos selects
-
-    for (var i = 0; i < cantidad; i++) {
-      var labelContainer = document.createElement("div");
-      labelContainer.className = "select-container";
-      labelContainer.className = "";
-      labelContainer.className = "col-5 centrar-label mt-2";
-
-      var selectContainer = document.createElement("div");
-      selectContainer.className = "select-container";
-      selectContainer.className = "col-3";
-
-      var select = document.createElement("select");
-      select.className = "form-control";
-      var id = "concentracion" + (i + 1); // ID único para el select
-      select.id = id;
-
-      var opciones = ["Seleccione...", "1.25%", "2.5%", "4.25%"];
-
-      for (var j = 0; j < opciones.length; j++) {
-        var option = document.createElement("option");
-        option.value = opciones[j];
-        option.text = opciones[j];
-        select.appendChild(option);
-      }
-
-      var label = document.createElement("label");
-      label.className = "form-label";
-
-      label.for = id;
-      label.innerText = "Concentración " + (i + 1) + ":"; // Texto del label
-
-      labelContainer.appendChild(label);
-      selectContainer.appendChild(select);
-
-      container.appendChild(labelContainer);
-      container.appendChild(selectContainer);
-    }
-  }
-
-
 
   let cargar=async (prescripcion)=>{
     prescripcion=await prescripcion;
@@ -299,13 +254,21 @@ let mostrarPrescripcion2= async (prescripcion) => {
     document.getElementById("prescri").innerHTML=msg;
     }
 }
+function formatearFecha(fecha) {
+    var dia = fecha.getDate().toString().padStart(2, '0');
+    var mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
+    var año = fecha.getFullYear();
+  
+    return `${dia}-${mes}-${año}`;
+  }
 
 let mostrarPrescripcion= async (prescripcion, fecha, recambios) => {
     recambios=await recambios;
     if(recambios==null){
         let msg="";
-        msg+='<h3>No hay recambios prescritos para la fecha: '+new Date(fecha).toLocaleDateString()+'</h3>';
+        msg+='<h3>No hay recambios prescritos para la fecha seleccionada</h3>';
         document.getElementById("recambios").innerHTML=msg;
+        return;
     }
     let prescripcionDiaHoy1=await prescripcionDiaFecha(prescripcion, fecha)
     localStorage.setItem('prescripcionActual', JSON.stringify(prescripcionDiaHoy1));
@@ -314,7 +277,6 @@ let mostrarPrescripcion= async (prescripcion, fecha, recambios) => {
     let accion="";
     let hoy=new Date()
     let datos1=await datos();
-    msg+='<div class="row align-items-center">';
     let cont=0;
     prescripcionDiaHoy1.recambios.forEach(recambio => {
         msg+='<div class="col-lg-5 card card-menor">'
@@ -367,7 +329,7 @@ let mostrarPrescripcion= async (prescripcion, fecha, recambios) => {
                 if(fecha.getFullYear() === hoy.getFullYear() &&
                 fecha.getMonth() === hoy.getMonth() &&
                 fecha.getDate() === (hoy.getDate()-1)){
-                    msg+='background-color:rgb(252, 168, 59);">';
+                    msg+='background-color:rgb(252, 130, 59);">';
                     accion='<a style="color:black" href="agregarRecambio.html?idRecambio='+recambio.idRecambio+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">'
                     +'<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>'
                     +'<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>'
@@ -385,10 +347,12 @@ let mostrarPrescripcion= async (prescripcion, fecha, recambios) => {
         +'            <h6 id="vertical">'
         +'                H'
         +'            </h6>'
-        +'            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">'
+        +'            <div class="tooltip-container">'+
+        '<span class="tooltip-text" data-toggle="tooltip" data-placement="top" title="H: Hecho&#10;P: Pendiente&#10;SH: Sin hacer">'+
+      '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">'
         +'                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>'
         +'                <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>'
-        +'              </svg>'
+        +'              </svg></span></div>'
         +'        </div>'   
         +'    </div>'
         msg+=datos1[cont];
@@ -434,8 +398,8 @@ let tablaRecambios=async(recambios)=>{
     +'<tbody id="seguimientoData">';
     recambios.forEach(recambio => {
     msg+='  <tr>'
-    +'    <td style="font-size:70%">'+recambio.fecha.split("T")[0]+' \n '+recambio.fecha.split("T")[1]+'</th>'
-    +'    <td style="font-size:70%">'+recambio.hora.split("T")[0]+' \n '+recambio.fecha.split("T")[1]+'</th>'
+    +'    <td style="font-size:70%">'+recambio.hora_ini.split("T")[0]+' \n '+recambio.fecha.split("T")[1]+'</th>'
+    +'    <td style="font-size:70%">'+recambio.hora_fin.split("T")[0]+' \n '+recambio.fecha.split("T")[1]+'</th>'
     +'    <td style="font-size:90%">'+recambio.recambio.concentracion+'</th>'
     +'    <td style="font-size:90%">'+CryptoJS.AES.decrypt(recambio.drenajeDialisis, 'clave_secreta').toString(CryptoJS.enc.Utf8);+'</th>'
     +'  </tr>';
