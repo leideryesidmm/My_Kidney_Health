@@ -25,6 +25,8 @@ function calcularEdad(nacimiento) {
 return edad;
 }
 
+
+
 let perfil=async()=>{
         try {
           const paciente = await listaPacientes();
@@ -376,4 +378,6 @@ else{
           document.getElementById("selectedDocumento").value = localStorage.getItem("documento");
          
 }
+
+
 

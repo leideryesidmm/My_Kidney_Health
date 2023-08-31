@@ -192,7 +192,9 @@ let listarAlergias = async () => {
 }
 
 let editarAlergia = async (id_alergia) => {
+ 
   nombreInput = document.getElementById('nombreEditar' + id_alergia).value;
+  console.log(nombreInput)
   let encryptedNombre = CryptoJS.AES.encrypt(nombreInput, 'clave_secreta').toString();
 
   fetch(localStorage.getItem("servidorAPI") + "paciente/alergia/editar/" + id_alergia, {
@@ -232,7 +234,7 @@ let inhabilitarAlergia = async (id_alergia) => {
 
       let cedulaEncriptada="";
       if(usuario=="medico"){
-       cedulaEncriptada = await obtenerCedulaEncriptada(0,CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
+       cedulaEncriptada = await obtenerCedulasUsuarios(0,CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
       console.log(cedulaEncriptada);}
       else{
         cedulaEncriptada=cedul;
