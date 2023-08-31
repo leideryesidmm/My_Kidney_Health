@@ -61,6 +61,12 @@ body {
     background-color: #63d0ff;
     padding: 0;
   }
+
+  option{
+    font-size: 13px;
+  }
+
+ 
   
   nav ul ul li {
     width: 120px;
@@ -105,7 +111,12 @@ body {
 
   #campos{
     color:red;
-    margin-left: 5%;
+    text-align: center;
+    margin-bottom: 0;
+  }
+
+  [id^="selectedCantidad"]{
+    display: grid;
   }
 
   #asq{
@@ -154,6 +165,33 @@ body {
     font-size: 20px;
     margin-bottom: 5px;
   }
+
+  .form-label, #textRango,#fechaF{
+    font-size: 15px;
+    margin-bottom: 0;
+    margin-top: 10px;
+  }
+
+  .rango{
+    margin: 0;
+  }
+
+  .selectContainer{
+    display: flex;
+    margin: 0 auto;
+  }
+
+  .form-control{
+    width: 100%;
+  }
+
+  #prescrip{
+    width: 100%;
+    margin-right: 10%;
+    margin-left: 0;
+  }
+
+
   .checkbox-container {
     text-align: left;
   }
@@ -243,14 +281,14 @@ body {
        transition: border-color 0.3s ease-in-out;
    }
 
-   #selectedCantidad{
+   [id^="selectedCantidad"], #selectCantidad{
     width: 95%;
-    height: 20%;
-     padding: 10px;
+    height: 25px;
      margin: 5px 0;
      border: 1px solid #ccc;
      border-radius: 5px;
      transition: border-color 0.3s ease-in-out;
+     text-align: center;
    }
 
    #selectedOrificio{

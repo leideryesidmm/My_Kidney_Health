@@ -112,7 +112,7 @@ let crearRecambio = async () => {
     
   })
   .catch(error => {
-    
+    console.error(error)
   });
 
   if(drenaje<2000){
@@ -178,8 +178,6 @@ let crearRecambio = async () => {
   let llenarFormEditarRecambio=async()=>{
     const urlParams = new URLSearchParams(window.location.search);
     const idRecambioHecho = urlParams.get('idRecambioHecho');
-    let 
-
     const peticion= await fetch (localStorage.getItem("servidorAPI")+"paciente/prescripcion/findRecambioHechoById/"+idRecambioHecho,{
       method: 'POST',
       body: JSON.stringify(pacienteInDto),
@@ -322,3 +320,221 @@ for (let i = 0; i < inputRadios.length; i++) {
     console.log(recambioshechos);
         return recambioshechos
   }
+
+
+  let obtenerDatosCita=async(event)=>{
+    event.preventDefault();
+    let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
+      let cedulaMedico= decodeURIComponent(dato.cedula);
+    var orificio = CryptoJS.AES.encrypt(document.getElementById("selectedOrificio").value,"clave_secreta").toString();
+    var pac=decodeURIComponent(localStorage.getItem("cedulaPaciente"));
+    var fechaFin = document.getElementById("fechaFin").value+"T00:00:00.001Z";
+    console.log(localStorage.getItem("cedulaPaciente"));
+    let cita={
+      orificioSalida:orificio,
+      fechaFin:fechaFin,
+      medico:cedulaMedico,
+      paciente: await obtenerCedulaEncriptada(CryptoJS.AES.decrypt(pac,"clave_secreta").toString(CryptoJS.enc.Utf8))
+    }
+    console.log(pac);
+    return cita;
+  }
+
+  let obtenerDatosPrescripcionDia=async(event)=>{
+    event.preventDefault();
+    let cantidad = parseInt(document.getElementById("selectCantidad").value);
+    let nochesSecas=[];
+    const daysForCycle=[];
+    const prescipcionDia=[];
+    for(let i=0;i<cantidad;i++){
+      let nocheSeca=document.getElementById("nocheSeca"+(i+1)).checked?true:false;
+      if(cantidad>1){
+      var dias={
+        lunes: document.getElementById("lunes"+(i+1)).checked?true:false,
+        martes: document.getElementById("martes"+(i+1)).checked?true:false,
+        miercoles: document.getElementById("miercoles"+(i+1)).checked?true:false,
+        jueves: document.getElementById("jueves"+(i+1)).checked?true:false,
+        viernes : document.getElementById("viernes"+(i+1)).checked?true:false,
+        sabado : document.getElementById("sabado"+(i+1)).checked?true:false,
+        domingo : document.getElementById("domingo"+(i+1)).checked?true:false}
+      }
+      else{
+        var dias={
+        lunes:true,
+        martes:true,
+        miercoles:true,
+        jueves:true,
+        viernes:true,
+        sabado:true, 
+        domingo:true
+        }
+      }
+        daysForCycle.push(dias);
+        nochesSecas.push(nocheSeca);  
+    }
+    prescipcionDia.push(daysForCycle);
+    prescipcionDia.push(nochesSecas);
+    prescipcionDia.push(cantidad);
+    console.log(prescipcionDia);
+    return prescipcionDia;
+  }
+
+  let obtenerValoresDePrescripcion=async(event)=>{
+    event.preventDefault();
+    await crearCita(event);
+    await crearPrescripcionDia(event);
+    await crearRecambios(event);
+    location.href="examenesYVisita.html"
+  }
+
+  let crearCita=async(event)=>{
+    event.preventDefault();
+    let citaInDto=await obtenerDatosCita(event);
+      await fetch(localStorage.getItem("servidorAPI") + 'Prueba/Cita', {
+        method: 'POST',
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(citaInDto)
+      });
+      return null;
+  }
+
+  let crearPrescripcionDia=async(event)=>{
+    event.preventDefault();
+    let prescripcionDia= await obtenerDatosPrescripcionDia(event);
+    let ultimaCita=await encontrarUltimaCita(event);
+    let idCita=ultimaCita.idCita;
+    let cantidad=prescripcionDia[2];
+    let nochesSecas=prescripcionDia[1];
+    
+    for(let i=0;i<cantidad;i++){
+      let nocheSeca=nochesSecas[i];
+      let dias=prescripcionDia[0][i];
+      
+      let prescripcionDiaInDto={
+        cita:idCita,
+        nocheSeca:nocheSeca,
+        lunes:dias.lunes,
+        martes:dias.martes,
+        miercoles:dias.miercoles,
+        jueves:dias.jueves,
+        viernes:dias.viernes,
+        sabado:dias.sabado,
+        domingo:dias.domingo
+      }
+      console.log(prescripcionDiaInDto);
+      await fetch(localStorage.getItem("servidorAPI") + 'paciente/crear/prescripcionDia', {
+        method: 'POST',
+        headers: {
+          "Accept":"application/json",
+      "Content-Type":"application/json"
+        },
+        body: JSON.stringify(prescripcionDiaInDto)
+      })
+    }
+    return null;
+  }
+
+  let encontrarUltimaCita=async(event)=>{
+    event.preventDefault();
+    var pac=decodeURIComponent(localStorage.getItem("cedulaPaciente"));
+    cedulaPaciente= await obtenerCedulaEncriptada(CryptoJS.AES.decrypt(pac,"clave_secreta").toString(CryptoJS.enc.Utf8));
+    paciente={
+      cedula:cedulaPaciente
+    }
+    let peticion= await fetch(localStorage.getItem("servidorAPI") + 'paciente/ultimaCita', {
+      method: 'POST',
+      headers: {
+        "Accept":"application/json",
+    "Content-Type":"application/json"
+      },
+      body: JSON.stringify(paciente)
+    })
+    
+
+    let ultimaCita=await peticion.json();
+    console.log(ultimaCita);
+    return ultimaCita;
+  }
+
+  let crearRecambios=async(event)=>{
+    event.preventDefault();
+    let datosRecambio= await obtenerDatosRecambio(event);
+    let prescipcionesDia=await prescripcionesDia(event);
+    let cantidad=datosRecambio[datosRecambio.length-1];
+    console.log(cantidad);
+    for(let i=0; i<cantidad;i++){
+      let prescrionDia= prescipcionesDia[i].idPrescripcionDia;
+      console.log(prescrionDia);
+      let dataRecambio=datosRecambio[i];
+      console.log(dataRecambio);
+      let cantRecambios=datosRecambio[datosRecambio.length-2][i];
+      console.log(cantRecambios);
+      let cont=0;
+      for(let j=0;j<cantRecambios;j++){
+
+        let recambioInDto={
+          prescripcionDia:prescrionDia,
+          concentracion:parseFloat(dataRecambio[cont].split("%")[0]),
+          intervaloTiempo:parseInt(dataRecambio[cont+1])
+        }
+        console.log(recambioInDto);
+        cont=cont+2;
+        await fetch(localStorage.getItem("servidorAPI") + 'paciente/prescripcion/crearRecambio', {
+          method: 'POST',
+          headers: {
+            "Accept":"application/json",
+        "Content-Type":"application/json"
+          },
+          body: JSON.stringify(recambioInDto)
+        })
+      }
+    }
+  }
+
+  let prescripcionesDia=async(event)=>{
+    event.preventDefault();
+    let cita=await encontrarUltimaCita(event);
+    let idCita=cita.idCita;
+        let peticion=await fetch(localStorage.getItem("servidorAPI") + 'paciente/prescripcionDia/findByCita/'+ idCita, {
+          method: 'POST',
+          headers: {
+            "Accept":"application/json",
+        "Content-Type":"application/json"
+          }
+        })
+        let prescipcionDia=await peticion.json();
+        console.log(prescipcionDia);
+        return prescipcionDia;
+      }
+
+      let obtenerDatosRecambio=async(event)=>{
+        event.preventDefault();
+        var cantidad = parseInt(document.getElementById("selectCantidad").value);
+        let cantidadRecambio=[];
+        const datosRecambio=[];
+        for(let i=0;i<cantidad;i++){
+          const concentrationsForCycle = [];
+            var selectPrescripciones= parseInt(document.getElementById("selectedCantidad"+(i+1)).value);
+            for(let j=0;j<selectPrescripciones;j++){
+              var concentraciones = document.getElementById("concentracion"+(j+1)+""+(i+1)).value;
+              var rangos = document.getElementById("rangoconcentracion"+(j+1)+""+(i+1)).value;
+              
+              concentrationsForCycle.push(concentraciones);
+              concentrationsForCycle.push(rangos);
+                  
+            }
+            
+            cantidadRecambio.push(selectPrescripciones);
+            datosRecambio.push(concentrationsForCycle); 
+            
+            
+          }
+          datosRecambio.push(cantidadRecambio);
+          datosRecambio.push(cantidad);
+          console.log(datosRecambio);
+          return datosRecambio;
+          }

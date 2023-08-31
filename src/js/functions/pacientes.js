@@ -92,7 +92,9 @@ let pacientesTratados = async () => {
 
     let msg = "";
     if (pacientes != null && pacientes.length > 0) {
-
+      let cita=ultimaCita();
+      let fechaIni=cita.fecha;
+      let fechaFin=cita.fechaFin;
       msg += '<br>' +
         '<table class="paciente" id="paciente">' +
         '<thead>' +
@@ -122,7 +124,7 @@ let pacientesTratados = async () => {
           '<a href="" data-bs-toggle="modal" data-bs-target="#inhabilitarpaciente' + cont + '" type="button">' +
           '<img src="../img/cesta.png" class="inhabilitar"/>' +
           '</a>' +
-          '<a href="" data-bs-toggle="modal" data-bs-target="#visita' + cont + '" type="button">' +
+          '<a href="" data-bs-toggle="modal" data-bs-target="#visita' + cont + '" id="visita'+paciente.cedula+'" type="button">' +
           '<img src="../img/visita.png" class="actualizar"/>' +
           '</a>' +
           '<a href="" data-bs-toggle="modal" data-bs-target="#chequeo' + cont + '" type="button">' +
@@ -211,7 +213,7 @@ let pacientesTratados = async () => {
           '</div>' +
           '<div class="modal-footer">' +
           '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>' +
-          '<button type="submit"  id="guardarVisita" onclick="crearVisita()" class="btn btn-primary">Guardar</button>' +
+          '<button type="submit"  id="guardarVisita" onclick="crearVisita('+paciente.cedula+')" class="btn btn-primary">Guardar</button>' +
           '</div>' +
           '</div>' +
           '</div>' +
@@ -402,85 +404,6 @@ let pacientesInhabilitados = async () => {
         url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json',
     },
 });
-};
-
-let crearVisita = async () => {
-  let idCita = 1;
-  var checkboxes = document.querySelectorAll("input[name='visita']:checked");
-  var visitaEspecialistaDto = {
-    cita: idCita // Agregar el ID de la cita
-  };
-
-  Array.from(checkboxes).forEach(function (checkbox) {
-    visitaEspecialistaDto[checkbox.value] = true;
-  });
-
-  console.log(visitaEspecialistaDto);
-
-  if (Object.keys(visitaEspecialistaDto).length > 0) {
-    const response = await fetch(servidorAPI + 'Medico/visitaEspecialista', {
-      method: "POST",
-      body: JSON.stringify(visitaEspecialistaDto),
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      }
-    })
-      .then(response => {
-        console.log(response);
-        if (response.ok) {
-          $('#visita').modal('hide');
-          location.reload();
-        } else {
-          $('#errorModal').modal('show');
-        }
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  } else {
-    alert("Selecciona al menos un checkbox para guardar.");
-  }
-};
-
-let crearChequeoMensual = async () => {
-  let idCita = 1;
-  var inputs = document.querySelectorAll("input[name='chequeo']");
-  var chequeoMensualInDto = {
-    cita: idCita // Agregar el ID de la cita
-  };
-
-  Array.from(inputs).forEach(function (input) {
-    if (input.value.trim() !== "") {
-      chequeoMensualInDto[input.id] = input.value;
-    }
-  });
-
-  console.log(chequeoMensualInDto);
-
-  if (Object.keys(chequeoMensualInDto).length > 1) { // Contamos solo la clave 'cita'
-    const response = await fetch(servidorAPI + 'Medico/chequeoMensual', {
-      method: "POST",
-      body: JSON.stringify(chequeoMensualInDto),
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      }
-    });
-
-    try {
-      if (response.ok) {
-        $('#chequeo').modal('hide');
-        location.reload();
-      } else {
-        $('#errorModal').modal('show');
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  } else {
-    alert("Completa al menos un campo de entrada para guardar.");
-  }
 };
 
 let nombreNavBar= async () => {

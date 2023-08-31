@@ -35,8 +35,8 @@ let listAlergias = async (alergias) => {
               '<label class="nombreAlergia" id="nombreAlergia">' + alergia.nombre + '</label>' +
               '</div>' +
               '<div class="modal-footer">' +
-              '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>' +
-
+              '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>';
+              
               '<button type="submit"  onclick="inhabilitarAlergia(' + alergia.idAlergia + ')" class="btn btn-danger">Eliminar</button>' +
               '</div>' +
               '</div>' +

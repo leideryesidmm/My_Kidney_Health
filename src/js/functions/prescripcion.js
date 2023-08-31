@@ -31,32 +31,85 @@ let NavBarPrescripcion = () => {
             '</ul></nav>' +
             '</div>' +
             '</div>' +
-            '</header>';
+            '</header>'+
+            '<p id="campos"><b>*</b> Campos requeridos</p>';
     }
     document.getElementById("navbar").innerHTML = ms;
 }
 
 let agregarPrescripcion = async () => {
-    let msg = "";
+    let ms = "";
 
-    msg += '<div class="form-container">' +
+    ms += '<div class="form-container">' +
         '<h2>Agregar Prescripción</h2>' +
-        '<p id="campos"><b>*</b> Campos requeridos</p>' +
-        '<form id="paciente-form" onsubmit="actualizarPaciente(event)">';
-    msg +=
+        '<p id="campos">Selecciona la cantidad de prescripciones</p>'+
+        '<form id="paciente-form" onsubmit="obtenerValoresDePrescripcion(event)">';
+    ms +=
         '<div class="form-row">' +
         '<div class="form-column">' +
-        '<label for="cantidad" id="data">Cantidad de Prescripciones:</label>' +
-        '<br>' +
-        '<input type="text" class="cantidad" id="cantidad" name="cantidad" placeholder="Digite la cantidad de prescripciones">' +
+        '<select class="custom-select" id="selectCantidad" onchange="generarPrescripciones()" >'+
+        '<option value="0">0</option>'+
+                '<option value="1">1</option>'+
+                '<option value="2">2</option>'+
+                '<option value="3">3</option>'+
+                '<option value="4">4</option>'+
+                '<option value="5">5</option>'+
+                '<option value="6">6</option>'+
+                '<option value="7">7</option>'+
+              '</select>'+
         '</div>' +
         
+        '</div>'+
+        '<div id="containerExtra"></div>'+
+        '<div id="botones"></div>';
+    document.getElementById("container").innerHTML = ms;
+}
+
+function generarPrescripciones(){
+    var cantidad=document.getElementById("selectCantidad").value;
+    let containerExtra = document.getElementById("containerExtra");
+    containerExtra.innerHTML = "";
+    let msg="";
+    console.log(cantidad);
+    if(cantidad>0){
+    msg+=
+    '<div class="form-row">'+
+    '<div class="form-column">' +
+    '<label for="orificio" id="data">Orificio:</label>' +
+    '<br>' +
+          '<select id="selectedOrificio" class="custom-select">'+
+            '<option value="">Seleccione...</option>'+
+            '<option value="perfecto">Perfecto</option>'+
+            '<option value="bueno">Bueno</option>'+
+            '<option value="equivoco">Equívoco</option>'+
+            '<option value="infeccionAguda">Infección Aguda</option>'+
+            '<option value="infeccionCronica">Infeccion Crónica</option>'+
+            '<option value="trauma">Trauma</option>'+
+          '</select>'+
+          
+    '</div>'+
+    '<div class="form-column">' +
+        '<label id="fechaF">Fecha Final de la prescripción:</label>'+
+        '<input type="date" class="fechaFin" id="fechaFin" required>'+
         '</div>' +
-        '<div class="form-row">' +
+        '</div>' +
+    '<hr>';
+    }
+    for(var i=0;i<cantidad;i++){
+        let idCantidad = i + 1;
+        msg+=
+        '</div>' +
+        '<div class="form-row" >' +
+        '<div class="form-column" id="">' +
+        '<div class="nocheSeca">' +
+        '<label for="nocheSeca" id="data2">Noche Seca: &nbsp</label>' +
+        '<input type="checkbox" id="nocheSeca'+idCantidad+'" name="nocheSeca">' +
+        '</div>' +    
+        '</div>' +             
         '<div class="form-column">' +
         '<label for="recambios" id="data">Cantidad de Recambios:<label id="asq">*</label></label>' +
         '<br>' +
-        '<select class="custom-select" id="selectedCantidad" onchange="generarSelects()" >'+
+        '<select class="custom-select" id="selectedCantidad' + idCantidad + '" onchange="generarSelects(' + idCantidad + ')" >'+
                 '<option value="0">0</option>'+
                 '<option value="1">1</option>'+
                 '<option value="2">2</option>'+
@@ -64,175 +117,123 @@ let agregarPrescripcion = async () => {
                 '<option value="4">4</option>'+
                 '<option value="5">5</option>'+
               '</select>'+
-        '</div>' +
-        '<div class="form-column">' +
-        '<label for="rango" id="data">Rango de Recambios:<label id="asq">*</label></label>' +
-        '<br>' +
-        '<input type="text" class="rango" id="rango" name="rango" placeholder="Horas" required>' +
-        '</div>' +
-
-        '</div>' +
-        '<div class="form-row">' +
-        '<div class="form-column">' +
-        '<div id="selectContainer" class="margentop"></div>'+
-        '</div>' +
-        '<div class="form-column">' +
-        '<label for="orificio" id="data">Orificio:</label>' +
-        '<br>' +
-              '<select id="selectedOrificio" class="custom-select">'+
-                '<option value="">Seleccione...</option>'+
-                '<option value="perfecto">Perfecto</option>'+
-                '<option value="bueno">Bueno</option>'+
-                '<option value="equivoco">Equívoco</option>'+
-                '<option value="infeccionAguda">Infección Aguda</option>'+
-                '<option value="infeccionCronica">Infeccion Crónica</option>'+
-                '<option value="trauma">Trauma</option>'+
-              '</select>'+
-        '</div>' +
-        '<div class="form-column" id="enf">' +
-        '<div class="nocheSeca">' +
-        '<label for="nocheSeca" id="data2">Noche Seca: &nbsp</label>' +
-        '<input type="checkbox" id="nocheSeca" name="nocheSeca">' +
-        '</div>' +               
+        '</div>' +        
+        '</div>' +  
+        '<div class="form-column" id="prescrip">' +
+        '<div id="selectContainer' + idCantidad + '" class="margentop"></div>'+
+        '</div>'+
+        '</div>';
         
-        '</div>' + 
-        '<div class="form-column" id="enf">' +
-        '<div class="nocheSeca">' +
-        '<label for="nocheSeca" id="data2"> &nbsp</label>' +
-        '</div>' +                      
-        
-        '</div>' + 
-        '<div class="form-row">' +
+        if(cantidad>1){
+        msg+='<div class="form-row">' +
         '<div class="nocheSeca">' +
         '<label for="nocheSeca" id="data2">Lunes:&nbsp</label>' +
-        '<input type="checkbox" id="lunes" name="dias">&nbsp' +
+        '<input type="checkbox" id="lunes'+idCantidad+'" name="lunes'+idCantidad+'">&nbsp' +
         '<label for="nocheSeca" id="data2">Martes: &nbsp</label>' +
-        '<input type="checkbox" id="martes" name="dias">&nbsp' +
+        '<input type="checkbox" id="martes'+idCantidad+'" name="martes'+idCantidad+'">&nbsp' +
         '<label for="nocheSeca" id="data2">Miercoles: &nbsp</label>' +
-        '<input type="checkbox" id="miercoles" name="dias">&nbsp' +
+        '<input type="checkbox" id="miercoles'+idCantidad+'" name="miercoles'+idCantidad+'">&nbsp' +
         '<label for="nocheSeca" id="data2">Jueves: &nbsp</label>' +
-        '<input type="checkbox" id="jueves" name="dias">&nbsp' +
+        '<input type="checkbox" id="jueves'+idCantidad+'" name="jueves'+idCantidad+'">&nbsp' +
         '<label for="nocheSeca" id="data2">Viernes: &nbsp</label>' +
-        '<input type="checkbox" id="viernes" name="dias">&nbsp' +
+        '<input type="checkbox" id="viernes'+idCantidad+'" name="viernes'+idCantidad+'">&nbsp' +
         '<label for="nocheSeca" id="data2">Sábado: &nbsp</label>' +
-        '<input type="checkbox" id="sabado" name="dias">&nbsp' +
+        '<input type="checkbox" id="sabado'+idCantidad+'" name="sabado'+idCantidad+'">&nbsp' +
         '<label for="nocheSeca" id="data2">Domingo: &nbsp</label>&nbsp' +
-        '<input type="checkbox" id="domingo" name="dias">&nbsp' +
+        '<input type="checkbox" id="domingo'+idCantidad+'" name="domingo'+idCantidad+'">&nbsp' +
         '</div>' +              
-        
-        '</div>' + 
-        
-        '<div class="buttons">' +
-        '<div class="btn-save">' +
-        '<button onclick="cancelar()" class="cancelar">Cancelar</button>' +
-        '</div>' +
-        '<div class="btn-save">' +
-        '<button type="submit" class="guardarPac">Actualizar</button>' +
-        '</div>' +
-        '</div>';
+        '</div>'+
+        '<hr>'; 
+        }
+    
+    }
+    containerExtra.innerHTML += msg;
 
-
-msg +=
+    let ms="";
+    if(cantidad>0){
+    ms+=
+    '<div class="buttons">' +
+    '<div class="btn-save">' +
+    '<button href="prescripciones.html" class="cancelar">Cancelar</button>' +
+    '</div>' +
+    '<div class="btn-save">' +
+    '<button type="submit" class="guardarPac">Actualizar</button>' +
+    '</div>' +
+    '</div>'+
     '</form>';
+    }
+    document.getElementById("botones").innerHTML = ms;  
 
-document.getElementById("container").innerHTML = msg;
-           
-<<<<<<< HEAD
-  }
+}
 
+function generarSelects(idCantidad) {
+    var cantidad = document.getElementById("selectedCantidad" + idCantidad).value;
+    var container = document.getElementById("selectContainer" + idCantidad);
+    container.innerHTML = ""; 
 
-  function generarSelects() {
-    var cantidad = document.getElementById("selectedCantidad").value;
-    var container = document.getElementById("selectContainer");
-    container.className = "row";
-    container.innerHTML = ""; // Limpiar el contenedor antes de generar nuevos selects
+    var row = document.createElement("div");
+    row.className = "row";
 
     for (var i = 0; i < cantidad; i++) {
-      var labelContainer = document.createElement("div");
-      labelContainer.className = "select-container";
-      labelContainer.className = "";
-      labelContainer.className = "col-5 centrar-label mt-2";
+        var idConcentracion = "concentracion" + (i + 1)+""+idCantidad; 
 
-      var selectContainer = document.createElement("div");
-      selectContainer.className = "select-container";
-      selectContainer.className = "col-3";
+        var col = document.createElement("div");
+        col.className = "col-12 col-md-6 col-lg-4 col-xl-3"; 
 
-      var select = document.createElement("select");
-      select.className = "form-control";
-      var id = "concentracion" + (i + 1); // ID único para el select
-      select.id = id;
+        var selectContainer = document.createElement("div");
+        selectContainer.className = "form-group";
 
-      var opciones = ["Seleccione...", "1.25%", "2.5%", "4.25%"];
+        var label = document.createElement("label");
+        label.className = "form-label";
+        label.id = "labelContrasentacion";
+        label.for = idConcentracion;
+        label.innerText = "Concentración " + (i + 1) + ":"; 
 
-      for (var j = 0; j < opciones.length; j++) {
-        var option = document.createElement("option");
-        option.value = opciones[j];
-        option.text = opciones[j];
-        select.appendChild(option);
-      }
+        var select = document.createElement("select");
+        select.className = "form-control";
+        select.id = idConcentracion;
 
-      var label = document.createElement("label");
-      label.className = "form-label";
+        var opciones = ["Seleccione...", "1.5%", "2.5%", "4.25%"];
 
-      label.for = id;
-      label.innerText = "Concentración " + (i + 1) + ":"; // Texto del label
+        var rang = document.createElement("label");
+        rang.id="data";
+        rang.for="rangoH";
 
-      labelContainer.appendChild(label);
-      selectContainer.appendChild(select);
+        var textRango = document.createElement("label");
+        textRango.id="textRango";
+        textRango.for="";
+        textRango.innerText ="Rango de Horas:";
+        
+        var asquer = document.createElement("label");
+        asquer.id="asq";
+        asquer.innerText="*";
 
-      container.appendChild(labelContainer);
-      container.appendChild(selectContainer);
+        var rangoH=document.createElement("input");
+        rangoH.type="text";
+        rangoH.className="rango";
+        rangoH.id = "rango"+idConcentracion;
+
+        for (var j = 0; j < opciones.length; j++) {
+            var option = document.createElement("option");
+            option.value = opciones[j];
+            option.text = opciones[j];
+            select.appendChild(option);
+        }
+
+        selectContainer.appendChild(label);
+        selectContainer.appendChild(select);
+        selectContainer.appendChild(rang);
+        selectContainer.appendChild(textRango);
+        selectContainer.appendChild(asquer);
+        selectContainer.appendChild(rangoH);
+        
+
+        col.appendChild(selectContainer);
+        row.appendChild(col);
     }
-=======
->>>>>>> e5ca6b0b4e2ca3c56c4feeff198fc2b34a896b83
-  }
 
-
-  function generarSelects() {
-    var cantidad = document.getElementById("selectedCantidad").value;
-    var container = document.getElementById("selectContainer");
-    container.className = "row";
-    container.innerHTML = ""; // Limpiar el contenedor antes de generar nuevos selects
-
-    for (var i = 0; i < cantidad; i++) {
-      var labelContainer = document.createElement("div");
-      labelContainer.className = "select-container";
-      labelContainer.className = "";
-      labelContainer.className = "col-5 centrar-label mt-2";
-
-      var selectContainer = document.createElement("div");
-      selectContainer.className = "select-container";
-      selectContainer.className = "col-3";
-
-      var select = document.createElement("select");
-      select.className = "form-control";
-      var id = "concentracion" + (i + 1); // ID único para el select
-      select.id = id;
-
-      var opciones = ["Seleccione...", "1.25%", "2.5%", "4.25%"];
-
-      for (var j = 0; j < opciones.length; j++) {
-        var option = document.createElement("option");
-        option.value = opciones[j];
-        option.text = opciones[j];
-        select.appendChild(option);
-      }
-
-      var label = document.createElement("label");
-      label.className = "form-label";
-
-      label.for = id;
-      label.innerText = "Concentración " + (i + 1) + ":"; // Texto del label
-
-      labelContainer.appendChild(label);
-      selectContainer.appendChild(select);
-
-      container.appendChild(labelContainer);
-      container.appendChild(selectContainer);
-    }
-  }
-
-
+    container.appendChild(row);
+}
 
   let cargar=async (prescripcion)=>{
     prescripcion=await prescripcion;

@@ -226,7 +226,139 @@ let listarPacientesInactivos = async () => {
   }
 };
 
-       
+let crearVisita = async (cedulaPaciente) => {
+           
+  console.log(cedulaPaciente);
+  let ultCita=await ultimaCita(cedulaPaciente)
+  let idCita=ultCita.idCita;
+  console.log(idCita);
+  var checkboxes = document.querySelectorAll("input[name='visita']:checked");
+  var visitaEspecialistaDto = {
+    cita: idCita
+  };
+
+  Array.from(checkboxes).forEach(function (checkbox) {
+    visitaEspecialistaDto[checkbox.value] = true;
+  });
+
+  console.log(visitaEspecialistaDto);
+
+  if (Object.keys(visitaEspecialistaDto).length > 0) {
+    const response = await fetch(servidorAPI + 'Medico/visitaEspecialista', {
+      method: "POST",
+      body: JSON.stringify(visitaEspecialistaDto),
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => {
+        console.log(response);
+        if (response.ok) {
+          $('#visita').modal('hide');
+          //location.reload();
+        } else {
+          $('#errorModal').modal('show');
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  } else {
+    alert("Selecciona al menos un checkbox para guardar.");
+  }
+};
+
+let crearChequeoMensual = async (cedulaPaciente) => {
+
+  let ultCita=await ultimaCita(cedulaPaciente)
+  let idCita=ultCita.idCita;
+  var inputs = document.querySelectorAll("input[name='chequeo']");
+  var chequeoMensualInDto = {
+    cita: idCita 
+  };
+
+  Array.from(inputs).forEach(function (input) {
+    if (input.value.trim() !== "") {
+      chequeoMensualInDto[input.id] = input.value;
+    }
+  });
+
+  console.log(chequeoMensualInDto);
+
+  if (Object.keys(chequeoMensualInDto).length > 1) { 
+    const response = await fetch(servidorAPI + 'Medico/chequeoMensual', {
+      method: "POST",
+      body: JSON.stringify(chequeoMensualInDto),
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      }
+    });
+
+    try {
+      if (response.ok) {
+        $('#chequeo').modal('hide');
+        location.reload();
+      } else {
+        $('#errorModal').modal('show');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  } else {
+    alert("Completa al menos un campo de entrada para guardar.");
+  }
+};
+
+let ultimaCita = async (cedulaPaciente) => {
+  try {
+    cedulaPac = await obtenerCedEncriptada(cedulaPaciente);
+    console.log(cedulaPac);
+    
+    let paciente = {
+      cedula: cedulaPac
+    };
+    
+    let peticion = await fetch(localStorage.getItem("servidorAPI") + 'paciente/ultimaCita', {
+      method: 'POST',
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(paciente)
+    });
+
+    let ultimaCita = await peticion.json();
+    console.log(ultimaCita);
+    
+    return ultimaCita;
+  } catch (error) {
+    console.error("Error en encontrarUltimaCita:", error);
+    return null; 
+  }
+};
+
+let obtenerCedEncriptada=async(cedula)=>{
+  const peticion= await fetch(localStorage.getItem("servidorAPI")+'Medico/findAllPacientes',{
+    method:'GET',
+    headers:{
+      "Accept":"application/json",
+      "Content-Type": "application/json"
+    }
+    });
+      const pacientes=await peticion.json();
+      console.log(pacientes);
+      pacientes.forEach(paciente=>{
+        let decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+        const cedulaCodificado = encodeURIComponent(decryptedCedula);
+        console.log(cedula===cedulaCodificado);
+        if(cedula===parseInt(cedulaCodificado))
+        cedulaEncriptada=paciente.cedula;
+        
+      })   
+      return cedulaEncriptada;
+}  
       
       
 
