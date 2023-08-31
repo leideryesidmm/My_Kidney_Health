@@ -11,94 +11,11 @@ body {
     text-align: center;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
-  }
-  header {
-    width: 100%;
-    background-color: #63D0FF;
-    color: #fff;
-    padding: 10px;
-  }
+  } 
   
-  .devolverse img{
-    width: 30px;
-    height: 30px;
-    margin-left: 20px;
-  }
-
-  .navbar {
-    background-color: #04BAFC;
-    margin: auto;
-    margin: 0;
-    padding: 0;
-    height: 70px;
-  }
-  
+ 
   .logo {
     font-size: 20px;
-  }
-  
-  nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  nav ul li {
-    display: inline-block;
-    margin-right: 40px;
-    position: relative;
-  }
-  
-  nav ul li a {
-    color: #fff;
-    display: block;
-    text-decoration: none;
-  }
-  
-  nav ul li:hover > ul {
-    display: block;
-    background-color: #63d0ff;
-  }
-  
-  nav ul ul {
-    width: 120px;
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #63d0ff;
-    padding: 0;
-  }
-  
-  nav ul ul li {
-    width: 120px;
-    float: none;
-    display: list-item;
-    position: relative;
-  }
-  
-  nav ul ul li a {
-    padding: 10px 15px;
-    color: #fff;
-  }
-  
-  nav ul ul li a:hover {
-    background-color: #bedfec;
-  }
-  
-  nav ul ul ul {
-    top: 0;
-    left: 100%;
-  }
-  
-  nav ul:before,
-  nav ul:after {
-    content: " ";
-    display: table;
-  }
-  
-  nav ul:after {
-    clear: both;
   }
   
   .containerPac {
@@ -155,14 +72,14 @@ body {
   }
   
   button {
-    background-color: #63D0FF;
-    color: #ffffff;
+    /* background-color: #63D0FF; */
+    /* color: #ffffff; */
     border: none;
     cursor: pointer;
-    padding: 10px 40px;
+    /* padding: 10px 40px;
     font-size: 18px;
     margin: 0 auto;
-    border-radius: 10px;
+    border-radius: 10px; */
   }
 
   .form-container {
