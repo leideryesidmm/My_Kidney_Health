@@ -10,7 +10,7 @@ let prescripciones= async()=>{
       let cedEncriptada="";
       let cedulaEncriptada="";
       if(usuario=="medico"){
-       cedulaEncriptada = await obtenerCedulaEncriptada(CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
+       cedulaEncriptada = await obtenerCedulaEncriptada(0, CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
       ;}
       else{
         cedulaEncriptada=cedul;
@@ -28,8 +28,10 @@ let prescripciones= async()=>{
 return prescripcion;
 }
 
-let obtenerCedulaEncriptada=async(cedula)=>{
-  const peticion= await fetch(localStorage.getItem("servidorAPI")+'Medico/findAllPacientes',{
+let obtenerCedulaEncriptada=async(id, cedula)=>{
+  let result = "";
+  console.log(cedula);
+  const peticion= await fetch(localStorage.getItem("servidorAPI")+'Usuario/findAllUsuarios',{
     method:'GET',
     headers:{
       "Accept":"application/json",
@@ -37,14 +39,104 @@ let obtenerCedulaEncriptada=async(cedula)=>{
     }
       });
       const pacientes=await peticion.json();
+      console.log(pacientes);
       pacientes.forEach(paciente=>{
         let decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-        if(cedula===decryptedCedula)
-        cedulaEncriptada=paciente.cedula;
-        
-      })   
-      return cedulaEncriptada;
+        console.log(decryptedCedula);
+        if(cedula===decryptedCedula){   
+        console.log("ENTRO");
+      if(id == 0){
+        result = paciente.cedula;
+      }
+      if(id == 1){
+        result = paciente.contrasenia;
+      }
+    }
+    })
+    
+  return result;
 }
+
+
+
+function passwordVisibilityActual(inputId, iconClass) {
+  var passwordInput = document.getElementById(inputId);
+  var icon = document.querySelector("." + iconClass);
+
+  if (passwordInput.type === "password") {
+    passwordInput.type = "text";
+    icon.classList.remove("fa-eye");
+    icon.classList.add("fa-eye-slash");
+  } else {
+    passwordInput.type = "password";
+    icon.classList.remove("fa-eye-slash");
+    icon.classList.add("fa-eye");
+  }
+}
+
+
+let cambioContrasenia = async () => {
+  
+  let data = localStorage.getItem("datos");
+  let dato=JSON.parse(data);
+  console.log(data);
+      let cedul= decodeURIComponent(dato.cedula);
+      console.log(cedul);
+
+      let cedulaEncriptada="";
+      let contraseniaEncriptadaBD="";
+      let decryptedCedula = CryptoJS.AES.decrypt(cedul, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+       cedulaEncriptada = await obtenerCedulaEncriptada(0,decryptedCedula);
+      console.log(decryptedCedula);
+
+        contraseniaEncriptadaBD = await obtenerCedulaEncriptada(1,decryptedCedula);
+      console.log(cedulaEncriptada);
+
+
+  let contraseniaBD = CryptoJS.AES.decrypt(contraseniaEncriptadaBD, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+  console.log(contraseniaBD);
+
+  const contraseniaAnterior = document.getElementById("contraseniaanterior").value;
+  const nuevaContrasenia = document.getElementById("newcontrasenia").value;
+  console.log(nuevaContrasenia)
+
+  if (contraseniaAnterior === contraseniaBD) {
+    const contraseniaEncriptada = CryptoJS.AES.encrypt(nuevaContrasenia, 'clave_secreta').toString();
+
+    let usuarioInDto = { cedula: cedulaEncriptada, contrasenia: contraseniaEncriptada };
+    console.log(usuarioInDto);
+
+    const peticion= await fetch(localStorage.getItem("servidorAPI")+"Usuario/cambiarContrasenia", {
+      method:"PATCH",
+      headers:{
+        "Accept":"application/json",
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify(usuarioInDto)
+    })
+      .then(response => {
+        if (response.ok) {
+          alert("Contraseña cambiada exitosamente");
+
+          document.getElementById("contraseniaanterior").value = "";
+          document.getElementById("newcontrasenia").value = "";
+          $('#nuevacontrasenia').modal('hide');
+        } else {
+          alert("Error al cambiar la contraseña");
+        }
+      })
+      .catch(error => {
+        console.error("Error:", error);
+        alert("Error al cambiar la contraseña");
+      });
+  }
+  else {
+    alert("La contraseña actual ingresada no es correcta. Intentelo nuevamente");
+    document.getElementById("contraseniaanterior").value = "";
+    document.getElementById("newcontrasenia").value = "";
+  }
+};
+
 
 let crearRecambio = async () => {
     let imagenGuardada = "";
@@ -84,7 +176,7 @@ let crearRecambio = async () => {
       let cedEncriptada="";
       let cedulaEncriptada="";
       if(usuario=="medico"){
-       cedEncriptada = await obtenerCedulaEncriptada(CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
+       cedEncriptada = await obtenerCedulaEncriptada(0, CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
       }
       else{
         cedEncriptada=cedul;
@@ -122,16 +214,19 @@ let crearRecambio = async () => {
 
 
 
-  let guardarRecambio=async()=>{
+  let guardarRecambio=async(event)=>{
+    event.preventDefault();
     let orificio;
     document.getElementsByName("opcion").forEach(opcion => {
       if(opcion.checked==true){
         orificio= opcion.value}
     })
+    let fecha_real=new Date(localStorage.getItem("fecha_real"));
+    console.log(fecha_real)
     var drenaje = document.getElementById('drenaje').value;
     const valores = window.location.search;
     const urlParams = new URLSearchParams(valores);
-    var concentracionSelect = urlParams.get('idRecambio');;
+    var concentracionSelect = urlParams.get('idRecambio');
     var liquidoSelect = document.getElementById('selectLiquido').value;
     var fechayhoraIni=document.getElementById("fechaHoraIni").value;
     var fechayhoraFin=document.getElementById("fechaHoraFin").value;
@@ -145,9 +240,12 @@ let crearRecambio = async () => {
       "drenajeDialisis": drenajeEncriptado,
       "orificioSalida": orificioEncriptada,
       "recambio": concentracionSelect,
-      "fecha":fechayhoraIni,
-      "hora":fechayhoraFin
+      "fecha_real":`${fecha_real.getFullYear()}-${(fecha_real.getMonth() + 1).toString().padStart(2, '0')}-${fecha_real.getDate().toString().padStart(2, '0')}T${fecha_real.getHours().toString().padStart(2, '0')}:${fecha_real.getMinutes().toString().padStart(2, '0')}`,
+      "hora_ini":fechayhoraIni,
+      "hora_fin":fechayhoraFin
     };
+    console.log("este es el recambio que se hizo:")
+    console.log(recambioHechoInDto)
     fetch (localStorage.getItem("servidorAPI")+"paciente/recambio/crearRecambioHecho",{
       method: 'POST',
       body: JSON.stringify(recambioHechoInDto),
@@ -178,21 +276,22 @@ let crearRecambio = async () => {
   let llenarFormEditarRecambio=async()=>{
     const urlParams = new URLSearchParams(window.location.search);
     const idRecambioHecho = urlParams.get('idRecambioHecho');
+    console.log(idRecambioHecho);
     const peticion= await fetch (localStorage.getItem("servidorAPI")+"paciente/prescripcion/findRecambioHechoById/"+idRecambioHecho,{
       method: 'POST',
-      body: JSON.stringify(pacienteInDto),
       headers: {
         "Accept":"application/json",
         "Content-Type":"application/json"
       }
     })
     let recambioHecho=await peticion.json()
-    document.getElementById("editDrenaje").innerText=CryptoJS.AES.decrypt(recambioHecho.drenajeDialisis, "clave_secreta").toString(CryptoJS.enc.Utf8); 
-    document.getElementById("editHoraIni").innerText=recambioHecho.hora_ini;
-    document.getElementById("editHoraFin").innerText=recambioHecho.hora_fin; 
+    console.log(recambioHecho)
+    document.getElementById("drenaje").value=CryptoJS.AES.decrypt(recambioHecho.drenajeDialisis, "clave_secreta").toString(CryptoJS.enc.Utf8); 
+    document.getElementById("fechaHoraIni").value=recambioHecho.hora_ini;
+    document.getElementById("fechaHoraFin").value=recambioHecho.hora_fin;
     const caracteristicaLiquido=CryptoJS.AES.decrypt(recambioHecho.caracteristicaLiquido, 'clave_secreta').toString(CryptoJS.enc.Utf8);
     const orificioSalida=CryptoJS.AES.decrypt(recambioHecho.orificioSalida, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-    const selectLiquido = document.getElementById("editSelectLiquido");
+    const selectLiquido = document.getElementById("selectLiquido");
 
 for (let i = 0; i < selectLiquido.options.length; i++) {
     if (selectLiquido.options[i].value === caracteristicaLiquido) {
@@ -219,10 +318,12 @@ for (let i = 0; i < inputRadios.length; i++) {
       if(opcion.checked==true){
         orificio= opcion.value}
     })
+    
+    let fecha_real=new Date(localStorage.getItem("fecha_real"));
     var drenaje = document.getElementById('drenaje').value;
     const valores = window.location.search;
     const urlParams = new URLSearchParams(valores);
-    var concentracionSelect = urlParams.get('idRecambio');;
+    var idRecambioHecho = urlParams.get('idRecambioHecho');
     var liquidoSelect = document.getElementById('selectLiquido').value;
     var fechayhoraIni=document.getElementById("fechaHoraIni").value;
     var fechayhoraFin=document.getElementById("fechaHoraFin").value;
@@ -235,11 +336,11 @@ for (let i = 0; i < inputRadios.length; i++) {
       "caracteristicaLiquido": liquidoEncriptado,
       "drenajeDialisis": drenajeEncriptado,
       "orificioSalida": orificioEncriptada,
-      "recambio": concentracionSelect,
-      "fecha":fechayhoraIni,
-      "hora":fechayhoraFin
+      "fecha_real":`${fecha_real.getFullYear()}-${(fecha_real.getMonth() + 1).toString().padStart(2, '0')}-${fecha_real.getDate().toString().padStart(2, '0')}T${fecha_real.getHours().toString().padStart(2, '0')}:${fecha_real.getMinutes().toString().padStart(2, '0')}`,
+      "hora_ini":fechayhoraIni,
+      "hora_fin":fechayhoraFin
     };
-    fetch (localStorage.getItem("servidorAPI")+"paciente/recambio/crearRecambioHecho",{
+    fetch (localStorage.getItem("servidorAPI")+"paciente/recambio/editarRecambioHecho/"+idRecambioHecho,{
       method: 'POST',
       body: JSON.stringify(recambioHechoInDto),
       headers: {
@@ -273,7 +374,7 @@ for (let i = 0; i < inputRadios.length; i++) {
       let cedEncriptada="";
       let cedulaEncriptada="";
       if(usuario=="medico"){
-       ced = await obtenerCedulaEncriptada(CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
+       ced = await obtenerCedulaEncriptada(0, CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
       }
       else{
         ced=cedul;
@@ -304,7 +405,8 @@ for (let i = 0; i < inputRadios.length; i++) {
     let user=JSON.parse(localStorage.getItem("datos"))
     let cedula=""
             if(user.usuario=="medico"){
-                 cedula=JSON.parse(localStorage.getItem("cedulaPaciente"));
+              console.log(localStorage.getItem("cedulaPaciente"))
+                 cedula=localStorage.getItem("cedulaPaciente");
             }else{
                  cedula=user.cedula;
             }

@@ -25,6 +25,8 @@ function calcularEdad(nacimiento) {
 return edad;
 }
 
+
+
 let perfil=async()=>{
         try {
           const paciente = await listaPacientes();
@@ -221,7 +223,7 @@ let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
     if(usuario=="paciente"){
 let ms="";
 ms+='<div class="cerrar">'+
-        '<a class="btn" type="button" id="btnguardar" data-bs-toggle="modal" data-bs-target="#nuevacontrasenia">Cambiar contraseña</a>'+
+'<a class="btn" type="button" id="btnguardar" data-bs-toggle="modal" data-bs-target="#nuevacontrasenia">Cambiar contraseña</a>'+
     '</div>';
     document.getElementById("cambiarContrasenia").innerHTML= ms;
 }
@@ -279,18 +281,20 @@ let editarPaciente=async()=>{
           '<input type="text" enterkeyhint="next" enterkeyhint="previous"  class="direccion" id="direccion" name="direccion" required>'+
         '</div>'+
             '<div class="form-column">'+
-              '<label for="ocupacion" id="data">Ocupación:</label>'+
-              '<br>'+
-              '<input type="text" enterkeyhint="next" enterkeyhint="previous"  class="ocupacion" id="ocupacion" name="ocupacion" placeholder="Ocupación">'+
-            '</div>'+
-            
+            '<label for="correo" id="data">Correo electrónico:<label id="asq">*</label></label>'+
+          '<br>'+
+          '<input type="text" enterkeyhint="next" enterkeyhint="previous"  class="correo" id="correo" name="correo" placeholder="@" required>'+
+            '</div>'+            
           '</div>'+
           '<div class="form-column">'+
-              '<label for="correo" id="data">Correo:</label>'+
-              '<br>'+
-              '<input type="text" enterkeyhint="send"  class="correo" id="correo" name="correo" placeholder="Correo Electrónico">'+
+          '<label for="ocupacion" id="data">Ocupación:</label>'+
+          '<br>'+
+          '<input type="text" enterkeyhint="next" enterkeyhint="previous"  class="ocupacion" id="ocupacion" name="ocupacion" placeholder="Ocupación">'+
+
+             
             '</div>'+
             '<div class="container">'+
+            '<label for="correo" id="prueba">Foto de Perfil: &nbsp&nbsp</label>'+
             '<input type="file" value="Subir Foto" name="imageFile" id="imageFile">'+
             '</div>'+
             '<div class="buttons">'+
@@ -374,4 +378,6 @@ else{
           document.getElementById("selectedDocumento").value = localStorage.getItem("documento");
          
 }
+
+
 

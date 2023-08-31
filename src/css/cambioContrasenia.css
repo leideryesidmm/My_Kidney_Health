@@ -12,10 +12,14 @@ h3 {
     font-size: 26px;
 }
 
+
 .navbar {
-    background-color: #04BAFC;
-    height: 70px;
-  }
+  background-color: #04BAFC;
+  margin: auto;
+  margin: 0;
+  padding: 0;
+  height: 70px;
+}
 
   h5{
     text-align: center;

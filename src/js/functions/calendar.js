@@ -124,7 +124,13 @@ class Calendar {
 
     addEventListenerToCells() {
         let elCells = this.elCalendar.querySelectorAll('.grid__cell--gd');
+        let hoy=moment();
+        let cont=0;
         elCells.forEach(elCell => {
+            console.log(hoy.isSame(this.cells[cont].date, 'day'))
+            if(hoy.isSame(this.cells[cont].date, 'day')){
+                elCell.classList.add('grid__cell--selected');
+            }cont++;
             elCell.addEventListener('click', e => {
                 let elTarget = e.target;
                 if (elTarget.classList.contains('grid__cell--disabled') || elTarget.classList.contains('grid__cell--selected')) {
@@ -161,6 +167,14 @@ class Calendar {
     }
 
     value() {
+        console.log("esta es la fecha")
+        console.log(this.selectedDate)
         return this.selectedDate;
+    }
+
+    onLoadCalendar(){
+        let hoy=moment()
+
+        this.elGridBody.querySelector('.grid__cell--selected');
     }
 }

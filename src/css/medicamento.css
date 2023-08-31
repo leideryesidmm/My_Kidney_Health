@@ -10,13 +10,7 @@ body{
   padding: 0;
   width: 100%;
 }
-.navbar {
-  background-color: #04BAFC;
-  margin: auto;
-  margin: 0;
-  padding: 0;
-  height: 70px;
-}
+
 
 .sinMedicamentos{
   color: red;
@@ -180,6 +174,7 @@ h2{
   height: 70px;
    border-radius: 50%;
 	}
+
 
   #redondo{
     background-color: #04BAFC;

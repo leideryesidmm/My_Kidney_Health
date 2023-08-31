@@ -6,18 +6,15 @@ header {
     padding: 10px;
   }
   
-  .header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    height: 100%;
+
+  .devolverse{
+    width: 30px;
+    height: 50px;
+    margin-left: 20px;
   }
+
   
-  .logo {
-    font-size: 20px;
-  }
-  
+
   nav ul {
     list-style-type: none;
     margin: 0;

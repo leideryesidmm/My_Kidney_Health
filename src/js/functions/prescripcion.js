@@ -3,38 +3,56 @@ let NavBarPrescripcion = () => {
     let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
     if (usuario == "paciente") {
         ms +=
-            '<div class="col-2"><a href="principal.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a></div>' +
-            '<div class="col-8"><h1 class="title-principal-app">Prescripciones</h1></div>' +
-            '<div class="col-2"></div>';
+        '<div class="navbar" id="bann" style="padding:0"><div class="col-2"><a href="principal.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a></div>'+
+        '<div class="col-8"><h1 class="title-principal-app">Prescripciones</h1></div>'+
+        '<div class="col-2"></div></div>';
     }
     else {
         ms +=
-            '<header>' +
-            '<div class="row">' +
-            '<div class="col-md-4 logo" align="left"><img src="../img/logo3.png" alt=""></div>' +
-            '<div class="col-md-4 text-center"><h1>Prescripciones</h1></div>' +
-            '<div class="col-md-4" id="navPacientes">' +
-            '<nav><ul>' +
-            '<li><a href="pacientes.html">Pacientes</a></li>' +
-            '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">' +
-            '<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>' +
-            '<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>' +
-            '</svg>' +
-            '<li>' +
-            '<div class="dropdown">' +
-            '<button class="btn btn dropdown-toggle" type="button" id="nombreUsuario" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>' +
-            '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
-            '<a class="dropdown-item" href="#">Cambiar Contraseña</a>' +
-            '<a class="dropdown-item" onclick="logout()">Cerrar sesión</a>' +
-            '</div></div>' +
-            '</li>' +
-            '</ul></nav>' +
-            '</div>' +
-            '</div>' +
-            '</header>'+
-            '<p id="campos"><b>*</b> Campos requeridos</p>';
+        '<nav id="nav" class=" navbar-expand-lg navbar-light">'+
+        '<div class="row">'+
+        '<div class="col-1 no-effect"><a href="principal.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a></div>'+  
+        '<div class="col-1">'+
+            '<div class="logo"><img src="../img/logo3.png" alt=""></div>'+
+          '</div>'+
+          '<div class="col-8">'+
+            '<div class="title">'+
+              '<h1>Prescripciones</h1>'+
+            '</div>'+
+          '</div>'+
+          '<div class="col-2">'+
+            '<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"'+
+              'aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">'+
+              '<span class="navbar-toggler-icon"></span>'+
+            '</button>'+
+            '<div class="collapse navbar-collapse" id="navbarSupportedContent">'+
+              '<ul class="navbar-nav mr-auto align-items-center ">'+
+                '<li class="nav-item active">'+
+                  '<a id="text" class="nav-link" href="pacientes.html">Pacientes<span class="sr-only"></span></a>'+
+                '</li>'+
+                '<div class="d-flex align-items-center">'+
+                '<li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"'+
+                  'class="bi bi-person-circle" viewBox="0 0 16 16">'+
+                  '<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />'+
+                  '<path fill-rule="evenodd"'+
+                    'd="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />'+
+                '</svg></li>'+
+                '<li class="nav-item ml-1 active">'+
+                  
+                    '<button class="btn btn dropdown-toggle" type="button" id="nombreUsuario" data-toggle="dropdown"'+
+                      'aria-haspopup="true" aria-expanded="false">'+
+                    '</button>'+
+                    '<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">'+
+                      '<a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#nuevacontrasenia">Cambiar '+
+                        'Contraseña</a>'+
+                      '<a class="dropdown-item" href="login.html" onclick="logout()">Cerrar sesión</a>'+
+                    '</div>'+
+                  '</li></div>'+
+              '</ul>'+
+            '</div>'+
+      '</nav>';
     }
-    document.getElementById("navbar").innerHTML = ms;
+    document.getElementById("banner").innerHTML = ms;
 }
 
 let agregarPrescripcion = async () => {
@@ -302,37 +320,50 @@ let mostrarPrescripcion2= async (prescripcion) => {
     document.getElementById("prescri").innerHTML=msg;
     }
 }
+function formatearFecha(fecha) {
+    var dia = fecha.getDate().toString().padStart(2, '0');
+    var mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
+    var año = fecha.getFullYear();
+  
+    return `${dia}-${mes}-${año}`;
+  }
 
 let mostrarPrescripcion= async (prescripcion, fecha, recambios) => {
     recambios=await recambios;
     if(recambios==null){
         let msg="";
-        msg+='<h3>No hay recambios prescritos para la fecha: '+new Date(fecha).toLocaleDateString()+'</h3>';
+        msg+='<h3>No hay recambios prescritos para la fecha seleccionada</h3>';
         document.getElementById("recambios").innerHTML=msg;
+        return;
     }
+    localStorage.setItem("recambios",JSON.stringify(recambios));
     let prescripcionDiaHoy1=await prescripcionDiaFecha(prescripcion, fecha)
     localStorage.setItem('prescripcionActual', JSON.stringify(prescripcionDiaHoy1));
     prescripcion=await prescripcion;
     let msg="";
     let accion="";
+    let estado="";
     let hoy=new Date()
     let datos1=await datos();
-    msg+='<div class="row align-items-center">';
     let cont=0;
     prescripcionDiaHoy1.recambios.forEach(recambio => {
+      accion="";
         msg+='<div class="col-lg-5 card card-menor">'
         +'<div class="row">'
         +`    <div class="col-2 estado" style="`;
         if(recambios[cont]!=null){
+          estado="H";
             msg+='background-color:rgb(11, 158, 11);">';
             if(fecha.getFullYear() === hoy.getFullYear() &&
             fecha.getMonth() === hoy.getMonth() &&
             (fecha.getDate() === hoy.getDate()||fecha.getDate() === hoy.getDate()-1)){
-                accion='<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">'
+                accion='<a type="button" onclick="verRecambio('+cont+')"  style="background-color: rgba(0,0,0,0);;border: none;">'
+                +'<svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">'
                 +'<path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>'
                 +'<path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>'
-                +'</svg>'
-                +'<a style="color:black" href="editarRecambio.html?idRecambioHecho='+recambios[cont].idRecambioHecho+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">'
+                +'</svg></a>'
+                +'<a style="color:black" href="editarRecambio.html?idRecambioHecho='+recambios[cont].idRecambioHecho+'">'
+                +'<svg class="icon-hover"xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">'
                 +'<path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>'
                 +'</svg></a>';
             }
@@ -343,18 +374,21 @@ let mostrarPrescripcion= async (prescripcion, fecha, recambios) => {
                 (fecha.getFullYear() === hoy.getFullYear() &&
                   fecha.getMonth() === hoy.getMonth() &&
                   fecha.getDate() < (hoy.getDate()-1))){
-                accion='<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">'
+                accion='<button type="button" onclick="verRecambio('+cont+')" style="background-color: rgba(0,0,0,0);;border: none;">'
+                +'<svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">'
                 +'<path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>'
                 +'<path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>'
-                +'</svg>';
+                +'</svg></button>';
             }
             }
         }else{
             if(fecha.getFullYear() === hoy.getFullYear() &&
             fecha.getMonth() === hoy.getMonth() &&
             fecha.getDate() === hoy.getDate()){
+              estado="P";
                 msg+='background-color:#e6b216;">';
-                accion='<a style="color:black" href="agregarRecambio.html?idRecambio='+recambio.idRecambio+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">'
+                accion='<a style="color:black" href="agregarRecambio.html?idRecambio='+recambio.idRecambio+'">'
+                    +'<svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">'
                     +'<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>'
                     +'<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>'
                     +'</svg></a>';
@@ -365,17 +399,21 @@ let mostrarPrescripcion= async (prescripcion, fecha, recambios) => {
             (fecha.getFullYear() === hoy.getFullYear() &&
               fecha.getMonth() === hoy.getMonth() &&
               fecha.getDate() < (hoy.getDate()-1))){
+                estado="SH"
                 msg+='background-color:#f73c3c;">';
             }else{
                 if(fecha.getFullYear() === hoy.getFullYear() &&
                 fecha.getMonth() === hoy.getMonth() &&
                 fecha.getDate() === (hoy.getDate()-1)){
-                    msg+='background-color:rgb(252, 168, 59);">';
-                    accion='<a style="color:black" href="agregarRecambio.html?idRecambio='+recambio.idRecambio+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">'
+                    estado="P";
+                    msg+='background-color:rgb(252, 130, 59);">';
+                    accion='<a style="color:black" href="agregarRecambio.html?idRecambio='+recambio.idRecambio+'">'
+                    +'<svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">'
                     +'<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>'
                     +'<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>'
                     +'</svg></a>';
                 } else{
+                  estado="F"
                     msg+='background-color:slategray;">';
                 }
             }
@@ -386,19 +424,20 @@ let mostrarPrescripcion= async (prescripcion, fecha, recambios) => {
         
         msg+='        <div class="text-center">'
         +'            <h6 id="vertical">'
-        +'                H'
+        +estado
         +'            </h6>'
-        +'            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">'
+        +'            <div class="tooltip-container">'+
+        '<span class="tooltip-text" data-toggle="tooltip" data-placement="top" title="H: Hecho&#10;P: Pendiente&#10;SH: Sin hacer&#10;F: Futuro">'+
+      '<svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">'
         +'                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>'
         +'                <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>'
-        +'              </svg>'
+        +'              </svg></span></div>'
         +'        </div>'   
         +'    </div>'
         msg+=datos1[cont];
 
         msg+= '   <div id="acciones" class="col-2  acciones">';
         msg+=accion;
-
         msg+='</div>'
             +'</div>'
             +'</div>'
@@ -407,6 +446,25 @@ let mostrarPrescripcion= async (prescripcion, fecha, recambios) => {
     
     msg+='</div>';
     document.getElementById("recambios").innerHTML=msg;
+}
+
+let verRecambio=async(idRecambio)=>{
+  try {
+  console.log("SDVSDV")
+  let recambio=JSON.parse(localStorage.getItem("recambios"))[idRecambio];
+  console.log(recambio)
+  document.getElementById("inicio").innerText=recambio.hora_ini.replace("T", " ");
+  document.getElementById("final").innerText=recambio.hora_fin.replace("T", " ");
+  document.getElementById("drenaje").innerText=decodeURIComponent(CryptoJS.AES.decrypt(recambio.drenajeDialisis, 'clave_secreta').toString(CryptoJS.enc.Utf8));
+  document.getElementById("concentracion").innerText=recambio.recambio.concentracion+"%";
+  document.getElementById("estadoOrificio").innerText=decodeURIComponent(CryptoJS.AES.decrypt(recambio.orificioSalida, 'clave_secreta').toString(CryptoJS.enc.Utf8));
+  document.getElementById("caracteristicaliquido").innerText=decodeURIComponent(CryptoJS.AES.decrypt(recambio.caracteristicaLiquido, 'clave_secreta').toString(CryptoJS.enc.Utf8));
+  
+    
+  $('#verRecambio').modal('show');
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 let prescripcionDiaFecha= async (prescripcion,fecha) =>{
@@ -437,8 +495,8 @@ let tablaRecambios=async(recambios)=>{
     +'<tbody id="seguimientoData">';
     recambios.forEach(recambio => {
     msg+='  <tr>'
-    +'    <td style="font-size:70%">'+recambio.fecha.split("T")[0]+' \n '+recambio.fecha.split("T")[1]+'</th>'
-    +'    <td style="font-size:70%">'+recambio.hora.split("T")[0]+' \n '+recambio.fecha.split("T")[1]+'</th>'
+    +'    <td style="font-size:70%">'+recambio.hora_ini.split("T")[0]+' \n '+recambio.fecha.split("T")[1]+'</th>'
+    +'    <td style="font-size:70%">'+recambio.hora_fin.split("T")[0]+' \n '+recambio.fecha.split("T")[1]+'</th>'
     +'    <td style="font-size:90%">'+recambio.recambio.concentracion+'</th>'
     +'    <td style="font-size:90%">'+CryptoJS.AES.decrypt(recambio.drenajeDialisis, 'clave_secreta').toString(CryptoJS.enc.Utf8);+'</th>'
     +'  </tr>';
@@ -474,3 +532,115 @@ let tablaRecambios=async(recambios)=>{
     return data;
   }
 
+let mostrarPrecripcionMedico=async (prescripcion) => {
+  prescripcion=await prescripcion
+  console.log(await prescripcion)
+  let msg="";
+  let ordinal=["Primer","Segundo", "Tercer", "Cuarto", "Quinto"];
+  document.getElementById("actual").classList.add("active");
+  document.getElementById("historico").classList.remove("active");
+  msg+=`
+  <h4>Prescripcion actual</h4><br>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h6><b>Fecha inicial:</b> ${prescripcion.cita.fecha==undefined||prescripcion.cita.fecha==null?"Sin fecha de Inicio":formatDate(new Date(prescripcion.cita.fecha))} </h6>
+                    </div>
+                    <div class="col-sm-6">
+                        <h6><b>Fecha final:</b> ${prescripcion.cita.fecha_fin==undefined||prescripcion.cita.fecha_fin==null?"Sin fecha de fin":formatDate(new Date(prescripcion.cita.fecha_fin))} </h6>
+                    </div>
+                  </div><br>
+                  <div id="prescripcionesDia">
+                    `;
+
+
+                    prescripcion.unionPrescripcionDiasRecambios.forEach(prescripcionDia => {
+                      console.log(prescripcionDia)
+                      msg+=`<div class="row">
+                      <div class="col"><h6>Dias: ${obtenerDias(prescripcionDia.prescripcionDia)}</h6></div>
+                      <div class="col-12 table-responsive">
+                          <table class="table">
+                              <thead>
+                                <tr>
+                                  <th>Recambio</th>
+                                  <th>Concentración</th>
+                                  <th>Duración</th>
+                                </tr>
+                              </thead>
+                              <tbody>`
+                              let cont=0;
+                    prescripcionDia.recambios.forEach(recambio => {
+                      msg+=`<tr>
+                      <td>${ordinal[cont]+" recambio"}</td>
+                      <td>${recambio.concentracion}</td>
+                      <td>${recambio.intervaloTiempo}</td>
+                    </tr>`
+                    cont++;
+                    });
+                                
+                      msg+=        `
+                              </tbody>
+                            </table>
+                      </div>
+                      
+                    </div>`
+                    });
+
+                    msg+=`
+                  </div>
+                  
+    
+                  <div class="text-right">
+                  <a href="#" class="btn btn-primary">Recambios</a>
+                  <a href="#" class="btn btn-primary">Finalizar</a>
+                  </div>
+  `;
+  
+  document.getElementById("cardBody").innerHTML=msg;
+}
+let mostrarHistoricoMedico=async (prescripcion) => {
+  console.log(await prescripcion)
+  document.getElementById("historico").classList.add("active");
+  document.getElementById("actual").classList.remove("active");
+  document.getElementById("cardBody").innerHTML="";
+}
+
+function obtenerDias(prescripcionDia) {
+  //let dias=["Lunes", "Marte", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"]
+  let dias2=["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"]
+  let diasP="";
+  let cont=0;
+  let ultimo=0;
+ while(cont<dias2.length){
+    if(prescripcionDia[dias2[cont]]){
+      ultimo=cont;
+      if(cont+1==dias2.length){
+        if(diasP[diasP.length-1]=" ")diasP=diasP.substring(0,diasP.length-2)
+        diasP+=" y "+dias2[cont];return diasP;
+      }diasP+=dias2[cont]+", ";
+    }
+    cont++
+    if(cont==dias2.length){
+      if(diasP[diasP.length-1]=" "){
+        diasP=diasP.substring(0,diasP.length-(4+dias2[ultimo].length))
+        diasP+=" y "+dias2[ultimo]
+      }
+      
+    }
+  };
+  return diasP;
+}
+function formatDate(date) {
+  var day = date.getDate();
+  var month = date.getMonth() + 1;
+  var year = date.getFullYear() % 100;
+
+  // Asegurarse de que el día y el mes tengan dos dígitos
+  if (day < 10) {
+    day = '0' + day;
+  }
+  if (month < 10) {
+    month = '0' + month;
+  }
+
+  return `${day}/${month}/${year}`;
+}
