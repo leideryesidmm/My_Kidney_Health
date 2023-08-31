@@ -11,7 +11,7 @@ let principal = () => {
         ms +=
         '<nav id="nav" class=" navbar-expand-lg navbar-light">'+
         '<div class="row">'+
-        '<div class="col-1 no-effect"><a href="perfil.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a></div>'+  
+        '<div class="col-1 no-effect"><a href="pacientes.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a></div>'+  
         '<div class="col-1">'+
             '<div class="logo"><img src="../img/logo3.png" alt=""></div>'+
           '</div>'+
