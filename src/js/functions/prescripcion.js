@@ -466,3 +466,115 @@ let tablaRecambios=async(recambios)=>{
     return data;
   }
 
+let mostrarPrecripcionMedico=async (prescripcion) => {
+  prescripcion=await prescripcion
+  console.log(await prescripcion)
+  let msg="";
+  let ordinal=["Primer","Segundo", "Tercer", "Cuarto", "Quinto"];
+  document.getElementById("actual").classList.add("active");
+  document.getElementById("historico").classList.remove("active");
+  msg+=`
+  <h4>Prescripcion actual</h4><br>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h6><b>Fecha inicial:</b> ${prescripcion.cita.fecha==undefined||prescripcion.cita.fecha==null?"Sin fecha de Inicio":formatDate(new Date(prescripcion.cita.fecha))} </h6>
+                    </div>
+                    <div class="col-sm-6">
+                        <h6><b>Fecha final:</b> ${prescripcion.cita.fecha_fin==undefined||prescripcion.cita.fecha_fin==null?"Sin fecha de fin":formatDate(new Date(prescripcion.cita.fecha_fin))} </h6>
+                    </div>
+                  </div><br>
+                  <div id="prescripcionesDia">
+                    `;
+
+
+                    prescripcion.unionPrescripcionDiasRecambios.forEach(prescripcionDia => {
+                      console.log(prescripcionDia)
+                      msg+=`<div class="row">
+                      <div class="col"><h6>Dias: ${obtenerDias(prescripcionDia.prescripcionDia)}</h6></div>
+                      <div class="col-12 table-responsive">
+                          <table class="table">
+                              <thead>
+                                <tr>
+                                  <th>Recambio</th>
+                                  <th>Concentración</th>
+                                  <th>Duración</th>
+                                </tr>
+                              </thead>
+                              <tbody>`
+                              let cont=0;
+                    prescripcionDia.recambios.forEach(recambio => {
+                      msg+=`<tr>
+                      <td>${ordinal[cont]+" recambio"}</td>
+                      <td>${recambio.concentracion}</td>
+                      <td>${recambio.intervaloTiempo}</td>
+                    </tr>`
+                    cont++;
+                    });
+                                
+                      msg+=        `
+                              </tbody>
+                            </table>
+                      </div>
+                      
+                    </div>`
+                    });
+
+                    msg+=`
+                  </div>
+                  
+    
+                  <div class="text-right">
+                  <a href="#" class="btn btn-primary">Recambios</a>
+                  <a href="#" class="btn btn-primary">Finalizar</a>
+                  </div>
+  `;
+  
+  document.getElementById("cardBody").innerHTML=msg;
+}
+let mostrarHistoricoMedico=async (prescripcion) => {
+  console.log(await prescripcion)
+  document.getElementById("historico").classList.add("active");
+  document.getElementById("actual").classList.remove("active");
+  document.getElementById("cardBody").innerHTML="";
+}
+
+function obtenerDias(prescripcionDia) {
+  //let dias=["Lunes", "Marte", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"]
+  let dias2=["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"]
+  let diasP="";
+  let cont=0;
+  let ultimo=0;
+ while(cont<dias2.length){
+    if(prescripcionDia[dias2[cont]]){
+      ultimo=cont;
+      if(cont+1==dias2.length){
+        if(diasP[diasP.length-1]=" ")diasP=diasP.substring(0,diasP.length-2)
+        diasP+=" y "+dias2[cont];return diasP;
+      }diasP+=dias2[cont]+", ";
+    }
+    cont++
+    if(cont==dias2.length){
+      if(diasP[diasP.length-1]=" "){
+        diasP=diasP.substring(0,diasP.length-(4+dias2[ultimo].length))
+        diasP+=" y "+dias2[ultimo]
+      }
+      
+    }
+  };
+  return diasP;
+}
+function formatDate(date) {
+  var day = date.getDate();
+  var month = date.getMonth() + 1;
+  var year = date.getFullYear() % 100;
+
+  // Asegurarse de que el día y el mes tengan dos dígitos
+  if (day < 10) {
+    day = '0' + day;
+  }
+  if (month < 10) {
+    month = '0' + month;
+  }
+
+  return `${day}/${month}/${year}`;
+}

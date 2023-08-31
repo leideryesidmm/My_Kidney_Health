@@ -77,9 +77,12 @@ let principal = () => {
             '</div>' +
             '<div class="col-md-6 col-12 my-sm-2 d-flex flex-column align-items-center">' +
             '<div class="grid-item">' +
-            '<div id="container">' +
-            '<a href="prescripciones.html"><img src="../img/prescripcion.png" width="230px" height="230px"  alt=""></a>' +
-            '</div>' +
+            '<div id="container">';
+            if(usuario=="paciente")
+            msg+='<a href="prescripciones.html"><img src="../img/prescripcion.png" width="230px" height="230px"  alt=""></a>'
+            else msg+='<a href="prescripcionesM.html"><img src="../img/prescripcion.png" width="230px" height="230px"  alt=""></a>'
+
+            msg+='</div>' +
             '<div class="grid-item-content" class="col-md-6 col-12 text-center"  id="textcontainer">' +
             '<h5><b>Prescripciones</b></h5>' +
             '</div>' +
