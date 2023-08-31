@@ -207,48 +207,6 @@
     </div>
     <div class="col-1"></div>
   </div>
-  <div class="modal fade" id="verRecambio" tabindex="-1" role="dialog" aria-labelledby="successModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="successModalLabel">Recambio de la fecha: 29/08/2023</h5>
-          <a href="prescripciones.html"><button type="button" class="close" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button></a>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-12">
-              <dl>
-                <dt>
-                  <p>Inicio: </p>
-                </dt>
-                <dd>
-                  <p>##/##/#### ##:##</p>
-                </dd>
-              </dl>
-              <dl>
-                <dt>
-                  <p>Final: </p>
-                </dt>
-                <dd>
-                  <p>##/##/#### ##:##</p>
-                </dd>
-              </dl>
-
-
-            </div>
-
-          </div>
-        </div>
-        <div class="modal-footer">
-          <a href="prescripciones.html"><button href="prescripciones.html" type="button"
-              class="btn btn-primary">Aceptar</button></a>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <div>
     <div class="modal" tabindex="-1" id="nuevacontrasenia">
@@ -287,39 +245,81 @@
       </div>
     </div>
   </div>
-
-
-
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/es.js"></script>
-  <script type="text/javascript" src="../js/functions/calendar.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+      <div class="modal fade" id="verRecambio" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="successModalLabel">Recambio de la fecha: 29/08/2023</h5>
+              <a href="prescripciones.html"><button type="button" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button></a>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-lg-12">
+                    <dl class="d-flex" style="margin-bottom: 0;">
+                        <dt class="me-3"><p>Inicio: </p></dt>
+                        <dd style="margin-left: 10px;"><p id="inicio"> ##/##/#### ##:##</p></dd>
+                    </dl>
+                    <dl class="d-flex" style="margin-bottom: 0;">
+                        <dt class="me-3"><p>Final: </p></dt>
+                        <dd style="margin-left: 10px;"><p id="final"> ##/##/#### ##:##</p></dd>
+                    </dl>
+                    <dl class="d-flex" style="margin-bottom: 0;">
+                        <dt class="me-3"><p>Concentración: </p></dt>
+                        <dd style="margin-left: 10px;"><p id="concentracion">4.25%</p></dd>
+                    </dl>
+                    <dl class="d-flex" style="margin-bottom: 0;">
+                        <dt class="me-3"><p>Drenaje: </p></dt>
+                        <dd style="margin-left: 10px;"><p id="drenaje">3450</p></dd>
+                    </dl>
+                    <dl class="d-flex" style="margin-bottom: 0;">
+                        <dt class="me-3"><p>Estado del orificio: </p></dt>
+                        <dd style="margin-left: 10px;"><p id="estadoOrificio">Equivoco</p></dd>
+                    </dl>
+                    <dl class="d-flex" style="margin-bottom: 0;">
+                        <dt class="me-3"><p>Característica del liquido: </p></dt>
+                        <dd style="margin-left: 10px;"><p id="caracteristicaliquido">Sanguinolento</p></dd>
+                    </dl>
+                </div>
+            </div>
+            
+            </div>
+            <div class="modal-footer">
+              <a href="prescripciones.html"><button href="prescripciones.html" type="button" class="btn btn-primary">Aceptar</button></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    <script  type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script  type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/es.js"></script>
+    <script  type="text/javascript" src="../js/functions/calendar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
     integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
     crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
     integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
     crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
-
-
-  <script>
-    $(document).ready(function () {
-      // Inicializa el tooltip
-      $('[data-toggle="tooltip"]').tooltip();
-
-      // Agrega el evento click para mostrar el tooltip en dispositivos móviles
-      $('[data-toggle="tooltip"]').on('click', function () {
-        var self = this;
-        $(self).tooltip('show');
-        // Oculta el tooltip después de un tiempo en dispositivos móviles
-        setTimeout(function () {
-          $(self).tooltip('hide');
-        }, 2000); // Cambia el tiempo a tu preferencia
-      });
-    });
-  </script>
-
-  <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+<style></style>
+<script>
+        $(document).ready(function () {
+          // Inicializa el tooltip
+          $('[data-toggle="tooltip"]').tooltip();
+      
+          // Agrega el evento click para mostrar el tooltip en dispositivos móviles
+          $('[data-toggle="tooltip"]').on('click', function () {
+            var self = this;
+            $(self).tooltip('show');
+            // Oculta el tooltip después de un tiempo en dispositivos móviles
+            setTimeout(function () {
+              $(self).tooltip('hide');
+            }, 2000); // Cambia el tiempo a tu preferencia
+          });
+        });
+      </script>
+    
+    <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
   <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
@@ -331,8 +331,9 @@
   <script>
     let prescripcionactual = prescripciones();
     cargar(prescripcionactual);
-    document.getElementById("fecha").innerText = "Recambios de la fecha: " + formatearFecha(new Date());
-    mostrarPrescripcion(prescripcionactual, new Date(), recambiosPorFecha(prescripcionDiaFecha(prescripcionactual, new Date()), new Date()));
+    document.getElementById("fecha").innerText="Recambios de la fecha: "+formatearFecha(new Date());
+    localStorage.setItem("fecha_real",new Date())
+    mostrarPrescripcion(prescripcionactual, new Date(),recambiosPorFecha(prescripcionDiaFecha(prescripcionactual,new Date()),new Date()));
     onload();
     tablaRecambios(recambiosHechos());
 
