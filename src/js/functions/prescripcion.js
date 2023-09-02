@@ -498,7 +498,7 @@ let mostrarPrecripcionMedico=async (prescripcion) => {
                         <h6><b>Fecha inicial:</b> ${prescripcion.cita.fecha==undefined||prescripcion.cita.fecha==null?"Sin fecha de Inicio":formatDate(new Date(prescripcion.cita.fecha))} </h6>
                     </div>
                     <div class="col-sm-6">
-                        <h6><b>Fecha final:</b> ${prescripcion.cita.fecha_fin==undefined||prescripcion.cita.fecha_fin==null?"Sin fecha de fin":formatDate(new Date(prescripcion.cita.fecha_fin))} </h6>
+                        <h6><b>Fecha final:</b> ${prescripcion.cita.fechaFin==undefined||prescripcion.cita.fecha_fin==null?"Sin fecha de fin":formatDate(new Date(prescripcion.cita.fecha_fin))} </h6>
                     </div>
                   </div><br>
                   <div id="prescripcionesDia">
@@ -507,7 +507,7 @@ let mostrarPrecripcionMedico=async (prescripcion) => {
 
                     prescripcion.unionPrescripcionDiasRecambios.forEach(prescripcionDia => {
                       console.log(prescripcionDia)
-                      msg+=`<div class="row">
+                      msg+=`<br><div class="row">
                       <div class="col"><h6>Dias: ${obtenerDias(prescripcionDia.prescripcionDia)}</h6></div>
                       <div class="col-12 table-responsive">
                           <table class="table">

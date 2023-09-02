@@ -53,7 +53,7 @@ let obtenerCedulasUsuarios=async(id, cedula)=>{
       }
     }
     })
-    
+    console.log(result)
   return result;
 }
 
@@ -427,3 +427,29 @@ for (let i = 0; i < inputRadios.length; i++) {
     console.log(recambioshechos);
         return recambioshechos
   }
+  let findUsuario= async () => {
+    let cedula =await obtenerCedulaEncriptada(0,CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));;
+    console.log(cedula)
+    console.log(cedula)
+    let usuarioInDto = {cedula : cedula}
+    console.log(usuarioInDto)
+    try {
+        const response = await fetch(localStorage.getItem("servidorAPI") + "Usuario/cedula", {
+          method: "POST",
+          body: JSON.stringify(usuarioInDto),
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+          }
+        });    
+        if (response.ok) {
+          const usuarioData = await response.json();
+          console.log(usuarioData)
+          const nombreUsuario = usuarioData.nombre; 
+          nombreDecrypt =CryptoJS.AES.decrypt(nombreUsuario, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+          document.getElementById("title").innerText="Prescripciones del paciente: "+nombreDecrypt
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
