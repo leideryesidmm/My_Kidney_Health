@@ -1,96 +1,6 @@
-
-var cedulaEncriptada = "";
-var contraseniaEncriptada;
-let dat= localStorage.getItem("datos");
-
-
-
-let obtenerCedulaEncriptada = async (cedulaEncript) => {
-  const peticion = await fetch(servidorAPI + 'Medico/findAllPacientes', {
-    method: 'GET',
-    headers: {
-      "Accept": "application/json",
-      "Content-Type": "application/json"
-    }
-  });
-  const pacientes = await peticion.json();
-  console.log(pacientes);
-  let cedulaEncriptada = "";
-  pacientes.forEach(paciente => {
-    let decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-    const cedulaCodificado = decodeURIComponent(decryptedCedula);
-    console.log(decryptedCedula);
-    if (cedulaEncript === cedulaCodificado)
-      cedulaEncriptada = paciente.cedula;
-
-  })
-  console.log(cedulaEncriptada);
-  return cedulaEncriptada;
-}
-
-
-let inhabilitarPaciente = async (ced) => {
-  let cedula = ced.toString();
-  let cedulaEncriptada = await obtenerCedulaEncriptada(cedula);
-  console.log(cedulaEncriptada);
-  try {
-    const pacienteInDto = { cedula: cedulaEncriptada };
-
-    const response = await fetch(servidorAPI + 'Medico/inhabilitarPaciente', {
-      method: "PATCH",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(pacienteInDto)
-    });
-
-    if (response.ok) {
-      $('#inhabilitarpaciente').modal('hide');
-      location.reload();
-    }
-    else {
-      console.error("Error al inhabilitar paciente:", response.status);
-    }
-  }
-  catch (error) {
-    console.error("Error al inhabilitar paciente:", error);
-  }
-};
-
-
-let habilitarPaciente = async (ced) => {
-  let cedula = ced.toString();
-  let cedulaEncriptada = await obtenerCedulaEncriptada(cedula);
-
-  try {
-    const pacienteInDto = { cedula: cedulaEncriptada };
-
-    const response = await fetch(servidorAPI + 'Medico/reactivarPaciente', {
-      method: "PATCH",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(pacienteInDto)
-    });
-
-    if (response.ok) {
-      location.reload();
-    }
-    else {
-      console.error("Error al inhabilitar paciente:", response.status);
-    }
-  }
-  catch (error) {
-    console.error("Error al inhabilitar paciente:", error);
-  }
-};
-
 let pacientesTratados = async () => {
   let cont = 1;
   try {
-    // Call listarPacientes and await its result
     const pacientes = await listarPacientes();
 
     let msg = "";
@@ -115,22 +25,22 @@ let pacientesTratados = async () => {
           '<td>' + paciente.cedula + '</td>' +
           '<td>' +
           '<a class="icon-link" onclick="irPaciente(\'' + clave + '\', \'' + paciente.nombre + '\')">' +
-          '<img src="../img/ver.png" class="ver"/>' +
+          '<img src="../img/ver.png" title="Ver Paciente" class="ver"/>' +
           '</a>';
           var urlActual = window.location.href;
           localStorage.setItem("url", urlActual);
           msg+='<a class="icon-link" onclick="editarPaciente(\'' + clave + '\')">' +
-          '<img src="../img/lapiz.png" class="actualizar"/>' +
+          '<img src="../img/lapiz.png" title="Editar Paciente" class="actualizar"/>' +
           '</a>' +
           '<a href="" data-bs-toggle="modal" data-bs-target="#inhabilitarpaciente' + cont + '" type="button">' +
-          '<img src="../img/cesta.png" class="inhabilitar"/>' +
+          '<img src="../img/cesta.png" title="Inhabilitar Paciente" class="inhabilitar"/>' +
           '</a>' +
-          '<a href="" data-bs-toggle="modal" data-bs-target="#visita' + cont + '" type="button">' +
-          '<img src="../img/visita.png" class="actualizar"/>' +
-          '</a>' +
-          '<a href="" data-bs-toggle="modal" data-bs-target="#chequeo' + cont + '" type="button">' +
-          '<img src="../img/visita.png" class="actualizar"/>' +
-          '</a>' +
+          // '<a href="" data-bs-toggle="modal" data-bs-target="#visita' + cont + '" type="button">' +
+          // '<img src="../img/visita.png" title="Visita Especialista" class="visita"/>' +
+          // '</a>' +
+          // '<a href="" data-bs-toggle="modal" data-bs-target="#chequeo' + cont + '" type="button">' +
+          // '<img src="../img/examenes.png" title="Exámenes" class="chequeo"/>' +
+          // '</a>' +
           '</td>' +
           '</tr>';
 
@@ -486,6 +396,5 @@ let crearChequeoMensual = async () => {
   }
 };
 
-nombreNavBar(); 
 pacientesTratados();
 pacientesInhabilitados();

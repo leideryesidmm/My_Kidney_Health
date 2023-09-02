@@ -48,19 +48,10 @@ td, .pacientesInhabilitados th, td {
 }
 
 
-
-
-.btn-nuevo {
-  background-color: #63D0FF;
-  color: #ffffff;
-  border: none;
+#nuevo {
   cursor: pointer;
-  padding: 10px 40px;
-  font-size: 18px;
-  border-radius: 10px; 
-  margin-left: 80%;
-  text-decoration: none;
-  color: inherit;
+  /* margin-left: 91%; */
+
 }
 
 a {
@@ -69,10 +60,13 @@ a {
 
 .actualizar,
 .ver,
-.inhabilitar {
+.inhabilitar, 
+.visita,
+.chequeo {
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  cursor: pointer;
 }
 
 #btn-green {
