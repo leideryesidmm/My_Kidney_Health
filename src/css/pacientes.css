@@ -28,8 +28,17 @@ td, .pacientesInhabilitados th, td {
   vertical-align: middle;
 }
 
+.paciente td,
+.pacientesInhabilitados td {
+  border-bottom: 1px solid rgb(194, 193, 193); 
+}
+
 .paciente td, .pacientesInhabilitados td{
   height: 60px;
+}
+
+.paciente, .pacientesInhabilitados{
+  border: rgb(194, 193, 193) 1px solid;
 }
 
 
@@ -43,7 +52,7 @@ td, .pacientesInhabilitados th, td {
   color: white;
 }
 
-.paciente tbody:hover, .pacientesInhabilitados tbody:hover {
+.paciente tbody tr:hover, .pacientesInhabilitados tbody tr:hover {
   background-color: #e7e7e7;
 }
 

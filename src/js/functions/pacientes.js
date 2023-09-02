@@ -203,7 +203,7 @@ let pacientesTratados = async () => {
     else {
       msg +=
         '<br>' +
-        '<table class="pacientes">' +
+        '<table class="paciente">' +
         '<thead>' +
         '<tr>' +
         '<th>Nombre</th>' +
@@ -212,7 +212,7 @@ let pacientesTratados = async () => {
         '</tr>' +
         '</thead>' +
         '<tr>' +
-        '<td colspan="3">' + "No hay pacientes Registrados" + '</td>' +
+        '<td colspan="3">' + "No hay pacientes registrados." + '</td>' +
         '</tr>';
     }
     msg += '</table>';

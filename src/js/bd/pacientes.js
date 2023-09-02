@@ -119,7 +119,7 @@ $('#btnAceptar').click(function() {
 
 let inhabilitarPaciente = async (ced) => {
   let cedula = ced.toString();
-  let cedulaEncriptada = await obtenerCedulaEncriptada(cedula);
+  let cedulaEncriptada = await obtenerCedulasUsuarios(0, cedula);
   console.log(cedulaEncriptada);
   try {
     const pacienteInDto = { cedula: cedulaEncriptada };
@@ -149,7 +149,7 @@ let inhabilitarPaciente = async (ced) => {
 
 let habilitarPaciente = async (ced) => {
   let cedula = ced.toString();
-  let cedulaEncriptada = await obtenerCedulaEncriptada(cedula);
+  let cedulaEncriptada = await obtenerCedulasUsuarios(0, cedula);
 
   try {
     const pacienteInDto = { cedula: cedulaEncriptada };
