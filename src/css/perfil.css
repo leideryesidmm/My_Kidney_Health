@@ -35,6 +35,13 @@ label{
     vertical-align: middle
 }
 
+#asq{
+  color: red;
+  font-weight: bold;
+      font-size: 14px;
+      transition: transform 0.3s ease-in-out;
+}
+
 .navbar {
   background-color: #04BAFC;
   height: 70px;

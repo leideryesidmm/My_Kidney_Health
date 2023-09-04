@@ -1,201 +1,6 @@
-
-var cedulaEncriptada = "";
-var contraseniaEncriptada;
-let dat= localStorage.getItem("datos");
-
-let obtenerCedulasUsuarios=async(id, cedula)=>{
-  let result = "";
-  console.log(cedula);
-  const peticion= await fetch(localStorage.getItem("servidorAPI")+'Usuario/findAllUsuarios',{
-    method:'GET',
-    headers:{
-      "Accept":"application/json",
-      "Content-Type": "application/json"
-    }
-      });
-      const pacientes=await peticion.json();
-      console.log(pacientes);
-      pacientes.forEach(paciente=>{
-        let decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-        console.log(decryptedCedula);
-        if(cedula===decryptedCedula){   
-        console.log("ENTRO");
-      if(id == 0){
-        result = paciente.cedula;
-      }
-      if(id == 1){
-        result = paciente.contrasenia;
-      }
-    }
-    })
-    console.log(result)
-  return result;
-}
-
-function passwordVisibilityActual(inputId, iconClass) {
-  var passwordInput = document.getElementById(inputId);
-  var icon = document.querySelector("." + iconClass);
-
-  if (passwordInput.type === "password") {
-    passwordInput.type = "text";
-    icon.classList.remove("fa-eye");
-    icon.classList.add("fa-eye-slash");
-  } else {
-    passwordInput.type = "password";
-    icon.classList.remove("fa-eye-slash");
-    icon.classList.add("fa-eye");
-  }
-}
-
-let cambioContrasenia = async () => {
-  
-  let data = localStorage.getItem("datos");
-  let dato=JSON.parse(data);
-  console.log(data);
-      let cedul= decodeURIComponent(dato.cedula);
-      console.log(cedul);
-
-      let cedulaEncriptada="";
-      let contraseniaEncriptadaBD="";
-      let decryptedCedula = CryptoJS.AES.decrypt(cedul, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-       cedulaEncriptada = await obtenerCedulasUsuarios(0,decryptedCedula);
-      console.log(decryptedCedula);
-
-        contraseniaEncriptadaBD = await obtenerCedulasUsuarios(1,decryptedCedula);
-      console.log(contraseniaEncriptadaBD);
-
-
-  let contraseniaBD = CryptoJS.AES.decrypt(contraseniaEncriptadaBD, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-  console.log(contraseniaBD);
-
-  const contraseniaAnterior = document.getElementById("contraseniaanterior").value;
-  const nuevaContrasenia = document.getElementById("newcontrasenia").value;
-  console.log(nuevaContrasenia)
-
-  if (contraseniaAnterior === contraseniaBD) {
-    const contraseniaEncriptada = CryptoJS.AES.encrypt(nuevaContrasenia, 'clave_secreta').toString();
-
-    let usuarioInDto = { cedula: cedulaEncriptada, contrasenia: contraseniaEncriptada };
-    console.log(usuarioInDto);
-
-    const peticion= await fetch(localStorage.getItem("servidorAPI")+"Usuario/cambiarContrasenia", {
-      method:"PATCH",
-      headers:{
-        "Accept":"application/json",
-        "Content-Type":"application/json"
-      },
-      body:JSON.stringify(usuarioInDto)
-    })
-      .then(response => {
-        if (response.ok) {
-          alert("Contraseña cambiada exitosamente");
-
-          document.getElementById("contraseniaanterior").value = "";
-          document.getElementById("newcontrasenia").value = "";
-          $('#nuevacontrasenia').modal('hide');
-        } else {
-          alert("Error al cambiar la contraseña");
-        }
-      })
-      .catch(error => {
-        console.error("Error:", error);
-        alert("Error al cambiar la contraseña");
-      });
-  }
-  else {
-    alert("La contraseña actual ingresada no es correcta. Intentelo nuevamente");
-    document.getElementById("contraseniaanterior").value = "";
-    document.getElementById("newcontrasenia").value = "";
-  }
-};
-
-
-let obtenerCedulaEncriptada = async (cedulaEncript) => {
-  const peticion = await fetch(servidorAPI + 'Medico/findAllPacientes', {
-    method: 'GET',
-    headers: {
-      "Accept": "application/json",
-      "Content-Type": "application/json"
-    }
-  });
-  const pacientes = await peticion.json();
-  console.log(pacientes);
-  let cedulaEncriptada = "";
-  pacientes.forEach(paciente => {
-    let decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-    const cedulaCodificado = decodeURIComponent(decryptedCedula);
-    console.log(decryptedCedula);
-    if (cedulaEncript === cedulaCodificado)
-      cedulaEncriptada = paciente.cedula;
-
-  })
-  console.log(cedulaEncriptada);
-  return cedulaEncriptada;
-}
-
-
-let inhabilitarPaciente = async (ced) => {
-  let cedula = ced.toString();
-  let cedulaEncriptada = await obtenerCedulaEncriptada(cedula);
-  console.log(cedulaEncriptada);
-  try {
-    const pacienteInDto = { cedula: cedulaEncriptada };
-
-    const response = await fetch(servidorAPI + 'Medico/inhabilitarPaciente', {
-      method: "PATCH",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(pacienteInDto)
-    });
-
-    if (response.ok) {
-      $('#inhabilitarpaciente').modal('hide');
-      location.reload();
-    }
-    else {
-      console.error("Error al inhabilitar paciente:", response.status);
-    }
-  }
-  catch (error) {
-    console.error("Error al inhabilitar paciente:", error);
-  }
-};
-
-
-let habilitarPaciente = async (ced) => {
-  let cedula = ced.toString();
-  let cedulaEncriptada = await obtenerCedulaEncriptada(cedula);
-
-  try {
-    const pacienteInDto = { cedula: cedulaEncriptada };
-
-    const response = await fetch(servidorAPI + 'Medico/reactivarPaciente', {
-      method: "PATCH",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(pacienteInDto)
-    });
-
-    if (response.ok) {
-      location.reload();
-    }
-    else {
-      console.error("Error al inhabilitar paciente:", response.status);
-    }
-  }
-  catch (error) {
-    console.error("Error al inhabilitar paciente:", error);
-  }
-};
-
 let pacientesTratados = async () => {
   let cont = 1;
   try {
-    // Call listarPacientes and await its result
     const pacientes = await listarPacientes();
 
     let msg = "";
@@ -222,22 +27,22 @@ let pacientesTratados = async () => {
           '<td>' + paciente.cedula + '</td>' +
           '<td>' +
           '<a class="icon-link" onclick="irPaciente(\'' + clave + '\', \'' + paciente.nombre + '\')">' +
-          '<img src="../img/ver.png" class="ver"/>' +
+          '<img src="../img/ver.png" title="Ver Paciente" class="ver"/>' +
           '</a>';
           var urlActual = window.location.href;
           localStorage.setItem("url", urlActual);
           msg+='<a class="icon-link" onclick="editarPaciente(\'' + clave + '\')">' +
-          '<img src="../img/lapiz.png" class="actualizar"/>' +
+          '<img src="../img/lapiz.png" title="Editar Paciente" class="actualizar"/>' +
           '</a>' +
           '<a href="" data-bs-toggle="modal" data-bs-target="#inhabilitarpaciente' + cont + '" type="button">' +
-          '<img src="../img/cesta.png" class="inhabilitar"/>' +
+          '<img src="../img/cesta.png" title="Inhabilitar Paciente" class="inhabilitar"/>' +
           '</a>' +
-          '<a href="" data-bs-toggle="modal" data-bs-target="#visita' + cont + '" id="visita'+paciente.cedula+'" type="button">' +
-          '<img src="../img/visita.png" class="actualizar"/>' +
-          '</a>' +
-          '<a href="" data-bs-toggle="modal" data-bs-target="#chequeo' + cont + '" type="button">' +
-          '<img src="../img/visita.png" class="actualizar"/>' +
-          '</a>' +
+          // '<a href="" data-bs-toggle="modal" data-bs-target="#visita' + cont + '" type="button">' +
+          // '<img src="../img/visita.png" title="Visita Especialista" class="visita"/>' +
+          // '</a>' +
+          // '<a href="" data-bs-toggle="modal" data-bs-target="#chequeo' + cont + '" type="button">' +
+          // '<img src="../img/examenes.png" title="Exámenes" class="chequeo"/>' +
+          // '</a>' +
           '</td>' +
           '</tr>';
 
@@ -400,7 +205,7 @@ let pacientesTratados = async () => {
     else {
       msg +=
         '<br>' +
-        '<table class="pacientes">' +
+        '<table class="paciente">' +
         '<thead>' +
         '<tr>' +
         '<th>Nombre</th>' +
@@ -409,7 +214,7 @@ let pacientesTratados = async () => {
         '</tr>' +
         '</thead>' +
         '<tr>' +
-        '<td colspan="3">' + "No hay pacientes Registrados" + '</td>' +
+        '<td colspan="3">' + "No hay pacientes registrados." + '</td>' +
         '</tr>';
     }
     msg += '</table>';
@@ -514,37 +319,5 @@ let pacientesInhabilitados = async () => {
 });
 };
 
-let nombreNavBar= async () => {
-  let usuario = JSON.parse(localStorage.getItem("datos")).cedula;
-  const cedulaDecrypt = decodeURIComponent(usuario);
-  console.log(cedulaDecrypt)
-  let usuarioInDto = {cedula : cedulaDecrypt}
-  console.log(usuarioInDto)
-  try {
-      const response = await fetch(localStorage.getItem("servidorAPI") + "Usuario/cedula", {
-        method: "POST",
-        body: JSON.stringify(usuarioInDto),
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json"
-        }
-      });    
-      if (response.ok) {
-        const usuarioData = await response.json();
-        console.log(usuarioData)
-        const nombreUsuario = usuarioData.nombre; 
-        nombreDecrypt =CryptoJS.AES.decrypt(nombreUsuario, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-        actualizarNombreEnNavbar(nombreDecrypt);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  function actualizarNombreEnNavbar(nombre) {
-    document.getElementById("nombreUsuario").textContent = nombre;
-  }
-  
-nombreNavBar(); 
 pacientesTratados();
 pacientesInhabilitados();

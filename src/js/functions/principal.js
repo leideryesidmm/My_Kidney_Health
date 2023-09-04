@@ -11,7 +11,7 @@ let principal = () => {
         ms +=
         '<nav id="nav" class=" navbar-expand-lg navbar-light">'+
         '<div class="row">'+
-        '<div class="col-1 no-effect"><a href="perfil.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a></div>'+  
+        '<div class="col-1 no-effect"><a href="pacientes.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a></div>'+  
         '<div class="col-1">'+
             '<div class="logo"><img src="../img/logo3.png" alt=""></div>'+
           '</div>'+
@@ -155,41 +155,6 @@ let principal = () => {
     document.getElementById("cont-principal").innerHTML = msg;
 }
 
-let nombreNavBar = async () => {
-    let data = localStorage.getItem("datos");
-    let dato=JSON.parse(data);
-        let usu = dato.usuario;
-        let usuario= decodeURIComponent(dato.cedula);
-    const cedulaDecrypt = decodeURIComponent(usuario);
-    console.log(cedulaDecrypt)
-    if(usu=="medico"){
-    let usuarioInDto = { cedula: cedulaDecrypt }
-    console.log(usuarioInDto)
-    try {
-        const response = await fetch(localStorage.getItem("servidorAPI") + "Usuario/cedula", {
-            method: "POST",
-            body: JSON.stringify(usuarioInDto),
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            }
-        });
-        if (response.ok) {
-            const usuarioData = await response.json();
-            console.log(usuarioData)
-            const nombreUsuario = usuarioData.nombre;
-            nombreDecrypt = CryptoJS.AES.decrypt(nombreUsuario, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-            actualizarNombreEnNavbar(nombreDecrypt);
-        }
-    } catch (error) {
-        console.error(error);
-    }
-}
-};
-
-function actualizarNombreEnNavbar(nombre) {
-    document.getElementById("nombreUsuario").textContent = nombre;
-}
 
 
 let NavBarEditar = () => {
