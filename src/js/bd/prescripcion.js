@@ -24,13 +24,11 @@ let prescripciones= async()=>{
       }
 });
     const prescripcion=await peticion.json();
-    console.log(prescripcion.unionPrescripcionDiasRecambios)
 return prescripcion;
 }
 
 let obtenerCedulaEncriptada=async(id, cedula)=>{
-  let result = "";
-  console.log(cedula);
+  let result = ""
   const peticion= await fetch(localStorage.getItem("servidorAPI")+'Usuario/findAllUsuarios',{
     method:'GET',
     headers:{
@@ -39,12 +37,12 @@ let obtenerCedulaEncriptada=async(id, cedula)=>{
     }
       });
       const pacientes=await peticion.json();
-      console.log(pacientes);
+      
       pacientes.forEach(paciente=>{
         let decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-        console.log(decryptedCedula);
+        
         if(cedula===decryptedCedula){   
-        console.log("ENTRO");
+        
       if(id == 0){
         result = paciente.cedula;
       }
@@ -79,32 +77,31 @@ let cambioContrasenia = async () => {
   
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
-  console.log(data);
+ 
       let cedul= decodeURIComponent(dato.cedula);
-      console.log(cedul);
+    
 
       let cedulaEncriptada="";
       let contraseniaEncriptadaBD="";
       let decryptedCedula = CryptoJS.AES.decrypt(cedul, 'clave_secreta').toString(CryptoJS.enc.Utf8);
        cedulaEncriptada = await obtenerCedulaEncriptada(0,decryptedCedula);
-      console.log(decryptedCedula);
+      
 
         contraseniaEncriptadaBD = await obtenerCedulaEncriptada(1,decryptedCedula);
-      console.log(cedulaEncriptada);
 
 
   let contraseniaBD = CryptoJS.AES.decrypt(contraseniaEncriptadaBD, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-  console.log(contraseniaBD);
+  
 
   const contraseniaAnterior = document.getElementById("contraseniaanterior").value;
   const nuevaContrasenia = document.getElementById("newcontrasenia").value;
-  console.log(nuevaContrasenia)
+  
 
   if (contraseniaAnterior === contraseniaBD) {
     const contraseniaEncriptada = CryptoJS.AES.encrypt(nuevaContrasenia, 'clave_secreta').toString();
 
     let usuarioInDto = { cedula: cedulaEncriptada, contrasenia: contraseniaEncriptada };
-    console.log(usuarioInDto);
+    
 
     const peticion= await fetch(localStorage.getItem("servidorAPI")+"Usuario/cambiarContrasenia", {
       method:"PATCH",
@@ -126,7 +123,7 @@ let cambioContrasenia = async () => {
         }
       })
       .catch(error => {
-        console.error("Error:", error);
+        
         alert("Error al cambiar la contraseña");
       });
   }
@@ -204,7 +201,7 @@ let crearRecambio = async () => {
     
   })
   .catch(error => {
-    console.error(error)
+  
   });
 
   if(drenaje<2000){
@@ -222,7 +219,7 @@ let crearRecambio = async () => {
         orificio= opcion.value}
     })
     let fecha_real=new Date(localStorage.getItem("fecha_real"));
-    console.log(fecha_real)
+   
     var drenaje = document.getElementById('drenaje').value;
     const valores = window.location.search;
     const urlParams = new URLSearchParams(valores);
@@ -244,8 +241,7 @@ let crearRecambio = async () => {
       "hora_ini":fechayhoraIni,
       "hora_fin":fechayhoraFin
     };
-    console.log("este es el recambio que se hizo:")
-    console.log(recambioHechoInDto)
+   
     fetch (localStorage.getItem("servidorAPI")+"paciente/recambio/crearRecambioHecho",{
       method: 'POST',
       body: JSON.stringify(recambioHechoInDto),
@@ -267,7 +263,7 @@ let crearRecambio = async () => {
     })
     .catch(error => {
       console.error(error);
-      // Mostrar mensaje de error en la consola o en la interfaz de usuario
+
     })
      
   
@@ -276,7 +272,7 @@ let crearRecambio = async () => {
   let llenarFormEditarRecambio=async()=>{
     const urlParams = new URLSearchParams(window.location.search);
     const idRecambioHecho = urlParams.get('idRecambioHecho');
-    console.log(idRecambioHecho);
+    
     const peticion= await fetch (localStorage.getItem("servidorAPI")+"paciente/prescripcion/findRecambioHechoById/"+idRecambioHecho,{
       method: 'POST',
       headers: {
@@ -285,7 +281,7 @@ let crearRecambio = async () => {
       }
     })
     let recambioHecho=await peticion.json()
-    console.log(recambioHecho)
+    
     document.getElementById("drenaje").value=CryptoJS.AES.decrypt(recambioHecho.drenajeDialisis, "clave_secreta").toString(CryptoJS.enc.Utf8); 
     document.getElementById("fechaHoraIni").value=recambioHecho.hora_ini;
     document.getElementById("fechaHoraFin").value=recambioHecho.hora_fin;
@@ -361,7 +357,7 @@ for (let i = 0; i < inputRadios.length; i++) {
     })
     .catch(error => {
       console.error(error);
-      // Mostrar mensaje de error en la consola o en la interfaz de usuario
+      
     })
      
   }
@@ -401,11 +397,11 @@ for (let i = 0; i < inputRadios.length; i++) {
       return null
     }
     recambios=recambios.recambios;
-    console.log(recambios)
+    
     let user=JSON.parse(localStorage.getItem("datos"))
     let cedula=""
             if(user.usuario=="medico"){
-              console.log(localStorage.getItem("cedulaPaciente"))
+              
                  cedula=localStorage.getItem("cedulaPaciente");
             }else{
                  cedula=user.cedula;
@@ -419,8 +415,30 @@ for (let i = 0; i < inputRadios.length; i++) {
       }
     })
     let recambioshechos=await peticion.json()
-    console.log(recambioshechos);
+   
         return recambioshechos
+  }
+
+  let cedEncriptada=async(cedula)=>{
+   
+    const peticion= await fetch(localStorage.getItem("servidorAPI")+'Medico/findAllPacientes',{
+      method:'GET',
+      headers:{
+        "Accept":"application/json",
+        "Content-Type": "application/json"
+      }
+      });
+        const pacientes=await peticion.json();
+     
+        pacientes.forEach(paciente=>{
+          let decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+          const cedulaCodificado = encodeURIComponent(decryptedCedula);
+         
+          if(cedula===cedulaCodificado){
+                      cedulaEncriptada=paciente.cedula;
+          }
+        })   
+        return cedulaEncriptada;
   }
 
 
@@ -431,16 +449,47 @@ for (let i = 0; i < inputRadios.length; i++) {
       let cedulaMedico= decodeURIComponent(dato.cedula);
     var orificio = CryptoJS.AES.encrypt(document.getElementById("selectedOrificio").value,"clave_secreta").toString();
     var pac=decodeURIComponent(localStorage.getItem("cedulaPaciente"));
+    let pacient=CryptoJS.AES.decrypt(pac,"clave_secreta").toString(CryptoJS.enc.Utf8);
+    
+    let pacienteEncriptado= await cedEncriptada(pacient);
     var fechaFin = document.getElementById("fechaFin").value+"T00:00:00.001Z";
-    console.log(localStorage.getItem("cedulaPaciente"));
+    
     let cita={
       orificioSalida:orificio,
       fechaFin:fechaFin,
       medico:cedulaMedico,
-      paciente: await obtenerCedulaEncriptada(CryptoJS.AES.decrypt(pac,"clave_secreta").toString(CryptoJS.enc.Utf8))
+      paciente: pacienteEncriptado
     }
-    console.log(pac);
+    
     return cita;
+  }
+
+  function validarCeckbox(){
+     let cantidad = parseInt(document.getElementById("selectCantidad").value);
+     let checks=[];
+     for(let i=0;i<cantidad;i++){
+      
+      var dias={
+        lunes: document.getElementById("lunes"+(i+1)).checked?true:false,
+        martes: document.getElementById("martes"+(i+1)).checked?true:false,
+        miercoles: document.getElementById("miercoles"+(i+1)).checked?true:false,
+        jueves: document.getElementById("jueves"+(i+1)).checked?true:false,
+        viernes : document.getElementById("viernes"+(i+1)).checked?true:false,
+        sabado : document.getElementById("sabado"+(i+1)).checked?true:false,
+        domingo : document.getElementById("domingo"+(i+1)).checked?true:false}
+      
+      if(dias.lunes==true || dias.martes==true || dias.miercoles==true || dias.jueves==true || dias.viernes==true || dias.sabado==true || dias.domingo==true){
+        checks[i]=true;
+      }
+      else{
+        checks[i]=false;
+      }
+     }
+     for(let j=0;j<cantidad;j++){
+      if(checks[j]==false)
+      return false;
+     }
+     return true;
   }
 
   let obtenerDatosPrescripcionDia=async(event)=>{
@@ -451,7 +500,6 @@ for (let i = 0; i < inputRadios.length; i++) {
     const prescipcionDia=[];
     for(let i=0;i<cantidad;i++){
       let nocheSeca=document.getElementById("nocheSeca"+(i+1)).checked?true:false;
-      if(cantidad>1){
       var dias={
         lunes: document.getElementById("lunes"+(i+1)).checked?true:false,
         martes: document.getElementById("martes"+(i+1)).checked?true:false,
@@ -460,39 +508,44 @@ for (let i = 0; i < inputRadios.length; i++) {
         viernes : document.getElementById("viernes"+(i+1)).checked?true:false,
         sabado : document.getElementById("sabado"+(i+1)).checked?true:false,
         domingo : document.getElementById("domingo"+(i+1)).checked?true:false}
-      }
-      else{
-        var dias={
-        lunes:true,
-        martes:true,
-        miercoles:true,
-        jueves:true,
-        viernes:true,
-        sabado:true, 
-        domingo:true
-        }
-      }
+     
+        
         daysForCycle.push(dias);
-        nochesSecas.push(nocheSeca);  
-    }
-    prescipcionDia.push(daysForCycle);
-    prescipcionDia.push(nochesSecas);
-    prescipcionDia.push(cantidad);
-    console.log(prescipcionDia);
-    return prescipcionDia;
+      
+        nochesSecas.push(nocheSeca); 
+    
   }
+  prescipcionDia.push(daysForCycle);
+    prescipcionDia.push(nochesSecas);
+  prescipcionDia.push(cantidad);
+    
+    return prescipcionDia;
+}
+
+function errorDia(){
+  $('#errorModal').modal('hide');
+}
 
   let obtenerValoresDePrescripcion=async(event)=>{
     event.preventDefault();
+let validacirChecks=validarCeckbox();
+    if(validacirChecks==true){
     await crearCita(event);
     await crearPrescripcionDia(event);
     await crearRecambios(event);
-    location.href="examenesYVisita.html"
+    location.href="pacientes.html"
+  }
+    else{
+      $('#errorModal').modal('show');
+    }
   }
 
   let crearCita=async(event)=>{
     event.preventDefault();
     let citaInDto=await obtenerDatosCita(event);
+    let cantidad = parseInt(document.getElementById("selectCantidad").value);
+   
+   
       await fetch(localStorage.getItem("servidorAPI") + 'Prueba/Cita', {
         method: 'POST',
         headers: {
@@ -501,15 +554,16 @@ for (let i = 0; i < inputRadios.length; i++) {
         },
         body: JSON.stringify(citaInDto)
       });
-      return null;
   }
 
   let crearPrescripcionDia=async(event)=>{
     event.preventDefault();
     let prescripcionDia= await obtenerDatosPrescripcionDia(event);
+    
     let ultimaCita=await encontrarUltimaCita(event);
     let idCita=ultimaCita.idCita;
     let cantidad=prescripcionDia[2];
+   
     let nochesSecas=prescripcionDia[1];
     
     for(let i=0;i<cantidad;i++){
@@ -527,7 +581,7 @@ for (let i = 0; i < inputRadios.length; i++) {
         sabado:dias.sabado,
         domingo:dias.domingo
       }
-      console.log(prescripcionDiaInDto);
+    
       await fetch(localStorage.getItem("servidorAPI") + 'paciente/crear/prescripcionDia', {
         method: 'POST',
         headers: {
@@ -541,9 +595,12 @@ for (let i = 0; i < inputRadios.length; i++) {
   }
 
   let encontrarUltimaCita=async(event)=>{
+    if(event!=undefined){
     event.preventDefault();
+    }
     var pac=decodeURIComponent(localStorage.getItem("cedulaPaciente"));
-    cedulaPaciente= await obtenerCedulaEncriptada(CryptoJS.AES.decrypt(pac,"clave_secreta").toString(CryptoJS.enc.Utf8));
+    cedulaPaciente= await cedEncriptada(CryptoJS.AES.decrypt(pac,"clave_secreta").toString(CryptoJS.enc.Utf8));
+    
     paciente={
       cedula:cedulaPaciente
     }
@@ -558,7 +615,7 @@ for (let i = 0; i < inputRadios.length; i++) {
     
 
     let ultimaCita=await peticion.json();
-    console.log(ultimaCita);
+   
     return ultimaCita;
   }
 
@@ -567,14 +624,14 @@ for (let i = 0; i < inputRadios.length; i++) {
     let datosRecambio= await obtenerDatosRecambio(event);
     let prescipcionesDia=await prescripcionesDia(event);
     let cantidad=datosRecambio[datosRecambio.length-1];
-    console.log(cantidad);
+   
     for(let i=0; i<cantidad;i++){
       let prescrionDia= prescipcionesDia[i].idPrescripcionDia;
-      console.log(prescrionDia);
+    
       let dataRecambio=datosRecambio[i];
-      console.log(dataRecambio);
+     
       let cantRecambios=datosRecambio[datosRecambio.length-2][i];
-      console.log(cantRecambios);
+     
       let cont=0;
       for(let j=0;j<cantRecambios;j++){
 
@@ -583,7 +640,7 @@ for (let i = 0; i < inputRadios.length; i++) {
           concentracion:parseFloat(dataRecambio[cont].split("%")[0]),
           intervaloTiempo:parseInt(dataRecambio[cont+1])
         }
-        console.log(recambioInDto);
+       
         cont=cont+2;
         await fetch(localStorage.getItem("servidorAPI") + 'paciente/prescripcion/crearRecambio', {
           method: 'POST',
@@ -609,7 +666,7 @@ for (let i = 0; i < inputRadios.length; i++) {
           }
         })
         let prescipcionDia=await peticion.json();
-        console.log(prescipcionDia);
+        
         return prescipcionDia;
       }
 
@@ -637,6 +694,115 @@ for (let i = 0; i < inputRadios.length; i++) {
           }
           datosRecambio.push(cantidadRecambio);
           datosRecambio.push(cantidad);
-          console.log(datosRecambio);
+          
           return datosRecambio;
           }
+
+          let datosEditarPrescripcion=async(event)=>{
+
+              let recambio="";
+              let recambios=[];
+            let cita=await encontrarUltimaCita()
+            let idCita=cita.idCita
+            let prescipcionDia=await encontrarPrescripcionDiaPorCita(event, idCita);
+            for(let i=0;i<prescipcionDia.length;i++){
+              let idPrescripcionDia=prescipcionDia[i].idPrescripcionDia;
+              recambio=await encontrarRecambioPorPrescripcionDia(event,idPrescripcionDia);
+                recambios[i]=recambio;
+            }
+            
+
+            let datosEditar={
+              cita:cita,
+              prescipcionDia:prescipcionDia,
+              recambios:recambios
+            }
+            return datosEditar;
+          
+          }
+
+
+          let encontrarPrescripcionDiaPorCita=async(event,cita)=>{
+            if(event!=undefined){
+              event.preventDefault();
+            }
+                  let peticion=await fetch(localStorage.getItem("servidorAPI") + 'paciente/prescripcionDia/findByCita/'+ cita, {
+                    method: 'POST',
+                    headers: {
+                      "Accept":"application/json",
+                  "Content-Type":"application/json"
+                    }
+                  })
+                  let prescipcionDia=await peticion.json();
+                 
+                  return prescipcionDia;
+                }
+
+          let  encontrarRecambioPorPrescripcionDia=async(event, prescripcionDia)=>{
+            if(event!=undefined){
+              event.preventDefault();
+            }
+            let peticion= await fetch(localStorage.getItem("servidorAPI") + 'paciente/recambio/findRecambioByPrescripcion/'+prescripcionDia,{
+              method: 'POST',
+                    headers: {
+                      "Accept":"application/json",
+                  "Content-Type":"application/json"
+                    }
+            })
+            let recambio=await peticion.json();
+         
+            return recambio;
+          }
+
+
+  let obtenerDatosParaEditar=async(event)=>{
+    event.preventDefault();
+    let checks=validarCeckbox();
+    if(checks==true){
+    await eliminarCita();
+    await crearCita(event);
+    await crearPrescripcionDia(event);
+    await crearRecambios(event);
+    //location.href="pacientes.html"
+  }
+    else{
+      $('#errorModal').modal('show');
+    }
+  }    
+
+  let eliminarCita=async()=>{
+    let cita=await encontrarUltimaCita()
+    let id_cita=cita.idCita
+    console.log(id_cita);
+    fetch(localStorage.getItem("servidorAPI")+"Medico/EliminarCita/"+id_cita,{
+      method:"DELETE",
+      headers:{
+        "Accept":"application/json",
+        "Content-Type":"application/json"
+      }
+});
+  }
+
+  let obtenerUltimaVisita=async()=>{
+    let cita=await encontrarUltimaCita();
+    let id_cita=cita.idCita;
+    fetch(localStorage.getItem("servidorAPI")+"Medico/encontrarVisita/"+id_cita,{
+      method:"POST",
+      headers:{
+        "Accept":"application/json",
+        "Content-Type":"application/json"
+      }
+    })
+  }
+
+  let obtenerUltimoChequeo=async()=>{
+    let cita=await encontrarUltimaCita();
+    let id_cita=cita.idCita;
+    fetch(localStorage.getItem("servidorAPI")+"Medico/encontrarChequeo/"+id_cita,{
+      method:"POST",
+      headers:{
+        "Accept":"application/json",
+        "Content-Type":"application/json"
+      }
+    })
+  }

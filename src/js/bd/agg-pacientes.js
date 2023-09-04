@@ -256,7 +256,7 @@ let crearVisita = async (cedulaPaciente) => {
         console.log(response);
         if (response.ok) {
           $('#visita').modal('hide');
-          //location.reload();
+          location.reload();
         } else {
           $('#errorModal').modal('show');
         }
