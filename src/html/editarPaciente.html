@@ -63,34 +63,73 @@ integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLAS
 
     <div>
       <div class="modal" tabindex="-1" id="nuevacontrasenia">
+        <form id="miFormulario" onsubmit="cambioContrasenia(event)"> 
           <div class="modal-dialog">
-              <div class="modal-content">
-                  <div class="modal-header">
-                      <h5 class="modal-title">Cambiar Contraseña</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="contrasenia">
-                      <p>Contraseña actual: </p>
-                      <div class="input-container">
-                          <input type="password"  name="contraseniaanterior" id="contraseniaanterior" placeholder="Inserte la contraseña actual">
-                          <i class="toggle-password toggle-contraseniaanterior fas fa-eye" onclick="passwordVisibilityActual('contraseniaanterior', 'toggle-contraseniaanterior')"></i>
-                        </div>
-                        <br>
-                      <p>Nueva contraseña: </p>
-                      <div class="input-container">
-                          <input type="password"  name="newcontrasenia"  id="newcontrasenia" placeholder="Inserte la nueva contraseña">
-                          <i class="toggle-password-new fas fa-eye" onclick="passwordVisibilityActual('newcontrasenia', 'toggle-password-new')"></i>
-                        </div></div>
-                  </div>
-                  <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                      <button type="button" class="btn btn-primary" onclick="cambioContrasenia()"
-                          id="guardarContrasenia">Guardar</button>
-    
-                  </div>
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Cambiar Contraseña</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
+              <div class="modal-body">
+                <div class="contrasenia">
+                  <p>Contraseña actual: <label id="asq">*</label></p>
+                  <div class="input-container">
+                    <input type="password" name="contraseniaanterior" id="contraseniaanterior" placeholder="Inserte la contraseña actual" required>
+                    <i class="toggle-password toggle-contraseniaanterior fas fa-eye" onclick="passwordVisibilityActual('contraseniaanterior', 'toggle-contraseniaanterior')"></i>
+                  </div>
+                  <br>
+                  <p>Nueva contraseña: <label id="asq">*</label></p>
+                  <div class="input-container">
+                    <input type="password" name="newcontrasenia" id="newcontrasenia" placeholder="Inserte la nueva contraseña" required>
+                    <i class="toggle-password-new fas fa-eye" onclick="passwordVisibilityActual('newcontrasenia', 'toggle-password-new')"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary" id="guardarContrasenia">Guardar</button> 
+              </div>
+            </div>
           </div>
+        </form> 
+      </div>
+    </div>
+
+    <div class="modal fade" id="contraseniacambiada" tabindex="1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="successModalLabel">Aviso</h5>
+            <a href="editarPaciente.html"><button type="button" class="close btn-cerrar" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button></a>
+          </div>
+          <div class="modal-body">
+            <p>La contraseña ha sido cambiada exitosamente.</p>
+          </div>
+          <div class="modal-footer">
+            <a href="editarPaciente.html"><button href="editarPaciente.html" type="button" class="btn btn-primary">Aceptar</button></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="contraseniaerronea" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="successModalLabel">Aviso</h5>
+            <a href="editarPaciente.html"><button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button></a>
+          </div>
+          <div class="modal-body">
+            <p>La contraseña actual ingresada no es correcta. Inténtelo nuevamente</p>
+          </div>
+          <div class="modal-footer">
+           <button type="button" id="btnAceptar" class="btn btn-primary">Aceptar</button>
+          </div>
+        </div>
       </div>
     </div>
   

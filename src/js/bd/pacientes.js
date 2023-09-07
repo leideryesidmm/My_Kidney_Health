@@ -1,3 +1,4 @@
+
 var cedulaEncriptada = "";
 var contraseniaEncriptada;
 let dat= localStorage.getItem("datos");
@@ -112,3 +113,64 @@ $('#btnAceptar').click(function() {
 }
 };
 
+
+
+
+
+let inhabilitarPaciente = async (ced) => {
+  let cedula = ced.toString();
+  let cedulaEncriptada = await obtenerCedulasUsuarios(0, cedula);
+  console.log(cedulaEncriptada);
+  try {
+    const pacienteInDto = { cedula: cedulaEncriptada };
+
+    const response = await fetch(servidorAPI + 'Medico/inhabilitarPaciente', {
+      method: "PATCH",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(pacienteInDto)
+    });
+
+    if (response.ok) {
+      $('#inhabilitarpaciente').modal('hide');
+      location.reload();
+    }
+    else {
+      console.error("Error al inhabilitar paciente:", response.status);
+    }
+  }
+  catch (error) {
+    console.error("Error al inhabilitar paciente:", error);
+  }
+};
+
+
+let habilitarPaciente = async (ced) => {
+  let cedula = ced.toString();
+  let cedulaEncriptada = await obtenerCedulasUsuarios(0, cedula);
+
+  try {
+    const pacienteInDto = { cedula: cedulaEncriptada };
+
+    const response = await fetch(servidorAPI + 'Medico/reactivarPaciente', {
+      method: "PATCH",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(pacienteInDto)
+    });
+
+    if (response.ok) {
+      location.reload();
+    }
+    else {
+      console.error("Error al inhabilitar paciente:", response.status);
+    }
+  }
+  catch (error) {
+    console.error("Error al inhabilitar paciente:", error);
+  }
+};

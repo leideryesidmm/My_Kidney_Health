@@ -28,8 +28,17 @@ td, .pacientesInhabilitados th, td {
   vertical-align: middle;
 }
 
+.paciente td,
+.pacientesInhabilitados td {
+  border-bottom: 1px solid rgb(194, 193, 193); 
+}
+
 .paciente td, .pacientesInhabilitados td{
   height: 60px;
+}
+
+.paciente, .pacientesInhabilitados{
+  border: rgb(194, 193, 193) 1px solid;
 }
 
 
@@ -43,24 +52,15 @@ td, .pacientesInhabilitados th, td {
   color: white;
 }
 
-.paciente tbody:hover, .pacientesInhabilitados tbody:hover {
+.paciente tbody tr:hover, .pacientesInhabilitados tbody tr:hover {
   background-color: #e7e7e7;
 }
 
 
-
-
-.btn-nuevo {
-  background-color: #63D0FF;
-  color: #ffffff;
-  border: none;
+#nuevo {
   cursor: pointer;
-  padding: 10px 40px;
-  font-size: 18px;
-  border-radius: 10px; 
-  margin-left: 80%;
-  text-decoration: none;
-  color: inherit;
+  /* margin-left: 91%; */
+
 }
 
 a {
@@ -69,10 +69,13 @@ a {
 
 .actualizar,
 .ver,
-.inhabilitar {
+.inhabilitar, 
+.visita,
+.chequeo {
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  cursor: pointer;
 }
 
 #btn-green {
