@@ -31,17 +31,6 @@ body{
     height: 40px;
 }
 
-
-
-#icon {
-  width: 30px;
-    height: 30px;
-    margin-top: 6px;
-  padding: 0;
-  margin-left: 20px;
-  
-}
-
 h2{
   text-align: center;
 }
@@ -150,7 +139,6 @@ h2{
 #icono {
   width: 30px;
     height: 30px;
-    margin-top: 6px;
   padding: 0;
   margin-left: 20px;
 }
