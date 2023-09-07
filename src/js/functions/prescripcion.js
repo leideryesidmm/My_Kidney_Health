@@ -680,7 +680,7 @@ let mostrarPrescripcionAntiguaMedico=async(prescripcion)=>{
                   <div class="row" style="margin:0 auto;">
                   <div class="text-end">
                   ${finAllRecambiosHechos(prescripcion.cita.idCita)==null||finAllRecambiosHechos(prescripcion.cita.idCita)==undefined?'<a href="editarPrescripcion.html" class="btn btn-primary">Finalizar</a>':""}
-                  <a  class="btn btn-primary">Recambios</a>
+                  <a href="recambiosPaciente.html?idCita=${prescripcion.cita.idCita}" class="btn btn-primary">Recambios</a>
                   </div>
                   </div>
   `;

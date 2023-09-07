@@ -428,7 +428,7 @@ for (let i = 0; i < inputRadios.length; i++) {
         return recambioshechos
   }
   let findUsuario= async () => {
-    let cedula =await obtenerCedulaEncriptada(0,CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));;
+    let cedula =await obtenerCedulasUsuarios(0,CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));;
     console.log(cedula)
     console.log(cedula)
     let usuarioInDto = {cedula : cedula}
@@ -472,7 +472,7 @@ for (let i = 0; i < inputRadios.length; i++) {
     }
 
     let findAllPrescripciones=async()=>{
-      let cedula =await obtenerCedulaEncriptada(0,CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
+      let cedula =await obtenerCedulasUsuarios(0,CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
       paciente={
         cedula:cedula
       }

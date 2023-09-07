@@ -156,12 +156,12 @@ let listRecambios = async (recambios) => {
   let mostrarRecambios=async(recambiosHechos)=>{
     recambiosHechos=await recambiosHechos;
     prescripcion=JSON.parse(localStorage.getItem("selectPrescripcion"));
-    console.log(prescripcion)
+    console.log(recambiosHechos)
     let fechas=[];
     if(new Date(recambiosHechos[0].recambio.prescripcionDia.cita.fechaFin)>new Date()){
       fechas=obtenerFechas(new Date(recambiosHechos[0].recambio.prescripcionDia.cita.fecha), new Date(),recambiosHechos,prescripcion)
     }else{
-      fechas=obtenerFechas(new Date(recambiosHechos[0].recambio.prescripcionDia.cita.fecha), new Date(recambiosHechos[0].recambio.prescripCionDia.cita.fechaFin),recambiosHechos,prescripcion)
+      fechas=obtenerFechas(new Date(recambiosHechos[0].recambio.prescripcionDia.cita.fecha), new Date(recambiosHechos[0].recambio.prescripcionDia.cita.fechaFin),recambiosHechos,prescripcion)
     }
       console.log(fechas);
       let msg=`<table id="tableRecambios" style="border:2px solid">
@@ -177,9 +177,11 @@ let listRecambios = async (recambios) => {
       `
       let cont=0;
       fechas.forEach(fecha => {
-        if(cont>65){
+        if(true){
         let ultrafiltrado=0;
         let ciclo=0;
+        if(fecha.prescripOriginal==undefined||fecha.prescripOriginal==null){
+        }else{
         msg+=`
         <tr style="border-top:2px solid">
           <td style="border:2px solid;background-color:#B2EAF2" rowspan="${fecha.prescripOriginal.recambios.length}">
@@ -227,7 +229,7 @@ let listRecambios = async (recambios) => {
         
         ciclo++;
         msg+="</tr>"
-        });} cont++
+        });}} cont++
       }); 
       msg+=`</tbody>
       </table>`;
@@ -244,10 +246,7 @@ let listRecambios = async (recambios) => {
         // Agrega más filas de datos según sea necesario
     ];
     // Configura Tabulator
-    var table = new Tabulator("#tableRecambios", {
-        layout: "fitColumns", // Ajusta automáticamente el ancho de las columnas
-        groupBy: "fecha" // Agrupa por la columna "Fecha"
-    });
+    
 
   }
 function obtenerFechas(fechaIni,fechaFin,recambios,prescripcion){
