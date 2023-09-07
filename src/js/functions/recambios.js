@@ -62,11 +62,8 @@ let listRecambios = async (recambios) => {
 
     let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
-  console.log(data);
       let usuario = dato.usuario;
-      console.log(usuario);
 
-    console.log(recambios);
 
     recambios.forEach((recambio) => {
       fecha=recambio.fecha.split("T");
@@ -146,7 +143,6 @@ let listRecambios = async (recambios) => {
   
     let ms="";
     if(usuario=="paciente"){
-      console.log(usuario);
       ms+='<div class="row">'+
       '<div class="col-10"></div>'+
       '<div class="col-2">'+
@@ -156,3 +152,139 @@ let listRecambios = async (recambios) => {
   document.getElementById("agregar").innerHTML=ms;
     }
   }
+
+  let mostrarRecambios=async(recambiosHechos)=>{
+    recambiosHechos=await recambiosHechos;
+    prescripcion=JSON.parse(localStorage.getItem("selectPrescripcion"));
+    console.log(prescripcion)
+    let fechas=[];
+    if(new Date(recambiosHechos[0].recambio.prescripcionDia.cita.fechaFin)>new Date()){
+      fechas=obtenerFechas(new Date(recambiosHechos[0].recambio.prescripcionDia.cita.fecha), new Date(),recambiosHechos,prescripcion)
+    }else{
+      fechas=obtenerFechas(new Date(recambiosHechos[0].recambio.prescripcionDia.cita.fecha), new Date(recambiosHechos[0].recambio.prescripCionDia.cita.fechaFin),recambiosHechos,prescripcion)
+    }
+      console.log(fechas);
+      let msg=`<table id="tableRecambios" style="border:2px solid">
+      <thead>
+        <th style="border:2px solid">Fecha</th>
+        <th style="border:2px solid">Hora</th>
+        <th style="border:2px solid">Concentación</th>
+        <th style="border:2px solid">Drenaje</th>
+        <th style="border:2px solid">Balance</th>
+        <th style="border:2px solid">Total Ultrafiltrado</th>
+      </thead>
+      <tbody>
+      `
+      let cont=0;
+      fechas.forEach(fecha => {
+        if(cont>65){
+        let ultrafiltrado=0;
+        let ciclo=0;
+        msg+=`
+        <tr style="border-top:2px solid">
+          <td style="border:2px solid;background-color:#B2EAF2" rowspan="${fecha.prescripOriginal.recambios.length}">
+          <b>${fecha.date}</b>
+          </td>
+        `
+        fecha.prescripOriginal.recambios.forEach(recambiod => {
+          
+          console.log(fecha)
+          
+          if(fecha.recambios.length>0){
+            let hecho=false;
+            fecha.recambios.forEach(recam=>{
+              ultrafiltrado+=decodeURIComponent(CryptoJS.AES.decrypt(recam.drenajeDialisis, 'clave_secreta').toString(CryptoJS.enc.Utf8))-2000;
+            })
+            fecha.recambios.forEach(recam=>{
+              
+              console.log("id recambio hecho"+recam.recambio.idRecambio)
+              console.log("id recambio prescrito"+recambiod.idRecambio)
+              if(recam.recambio.idRecambio==recambiod.idRecambio){
+                hecho=true;
+                msg+=`
+              <td style="border:1px solid;background-color:#53DA44">${recam.fecha_real}</td>
+              <td style="border:1px solid;background-color:#53DA44">${recambiod.concentracion}</td>
+              <td style="border:1px solid;background-color:#53DA44">${decodeURIComponent(CryptoJS.AES.decrypt(recam.drenajeDialisis, 'clave_secreta').toString(CryptoJS.enc.Utf8))}</td>
+              <td style="border:1px solid;background-color:#53DA44">${decodeURIComponent(CryptoJS.AES.decrypt(recam.drenajeDialisis, 'clave_secreta').toString(CryptoJS.enc.Utf8))-2000}</td>
+              `
+              }
+              
+              })
+              if(hecho==false){
+                msg+=`
+                <td style="border:1px solid;" colspan="4"><h5 id="sinHacer"><i>Sin hacer.</i></h5></td>
+                `
+              }
+          }else{
+            msg+=`
+                <td style="border:1px solid;" colspan="4"><h5 id="sinHacer"><i>Sin hacer.</i></h5></td>
+                `
+          }
+         
+        
+        if(ciclo==0)msg+=`<td rowspan="${fecha.prescripOriginal.recambios.length}" style="border:2px solid">${ultrafiltrado}</td>
+        `
+        
+        ciclo++;
+        msg+="</tr>"
+        });} cont++
+      }); 
+      msg+=`</tbody>
+      </table>`;
+      document.getElementById("recambios").innerHTML=msg;
+      var tableData = [
+        {
+            fecha: "2023-08-26",
+            hora: "2023-08-26T03:24:00",
+            concentracion: 2.5,
+            drenaje: 2300,
+            balance: 300,
+            totalUltrafiltrado: 300
+        },
+        // Agrega más filas de datos según sea necesario
+    ];
+    // Configura Tabulator
+    var table = new Tabulator("#tableRecambios", {
+        layout: "fitColumns", // Ajusta automáticamente el ancho de las columnas
+        groupBy: "fecha" // Agrupa por la columna "Fecha"
+    });
+
+  }
+function obtenerFechas(fechaIni,fechaFin,recambios,prescripcion){
+  var datesArray = [];
+  var currentDate = new Date(fechaIni);
+  console.log(prescripcion)
+  var days = ["domingo","lunes", "martes", "miercoles", "jueves", "viernes", "sabado"];
+
+  while (currentDate <= fechaFin) {
+    var dateObj = {
+      date: currentDate.toISOString().slice(0, 10), // Formato yyyy-mm-dd
+      dayOfWeek: days[currentDate.getDay()] // Obtener el día de la semana
+    };
+    
+    prescripcion.unionPrescripcionDiasRecambios.forEach(prescripcionDia => {
+      if(prescripcionDia.prescripcionDia[days[currentDate.getDay()]]==true){
+        dateObj.prescripOriginal=prescripcionDia;
+      }
+    });
+    let recamb=[];
+    recambios.forEach(recambio => {
+      let fecha_real=new Date(recambio.fecha_real)
+      fecha_real.setHours(0,0,0,0)
+      currentDate.setHours(0,0,0,0)
+      if(currentDate.getTime()===fecha_real.getTime()){
+        recamb.push(recambio)
+      }
+    });
+    dateObj.recambios=recamb;
+
+
+
+    datesArray.push(dateObj);
+
+    // Avanzar al siguiente día
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+
+  return datesArray;
+}

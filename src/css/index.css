@@ -211,6 +211,14 @@ h5 {
   text-align: right;
 }
 
+.actualizar,
+.ver,
+.inhabilitar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
 th,
 td,
 tr {
@@ -223,7 +231,9 @@ thead {
   background-color: #B2EAF2;
 
 }
-
+#sinHacer {
+  color: #fa0808;
+}
 thead:hover {
   background-color: #04BAFC;
   color: white;

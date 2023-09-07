@@ -485,30 +485,41 @@ let tablaRecambios=async(recambios)=>{
   }
 
 let mostrarPrecripcionMedico=async (prescripcion) => {
+  document.getElementById("actual").classList.add("active");
+  document.getElementById("historico").classList.remove("active");
   prescripcion=await prescripcion
+  console.log("DSc")
+  console.log(prescripcion)
+  localStorage.setItem("selectPrescripcion", JSON.stringify(prescripcion))
+  if(prescripcion.cita==undefined||new Date(prescripcion.cita.fechaFin)<new Date()){
+    console.log("no hay prescriocion");
+    let msg='<h3>No hay prescripción activa a la fecha</h3><br>'+
+    '<a href="agregarPrescripcion.html" class="btn btn-primary">Nueva</a>';
+    document.getElementById("cardBody").innerHTML=msg;
+    return;
+  }
   console.log(await prescripcion)
   let msg="";
   let ordinal=["Primer","Segundo", "Tercer", "Cuarto", "Quinto"];
-  document.getElementById("actual").classList.add("active");
-  document.getElementById("historico").classList.remove("active");
+  
   msg+=`
-  <h4>Prescripcion actual</h4><br>
-                <div class="row">
+  <h4>Prescripción actual</h4><br>
+                <div class="row" style="margin:0 auto;">
                     <div class="col-sm-6">
                         <h6><b>Fecha inicial:</b> ${prescripcion.cita.fecha==undefined||prescripcion.cita.fecha==null?"Sin fecha de Inicio":formatDate(new Date(prescripcion.cita.fecha))} </h6>
                     </div>
                     <div class="col-sm-6">
                         <h6><b>Fecha final:</b> ${prescripcion.cita.fechaFin==undefined||prescripcion.cita.fecha_fin==null?"Sin fecha de fin":formatDate(new Date(prescripcion.cita.fecha_fin))} </h6>
                     </div>
-                  </div><br>
+                  </div>
                   <div id="prescripcionesDia">
                     `;
 
 
                     prescripcion.unionPrescripcionDiasRecambios.forEach(prescripcionDia => {
                       console.log(prescripcionDia)
-                      msg+=`<br><div class="row">
-                      <div class="col"><h6>Dias: ${obtenerDias(prescripcionDia.prescripcionDia)}</h6></div>
+                      msg+=`<br><div class="row" style="margin:0 auto;">
+                      <div class="col"><h6><b>Dias:</b> ${obtenerDias(prescripcionDia.prescripcionDia)}</h6></div>
                       <div class="col-12 table-responsive">
                           <table class="table">
                               <thead>
@@ -541,40 +552,185 @@ let mostrarPrecripcionMedico=async (prescripcion) => {
                   </div>
                   
     
-                  <div class="text-right">
-                  <a href="#" class="btn btn-primary">Recambios</a>
-                  <a href="#" class="btn btn-primary">Finalizar</a>
+                  <div class="row" style="margin:0 auto;">
+                  <div class="text-end">
+                  ${finAllRecambiosHechos(prescripcion.cita.idCita)==null||finAllRecambiosHechos(prescripcion.cita.idCita)==undefined?'<a href="editarPrescripcion.html" class="btn btn-primary">Finalizar</a>':""}
+                  <a href="recambiosPaciente.html?idCita=${prescripcion.cita.idCita}" class="btn btn-primary">Recambios</a>
+                  <a onclick="finalizar(${prescripcion.cita.idCita})" class="btn btn-primary">Finalizar</a>
+                  </div>
                   </div>
   `;
   
   document.getElementById("cardBody").innerHTML=msg;
 }
-let mostrarHistoricoMedico=async (prescripcion) => {
-  console.log(await prescripcion)
+
+let mostrarHistoricoMedico=async (prescripciones) => {
+  prescripciones=await prescripciones;
+  localStorage.setItem("prescripcionesT",JSON.stringify(prescripciones));
+  let msg=`<div class='row' style="margin: 0 auto">
+  <table id="historialTable" style="margin: 0 auto" width="100%" >
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Fecha inicico</th>
+      <th>Fecha fin</th>
+      <th>Orificio de Salida</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>`
+    let cont=1;
+    msg+="<tbody>"
+  prescripciones.forEach(prescripcion => {
+      msg+=`<tr>
+        <td>${cont}</td>
+        <td>${prescripcion.cita.fecha==undefined||prescripcion.cita.fecha==null?"Sin fecha de Inicio":formatDate(new Date(prescripcion.cita.fecha))}</td>
+        <td>${prescripcion.cita.fechaFin==undefined||prescripcion.cita.fecha_fin==null?"Sin fecha de fin":formatDate(new Date(prescripcion.cita.fecha_fin))}</td>
+        <td>${prescripcion.cita.orificioSalida}</td>
+        <td>
+        <a class="icon-link" onclick="antigua(${prescripcion.cita.idCita})"> 
+        <img src="../img/ver.png" class="ver"/>
+        </a>
+        </td>
+      </tr>`
+  cont++});
+  msg+=`</tbody>
+  </table>
+  </div>
+  `;
+  
+  console.log(await prescripciones)
   document.getElementById("historico").classList.add("active");
   document.getElementById("actual").classList.remove("active");
-  document.getElementById("cardBody").innerHTML="";
+  document.getElementById("cardBody").innerHTML=msg;
+  new DataTable('#historialTable', {
+    "order": [[0, 'desc']],
+    language: {
+        url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json',
+    },
+})
 }
+ function  antigua (idCita) {
+  let prescripciones=JSON.parse(localStorage.getItem("prescripcionesT"))
+  console.log(prescripciones);
+  prescripciones.forEach(prescripcion => {
+    console.log(prescripcion)
+    if(prescripcion.cita.idCita==idCita)
+    mostrarPrescripcionAntiguaMedico(prescripcion)
+  });
+
+}
+function volver() {
+  let prescripciones=JSON.parse(localStorage.getItem("prescripcionesT"))
+  mostrarHistoricoMedico(prescripciones)
+}
+let mostrarPrescripcionAntiguaMedico=async(prescripcion)=>{
+  localStorage.setItem("selectPrescripcion", JSON.stringify(prescripcion));
+  let ordinal=["Primer","Segundo", "Tercer", "Cuarto", "Quinto"];
+  let msg=`<div class="row" style="display:flex">
+  <div class="col-2"><a onclick="volver()" class="btn btn-primary">Volver</a></div>
+  <div class="col-8"><h4 style="text-align:center">Prescripción antigua</h4></div></div><br>
+                <div class="row" style="margin:0 auto;">
+                    <div class="col-sm-6">
+                        <h6><b>Fecha inicial:</b> ${prescripcion.cita.fecha==undefined||prescripcion.cita.fecha==null?"Sin fecha de Inicio":formatDate(new Date(prescripcion.cita.fecha))} </h6>
+                    </div>
+                    <div class="col-sm-6">
+                        <h6><b>Fecha final:</b> ${prescripcion.cita.fechaFin==undefined||prescripcion.cita.fecha_fin==null?"Sin fecha de fin":formatDate(new Date(prescripcion.cita.fecha_fin))} </h6>
+                    </div>
+                  </div>
+                  <div id="prescripcionesDia">
+                    `;
+
+
+                    prescripcion.unionPrescripcionDiasRecambios.forEach(prescripcionDia => {
+                      console.log(prescripcionDia)
+                      msg+=`<br><div class="row" style="margin:0 auto;">
+                      <div class="col"><h6><b>Dias:</b> ${obtenerDias(prescripcionDia.prescripcionDia)}</h6></div>
+                      <div class="col-12 table-responsive">
+                          <table class="table">
+                              <thead>
+                                <tr>
+                                  <th>Recambio</th>
+                                  <th>Concentración</th>
+                                  <th>Duración</th>
+                                </tr>
+                              </thead>
+                              <tbody>`
+                              let cont=0;
+                    prescripcionDia.recambios.forEach(recambio => {
+                      msg+=`<tr>
+                      <td>${ordinal[cont]+" recambio"}</td>
+                      <td>${recambio.concentracion}</td>
+                      <td>${recambio.intervaloTiempo}</td>
+                    </tr>`
+                    cont++;
+                    });
+                                
+                      msg+=        `
+                              </tbody>
+                            </table>
+                      </div>
+                      
+                    </div>`
+                    });
+
+                    msg+=`
+                  </div>
+                  
+    
+                  <div class="row" style="margin:0 auto;">
+                  <div class="text-end">
+                  ${finAllRecambiosHechos(prescripcion.cita.idCita)==null||finAllRecambiosHechos(prescripcion.cita.idCita)==undefined?'<a href="editarPrescripcion.html" class="btn btn-primary">Finalizar</a>':""}
+                  <a  class="btn btn-primary">Recambios</a>
+                  </div>
+                  </div>
+  `;
+  document.getElementById("cardBody").innerHTML=msg;
+}
+
 
 function obtenerDias(prescripcionDia) {
   //let dias=["Lunes", "Marte", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"]
   let dias2=["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"]
   let diasP="";
   let cont=0;
+  let cantidad=0;
   let ultimo=0;
  while(cont<dias2.length){
     if(prescripcionDia[dias2[cont]]){
       ultimo=cont;
       if(cont+1==dias2.length){
+        if(cantidad==0){return dias2[cont]}
         if(diasP[diasP.length-1]=" ")diasP=diasP.substring(0,diasP.length-2)
         diasP+=" y "+dias2[cont];return diasP;
-      }diasP+=dias2[cont]+", ";
+      }switch (dias2[cont]) {
+        case "miercoles":
+          diasP+="miércoles, "
+          break;          
+        case "sabado":
+          diasP+="sábado, "
+          break;      
+        default:
+          diasP+=dias2[cont]+", ";
+      }
+      
+      
+      cantidad++;
     }
     cont++
     if(cont==dias2.length){
       if(diasP[diasP.length-1]=" "){
+        if(cantidad==1){return dias2[ultimo]}
         diasP=diasP.substring(0,diasP.length-(4+dias2[ultimo].length))
-        diasP+=" y "+dias2[ultimo]
+        switch (dias2[ultimo]) {
+          case "miercoles":
+            diasP+=" y "+"miércoles"
+            break;          
+          case "sabado":
+            diasP+=" y "+"sábado"
+            break;      
+          default:
+            diasP+=" y "+dias2[ultimo];
+        }
       }
       
     }
@@ -596,3 +752,8 @@ function formatDate(date) {
 
   return `${day}/${month}/${year}`;
 }
+
+let mostrarRecambiosHechosMedico=async()=>{
+
+}
+

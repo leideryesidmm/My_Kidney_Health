@@ -64,21 +64,14 @@
         
         <div class="container text-center">
             <div class="text-center">
-                <h5 id="title"></h5>
+                <h5 id="title"> </h5>
             </div>
         <br>
         <div class="card text-center">
             <div class="card-header">
-              <ul class="nav nav-tabs card-header-tabs">
-                <li class="nav-item">
-                  <a id="actual" class="nav-link active" onclick="mostrarPrecripcionMedico(prescripciones())">Actual</a>
-                </li>
-                <li class="nav-item">
-                  <a id="historico" class="nav-link" onclick="mostrarHistoricoMedico(findAllPrescripciones())">Histórico</a>
-                </li>
-              </ul>
+              adsc
             </div>
-            <div id="cardBody" class="card-body">
+            <div id="recambios" class="card-body row" style="margin:0 auto">
                 
             </div>
           </div>   
@@ -130,6 +123,10 @@
     <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+
+
+    <link href="https://unpkg.com/tabulator-tables@5.5.2/dist/css/tabulator.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script>
         
         <script src="../js/functions/prescripcion.js"></script>
         <script src="../js/bd/prescripcion.js"></script>
@@ -139,9 +136,11 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
         <script>
-            mostrarPrecripcionMedico(prescripciones())
-            findUsuario()
-            nombreNavBar();
+          findUsuario();
+          const params = new URLSearchParams(window.location.search.slice(1));
+          const idCita = params.get('idCita');
+          mostrarRecambios(finAllRecambiosHechos(idCita));
+          nombreNavBar();
         </script>
     </body>
 </html>

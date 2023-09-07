@@ -448,3 +448,57 @@ for (let i = 0; i < inputRadios.length; i++) {
         console.error(error);
       }
     };
+    let finAllRecambiosHechos= async(idCita)=>{
+      const response = await fetch(localStorage.getItem("servidorAPI") + "paciente/findAllRecambiosHechos/"+idCita, {
+        method: "GET",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        }
+      });
+      if (response.ok) {
+        const recambios = await response.json();
+        console.log(recambios);
+        return recambios;
+      }else{
+        console.log("no paso respuesta ok");
+        console.log(response);
+      }
+    }
+
+    let findAllPrescripciones=async()=>{
+      let cedula =await obtenerCedulaEncriptada(0,CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
+      paciente={
+        cedula:cedula
+      }
+      const response = await fetch(localStorage.getItem("servidorAPI") + "paciente/prescripcionesByPaciente", {
+        method: "POST",
+        body:JSON.stringify(paciente),
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        }
+      });
+      if (response.ok) {
+        const recambios = await response.json();
+        return recambios;
+      }else{
+        console.log("no paso respuesta ok");
+        console.log(response);
+      }
+    }
+
+    let finalizar=async(idCita)=>{
+      fetch(localStorage.getItem("servidorAPI") + "paciente/finalizarPrescripcion/"+idCita, {
+        method: "PATCH",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        }
+      })
+      .then(response=>{
+        if(response.ok)
+        location.reload();}) 
+      
+    }
+    
