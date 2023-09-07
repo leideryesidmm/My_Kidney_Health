@@ -99,7 +99,9 @@ if(paciente!=null){
             localStorage.setItem("documento", paciente.tipo_documento);
           if(usuario=="paciente"){
             msg+=
-          '<a href="editarPaciente.html"class="alerg-nueva" >Editar Perfil</a>';
+            '<div class="botonEditarPerfil">'+
+          '<a href="editarPaciente.html"class="editarPerfil" >Editar Perfil</a>'+
+          '</div>';
           }
           
       msg+='</div>'+
@@ -146,7 +148,9 @@ if(paciente!=null){
           var urlActual = window.location.href;
           localStorage.setItem("url", urlActual);
         if(usuario=="medico"){
-        msg+='<a href="editarPaciente.html"class="alerg-nueva" >Editar Perfil</a>';
+        msg+='<div class="botonEditarPerfil">'+
+        '<a href="editarPaciente.html"class="editarPerfil" >Editar Perfil</a>'+
+        '</div>';
         }
         msg+='</div>'+
         '</div>'+
@@ -164,14 +168,17 @@ if(alergia!=null && alergia !== ""){
     '</div>';
     let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
     if(usuario=="medico"){
-    msg+='<a href="alergias.html"class="alerg-nueva" >Agregar Alergia</a>'+
+    msg+='<div class="botonAgregarAlergia">'+
+    '<a href="alergias.html"class="alerg-nueva" >Agregar Alergia</a>'+
+    '</div>'+
     '<br>';
     }
 }
 else{
   let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
   if(usuario=="medico"){
-  msg+='<br><a href="alergias.html"class="alerg-nueva" >Agregar Alergia</a>'+
+  msg+='<div class="botonAgregarAlergia">'+
+  '<br><a href="alergias.html"class="alerg-nueva" >Agregar Alergia</a>'+
   '<br>';
   }
 }

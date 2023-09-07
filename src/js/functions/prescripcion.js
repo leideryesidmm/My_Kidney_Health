@@ -3,7 +3,8 @@ let NavBarPrescripcion = () => {
     let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
     if (usuario == "paciente") {
         ms +=
-        '<div class="navbar" id="bann" style="padding:0"><div class="col-2"><a href="principal.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a></div>'+
+        '<div class="navbar" id="bann" style="padding:0">'+
+        '<div class="col-2"><a href="principal.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a></div>'+
         '<div class="col-8"><h1 class="title-principal-app">Prescripciones</h1></div>'+
         '<div class="col-2"></div></div>';
     }
@@ -65,7 +66,7 @@ let agregarPrescripcion = async () => {
     ms +=
         '<div class="form-row">' +
         '<div class="form-column">' +
-        '<select  id="selectCantidad" onchange="generarPrescripciones()" required>'+
+        '<select  id="selectCantidad" onchange="generarPrescripciones()"  required>'+
         '<option value="0">0</option>'+
                 '<option value="1">1</option>'+
                 '<option value="2">2</option>'+
@@ -109,7 +110,7 @@ function generarPrescripciones(){
           
     '</div>'+
     '<div class="form-column">' +
-        '<label id="fechaF">Fecha Final de la prescripción:</label>'+
+        '<label id="data">Fecha Final de la prescripción:</label>'+
         '<input type="date" class="fechaFin" id="fechaFin" required>'+
         '</div>' +
         '</div>' +
@@ -241,6 +242,7 @@ function generarSelects(idCantidad) {
         var idConcentracion = "concentracion" + (i + 1)+""+idCantidad; 
 
         var col = document.createElement("div");
+        col.id = "selectsPrescripcion";
         col.className = "col-12 col-md-6 col-lg-4 col-xl-3"; 
 
         var selectContainer = document.createElement("div");
@@ -265,12 +267,12 @@ function generarSelects(idCantidad) {
         rang.for="rangoH";
 
         var textRango = document.createElement("label");
-        textRango.id="textRango";
+        textRango.id="data";
         textRango.for="";
         textRango.innerText ="Rango de Horas:";
         
         var asquer = document.createElement("label");
-        asquer.id="asq";
+        asquer.id="data";
         asquer.innerText="*";
 
         var rangoH=document.createElement("input");
@@ -593,17 +595,26 @@ let mostrarPrecripcionMedico=async (prescripcion) => {
   document.getElementById("actual").classList.add("active");
   document.getElementById("historico").classList.remove("active");
   msg+=`
+  <div class="dropdown">
+  <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+</svg>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" onclick="agregarVisita()">Agregar visita especialista</a></li>
+    <li><a class="dropdown-item" onclick="mostrarVisita()">Ver información visita especialista</a></li>
+    <li><a class="dropdown-item" onclick="agregarChequeo()">Agregar chequeo mensual</a></li>
+    <li><a class="dropdown-item" onclick="mostrarChequeo()">Ver información chequeo mensual</a></li>
+  </ul>
+</div>
   <h4>Prescripcion actual</h4><br>
                 <div class="row">
                     <div class="col-sm-6">
                         <h6><b>Fecha inicial:</b> ${prescripcion.cita.fecha==undefined||prescripcion.cita.fecha==null?"Sin fecha de Inicio":formatDate(new Date(prescripcion.cita.fecha))} </h6>
                     </div>
                     <div class="col-sm-6">
-<<<<<<< HEAD
                         <h6><b>Fecha final:</b> ${prescripcion.cita.fechaFin==undefined||prescripcion.cita.fechaFin==null?"Sin fecha de fin":formatDate(new Date(prescripcion.cita.fechaFin))} </h6>
-=======
-                        <h6><b>Fecha final:</b> ${prescripcion.cita.fechaFin==undefined||prescripcion.cita.fecha_fin==null?"Sin fecha de fin":formatDate(new Date(prescripcion.cita.fecha_fin))} </h6>
->>>>>>> 7242fa1ede2e3e70b989e09d1af44aa880aabbcb
                     </div>
                   </div><br>
                   <div id="prescripcionesDia">
@@ -611,13 +622,8 @@ let mostrarPrecripcionMedico=async (prescripcion) => {
 
 
                     prescripcion.unionPrescripcionDiasRecambios.forEach(prescripcionDia => {
-<<<<<<< HEAD
                       
                       msg+=`<div class="row">
-=======
-                      console.log(prescripcionDia)
-                      msg+=`<br><div class="row">
->>>>>>> 7242fa1ede2e3e70b989e09d1af44aa880aabbcb
                       <div class="col"><h6>Dias: ${obtenerDias(prescripcionDia.prescripcionDia)}</h6></div>
                       <div class="col-12 table-responsive">
                           <table class="table">
@@ -1062,3 +1068,502 @@ function habilitaDeshabilitDias(dia, cantidad) {
   });
 }
 
+let mostrarChequeo=async()=>{
+  let msg="";
+  let chequeo=await obtenerUltimoChequeo();
+  if(chequeo!=null){
+  let nombrePaciente=CryptoJS.AES.decrypt(chequeo.cita.paciente.nombre,"clave_secreta").toString(CryptoJS.enc.Utf8);
+  let cedulaPaciente=CryptoJS.AES.decrypt(chequeo.cita.paciente.cedula,"clave_secreta").toString(CryptoJS.enc.Utf8);
+  msg +=
+          `<div class="modal-dialog modal-lg">
+          <div class="modal-content">
+          <div class="modal-header">
+          <h5 class="modal-title">Seguimiento Mensual</h5>
+          <button type="button" class="close" aria-label="Close" onclick="cerrarChequeo()"><span aria-hidden="true" >&times;</span></button>
+          </div>
+          <div class="modal-body">
+          <label class="cedulaPaciente" id="cedulaPaciente"><b>Cédula: </b>`+cedulaPaciente+`</label>&nbsp&nbsp&nbsp&nbsp&nbsp
+          <label class="cedulaPaciente" id="cedulaPaciente"><b>Nombre: </b>`+nombrePaciente+`</label>
+          <div class="">
+          <div class="row">
+          <div class="col-6 p-3">
+          <div class="row border p-2">
+          <div class="centrar-label col-6"><label class="form-label" for="tensionArterial">Tension Arterial</label></div>
+          <div class="col-6"><input class="form-control" type="number" name="chequeo" id="tensionArterial" disabled value="`+chequeo.tensionArterial+`"></input></div>
+          </div>
+          <div class="row mt-2 border p-2">
+          <div class="centrar-label col-6"><label class="form-label" for="colesterolTotal">Colesterol Total</label></div>
+          <div class="col-6"><input class="form-control" type="number" name="chequeo" id="colesterolTotal" disabled value="`+chequeo.colesterolTotal+`"></input></div>
+          </div>
+          <div class="row mt-2 border p-2">
+          <div class="centrar-label col-6"><label class="form-label" for="glicemia"> Glicemia</label></div>
+          <div class="col-6"><input class="form-control" type="number" name="chequeo" id="glicemia" disabled value="`+chequeo.glicemia+`"></input></div>
+          </div>
+          <div class="row mt-2 border p-2">
+          <div class="centrar-label col-6"><label class="form-label" for="triglicerios">Triglicerios:</label></div>
+          <div class="col-6"><input class="form-control" type="number" name="chequeo" id="triglicerios" disabled value="`+chequeo.trigliceridos+`"></input></div>
+          </div>
+          <div class="row mt-2 border p-2">
+          <div class="centrar-label col-6"><label class="form-label" for="ldh">LDH:</label></div>
+          <div class="col-6"><input class="form-control" type="number" name="chequeo" id="ldh" disabled value="`+chequeo.ldh+`"></input></div>
+          </div>
+          </div>
+          <div class="col-6 p-3">
+          <div class="row border p-2">
+          <div class="centrar-label col-6"><label class="form-label" for="hemoglobina"> Hemoglobina</label></div>
+          <div class="col-6"><input class="form-control" type="number" name="chequeo" id="hemoglobina" disabled value="`+chequeo.hemoglobina+`"></input></div>
+          </div>
+          <div class="row mt-2 border p-2">
+          <div class="centrar-label col-6"><label class="form-label" for="fosforo">Fósforo:</label></div>
+          <div class="col-6"><input class="form-control" type="number" name="chequeo" id="fosforo" disabled value="`+chequeo.fosforo+`"></input></div>
+          </div>
+          <div class="row mt-2 border p-2">
+          <div class="centrar-label col-6"><label class="form-label" for="potasio">Potasio:</label></div>
+          <div class="col-6"><input class="form-control" type="number" name="chequeo" id="potasio" disabled value="`+chequeo.potasio+`"></input></div>
+          </div>
+          <div class="row mt-2 border p-2">
+          <div class="centrar-label col-6"><label class="form-label" for="nitrogenoUreico">Nitrógeno Uréico:</label></div>
+          <div class="col-6"><input class="form-control" type="number" name="chequeo" id="nitrogenoUreico" disabled value="`+chequeo.nitrogenoUreico+`"></input></div>
+          </div>
+          <div class="row mt-2 border p-2">
+          <div class="centrar-label col-6"><label class="form-label" for="hdl">HDL:</label></div>
+          <div class="col-6"><input class="form-control" type="number" name="chequeo" id="hdl" disabled value="`+chequeo.hdl+`"></input></div>
+          </div>
+          </div>
+           </div>
+          </div>
+          </div>
+          <div class="modal-footer">
+          <button type="button" class="btn btn-warning" onclick="editarChequeo()"data-bs-dismiss="modal">Editar</button>
+          <button type="submit" onclick="cerrarChequeo()" class="btn btn-secondary">Cerrar</button>
+          </div>
+          </div>
+          </div>`;
+
+          document.getElementById("mostrarChequeo").innerHTML=msg;
+          $("#mostrarChequeo").modal("show");
+  }
+}
+
+
+let mostrarVisita=async()=>{
+  let msg="";
+  let visita=await obtenerUltimaVisita();
+  if(visita!=null){
+  console.log(visita);
+  let nombrePaciente=CryptoJS.AES.decrypt(visita.cita.paciente.nombre,"clave_secreta").toString(CryptoJS.enc.Utf8);
+  let cedulaPaciente=CryptoJS.AES.decrypt(visita.cita.paciente.cedula,"clave_secreta").toString(CryptoJS.enc.Utf8);
+  let nefrologia=visita.nefrologia;
+  let enfermeria=visita.enfermeria;
+  let nutricion=visita.nutricion;
+  let psicologia=visita.psicologia;
+  let trabajoSocial=visita.trabajoSocial;
+  let auxiliarAdmisiones=visita.auxiliarAdmisiones;
+  let farmacia=visita.farmacia;
+  msg +=
+          `<div class="modal-dialog">
+          <div class="modal-content">
+          <div class="modal-header">
+          <h5 class="modal-title" >Visitas a Especialista</h5>
+          <button type="button" class="close" aria-label="Close" onclick="cerrarVisita()"><span aria-hidden="true" >&times;</span></button>
+          </div>
+          <div class="modal-body">
+          <label class="cedulaPaciente" id="cedulaPaciente"><b>Cédula: </b>` + cedulaPaciente + `</label><br>
+          <label class="cedulaPaciente" id="cedulaPaciente"><b>Nombre: </b>` + nombrePaciente + `</label><br>
+          <div class="especialistas"><br><form id="checkboxForm">
+          <div class="row">
+          <div class="col-6"><img src="../img/nefrologo.png" alt="" width="50" height="55" />&nbsp
+          ${nefrologia?
+            `<input class="form-check-input" type="checkbox" name="visita" value="nefrologia" id="nefrologia" checked disabled>`:`<input class="form-check-input" type="checkbox" name="visita" value="nefrologia" id="nefrologia" disabled>`}
+            <label class="form-check-label" for="flexCheckDefault">
+              Nefrólogo
+            </label>
+          </div>
+           <div class="col-6"><img src="../img/enfermera.png" alt="" width="50" height="55" />&nbsp 
+          ${enfermeria?
+          `<input class="form-check-input" type="checkbox" name="visita" value="enfermeria" id="enfermeria" checked disabled>`:`<input class="form-check-input" type="checkbox" name="visita" value="enfermeria" id="enfermeria" disabled>`}
+            <label class="form-check-label" for="flexCheckDefault">
+              Enfermera
+            </label>
+          </div>
+          </div><br>
+          <div class="row">
+          <div class="col-6"><img src="../img/nutricion.png" alt="" width="50" height="55" />&nbsp
+          ${nutricion?
+          `<input class="form-check-input" type="checkbox" name="visita" value="nutricion" id="nutricion" checked disabled>`:`<input class="form-check-input" type="checkbox" name="visita" value="nutricion" id="nutricion" disabled>`}
+            <label class="form-check-label" for="flexCheckDefault">
+              Nutricionista
+            </label>
+          </div>
+          <div class="col-6"><img src="../img/psicologo.png" alt="" width="50" height="55" />&nbsp
+          ${psicologia?
+            `<input class="form-check-input" type="checkbox" name="visita" value="psicologia" id="psicologia" checked disabled>`:`<input class="form-check-input" type="checkbox" name="visita" value="psicologia" id="psicologia" disabled>`}
+            <label class="form-check-label" for="flexCheckDefault">
+              Psicólogo
+            </label>
+          </div>
+          </div><br>
+          <div class="row">
+          <div class="col-6"><img src="../img/asistencia.png" alt="" width="50" height="55" />&nbsp
+          ${trabajoSocial?
+            `<input class="form-check-input" type="checkbox" name="visita" value="trabajoSocial" id="trabajoSocial" checked disabled>`:`<input class="form-check-input" type="checkbox" name="visita" value="trabajoSocial" id="trabajoSocial" disabled>`}
+            <label class="form-check-label" for="flexCheckDefault">
+              Trabajador Social
+            </label>
+          </div>
+          <div class="col-6"><img src="../img/admision.png" alt="" width="50" height="55" />&nbsp
+          ${auxiliarAdmisiones?
+            `<input class="form-check-input" type="checkbox" name="visita" value="auxiliarAdmisiones" id="auxiliarAdmisiones" checked disabled>`:`<input class="form-check-input" type="checkbox" name="visita" value="auxiliarAdmisiones" id="auxiliarAdmisiones" disabled>`}
+            <label class="form-check-label" for="flexCheckDefault">
+              Aux. de Admisiones
+            </label>
+          </div>
+          </div><br>
+          <div class="row text-center">
+          <div class="col-12"><img src="../img/Farmacia.png" alt="" width="50" height="55" />&nbsp
+          ${farmacia?
+            `<input class="form-check-input" type="checkbox" name="visita" value="farmacia" id="farmacia" checked disabled>`:`<input class="form-check-input" type="checkbox" name="visita" value="farmacia" id="farmacia" disabled>`}
+            <label class="form-check-label" for="flexCheckDefault">
+              Farmacia
+            </label>
+          </div>
+          </div></form>
+          </div>
+          </div>
+          <div class="modal-footer">
+          <button type="button" class="btn btn-warning" onclick="editarVisita()" data-bs-dismiss="modal">Editar</button>
+          <button type="button" onclick="cerrarModalMostrarVisita()" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          
+          </div>
+          </div>
+          </div>`;
+          document.getElementById("mostrarVisitaEspecialista").innerHTML=msg;
+          
+          $("#mostrarVisitaEspecialista").modal("show");
+  }
+}
+
+let agregarVisita=async()=>{
+  let msg="";
+  let paciente= await encontrarPaciente();
+  let cedula=CryptoJS.AES.decrypt(paciente.cedula, "clave_secreta").toString(CryptoJS.enc.Utf8);
+  let nombre=CryptoJS.AES.decrypt(paciente.nombre, "clave_secreta").toString(CryptoJS.enc.Utf8);
+  console.log(paciente);
+  msg+='<div class="modal-dialog">' +
+          '<div class="modal-content">' +
+          '<div class="modal-header">' +
+          '<h5 class="modal-title" >Agregar Visitas a Especialista</h5>' +
+          '<button type="button" class="close" aria-label="Close" onclick="cerrarAgregarVisita()">'+
+          '<span aria-hidden="true" >&times;</span></button>'+
+          '</div>' +
+          '<div class="modal-body">' +
+          '<label class="cedulaPaciente" id="cedulaPaciente"><b>Cédula: </b>' + cedula + '</label><br>' +
+          '<label class="cedulaPaciente" id="cedulaPaciente"><b>Nombre: </b>' + nombre + '</label><br>' +
+          '<div class="especialistas"><br><form id="checkboxForm">' +
+          '<div class="row">' +
+          '<div class="col-6"><img src="../img/nefrologo.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="nefrologia" id="nefrologia">' +
+          '  <label class="form-check-label" for="flexCheckDefault">' +
+          '    Nefrólogo' +
+          '  </label>' +
+          '</div>' +
+          '<div class="col-6"><img src="../img/enfermera.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="enfermeria" id="enfermeria">' +
+          '  <label class="form-check-label" for="flexCheckDefault">' +
+          '    Enfermera' +
+          '  </label>' +
+          '</div>' +
+          '</div><br>' +
+          '<div class="row">' +
+          '<div class="col-6"><img src="../img/nutricion.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="nutricion" id="nutricion">' +
+          '  <label class="form-check-label" for="flexCheckDefault">' +
+          '    Nutricionista' +
+          '  </label>' +
+          '</div>' +
+          '<div class="col-6"><img src="../img/psicologo.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="psicologia" id="psicologia">' +
+          '  <label class="form-check-label" for="flexCheckDefault">' +
+          '    Psicólogo' +
+          '  </label>' +
+          '</div>' +
+          '</div><br>' +
+          '<div class="row">' +
+          '<div class="col-6"><img src="../img/asistencia.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="trabajoSocial" id="trabajoSocial">' +
+          '  <label class="form-check-label" for="flexCheckDefault">' +
+          '    Trabajador Social' +
+          '  </label>' +
+          '</div>' +
+          '<div class="col-6"><img src="../img/admision.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="auxiliarAdmisiones" id="auxiliarAdmisiones">' +
+          '  <label class="form-check-label" for="flexCheckDefault">' +
+          '    Aux. de Admisiones' +
+          '  </label>' +
+          '</div>' +
+          '</div><br>' +
+          '<div class="row text-center">' +
+          '<div class="col-12"><img src="../img/Farmacia.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="farmacia" id="farmacia">' +
+          '  <label class="form-check-label" for="flexCheckDefault">' +
+          '    Farmacia' +
+          '  </label>' +
+          '</div>' +
+          '</div></form>' +
+          '</div>' +
+          '</div>' +
+          '<div class="modal-footer">' +
+          '<button type="button" class="btn btn-secondary" href="prescripcionesM.html" data-bs-dismiss="modal">Cancelar</button>' +
+          '<button type="submit"  id="guardarVisita" onclick="crearVisita('+cedula+')" class="btn btn-primary">Guardar</button>' +
+          '</div>' +
+          '</div>' +
+          '</div>' +
+          '</div>';
+          document.getElementById("visita").innerHTML=msg;
+          $("#visita").modal("show");
+}
+
+let agregarChequeo=async()=>{
+  let msg="";
+  let paciente= await encontrarPaciente();
+  let cedula=CryptoJS.AES.decrypt(paciente.cedula, "clave_secreta").toString(CryptoJS.enc.Utf8);
+  let nombre=CryptoJS.AES.decrypt(paciente.nombre, "clave_secreta").toString(CryptoJS.enc.Utf8);
+  msg +=
+  '<div class="modal-dialog modal-lg">' +
+  '<div class="modal-content">' +
+  '<div class="modal-header">' +
+  '<h5 class="modal-title">Agregar Seguimiento Mensual</h5>' +
+  '<button type="button" class="close" aria-label="Close" onclick="cerrarAgregarChequeo()">'+
+  '<span aria-hidden="true" >&times;</span></button>' +
+  '</div>' +
+  '<div class="modal-body">' +
+  '<label class="cedulaPaciente" id="cedulaPaciente"><b>Cédula: </b>' + cedula + '</label>&nbsp&nbsp&nbsp&nbsp&nbsp' +
+  '<label class="cedulaPaciente" id="cedulaPaciente"><b>Nombre: </b>' + nombre + '</label>' +
+  '<div class="">' +
+  '<div class="row">' +
+  '<div class="col-6 p-3">' +
+  '<div class="row border p-2">' +
+  '<div class="centrar-label col-6"><label class="form-label" for="tensionArterial">Tension Arterial</label></div>' +
+  '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="tensionArterial" /></div>' +
+  '</div>' +
+  '<div class="row mt-2 border p-2">' +
+  '<div class="centrar-label col-6"><label class="form-label" for="colesterolTotal">Colesterol Total</label></div>' +
+  '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="colesterolTotal" /></div>' +
+  '</div>' +
+  '<div class="row mt-2 border p-2">' +
+  '<div class="centrar-label col-6"><label class="form-label" for="glicemia"> Glicemia</label></div>' +
+  '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="glicemia" /></div>' +
+  '</div>' +
+  '<div class="row mt-2 border p-2">' +
+  '<div class="centrar-label col-6"><label class="form-label" for="trigliceridos">Trigliceridos:</label></div>' +
+  '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="trigliceridos" /></div>' +
+  '</div>' +
+  '<div class="row mt-2 border p-2">' +
+  '<div class="centrar-label col-6"><label class="form-label" for="ldh">LDH:</label></div>' +
+  '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="ldh" /></div>' +
+  '</div>' +
+  '</div>' +
+  '<div class="col-6 p-3">' +
+  '<div class="row border p-2">' +
+  '<div class="centrar-label col-6"><label class="form-label" for="hemoglobina"> Hemoglobina</label></div>' +
+  '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="hemoglobina" /></div>' +
+  '</div>' +
+  '<div class="row mt-2 border p-2">' +
+  '<div class="centrar-label col-6"><label class="form-label" for="fosforo">Fósforo:</label></div>' +
+  '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="fosforo" /></div>' +
+  '</div>' +
+  '<div class="row mt-2 border p-2">' +
+  '<div class="centrar-label col-6"><label class="form-label" for="potasio">Potasio:</label></div>' +
+  '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="potasio" /></div>' +
+  '</div>' +
+  '<div class="row mt-2 border p-2">' +
+  '<div class="centrar-label col-6"><label class="form-label" for="nitrogenoUreico">Nitrógeno Uréico:</label></div>' +
+  '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="nitrogenoUreico" /></div>' +
+  '</div>' +
+  '<div class="row mt-2 border p-2">' +
+  '<div class="centrar-label col-6"><label class="form-label" for="hdl">HDL:</label></div>' +
+  '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="hdl" /></div>' +
+  '</div>' +
+  '</div>' +
+  ' </div>' +
+  '</div>' +
+  '</div>' +
+  '<div class="modal-footer">' +
+  '<button type="button" class="btn btn-secondary" href="prescripcionesM.html" data-bs-dismiss="modal">Cancelar</button>' +
+  '<button type="submit" onclick="crearChequeoMensual(' + cedula + ')"" class="btn btn-primary">Guardar</button>' +
+  '</div>' +
+  '</div>' +
+  '</div>';
+          document.getElementById("agregarChequeo").innerHTML=msg;
+          $("#agregarChequeo").modal("show");
+}
+
+let editarChequeo=async()=>{
+  let msg="";
+  let chequeo=await obtenerUltimoChequeo();
+  console.log(chequeo);
+  let nombrePaciente=CryptoJS.AES.decrypt(chequeo.cita.paciente.nombre,"clave_secreta").toString(CryptoJS.enc.Utf8);
+  let cedulaPaciente=CryptoJS.AES.decrypt(chequeo.cita.paciente.cedula,"clave_secreta").toString(CryptoJS.enc.Utf8);
+  msg +=
+          `
+          <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+          <div class="modal-header">
+          <h5 class="modal-title">Editar Seguimiento Mensual</h5>
+          <button type="button" class="close" aria-label="Close" onclick="cerrarEditarChequeo()">
+                <span aria-hidden="true" >&times;</span></button>
+          </div>
+          <div class="modal-body">
+          <label class="cedulaPaciente" id="cedulaPaciente"><b>Cédula: </b>`+cedulaPaciente+`</label>&nbsp&nbsp&nbsp&nbsp&nbsp
+          <label class="cedulaPaciente" id="cedulaPaciente"><b>Nombre: </b>`+nombrePaciente+`</label>
+          <input class="form-control" type="number" name="idChequeo" id="editarIdChequeo" value="`+chequeo.idChequeoMensual+ `" hidden>
+          <input class="form-control" type="number" name="idCita" id="idCita" value="`+chequeo.cita.idCita+`" hidden>          
+          <div class="">
+          <div class="row">
+          <div class="col-6 p-3">
+          <div class="row border p-2">
+          <div class="centrar-label col-6"><label class="form-label" for="tensionArterial">Tension Arterial</label></div>
+          <div class="col-6"><input class="form-control" type="number" name="chequeo" id="editarTensionArterial" value="`+chequeo.tensionArterial+`"></input></div>
+          </div>
+          <div class="row mt-2 border p-2">
+          <div class="centrar-label col-6"><label class="form-label" for="colesterolTotal">Colesterol Total</label></div>
+          <div class="col-6"><input class="form-control" type="number" name="chequeo" id="editarColesterolTotal" value="`+chequeo.colesterolTotal+`"></input></div>
+          </div>
+          <div class="row mt-2 border p-2">
+          <div class="centrar-label col-6"><label class="form-label" for="glicemia"> Glicemia</label></div>
+          <div class="col-6"><input class="form-control" type="number" name="chequeo" id="editarGlicemia" value="`+chequeo.glicemia+`"></input></div>
+          </div>
+          <div class="row mt-2 border p-2">
+          <div class="centrar-label col-6"><label class="form-label" for="triglicerios">Triglicerios:</label></div>
+          <div class="col-6"><input class="form-control" type="number" name="chequeo" id="editarTrigliceridos" value="`+chequeo.trigliceridos+`"></input></div>
+          </div>
+          <div class="row mt-2 border p-2">
+          <div class="centrar-label col-6"><label class="form-label" for="ldh">LDH:</label></div>
+          <div class="col-6"><input class="form-control" type="number" name="chequeo" id="editarLdh" value="`+chequeo.ldh+`"></input></div>
+          </div>
+          </div>
+          <div class="col-6 p-3">
+          <div class="row border p-2">
+          <div class="centrar-label col-6"><label class="form-label" for="hemoglobina"> Hemoglobina</label></div>
+          <div class="col-6"><input class="form-control" type="number" name="chequeo" id="editarHemoglobina" value="`+chequeo.hemoglobina+`"></input></div>
+          </div>
+          <div class="row mt-2 border p-2">
+          <div class="centrar-label col-6"><label class="form-label" for="fosforo">Fósforo:</label></div>
+          <div class="col-6"><input class="form-control" type="number" name="chequeo" id="editarFosforo" value="`+chequeo.fosforo+`"></input></div>
+          </div>
+          <div class="row mt-2 border p-2">
+          <div class="centrar-label col-6"><label class="form-label" for="potasio">Potasio:</label></div>
+          <div class="col-6"><input class="form-control" type="number" name="chequeo" id="editarPotasio" value="`+chequeo.potasio+`"></input></div>
+          </div>
+          <div class="row mt-2 border p-2">
+          <div class="centrar-label col-6"><label class="form-label" for="nitrogenoUreico">Nitrógeno Uréico:</label></div>
+          <div class="col-6"><input class="form-control" type="number" name="chequeo" id="editarNitrogenoUreico" value="`+chequeo.nitrogenoUreico+`"></input></div>
+          </div>
+          <div class="row mt-2 border p-2">
+          <div class="centrar-label col-6"><label class="form-label" for="hdl">HDL:</label></div>
+          <div class="col-6"><input class="form-control" type="number" name="chequeo" id="editarHdl" value="`+chequeo.hdl+`"></input></div>
+          </div>
+          </div>
+           </div>
+          </div>
+          </div>
+          <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="cerrarEditarChequeo()">Cancelar</button>
+          <button type="submit" onclick="actualizarChequeo()" class="btn btn-primary">Guardar</button>
+          </div>
+          </div>
+          </div>`;
+
+          document.getElementById("editarChequeo").innerHTML=msg;
+          $("#editarChequeo").modal("show");
+}
+
+
+let editarVisita=async()=>{
+  let msg="";
+  let visita=await obtenerUltimaVisita();
+  
+  let nombrePaciente=CryptoJS.AES.decrypt(visita.cita.paciente.nombre,"clave_secreta").toString(CryptoJS.enc.Utf8);
+  let cedulaPaciente=CryptoJS.AES.decrypt(visita.cita.paciente.cedula,"clave_secreta").toString(CryptoJS.enc.Utf8);
+  let nefrologia=visita.nefrologia;
+  let enfermeria=visita.enfermeria;
+  let nutricion=visita.nutricion;
+  let psicologia=visita.psicologia;
+  let trabajoSocial=visita.trabajoSocial;
+  let auxiliarAdmisiones=visita.auxiliarAdmisiones;
+  let farmacia=visita.farmacia;
+  msg +=
+          `<div class="modal-dialog">
+          <div class="modal-content">
+          <div class="modal-header">
+          <h5 class="modal-title" >Editar Visitas a Especialista</h5>
+          <button type="button" class="close" aria-label="Close" onclick="cerrarEditarVisita()"><span aria-hidden="true" >&times;</span></button>
+          </div>
+          <div class="modal-body">
+          <label class="cedulaPaciente" id="cedulaPaciente"><b>Cédula: </b>` + cedulaPaciente + `</label><br>
+          <label class="cedulaPaciente" id="cedulaPaciente"><b>Nombre: </b>` + nombrePaciente + `</label><br>
+          <input class="form-control" type="number" name="idVisita" id="idVisita" value="`+visita.idVistaEspecialista + `" hidden>
+          <input class="form-control" type="number" name="idCita" id="idCita" value="`+visita.cita.idCita+`" hidden>          
+          <div class="especialistas"><br><form id="checkboxForm">
+          <div class="row">
+          <div class="col-6"><img src="../img/nefrologo.png" alt="" width="50" height="55" />&nbsp
+          ${nefrologia?
+            `<input class="form-check-input" type="checkbox" name="visita" value="nefrologia" id="editarNefrologia" checked >`:`<input class="form-check-input" type="checkbox" name="visita" value="nefrologia" id="editarNefrologia" >`}
+            <label class="form-check-label" for="flexCheckDefault">
+              Nefrólogo
+            </label>
+          </div>
+           <div class="col-6"><img src="../img/enfermera.png" alt="" width="50" height="55" />&nbsp 
+          ${enfermeria?
+          `<input class="form-check-input" type="checkbox" name="visita" value="enfermeria" id="editarEnfermeria" checked>`:`<input class="form-check-input" type="checkbox" name="visita" value="enfermeria" id="editarEnfermeria" >`}
+            <label class="form-check-label" for="flexCheckDefault">
+              Enfermera
+            </label>
+          </div>
+          </div><br>
+          <div class="row">
+          <div class="col-6"><img src="../img/nutricion.png" alt="" width="50" height="55" />&nbsp
+          ${nutricion?
+          `<input class="form-check-input" type="checkbox" name="visita" value="nutricion" id="editarNutricion" checked>`:`<input class="form-check-input" type="checkbox" name="visita" value="nutricion" id="editarNutricion" >`}
+            <label class="form-check-label" for="flexCheckDefault">
+              Nutricionista
+            </label>
+          </div>
+          <div class="col-6"><img src="../img/psicologo.png" alt="" width="50" height="55" />&nbsp
+          ${psicologia?
+            `<input class="form-check-input" type="checkbox" name="visita" value="psicologia" id="editarPsicologia" checked>`:`<input class="form-check-input" type="checkbox" name="visita" value="psicologia" id="editarPsicologia">`}
+            <label class="form-check-label" for="flexCheckDefault">
+              Psicólogo
+            </label>
+          </div>
+          </div><br>
+          <div class="row">
+          <div class="col-6"><img src="../img/asistencia.png" alt="" width="50" height="55" />&nbsp
+          ${trabajoSocial?
+            `<input class="form-check-input" type="checkbox" name="visita" value="trabajoSocial" id="editarTrabajoSocial" checked>`:`<input class="form-check-input" type="checkbox" name="visita" value="trabajoSocial" id="editarTrabajoSocial">`}
+            <label class="form-check-label" for="flexCheckDefault">
+              Trabajador Social
+            </label>
+          </div>
+          <div class="col-6"><img src="../img/admision.png" alt="" width="50" height="55" />&nbsp
+          ${auxiliarAdmisiones?
+            `<input class="form-check-input" type="checkbox" name="visita" value="auxiliarAdmisiones" id="editarAuxiliarAdmisiones" checked>`:`<input class="form-check-input" type="checkbox" name="visita" value="auxiliarAdmisiones" id="editarAuxiliarAdmisiones">`}
+            <label class="form-check-label" for="flexCheckDefault">
+              Aux. de Admisiones
+            </label>
+          </div>
+          </div><br>
+          <div class="row text-center">
+          <div class="col-12"><img src="../img/Farmacia.png" alt="" width="50" height="55" />&nbsp
+          ${farmacia?
+            `<input class="form-check-input" type="checkbox" name="visita" value="farmacia" id="editarFarmacia" checked >`:`<input class="form-check-input" type="checkbox" name="visita" value="farmacia" id="editarFarmacia">`}
+            <label class="form-check-label" for="flexCheckDefault">
+              Farmacia
+            </label>
+          </div>
+          </div></form>
+          </div>
+          </div>
+          <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit"  id="guardarVisita" onclick="actualizarVisita()" class="btn btn-primary">Guardar</button>
+          </div>
+          </div>
+          </div>`;
+
+          document.getElementById("editarVisita").innerHTML=msg;
+          $("#editarVisita").modal("show");
+}

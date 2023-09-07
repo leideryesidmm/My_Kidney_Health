@@ -150,25 +150,6 @@ label{
   text-align: center;
 }
 
-  
- 
-  
-
-.alerg-nueva{
-    background-color: #00DBA1;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    padding: 3px 20px;
-    font-size: 15px;
-    font-family: 'Jost', sans-serif;
-    border-radius: 5px;
-    text-decoration: none;
-    margin-left: 70%;
-    margin-right: 27px;
-    margin-top: 5px;
-    
-}
 
 .cuidador-nuevo{
   background-color: #00DBA1;
@@ -322,6 +303,30 @@ input[type="password"]:focus{
   height: 40px;
   border-radius: 5px;
   border-color: #89898f;
+}
+
+.botonEditarPerfil{
+  display: flex;
+  justify-content: end;
+}
+
+.botonAgregarAlergia{
+  display: flex;
+  justify-content:center;
+}
+
+.botonEditarPerfil a, .botonAgregarAlergia a{
+  background-color: #00DBA1;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 3px 20px;
+    font-size: 15px;
+    font-family: 'Jost', sans-serif;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 5px;
+    width: fit-content;
 }
 
 @media only screen and (max-width: 768px) {

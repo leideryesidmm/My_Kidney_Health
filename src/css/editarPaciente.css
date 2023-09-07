@@ -139,7 +139,7 @@ body {
     margin-bottom: 5px;
   }
 
-  .form-label, #textRango, #fechaF{
+  .form-label, #textRango{
     font-size: 15px;
     margin-bottom: 0;
    
@@ -247,10 +247,12 @@ body {
         transition: transform 0.3s ease-in-out;
     }
 
-    #labelConcentracion{
+    #labelConcentracion, #fechaF{
       color: #555;
         font-weight: bold;
         font-size: 14px;
+        margin-bottom: -10px;
+        transition: transform 0.3s ease-in-out;
     }
 
     #prueba {

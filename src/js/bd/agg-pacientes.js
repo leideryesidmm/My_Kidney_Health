@@ -244,7 +244,7 @@ let crearVisita = async (cedulaPaciente) => {
   console.log(visitaEspecialistaDto);
 
   if (Object.keys(visitaEspecialistaDto).length > 0) {
-    const response = await fetch(servidorAPI + 'Medico/visitaEspecialista', {
+    const response = await fetch(localStorage.getItem("servidorAPI") + 'Medico/visitaEspecialista', {
       method: "POST",
       body: JSON.stringify(visitaEspecialistaDto),
       headers: {
@@ -287,7 +287,7 @@ let crearChequeoMensual = async (cedulaPaciente) => {
   console.log(chequeoMensualInDto);
 
   if (Object.keys(chequeoMensualInDto).length > 1) { 
-    const response = await fetch(servidorAPI + 'Medico/chequeoMensual', {
+    const response = await fetch(localStorage.getItem("servidorAPI") + 'Medico/chequeoMensual', {
       method: "POST",
       body: JSON.stringify(chequeoMensualInDto),
       headers: {

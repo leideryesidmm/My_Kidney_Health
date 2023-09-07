@@ -366,7 +366,6 @@ console.log(paciente);
     }
     console.log(paciente.foto);
   if (paciente.foto!=null) {
-    console.log("ENTRO AL IF DE PACIENTE FOTO")
     const binaryString = window.atob(paciente.foto);
   const byteArray = new Uint8Array(binaryString.length);
   for (let i = 0; i < binaryString.length; i++) {

@@ -66,139 +66,6 @@ let pacientesTratados = async () => {
           '</div>' +
           '</div>' +
           '</div>';
-
-        msg +=
-          '<div class="modal" tabindex="-1" id="visita' + cont + '">' +
-          '<div class="modal-dialog">' +
-          '<div class="modal-content">' +
-          '<div class="modal-header">' +
-          '<h5 class="modal-title" >Visitas a Especialista</h5>' +
-          '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
-          '</div>' +
-          '<div class="modal-body">' +
-          '<label class="cedulaPaciente" id="cedulaPaciente"><b>Cédula: </b>' + paciente.cedula + '</label><br>' +
-          '<label class="cedulaPaciente" id="cedulaPaciente"><b>Nombre: </b>' + paciente.nombre + '</label><br>' +
-          '<div class="especialistas"><br><form id="checkboxForm">' +
-          '<div class="row">' +
-          '<div class="col-6"><img src="../img/nefrologo.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="nefrologia" id="nefrologia">' +
-          '  <label class="form-check-label" for="flexCheckDefault">' +
-          '    Nefrólogo' +
-          '  </label>' +
-          '</div>' +
-          '<div class="col-6"><img src="../img/enfermera.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="enfermeria" id="enfermeria">' +
-          '  <label class="form-check-label" for="flexCheckDefault">' +
-          '    Enfermera' +
-          '  </label>' +
-          '</div>' +
-          '</div><br>' +
-          '<div class="row">' +
-          '<div class="col-6"><img src="../img/nutricion.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="nutricion" id="nutricion">' +
-          '  <label class="form-check-label" for="flexCheckDefault">' +
-          '    Nutricionista' +
-          '  </label>' +
-          '</div>' +
-          '<div class="col-6"><img src="../img/psicologo.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="psicologia" id="psicologia">' +
-          '  <label class="form-check-label" for="flexCheckDefault">' +
-          '    Psicólogo' +
-          '  </label>' +
-          '</div>' +
-          '</div><br>' +
-          '<div class="row">' +
-          '<div class="col-6"><img src="../img/asistencia.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="trabajoSocial" id="trabajoSocial">' +
-          '  <label class="form-check-label" for="flexCheckDefault">' +
-          '    Trabajador Social' +
-          '  </label>' +
-          '</div>' +
-          '<div class="col-6"><img src="../img/admision.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="auxiliarAdmisiones" id="auxiliarAdmisiones">' +
-          '  <label class="form-check-label" for="flexCheckDefault">' +
-          '    Aux. de Admisiones' +
-          '  </label>' +
-          '</div>' +
-          '</div><br>' +
-          '<div class="row text-center">' +
-          '<div class="col-12"><img src="../img/Farmacia.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="farmacia" id="farmacia">' +
-          '  <label class="form-check-label" for="flexCheckDefault">' +
-          '    Farmacia' +
-          '  </label>' +
-          '</div>' +
-          '</div></form>' +
-          '</div>' +
-          '</div>' +
-          '<div class="modal-footer">' +
-          '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>' +
-          '<button type="submit"  id="guardarVisita" onclick="crearVisita('+paciente.cedula+')" class="btn btn-primary">Guardar</button>' +
-          '</div>' +
-          '</div>' +
-          '</div>' +
-          '</div>';
-
-        msg +=
-          '<div class="modal" tabindex="-1" id="chequeo' + cont + '">' +
-          '<div class="modal-dialog modal-lg">' +
-          '<div class="modal-content">' +
-          '<div class="modal-header">' +
-          '<h5 class="modal-title">Seguimiento Mensual</h5>' +
-          '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
-          '</div>' +
-          '<div class="modal-body">' +
-          '<label class="cedulaPaciente" id="cedulaPaciente"><b>Cédula: </b>' + paciente.cedula + '</label>&nbsp&nbsp&nbsp&nbsp&nbsp' +
-          '<label class="cedulaPaciente" id="cedulaPaciente"><b>Nombre: </b>' + paciente.nombre + '</label>' +
-          '<div class="">' +
-          '<div class="row">' +
-          '<div class="col-6 p-3">' +
-          '<div class="row border p-2">' +
-          '<div class="centrar-label col-6"><label class="form-label" for="tensionArterial">Tension Arterial</label></div>' +
-          '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="tensionArterial" /></div>' +
-          '</div>' +
-          '<div class="row mt-2 border p-2">' +
-          '<div class="centrar-label col-6"><label class="form-label" for="colesterolTotal">Colesterol Total</label></div>' +
-          '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="colesterolTotal" /></div>' +
-          '</div>' +
-          '<div class="row mt-2 border p-2">' +
-          '<div class="centrar-label col-6"><label class="form-label" for="glicemia"> Glicemia</label></div>' +
-          '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="glicemia" /></div>' +
-          '</div>' +
-          '<div class="row mt-2 border p-2">' +
-          '<div class="centrar-label col-6"><label class="form-label" for="triglicerios">Triglicerios:</label></div>' +
-          '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="triglicerios" /></div>' +
-          '</div>' +
-          '<div class="row mt-2 border p-2">' +
-          '<div class="centrar-label col-6"><label class="form-label" for="ldh">LDH:</label></div>' +
-          '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="ldh" /></div>' +
-          '</div>' +
-          '</div>' +
-          '<div class="col-6 p-3">' +
-          '<div class="row border p-2">' +
-          '<div class="centrar-label col-6"><label class="form-label" for="hemoglobina"> Hemoglobina</label></div>' +
-          '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="hemoglobina" /></div>' +
-          '</div>' +
-          '<div class="row mt-2 border p-2">' +
-          '<div class="centrar-label col-6"><label class="form-label" for="fosforo">Fósforo:</label></div>' +
-          '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="fosforo" /></div>' +
-          '</div>' +
-          '<div class="row mt-2 border p-2">' +
-          '<div class="centrar-label col-6"><label class="form-label" for="potasio">Potasio:</label></div>' +
-          '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="potasio" /></div>' +
-          '</div>' +
-          '<div class="row mt-2 border p-2">' +
-          '<div class="centrar-label col-6"><label class="form-label" for="nitrogenoUreico">Nitrógeno Uréico:</label></div>' +
-          '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="nitrogenoUreico" /></div>' +
-          '</div>' +
-          '<div class="row mt-2 border p-2">' +
-          '<div class="centrar-label col-6"><label class="form-label" for="hdl">HDL:</label></div>' +
-          '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="hdl" /></div>' +
-          '</div>' +
-          '</div>' +
-          ' </div>' +
-          '</div>' +
-          '</div>' +
-          '<div class="modal-footer">' +
-          '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>' +
-          '<button type="submit" onclick="crearChequeoMensual(' + paciente.cedula + ')"" class="btn btn-primary">Guardar</button>' +
-          '</div>' +
-          '</div>' +
-          '</div>' +
-          '</div>';
         cont++;
       });
     }
@@ -229,6 +96,7 @@ let pacientesTratados = async () => {
     },
 });
 };
+
 
 
 function irPaciente(cedula, nombre){

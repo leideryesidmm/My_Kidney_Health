@@ -22,10 +22,9 @@
 }
 
 .navbar {
+  padding-left: 50px;
   background-color: #04BAFC;
-  margin: auto;
-  margin: 0;
-  padding: 0;
+  color: white;
 }
 .navbar img{
   height: 30px;
