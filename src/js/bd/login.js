@@ -14,7 +14,7 @@ let login = async (event) => {
   let decryptedCedula = null;
   let contrasenia = null;
 
-  const peticion = await fetch(servidorAPI + '/Medico/findAllPacientes', {
+  const peticion = await fetch(servidorAPI + 'Medico/findAllPacientes', {
     method: 'GET',
     headers: {
       "Accept": "application/json",
@@ -25,7 +25,7 @@ let login = async (event) => {
   const pacientes = await peticion.json();
   console.log(pacientes);
 
-  const peticion2 = await fetch(servidorAPI + '/Medico/findAll', {
+  const peticion2 = await fetch(servidorAPI + 'Medico/findAll', {
     method: 'GET',
     headers: {
       "Accept": "application/json",
