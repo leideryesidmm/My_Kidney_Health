@@ -7,9 +7,29 @@ function isAuthenticated() {
 
 let login = async (event) => {
   event.preventDefault();
+
+  const peticion3 = await fetch(servidorAPI + 'Usuario/findAdmin', {
+    method: 'GET',
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    }
+  });
+
+  const administrador = await peticion3.json();
+  console.log(administrador);
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
  
+  if (username === CryptoJS.AES.decrypt(administrador.cedula,"clave_secreta").toString(CryptoJS.enc.Utf8) && password === CryptoJS.AES.decrypt(administrador.contrasenia,"clave_secreta").toString(CryptoJS.enc.Utf8) && administrador.tipoUsuario==="admin") {
+    localStorage.setItem("servidorAPI", servidorAPI);
+    location.href="administrador.html";
+
+  }
+  else{
+
+  
+
 
   let decryptedCedula = null;
   let contrasenia = null;
@@ -97,7 +117,7 @@ let medicoEncontrado=false;
       msg+='<p class="error">¡Datos Incorrectos!</p>';
       document.getElementById("datosIncorrectos").innerHTML=msg;
     }
-
+  }
 }
 
 // Función para manejar el cierre de sesión
