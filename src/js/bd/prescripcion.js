@@ -54,7 +54,34 @@ let obtenerCedulaEncriptada=async(id, cedula)=>{
     
   return result;
 }
-
+let obtenerCedulasUsuarios=async(id, cedula)=>{
+  let result = "";
+  console.log(cedula);
+  const peticion= await fetch(localStorage.getItem("servidorAPI")+'Usuario/findAllUsuarios',{
+    method:'GET',
+    headers:{
+      "Accept":"application/json",
+      "Content-Type": "application/json"
+    }
+      });
+      const pacientes=await peticion.json();
+      console.log(pacientes);
+      pacientes.forEach(paciente=>{
+        let decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+        console.log(decryptedCedula);
+        if(cedula===decryptedCedula){   
+        console.log("ENTRO");
+      if(id == 0){
+        result = paciente.cedula;
+      }
+      if(id == 1){
+        result = paciente.contrasenia;
+      }
+    }
+    })
+    console.log(result)
+  return result;
+}
 
 
 function passwordVisibilityActual(inputId, iconClass) {
@@ -73,65 +100,70 @@ function passwordVisibilityActual(inputId, iconClass) {
 }
 
 
-let cambioContrasenia = async () => {
-  
-  let data = localStorage.getItem("datos");
-  let dato=JSON.parse(data);
- 
-      let cedul= decodeURIComponent(dato.cedula);
-    
+let cambioContrasenia = async (event) => {
+  event.preventDefault();
 
-      let cedulaEncriptada="";
-      let contraseniaEncriptadaBD="";
-      let decryptedCedula = CryptoJS.AES.decrypt(cedul, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-       cedulaEncriptada = await obtenerCedulaEncriptada(0,decryptedCedula);
-      
+let data = localStorage.getItem("datos");
+let dato=JSON.parse(data);
+console.log(data);
+    let cedul= decodeURIComponent(dato.cedula);
+    console.log(cedul);
 
-        contraseniaEncriptadaBD = await obtenerCedulaEncriptada(1,decryptedCedula);
+    let cedulaEncriptada="";
+    let contraseniaEncriptadaBD="";
+    let decryptedCedula = CryptoJS.AES.decrypt(cedul, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+     cedulaEncriptada = await obtenerCedulasUsuarios(0,decryptedCedula);
+    console.log(decryptedCedula);
+
+      contraseniaEncriptadaBD = await obtenerCedulasUsuarios(1,decryptedCedula);
+    console.log(contraseniaEncriptadaBD);
 
 
-  let contraseniaBD = CryptoJS.AES.decrypt(contraseniaEncriptadaBD, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-  
+let contraseniaBD = CryptoJS.AES.decrypt(contraseniaEncriptadaBD, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+console.log(contraseniaBD);
 
-  const contraseniaAnterior = document.getElementById("contraseniaanterior").value;
-  const nuevaContrasenia = document.getElementById("newcontrasenia").value;
-  
+const contraseniaAnterior = document.getElementById("contraseniaanterior").value;
+const nuevaContrasenia = document.getElementById("newcontrasenia").value;
+console.log(nuevaContrasenia)
 
-  if (contraseniaAnterior === contraseniaBD) {
-    const contraseniaEncriptada = CryptoJS.AES.encrypt(nuevaContrasenia, 'clave_secreta').toString();
+if (contraseniaAnterior === contraseniaBD) {
+  const contraseniaEncriptada = CryptoJS.AES.encrypt(nuevaContrasenia, 'clave_secreta').toString();
 
-    let usuarioInDto = { cedula: cedulaEncriptada, contrasenia: contraseniaEncriptada };
-    
+  let usuarioInDto = { cedula: cedulaEncriptada, contrasenia: contraseniaEncriptada };
+  console.log(usuarioInDto);
 
-    const peticion= await fetch(localStorage.getItem("servidorAPI")+"Usuario/cambiarContrasenia", {
-      method:"PATCH",
-      headers:{
-        "Accept":"application/json",
-        "Content-Type":"application/json"
-      },
-      body:JSON.stringify(usuarioInDto)
-    })
-      .then(response => {
-        if (response.ok) {
-          alert("Contraseña cambiada exitosamente");
+  const peticion= await fetch(localStorage.getItem("servidorAPI")+"Usuario/cambiarContrasenia", {
+    method:"PATCH",
+    headers:{
+      "Accept":"application/json",
+      "Content-Type":"application/json"
+    },
+    body:JSON.stringify(usuarioInDto)
+  })
+  .then(response => {
+    if (response.ok) {
+      $('#contraseniacambiada').modal('show');
 
-          document.getElementById("contraseniaanterior").value = "";
-          document.getElementById("newcontrasenia").value = "";
-          $('#nuevacontrasenia').modal('hide');
-        } else {
-          alert("Error al cambiar la contraseña");
-        }
-      })
-      .catch(error => {
-        
-        alert("Error al cambiar la contraseña");
-      });
-  }
-  else {
-    alert("La contraseña actual ingresada no es correcta. Intentelo nuevamente");
-    document.getElementById("contraseniaanterior").value = "";
-    document.getElementById("newcontrasenia").value = "";
-  }
+      document.getElementById("contraseniaanterior").value = "";
+      document.getElementById("newcontrasenia").value = "";
+      $('#nuevacontrasenia').modal('hide');
+    } else {
+      alert("Error al cambiar la contraseña");
+    }
+  })
+  .catch(error => {
+    console.error("Error:", error);
+    alert("Error al cambiar la contraseña");
+  });
+}
+else {
+$('#contraseniaerronea').modal('show');
+document.getElementById("contraseniaanterior").value = "";
+document.getElementById("newcontrasenia").value = "";
+$('#btnAceptar').click(function() {
+  $('#contraseniaerronea').modal('hide');
+});
+}
 };
 
 
@@ -219,7 +251,7 @@ let crearRecambio = async () => {
         orificio= opcion.value}
     })
     let fecha_real=new Date(localStorage.getItem("fecha_real"));
-   
+    console.log(fecha_real)
     var drenaje = document.getElementById('drenaje').value;
     const valores = window.location.search;
     const urlParams = new URLSearchParams(valores);
@@ -241,7 +273,8 @@ let crearRecambio = async () => {
       "hora_ini":fechayhoraIni,
       "hora_fin":fechayhoraFin
     };
-   
+    console.log("este es el recambio que se hizo:")
+    console.log(recambioHechoInDto)
     fetch (localStorage.getItem("servidorAPI")+"paciente/recambio/crearRecambioHecho",{
       method: 'POST',
       body: JSON.stringify(recambioHechoInDto),
@@ -263,7 +296,7 @@ let crearRecambio = async () => {
     })
     .catch(error => {
       console.error(error);
-
+      // Mostrar mensaje de error en la consola o en la interfaz de usuario
     })
      
   
@@ -533,7 +566,7 @@ let validacirChecks=validarCeckbox();
     await crearCita(event);
     await crearPrescripcionDia(event);
     await crearRecambios(event);
-    location.href="PrescripcionesM.html"
+    location.href="prescripcionesM.html"
   }
     else{
       $('#errorModal').modal('show');
@@ -589,7 +622,6 @@ let validacirChecks=validarCeckbox();
       "Content-Type":"application/json"
         },
         body: JSON.stringify(prescripcionDiaInDto)
-        
       })
     }
     return null;
@@ -785,6 +817,7 @@ let validacirChecks=validarCeckbox();
   }
 
   let obtenerUltimaVisita=async()=>{
+    try{
     let cita=await encontrarUltimaCita();
     let id_cita=cita.idCita;
     let peticion=await fetch(localStorage.getItem("servidorAPI")+"Medico/encontrarVisita/"+id_cita,{
@@ -794,38 +827,45 @@ let validacirChecks=validarCeckbox();
         "Content-Type":"application/json"
       }
     })
-    .then(response => {
-      if (response.ok) {
-        let visita=peticion.json();
+      if (peticion.ok) {
+        let visita= await peticion.json();
         return visita;
         }
    else{
       $('#errorModalVisita').modal('show');
       return null;
     }
-  })
+  }
+  catch (error) {
+    console.error(error);
+    return null;
+  }
   }
 
-  let obtenerUltimoChequeo=async()=>{
-    let cita=await encontrarUltimaCita();
-    let id_cita=cita.idCita;
-   let peticion=await fetch(localStorage.getItem("servidorAPI")+"Medico/encontrarChequeo/"+id_cita,{
-      method:"POST",
-      headers:{
-        "Accept":"application/json",
-        "Content-Type":"application/json"
+  let obtenerUltimoChequeo = async () => {
+    try {
+      let cita = await encontrarUltimaCita();
+      let id_cita = cita.idCita;
+  
+      let peticion = await fetch(localStorage.getItem("servidorAPI") + "Medico/encontrarChequeo/" + id_cita, {
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        }
+      });
+  
+      if (peticion.ok) {
+        let chequeo = await peticion.json();
+        return chequeo;
+      } else {
+        $('#errorModalChequeo').modal('show');
+        return null;
       }
-    })
-    .then(response => {
-      if (response.ok) {
-    let chequeo=peticion.json();
-    return chequeo;
-  }
-  else{
-     $('#errorModalChequeo').modal('show');
-     return null;
-   }
- })
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
 let encontrarPaciente = async () => {
@@ -877,6 +917,14 @@ function cerrarAgregarVisita(){
 }
 function cerrarAgregarChequeo(){
   $("#agregarChequeo").modal("hide");
+}
+
+function cerrarChequeoVacio(){
+  $("#errorModalChequeo").modal("hide");
+}
+
+function cerrarVisitaVacia(){
+  $("#errorModalVisita").modal("hide");
 }
 
 let actualizarChequeo=async()=>{
@@ -947,3 +995,83 @@ let actualizarVisita=async()=>{
       }
   })
 }
+
+let findUsuario= async () => {
+  let cedula =await obtenerCedulasUsuarios(0,CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));;
+  console.log(cedula)
+  console.log(cedula)
+  let usuarioInDto = {cedula : cedula}
+  console.log(usuarioInDto)
+  try {
+      const response = await fetch(localStorage.getItem("servidorAPI") + "Usuario/cedula", {
+        method: "POST",
+        body: JSON.stringify(usuarioInDto),
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        }
+      });    
+      if (response.ok) {
+        const usuarioData = await response.json();
+        console.log(usuarioData)
+        const nombreUsuario = usuarioData.nombre; 
+        nombreDecrypt =CryptoJS.AES.decrypt(nombreUsuario, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+        document.getElementById("title").innerText="Prescripciones del paciente: "+nombreDecrypt
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  let finAllRecambiosHechos= async(idCita)=>{
+    const response = await fetch(localStorage.getItem("servidorAPI") + "paciente/findAllRecambiosHechos/"+idCita, {
+      method: "GET",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      }
+    });
+    if (response.ok) {
+      const recambios = await response.json();
+      console.log(recambios);
+      return recambios;
+    }else{
+      console.log("no paso respuesta ok");
+      console.log(response);
+    }
+  }
+
+  let findAllPrescripciones=async()=>{
+    let cedula =await obtenerCedulasUsuarios(0,CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
+    paciente={
+      cedula:cedula
+    }
+    const response = await fetch(localStorage.getItem("servidorAPI") + "paciente/prescripcionesByPaciente", {
+      method: "POST",
+      body:JSON.stringify(paciente),
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      }
+    });
+    if (response.ok) {
+      const recambios = await response.json();
+      return recambios;
+    }else{
+      console.log("no paso respuesta ok");
+      console.log(response);
+    }
+  }
+
+  let finalizar=async(idCita)=>{
+    fetch(localStorage.getItem("servidorAPI") + "paciente/finalizarPrescripcion/"+idCita, {
+      method: "PATCH",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      }
+    })
+    .then(response=>{
+      if(response.ok)
+      location.reload();}) 
+    
+  }

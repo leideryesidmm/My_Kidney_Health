@@ -81,7 +81,7 @@ let principal = () => {
             '<h5><b>Mi Perfil</b></h5>' +
             '</div>' +
             '<div class="description" class="col-md-6 col-12 text-center" >'+
-            '<p>En esta sección podrá ver su información personal y médica<p>';
+            '<p>En esta sección podrá visualizar su información personal y médica<p>';
             }
             else{
                 msg+='<div class="grid-item-content" class="col-md-6 col-12  text-center" id="textcontainer">' +
@@ -117,7 +117,7 @@ let principal = () => {
             '</div>' +
 
 
-            '<div class="row">' +
+            '<div class="row center">' +
             '<div class="col-md-6 col-12 my-sm-2 d-flex flex-column align-items-center">' +
             '<div class="grid-item">' +
             '<div id="container">' +
@@ -133,7 +133,8 @@ let principal = () => {
             else{
                 msg+='<p>En esta sección podrá ver los medicamentos administrados por el paciente<p>';   
             }
-            msg+='</div>' +
+            if (usuario == "paciente") {
+              msg+='</div>' +
             '</div>' +
             '</div>' +
             '<div class="col-md-6 col-12 my-sm-2 d-flex flex-column align-items-center">' +
@@ -150,6 +151,8 @@ let principal = () => {
             '</div>' +
             '</div>' +
             '</div>';
+            }
+            
     
 
     document.getElementById("cont-principal").innerHTML = msg;

@@ -13,8 +13,8 @@ let login = async (event) => {
 
   let decryptedCedula = null;
   let contrasenia = null;
-
-  const peticion = await fetch(servidorAPI + '/Medico/findAllPacientes', {
+  console.log(servidorAPI + 'Medico/findAllPacientes');
+  const peticion = await fetch(servidorAPI + 'Medico/findAllPacientes', {
     method: 'GET',
     headers: {
       "Accept": "application/json",
@@ -25,7 +25,7 @@ let login = async (event) => {
   const pacientes = await peticion.json();
   console.log(pacientes);
 
-  const peticion2 = await fetch(servidorAPI + '/Medico/findAll', {
+  const peticion2 = await fetch(servidorAPI + 'Medico/findAll', {
     method: 'GET',
     headers: {
       "Accept": "application/json",
@@ -43,6 +43,7 @@ let medicoEncontrado=false;
     console.log(contrasenia);
     console.log(username === decryptedCedula && password === contrasenia);
     if (username === decryptedCedula && password === contrasenia) {
+      
       localStorage.setItem("authenticated", "true");
       const cedula = encodeURIComponent(paciente.cedula)
       let usuario="paciente"
@@ -108,6 +109,7 @@ let logout = () => {
   localStorage.removeItem("url");
   localStorage.removeItem("documento");
   localStorage.removeItem("cedulaPacienteEditar");
+  localStorage.clear();
   location.href = "login.html";
   
 }

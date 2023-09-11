@@ -266,7 +266,7 @@ let editarPaciente=async()=>{
           '<label for="selectedDocumento" id="data">Documento de Identidad:<label id="asq">*</label></label>'+
           '<br>';
           
-          msg+='<select id="selectedDocumento" class="custom-select" required>'+
+          msg+='<select id="selectedDocumento" required>'+
           '<option value="">Seleccione...</option>'+
           '<option value="Cédula de ciudadanía">Cédula de ciudadanía</option>'+
                   '<option value="Tarjeta de identidad">Tarjeta de identidad</option>'+
@@ -293,12 +293,14 @@ let editarPaciente=async()=>{
           '<input type="text" enterkeyhint="next" enterkeyhint="previous"  class="correo" id="correo" name="correo" placeholder="@" required>'+
             '</div>'+            
           '</div>'+
+          '<div class="form-row">'+
           '<div class="form-column">'+
           '<label for="ocupacion" id="data">Ocupación:</label>'+
           '<br>'+
           '<input type="text" enterkeyhint="next" enterkeyhint="previous"  class="ocupacion" id="ocupacion" name="ocupacion" placeholder="Ocupación">'+
 
              
+            '</div>'+
             '</div>'+
             '<div class="container">'+
             '<label for="correo" id="prueba">Foto de Perfil: &nbsp&nbsp</label>'+

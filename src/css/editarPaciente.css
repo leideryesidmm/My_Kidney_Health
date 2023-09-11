@@ -132,7 +132,6 @@ body {
     display: inline-block;
 
     width: 45%;
-    margin-left: 5%;
   }
   label {
     font-size: 20px;
@@ -264,15 +263,17 @@ body {
   
     
     
-    input[type="text"], input[type="date"], input[type="number"]{
+    input[type="text"], input[type="date"], input[type="number"], select{
        
-       width: 95%;
+       width: 97%;
         margin: 5px 0;
         border: 1px solid #ccc;
         border-radius: 5px;
         height: 25px;
         transition: border-color 0.3s ease-in-out;
     }
+
+    
 
 
     #selectedEps{
@@ -305,15 +306,7 @@ body {
      text-align-last: center;
    }
 
-   #selectedDocumento{
-    width: 95%;
-      height: 20%;
-       padding: 10px;
-       margin: 5px 0;
-       border: 1px solid #ccc;
-       border-radius: 5px;
-       transition: border-color 0.3s ease-in-out;
-   }
+  
 
     .btn-save {
       display: flex;

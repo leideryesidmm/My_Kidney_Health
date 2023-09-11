@@ -172,8 +172,7 @@ label {
 
 .col-6,
 .col-12 {
-  display: flex;
-  justify-content: center;
+  margin: 0 auto;
 }
 
 h3 {
@@ -211,6 +210,14 @@ h5 {
   text-align: right;
 }
 
+.actualizar,
+.ver,
+.inhabilitar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
 th,
 td,
 tr {
@@ -223,7 +230,9 @@ thead {
   background-color: #B2EAF2;
 
 }
-
+#sinHacer {
+  color: #fa0808;
+}
 thead:hover {
   background-color: #04BAFC;
   color: white;
@@ -449,4 +458,25 @@ th {
 }
 .table{
   border: rgb(194, 193, 193) 1px solid;
+}
+
+.modal-header{
+  text-align: center;
+}
+
+.close{
+  background-color: transparent;
+  border: none;
+}
+
+li{
+  cursor: pointer;
+}
+
+.form-check-input{
+  margin-left: 9px;
+}
+ 
+.form-check input[type="checkbox"] {
+  margin-bottom: 0.5rem;
 }
