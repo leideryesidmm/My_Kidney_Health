@@ -405,13 +405,14 @@ th {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   flex-direction: column;
-  width: 70%;
+  width: 90%;
   margin-bottom: 3rem;
   border: 1px solid #e0e0e0;
   background: #fff;
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 8px 5px 5px #d8d8d8;
+ 
 }
 
 .grid-item-content {
@@ -420,7 +421,6 @@ th {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   flex-direction: column;
-  margin-top: -60px;
 }
 
 .description {
@@ -428,6 +428,10 @@ th {
   font-style: italic;
   margin-right: 5px;
   margin-left: 5px;
+}
+
+.description p{
+  text-align: center;
 }
 
 
