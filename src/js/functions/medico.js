@@ -1,3 +1,178 @@
+let medicosRegistrados = async () => {
+  let cont = 1;
+  try {
+    const medicos = await listarMedicos();
+
+    let msg = "";
+    if (medicos != null && medicos.length > 0) {
+      msg += '<br>' +
+        '<table class="medico" id="medico">' +
+        '<thead>' +
+        '<tr>' +
+        '<th>Nombre</th>' +
+        '<th>Cédula</th>' +
+        '<th>Acciones</th>' +
+        '</tr>' +
+        '</thead>';
+
+      medicos.forEach((medico) => {
+        let clave = encodeURIComponent(CryptoJS.AES.encrypt(medico.cedula, "clave_secreta").toString())
+        console.log(clave);
+        msg +=
+          '<tr>' +
+          '<td>' + medico.nombre + '</td>' +
+          '<td>' + medico.cedula + '</td>' +
+          '<td>' +
+          '<a href="" data-bs-toggle="modal" data-bs-target="#vermedico' + cont + '" type="button">' +
+          '<img src="../img/ver.png" title="Ver Médico" class="ver"/>' +
+          '</a>';
+          msg+='<a href="" data-bs-toggle="modal" data-bs-target="#editarmedico' + cont + '" type="button" onclick="editarMedico('+medico.cedula+')">' +
+          '<img src="../img/lapiz.png" title="Editar Médico" class="actualizar"/>' +
+          '</a>' +
+          '<a href="" data-bs-toggle="modal" data-bs-target="#inhabilitarmedico' + cont + '" type="button">' +
+          '<img src="../img/cesta.png" title="Inhabilitar Medico" class="inhabilitar"/>' +
+          '</a>' +
+          '</td>' +
+          '</tr>';
+
+        msg +=
+          '<div class="modal" tabindex="-1" id="inhabilitarmedico' + cont + '">' +
+          '<div class="modal-dialog">' +
+          '<div class="modal-content">' +
+          '<div class="modal-header">' +
+          '<h5 class="modal-title">Inhabilitar Médico</h5>' +
+          '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
+          '</div>' +
+          '<div class="modal-body">' +
+          '<p><b>¿Está seguro(a) de inhabilitar este médico?</b></p>' +
+          '<label class="cedulaMédico" id="cedulaMédico"><b>Cédula: </b>' + medico.cedula + '</label><br>' +
+          '<label class="cedulaMédico" id="cedulaMédico"><b>Nombre: </b>' + medico.nombre + '</label>' +
+          '</div>' +
+          '<div class="modal-footer">' +
+          '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>' +
+          '<button type="submit" onclick="inhabilitarMedico(' + medico.cedula + ')"" class="btn btn-danger">Inhabilitar</button>' +
+          '</div>' +
+          '</div>' +
+          '</div>' +
+          '</div>';
+        cont++;
+      });
+    }
+    else {
+      msg +=
+        '<br>' +
+        '<table class="medico">' +
+        '<thead>' +
+        '<tr>' +
+        '<th>Nombre</th>' +
+        '<th>Cédula</th>' +
+        '<th>Acciones</th>' +
+        '</tr>' +
+        '</thead>' +
+        '<tr>' +
+        '<td colspan="3">' + "No hay médicos registrados." + '</td>' +
+        '</tr>';
+    }
+    msg += '</table>';
+    document.getElementById("medicos").innerHTML = msg;
+  }
+  catch (error) {
+    console.error("Error in medicosRegistrados:", error);
+  }
+  new DataTable('#medico', {
+    language: {
+        url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json',
+    },
+});
+};
+
+
+let irEditarMedico = async (ced) => {
+ 
+  localStorage.setItem("cedulaMedico", ced);
+  location.href="editarMedico.html"
+}
+
+
+  
+let medicosInhabilitados = async () => {
+  let cont = 1;
+
+
+  try {
+    const medicos = await listarMedicosInactivos();
+    let msg = "";
+
+    if (medicos != null && medicos.length > 0) {
+      msg += '<div class="container">' +
+        '<h2>Médicos Inhabilitados</h2>' +
+        '<br>' +
+        '<table class="medicosInhabilitados" id="medicosInhabilitados">' +
+        '<thead>' +
+        '<tr>' +
+        '<th>Nombre</th>' +
+        '<th>Cédula</th>' +
+        '<th>Acciones</th>' +
+        '</tr>' +
+        '</thead>';
+
+      medicos.forEach((medico) => {
+
+        msg +=
+          '<tr>' +
+          '<td>' + medico.nombre + '</td>' +
+          '<td>' + medico.cedula + '</td>' +
+          '<td>' +
+          '<a  href="" data-bs-toggle="modal" data-bs-target="#habilitarmedico' + cont + '" type="button">' +
+          '<img src="../img/actualizar.png" class="actualizar"/>' +
+          '</a >' +
+          '</td>' +
+          '</tr>' +
+          '</div>' +
+          '</div>';
+        
+        msg +=
+          '<div class="modal" tabindex="-1" id="habilitarmedico' + cont + '">' +
+          '<div class="modal-dialog">' +
+          '<div class="modal-content">' +
+          '<div class="modal-header">' +
+          '<h5 class="modal-title">Habilitar Médico</h5>' +
+          '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
+          '</div>' +
+          '<div class="modal-body">' +
+          '<p><b>¿Está seguro(a) de habilitar nuevamente este médico?</b></p>' +
+          '<label class="cedulaMedico" id="cedulaMedico"><b>Cédula: </b>' + medico.cedula + '</label><br>' +
+          '<label class="cedulaMedico" id="cedulaMedico"><b>Nombre: </b>' + medico.nombre + '</label>' +
+          '</div>' +
+          '<div class="modal-footer">' +
+          '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>' +
+          '<button type="button" onclick="habilitarMedico(' + medico.cedula + ')"" class="btn" id="btn-green">Habilitar</button>' +
+          '</div>' +
+          '</div>' +
+          '</div>' +
+          '</div>';
+          cont++;
+
+      });
+    }
+    else {
+      msg += ""
+    }
+    msg += '</table>';
+    document.getElementById("medicosinhabilitados").innerHTML = msg;
+  }
+  catch (error) {
+    console.error("Error in medicosRegistrados:", error);
+  }
+  new DataTable('#medicosInhabilitados', {
+    language: {
+        url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json',
+    },
+});
+};
+
+
+
 let editarMedico=async()=>{
     let msg="";
   
@@ -85,3 +260,12 @@ let editarMedico=async()=>{
               '</div>'
               '</div>';
     }
+
+
+    medicosRegistrados();
+medicosInhabilitados();
+
+
+
+
+

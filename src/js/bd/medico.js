@@ -1,3 +1,110 @@
+var cedulaEncriptada = "";
+var contraseniaEncriptada;
+let dat= localStorage.getItem("datos");
+
+let obtenerCedulasUsuarios=async(id, cedula)=>{
+  let result = "";
+  console.log(cedula);
+  const peticion= await fetch(localStorage.getItem("servidorAPI")+'Usuario/findAllUsuarios',{
+    method:'GET',
+    headers:{
+      "Accept":"application/json",
+      "Content-Type": "application/json"
+    }
+      });
+      const pacientes=await peticion.json();
+      console.log(pacientes);
+      pacientes.forEach(paciente=>{
+        let decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+        console.log(decryptedCedula);
+        if(cedula===decryptedCedula){   
+        console.log("ENTRO");
+      if(id == 0){
+        result = paciente.cedula;
+      }
+      if(id == 1){
+        result = paciente.contrasenia;
+      }
+    }
+    })
+    console.log(result)
+  return result;
+}
+
+let listarMedicos = async () => {
+  try {
+    const peticion = await fetch(servidorAPI + 'Medico/findAll', {
+      method: 'GET',
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      }
+    });
+
+    if (peticion.ok) {
+      if (peticion.status === 200 || peticion.status === 204) {
+        const medicos = await peticion.json();
+
+        const medicosDesencriptados = medicos
+        .filter(medico => medico.activo)
+        .map(medico => {
+          let cedulaDesencriptada = CryptoJS.AES.decrypt(medico.cedula, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+          let nombreDesencriptado = CryptoJS.AES.decrypt(medico.nombre, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+
+          return {
+            nombre: nombreDesencriptado,
+            cedula: cedulaDesencriptada
+          };
+        });
+
+        return medicosDesencriptados;
+      }
+    } else {
+      console.error("Error fetching doctors:", peticion.status);
+    }
+  } catch (error) {
+    console.error("Error fetching doctors:", error);
+  }
+};
+
+
+let listarMedicosInactivos = async () => {
+  try {
+    const peticion = await fetch(servidorAPI + 'Medico/findAll', {
+      method: 'GET',
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      }
+    });
+
+    if (peticion.ok) {
+      if (peticion.status === 200 || peticion.status === 204) {
+        const medicosInactivos = await peticion.json();
+
+        // Map the patients array to decrypt each patient's cedula and nombre
+        const medicosDesencriptados = medicosInactivos
+        .filter(medico => !medico.activo)
+        .map(medico => {
+          let cedulaDesencriptada = CryptoJS.AES.decrypt(medico.cedula, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+          let nombreDesencriptado = CryptoJS.AES.decrypt(medico.nombre, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+
+          return {
+            nombre: nombreDesencriptado,
+            cedula: cedulaDesencriptada
+          };
+        });
+
+        return medicosDesencriptados; // Return the array of patients
+      }
+    } else {
+      console.error("Error fetching doctors:", peticion.status);
+    }
+  } catch (error) {
+    console.error("Error fetching doctors:", error);
+  }
+};
+
 let listarEspecialidad = async () => {
     const peticion = await fetch(localStorage.getItem("servidorAPI") + "Medico/findAllEspecialidad", {
       method: "GET",
@@ -109,3 +216,62 @@ let listarEspecialidad = async () => {
         
    }
 }
+
+
+let inhabilitarMedico = async (ced) => {
+  let cedula = ced.toString();
+  let cedulaEncriptada = await obtenerCedulasUsuarios(0, cedula);
+  console.log(cedulaEncriptada);
+  try {
+    const medicoInDto = { cedula: cedulaEncriptada };
+
+    const response = await fetch(servidorAPI + 'Usuario/inhabilitarMedico', {
+      method: "PATCH",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(medicoInDto)
+    });
+
+    if (response.ok) {
+      $('#inhabilitarmedico').modal('hide');
+      location.reload();
+    }
+    else {
+      console.error("Error al inhabilitar médico:", response.status);
+    }
+  }
+  catch (error) {
+    console.error("Error al inhabilitar médico:", error);
+  }
+};
+
+
+let habilitarMedico = async (ced) => {
+  let cedula = ced.toString();
+  let cedulaEncriptada = await obtenerCedulasUsuarios(0, cedula);
+
+  try {
+    const medicoInDto = { cedula: cedulaEncriptada };
+
+    const response = await fetch(servidorAPI + 'Usuario/reactivarMedico', {
+      method: "PATCH",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(medicoInDto)
+    });
+
+    if (response.ok) {
+      location.reload();
+    }
+    else {
+      console.error("Error al habilitar médico:", response.status);
+    }
+  }
+  catch (error) {
+    console.error("Error al habilitar médico:", error);
+  }
+};

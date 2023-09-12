@@ -15,46 +15,45 @@ body {
 }
 
 
-.paciente, .pacientesInhabilitados {
+.paciente, .pacientesInhabilitados,
+.medico, .medicosInhabilitados {
   width: 100%;
+  border: rgb(194, 193, 193) 1px solid;
 
 }
 
-.paciente th,
-td, .pacientesInhabilitados th, td {
+.paciente th, td, .pacientesInhabilitados th, td,
+.medico th, td, .medicosInhabilitados th, td {
   width: 300px;
   margin-top: auto;
   text-align: center;
   vertical-align: middle;
 }
 
-.paciente td,
-.pacientesInhabilitados td {
+.paciente td, .pacientesInhabilitados td,
+.medico td, .medicosInhabilitados td {
   border-bottom: 1px solid rgb(194, 193, 193); 
-}
-
-.paciente td, .pacientesInhabilitados td{
   height: 60px;
 }
 
-.paciente, .pacientesInhabilitados{
-  border: rgb(194, 193, 193) 1px solid;
-}
 
-
-.paciente thead, .pacientesInhabilitados thead {
+.paciente thead, .pacientesInhabilitados thead,
+.medico thead, .medicosInhabilitados thead {
   background-color: #B2EAF2;
 
 }
 
-.paciente thead:hover, .pacientesInhabilitados thead:hover {
+.paciente thead:hover, .pacientesInhabilitados thead:hover,
+.medico thead:hover, .medicosInhabilitados thead:hover {
   background-color: #04BAFC;
   color: white;
 }
 
-.paciente tbody tr:hover, .pacientesInhabilitados tbody tr:hover {
+.paciente tbody tr:hover, .pacientesInhabilitados tbody tr:hover,
+.medico tbody tr:hover, .medicosInhabilitados tbody tr:hover {
   background-color: #e7e7e7;
 }
+
 
 
 #nuevo {
