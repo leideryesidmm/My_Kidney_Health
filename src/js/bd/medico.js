@@ -109,3 +109,61 @@ let listarEspecialidad = async () => {
         
    }
 }
+
+let encontrarMedico = async () => {
+  let data = localStorage.getItem("cedulaMedico");
+  let dato=JSON.parse(data);
+      let cedul= decodeURIComponent(dato.cedula);
+      console.log(cedul);
+      console.log(usuario);
+
+      let cedulaEncriptada="";
+      
+       cedulaEncriptada = await obtenerCedulasUsuarios(0,CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaMedico")), "clave_secreta").toString(CryptoJS.enc.Utf8));
+      console.log(cedulaEncriptada);
+      
+      let medicoInDto={
+        cedula:cedulaEncriptada
+      }
+  const peticion = await fetch(localStorage.getItem("servidorAPI") + "Usuario/findMedicoByCedula", {
+    method: "POST",
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    },
+    body:JSON.stringify(medicoInDto)
+  });
+
+  const medico = await peticion.json();
+console.log(medico);
+  let medicoActual={
+    cedula:medico.cedula, especialidad:medico.especialidad, aniosExperiencia:medico.aniosExperiencia
+  }
+  console.log(medico);
+    var decryptedNombre = CryptoJS.AES.decrypt(medico.nombre, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+  document.getElementById("nombre").value = decryptedNombre;
+
+  var decryptedCedula = CryptoJS.AES.decrypt(medico.cedula, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+  document.getElementById("documento").value = decryptedCedula;
+
+  var telefono = CryptoJS.AES.decrypt(medico.telefono, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+  document.getElementById("telefono").value = telefono;
+  var aniosExperiencia = CryptoJS.AES.decrypt(medico.aniosExperiencia, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+  document.getElementById("aniosExperiencia").value = aniosExperiencia;
+  
+
+
+  const selectDocumento = document.getElementById('selectedDocumento');
+  const descripcionDocumento= paciente.medico.descripcion;
+  console.log(descripcionDocumento);
+  
+  Array.from(selectDocumento.options).forEach((option, index) => {
+    if (option.textContent === descripcionDocumento) {
+      selectDocumento.selectedIndex = index;
+    }
+  })
+  var correo = CryptoJS.AES.decrypt(medico.correo, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+  document.getElementById("correo").value=correo;
+  return pacienteActual;
+ 
+}

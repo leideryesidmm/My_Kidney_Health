@@ -23,7 +23,7 @@ let login = async (event) => {
  
   if (username === CryptoJS.AES.decrypt(administrador.cedula,"clave_secreta").toString(CryptoJS.enc.Utf8) && password === CryptoJS.AES.decrypt(administrador.contrasenia,"clave_secreta").toString(CryptoJS.enc.Utf8) && administrador.tipoUsuario==="admin") {
     localStorage.setItem("servidorAPI", servidorAPI);
-    location.href="agregarMedico.html";
+    location.href="administrador.html";
 
   }
   else{
