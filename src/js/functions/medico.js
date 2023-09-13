@@ -17,7 +17,7 @@ let medicosRegistrados = async () => {
 
       medicos.forEach((medico) => {
         let clave = encodeURIComponent(CryptoJS.AES.encrypt(medico.cedula, "clave_secreta").toString())
-        console.log(clave);
+        console.log(medico.correo);
         msg +=
           '<tr>' +
           '<td>' + medico.nombre + '</td>' +
@@ -55,6 +55,54 @@ let medicosRegistrados = async () => {
           '</div>' +
           '</div>' +
           '</div>';
+
+        msg +=
+        '<div class="modal" tabindex="-1" id="vermedico' + cont + '">' +
+        '<div class="modal-dialog">' +
+          '<div class="modal-content">' +
+            '<div class="modal-header">' +
+              '<h5 class="modal-title">Información del médico</h5>' +
+              '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
+            '</div>' +
+            '<div class="modal-body">' +
+              '<div class="row">' + 
+                '<div class="col-md-6">' + 
+                  '<div class="nombrePaciente">' +
+                    '<label for="nombre"><b>Nombre:&nbsp</b></label>' +
+                    '<label for="" id="nombre">' + medico.nombre + '</label>' +
+                  '</div>' +
+                  '<div class="documento">' +
+                    '<label for="documento"><b>Documento:&nbsp</b></label>' +
+                    '<label for="" id="documento">' + medico.cedula + '</label>' +
+                  '</div>' +
+                  '<div class="aniosExperiencia">' +
+                    '<label for="anios"><b>Años de Experiencia:&nbsp</b></label>' +
+                    '<label for="" id="aniosExperiencia">' + medico.aniosExperiencia + '</label>' +
+                  '</div>' +
+                '</div>' + 
+                '<div class="col-md-6">' +
+                  '<div class="especialidad">' +
+                    '<label for="especialidad"><b>Especialidad:&nbsp</b></label>' +
+                    '<label for="" id="especialidad">' + medico.especialidad + '</label>' +
+                  '</div>' +
+                  '<div class="celular">' +
+                    '<label for="celular"><b>Celular:&nbsp</b></label>' +
+                    '<label for="" id="celular">' + medico.celular + '</label>' +
+                  '</div>' +
+                  '<div class="correo">' +
+                    '<label for="correo"><b>Correo:&nbsp</b></label>' +
+                    '<label for="" id="correo">' + medico.correo + '</label>' +
+                  '</div>' +
+                '</div>' + 
+              '</div>' + 
+            '</div>' +
+            '<div class="modal-footer">' +
+              '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>' +
+              '<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
         cont++;
       });
     }

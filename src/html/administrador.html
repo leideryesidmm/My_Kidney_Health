@@ -43,7 +43,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto align-items-center ">
             <li class="nav-item active">
-              <a id="text" class="nav-link" href="medicos.html">Médicos<span class="sr-only"></span></a>
+              <a id="text" class="nav-link" href="administrador.html">Médicos<span class="sr-only"></span></a>
             </li>
             <div class="d-flex align-items-center">
             <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -160,6 +160,9 @@
   </div>
 
 
+  
+
+
 
 
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
@@ -174,18 +177,19 @@
   <script src=""></script>
   <script src="../js/bd/login.js"></script>
   <script src="../js/bd/medico.js"></script>
+  <script src="../js/bd/nombreNavBar.js"></script>  
 
-  
 
   <script src="../js/functions/medico.js"></script>
-  <script src="../js/bd/nombreNavBar.js"></script>
 
 
 
   </script>
   <script>
+    login();
     medicosRegistrados(listarMedicos());
     nombreNavBar();
+    
   </script>
 </body>
 
