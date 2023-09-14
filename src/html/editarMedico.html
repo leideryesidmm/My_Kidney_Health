@@ -22,7 +22,7 @@ integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLAS
 <body>
     <nav id="nav" class=" navbar-expand-lg navbar-light">
         <div class="row">
-          <div class="col-1 no-effect"><a href="pacientes.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a></div>  
+          <div class="col-1 no-effect"><a href="administrador.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a></div>  
           <div class="col-1">
             <div class="logo"><img src="../img/logo3.png" alt=""></div>
           </div>
@@ -39,7 +39,7 @@ integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLAS
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto align-items-center ">
                 <li class="nav-item active">
-                  <a id="text" class="nav-link" href="pacientes.html">Pacientes<span class="sr-only"></span></a>
+                  <a id="text" class="nav-link" href="administrador.html">Médicos<span class="sr-only"></span></a>
                 </li>
                 <div class="d-flex align-items-center">
                 <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -66,10 +66,12 @@ integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLAS
 
         <div id="editarMedico"></div>
 
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
     <script src="../js/functions/medico.js"></script>
+    <script src="../js/bd/medico.js"></script>
     <script>
-        editarMedico()
+        encontrarMedico(mostrarInfoMedico());
+        listaEspecialidad()
     </script>
 </body>
 </html>

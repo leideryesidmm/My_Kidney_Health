@@ -449,19 +449,15 @@ let actualizarPaciente = async (event) => {
   event.preventDefault();
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
-  console.log(data);
       let usuario = dato.usuario;
       let cedul= decodeURIComponent(dato.cedula);
   if(usuario=="paciente"){
   let foto= document.getElementById("imageFile").files.length;
   console.log(foto);
   if(foto>0){
-    console.log("ENTRO AL IF COMO PEDRO POR SU CASA")
   subirFoto();
   }
 }
-      console.log(cedul);
-      console.log(usuario);
 
       let cedulaEncriptada="";
       if(usuario=="medico"){
@@ -484,7 +480,6 @@ let actualizarPaciente = async (event) => {
     const paciente=await peticion.json();
     
   
-  console.log(paciente);
   if(usuario=="paciente"){
 
   let nombre = document.getElementById("nombre").value;

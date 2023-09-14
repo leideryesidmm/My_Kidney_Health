@@ -20,15 +20,26 @@ let login = async (event) => {
   console.log(administrador);
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
+
+
  
   if (username === CryptoJS.AES.decrypt(administrador.cedula,"clave_secreta").toString(CryptoJS.enc.Utf8) && password === CryptoJS.AES.decrypt(administrador.contrasenia,"clave_secreta").toString(CryptoJS.enc.Utf8) && administrador.tipoUsuario==="admin") {
+    localStorage.setItem("authenticated", "true");
+    const cedula = encodeURIComponent(administrador.cedula)
+    let usuario="administrador"
+    datos={
+    cedula:cedula, usuario:usuario
+    }
+    const data = JSON.stringify(datos);
+    localStorage.setItem("datos", data);
     localStorage.setItem("servidorAPI", servidorAPI);
     location.href="administrador.html";
+    console.log(localStorage.setItem("datos", data))
+    
 
   }
   else{
-
-  
+ 
 
 
   let decryptedCedula = null;
