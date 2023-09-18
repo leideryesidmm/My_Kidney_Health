@@ -22,10 +22,9 @@
 }
 
 .navbar {
+  padding-left: 50px;
   background-color: #04BAFC;
-  margin: auto;
-  margin: 0;
-  padding: 0;
+  color: white;
 }
 .navbar img{
   height: 30px;
@@ -214,19 +213,8 @@ body {
   height: 50px;
 }
 
-.devolverse {
-  margin-left: 20px;
-  display: flex;
-  align-items: center;
-  width: 5%;
-  vertical-align: middle;
-}
 
-.devolverse {
-  width: 30px;
-  height: 50px;
-  margin-left: 20px;
-}
+
 
 .title{
   display: flex;
@@ -363,17 +351,9 @@ p{
 }
 
 .devolverse {
-  margin-left: 20px;
-  display: flex;
-  align-items: center;
-  width: 5%;
-  vertical-align: middle;
-}
-
-.devolverse {
   width: 30px;
   height: 50px;
-  margin-left: 20px;
+  
 }
 
 
@@ -425,6 +405,9 @@ input[type="text"], input[type="password"]{
   font-size: 24px;;
 }
 
+.title-presc{
+  text-align: center;
+}
 
 @media (min-width: 992px) and (max-width: 1199px) {
   .imge{

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Jost&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.0.4/popper.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Jost&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel="stylesheet" href="../css/navResponsive.css">
+  <link rel="stylesheet" href="../css/agg-pacientes.css">
+  
+
+  <title>Registrar Médico</title>
+</head>
+<body>
+  <nav id="nav" class=" navbar-expand-lg navbar-light">
+    <div class="row">
+      <div class="col-1 no-effect"><a href="pacientes.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a></div>  
+      <div class="col-1">
+        <div class="logo"><img src="../img/logo3.png" alt=""></div>
+      </div>
+      <div class="col-8">
+        <div class="title">
+          <h1>Mi Salud Renal</h1>
+        </div>
+      </div>
+      <div class="col-2">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto align-items-center ">
+            <li class="nav-item active">
+              <a id="text" class="nav-link" href="pacientes.html">Pacientes<span class="sr-only"></span></a>
+            </li>
+            <div class="d-flex align-items-center">
+            <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-person-circle" viewBox="0 0 16 16">
+              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+              <path fill-rule="evenodd"
+                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+            </svg></li>
+            <li class="nav-item ml-1 active">
+              
+                <button class="btn btn dropdown-toggle" type="button" id="nombreUsuario" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#nuevacontrasenia">Cambiar
+                    Contraseña</a>
+                  <a class="dropdown-item" href="login.html" onclick="logout()">Cerrar sesión</a>
+                </div>
+              </li></div>
+          </ul>
+        </div>
+  </nav>
+    <br>
+    <div class="containerMedico" id="containerMedico">
+        <div class="form-container">
+            <h1>Agregar Médico</h1>
+            <form id="paciente-form" onsubmit="crearMedico(event)" >
+              <p id="campos"><b>*</b> Campos requeridos</p>
+              <div class="form-row">
+                <div class="form-column">
+                  <label for="nombre" id="data">Nombre del médico:<label id="asq">*</label></label>
+                  <br>
+                  <div class="input-nombre">
+                  <input type="text" class="nombre" id="nombre" name="nombre" required>
+                  <i class="fa-light fa-circle-xmark" style="color: #ed0202;"></i>
+                </div>
+                </div>
+                <div class="form-column">
+                    <label for="selectTipo" id="data">Tipo de documento:<label id="asq">*</label></label>
+                      <br>
+                      <select name="select" class="custom-select" id="selectTipo" required>
+                        <option value="">Seleccione...</option>
+                        <option value="Cédula de ciudadanía">Cédula de ciudadanía</option>
+                        <option value="Cédula de extranjería">Cédula de extranjería</option>
+                        <option value="Pasaporte">Pasaporte</option>
+                      </select>
+                    </div>
+                </div>
+                
+              <div class="form-row">
+                <div class="form-column">
+                <label for="documento" id="data">Documento:<label id="asq">*</label></label>
+                  <br>
+                  <input type="text" class="documento" id="documento" name="documento" required>
+                </div>
+                <div class="form-column">
+                    <label for="telefono" id="data" >Teléfono:<label id="asq">*</label></label>
+                    <br>
+                    <input type="tel" class="telefono" id="telefono" name="telefono" pattern="\([0-9]{3}\) [0-9]{3}[ -][0-9]{4}" required>
+                  </div>
+              </div>
+              <div class="form-row">
+                <div class="form-column">
+                    <label for="selectEspecialidad" id="data">Especialidad:<label id="asq">*</label></label>
+                      <br>
+                      <select name="selectEspecialidad" class="custom-select" id="selectEspecialidad" required>
+                                               
+                      </select>
+                    </div>
+                <div class="form-column">
+                  <label for="aniosExperiencia" id="data">Años de Especialidad:<label id="asq">*</label></label>
+                  <br>
+                  <input type="text" class="aniosExperiencia" id="aniosExperiencia" name="aniosExperiencia" required>
+                </div>
+              </div>
+              <div class="form-row">
+                            <div class="form-column">
+                  <label for="correo" id="data">Correo:<label id="asq">*</label></label>
+                  <br>
+                  <input type="text" class="correo" id="correo" name="correo" required>
+                </div>
+              </div>
+             
+              <div class="buttons">
+                <div class="btn-save">
+                  <button onclick="cancelar()" class="btn btn-secondary">Cancelar</button>
+                </div>
+                <div class="btn-save">
+                  <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+                </div>
+                </div>
+      
+          </div>
+          
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="successModalLabel">Aviso</h5>
+          <a href="administrador.html"><button type="button" class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button></a>
+        </div>
+        <div class="modal-body">
+          <p>Se ha registrado exitosamente la información del médico</p>
+        </div>
+        <div class="modal-footer">
+          <a href="administrador.html"><button href="medicamento.html" type="button" class="btn btn-primary">Aceptar</button></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+  integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+  crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+  integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+
+
+    <script src="../js/bd/login.js"></script>
+  <script src="../js/bd/nombreNavBar.js"></script>
+  <script src="../js/functions/medico.js"></script>
+  <script src="../js/bd/medico.js"></script>
+  <script>
+  listarEspecialidad();
+  nombreNavBar();
+  </script>
+  <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -7,14 +7,45 @@ function isAuthenticated() {
 
 let login = async (event) => {
   event.preventDefault();
+
+  const peticion3 = await fetch(servidorAPI + 'Usuario/findAdmin', {
+    method: 'GET',
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    }
+  });
+
+  const administrador = await peticion3.json();
+  console.log(administrador);
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
+
+
  
+  if (username === CryptoJS.AES.decrypt(administrador.cedula,"clave_secreta").toString(CryptoJS.enc.Utf8) && password === CryptoJS.AES.decrypt(administrador.contrasenia,"clave_secreta").toString(CryptoJS.enc.Utf8) && administrador.tipoUsuario==="admin") {
+    localStorage.setItem("authenticated", "true");
+    const cedula = encodeURIComponent(administrador.cedula)
+    let usuario="administrador"
+    datos={
+    cedula:cedula, usuario:usuario
+    }
+    const data = JSON.stringify(datos);
+    localStorage.setItem("datos", data);
+    localStorage.setItem("servidorAPI", servidorAPI);
+    location.href="administrador.html";
+    console.log(localStorage.setItem("datos", data))
+    
+
+  }
+  else{
+ 
+
 
   let decryptedCedula = null;
   let contrasenia = null;
-
-  const peticion = await fetch(servidorAPI + '/Medico/findAllPacientes', {
+  console.log(servidorAPI + 'Medico/findAllPacientes');
+  const peticion = await fetch(servidorAPI + 'Medico/findAllPacientes', {
     method: 'GET',
     headers: {
       "Accept": "application/json",
@@ -25,7 +56,7 @@ let login = async (event) => {
   const pacientes = await peticion.json();
   console.log(pacientes);
 
-  const peticion2 = await fetch(servidorAPI + '/Medico/findAll', {
+  const peticion2 = await fetch(servidorAPI + 'Medico/findAll', {
     method: 'GET',
     headers: {
       "Accept": "application/json",
@@ -43,6 +74,7 @@ let medicoEncontrado=false;
     console.log(contrasenia);
     console.log(username === decryptedCedula && password === contrasenia);
     if (username === decryptedCedula && password === contrasenia) {
+      
       localStorage.setItem("authenticated", "true");
       const cedula = encodeURIComponent(paciente.cedula)
       let usuario="paciente"
@@ -96,7 +128,7 @@ let medicoEncontrado=false;
       msg+='<p class="error">¡Datos Incorrectos!</p>';
       document.getElementById("datosIncorrectos").innerHTML=msg;
     }
-
+  }
 }
 
 // Función para manejar el cierre de sesión
@@ -108,6 +140,7 @@ let logout = () => {
   localStorage.removeItem("url");
   localStorage.removeItem("documento");
   localStorage.removeItem("cedulaPacienteEditar");
+  localStorage.clear();
   location.href = "login.html";
   
 }

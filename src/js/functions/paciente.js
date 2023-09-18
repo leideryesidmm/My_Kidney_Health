@@ -99,7 +99,9 @@ if(paciente!=null){
             localStorage.setItem("documento", paciente.tipo_documento);
           if(usuario=="paciente"){
             msg+=
-          '<a href="editarPaciente.html"class="alerg-nueva" >Editar Perfil</a>';
+            '<div class="botonEditarPerfil">'+
+          '<a href="editarPaciente.html"class="editarPerfil" >Editar Perfil</a>'+
+          '</div>';
           }
           
       msg+='</div>'+
@@ -146,7 +148,9 @@ if(paciente!=null){
           var urlActual = window.location.href;
           localStorage.setItem("url", urlActual);
         if(usuario=="medico"){
-        msg+='<a href="editarPaciente.html"class="alerg-nueva" >Editar Perfil</a>';
+        msg+='<div class="botonEditarPerfil">'+
+        '<a href="editarPaciente.html"class="editarPerfil" >Editar Perfil</a>'+
+        '</div>';
         }
         msg+='</div>'+
         '</div>'+
@@ -164,14 +168,17 @@ if(alergia!=null && alergia !== ""){
     '</div>';
     let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
     if(usuario=="medico"){
-    msg+='<a href="alergias.html"class="alerg-nueva" >Agregar Alergia</a>'+
+    msg+='<div class="botonAgregarAlergia">'+
+    '<a href="alergias.html"class="alerg-nueva" >Agregar Alergia</a>'+
+    '</div>'+
     '<br>';
     }
 }
 else{
   let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
   if(usuario=="medico"){
-  msg+='<br><a href="alergias.html"class="alerg-nueva" >Agregar Alergia</a>'+
+  msg+='<div class="botonAgregarAlergia">'+
+  '<br><a href="alergias.html"class="alerg-nueva" >Agregar Alergia</a>'+
   '<br>';
   }
 }
@@ -259,7 +266,7 @@ let editarPaciente=async()=>{
           '<label for="selectedDocumento" id="data">Documento de Identidad:<label id="asq">*</label></label>'+
           '<br>';
           
-          msg+='<select id="selectedDocumento" class="custom-select" required>'+
+          msg+='<select id="selectedDocumento" required>'+
           '<option value="">Seleccione...</option>'+
           '<option value="Cédula de ciudadanía">Cédula de ciudadanía</option>'+
                   '<option value="Tarjeta de identidad">Tarjeta de identidad</option>'+
@@ -286,12 +293,14 @@ let editarPaciente=async()=>{
           '<input type="text" enterkeyhint="next" enterkeyhint="previous"  class="correo" id="correo" name="correo" placeholder="@" required>'+
             '</div>'+            
           '</div>'+
+          '<div class="form-row">'+
           '<div class="form-column">'+
           '<label for="ocupacion" id="data">Ocupación:</label>'+
           '<br>'+
           '<input type="text" enterkeyhint="next" enterkeyhint="previous"  class="ocupacion" id="ocupacion" name="ocupacion" placeholder="Ocupación">'+
 
              
+            '</div>'+
             '</div>'+
             '<div class="container">'+
             '<label for="correo" id="prueba">Foto de Perfil: &nbsp&nbsp</label>'+

@@ -1,249 +1,250 @@
 .title{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* .active{
-    margin-right: 15%;
+  margin-right: 15%;
 } */
 
 
 
 #nav{
-    padding-left: 50px;
-    background-color: #04BAFC;
-    color: white;
+  padding-left: 50px;
+  background-color: #04BAFC;
+  color: white;
 }
 #text{
-    color: white;
+  color: white;
 }
 
 
 #navbarSupportedContent{
-    justify-content: right;
-    padding-right: 50px;
-    padding-top: 3%;
-    
+  justify-content: right;
+  padding-right: 50px;
+  padding-top: 3%;
+  
 }
 
 #nombreUsuario{
-    color: white;
-  }
-  
-.contenedor{
-    width: 100%;
-    position: relative;
-    display: inline-block;
-    text-align: center;
-    
+  color: white;
 }
- 
+
+.contenedor{
+  width: 100%;
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  
+}
+
 #cuadro{
-  width: 150%;
-  height: 150%;
-  background-color: rgba(255,255,255, 0.6);
+width: 150%;
+height: 150%;
+background-color: rgba(255,255,255, 0.6);
 }
 #equipo{
-    justify-content: center;
-    text-align: center;
-    align-items: center;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
 }
 
 .imge{
-    width: 100%;
-    height: auto;
-    object-fit: cover;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
 }
 
-  .imagen-crecible {
-    width: 100%;
-    height: auto;
-    transition: transform 0.3s;
-  }
+.imagen-crecible {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s;
+}
 
-  .imagen-crecible:hover {
-    transform: scale(1.3);
-  }
+.imagen-crecible:hover {
+  transform: scale(1.3);
+}
 
 p{
-    text-align: justify;
+  text-align: justify;
 }
 
 .riñon{
-  text-align: center;
+text-align: center;
 }
 
 .texto{
-  height: 100%;
-  background-color: rgba(4, 186, 252, 0.2);
+height: 100%;
+background-color: rgba(4, 186, 252, 0.2);
 }
 
 #card{
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2); 
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2); 
 }
 .vertical{
-  display: flex;
-  align-items: center;
+display: flex;
+align-items: center;
 }
 
 .centrado{
-    position: absolute;
-    top: 50%;
-    left: 20%;
-    font-size: 300%;
-    transform: translate(-50%, -50%);
-    color: rgb(112, 112, 112);
+  position: absolute;
+  top: 50%;
+  left: 20%;
+  font-size: 300%;
+  transform: translate(-50%, -50%);
+  color: rgb(112, 112, 112);
 }
 
 .modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
-  justify-content: center;
-  align-items: center;
+display: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+justify-content: center;
+align-items: center;
 }
 .small-css{
-  font-size: x-small;
+font-size: x-small;
 }
 
 .logo img {
-  
-  width: 50px;
-  height: 50px;
+
+width: 50px;
+height: 50px;
 }
 
 .container-fluid{
-  width: 100%; /* Ancho en píxeles */
-  height: 200px;
-  background-color: rgba(178, 189, 186, 0.48);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+width: 100%; /* Ancho en píxeles */
+height: 200px;
+background-color: rgba(178, 189, 186, 0.48);
+display: flex;
+justify-content: center;
+align-items: center;
 }
 
 .row{
-  width: 100%;
+width: 100%;
 }
 
 
 .icono{
-  width: 30px;
+width: 30px;
 }
 
 #icono {
-  width: 30px;
-  height: 30px;
+width: 30px;
+height: 30px;
 }
 
 .devolverse {
-  margin-left: 20px;
-  display: flex;
-  align-items: center;
-  width: 5%;
-  vertical-align: middle;
+margin-left: 20px;
+display: flex;
+align-items: center;
+width: 5%;
+vertical-align: middle;
 }
 
 .devolverse {
-  width: 30px;
-  height: 50px;
-  margin-left: 20px;
+width: 30px;
+height: 50px;
+margin-left: 20px;
 }
 
 .navbar {
-  background-color: #04BAFC;
-  margin: auto;
-  margin: 0;
-  padding: 0;
+background-color: #04BAFC;
+margin: auto;
+margin: 0;
+padding: 0;
 }
 .navbar img{
-  height: 30px;
-  margin: 0;
-  padding: 0;
-  width: 30px;
-  margin-left: 20px;
+height: 30px;
+margin: 0;
+padding: 0;
+width: 30px;
+margin-left: 20px;
 }
 
 #bann{
-  height: 70px;
+height: 70px;
+width: 100%;
 }
 
 
 .title-principal-app {
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-  margin-bottom: 7px;
+color: #fff;
+display: flex;
+justify-content: center;
+align-items: center;
+margin: 0 auto;
+margin-bottom: 3px;
 }
 
 .logout{
-  width: 50px;
-  height: 50px;
+width: 50px;
+height: 50px;
 }
 
 #campos{
-  color:red;
-  margin-left: 5%;
-  margin-bottom: 0;
+color:red;
+margin-left: 5%;
+margin-bottom: 0;
 }
 
 #asq{
-  color: red;
-  font-weight: bold;
-      font-size: 14px;
-      transition: transform 0.3s ease-in-out;
+color: red;
+font-weight: bold;
+    font-size: 14px;
+    transition: transform 0.3s ease-in-out;
 }
 
 
 
 input[type="text"]:focus, input[type="password"]:focus{
-  border-top-color: transparent;
-  border-right-color: transparent;
-  border-left-color: transparent;
-  border-bottom-color: rgb(236, 224, 224);
-  outline: none;
-  content: "";
+border-top-color: transparent;
+border-right-color: transparent;
+border-left-color: transparent;
+border-bottom-color: rgb(236, 224, 224);
+outline: none;
+content: "";
 }
 
 input[type="text"], input[type="password"]{
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  transition: border-color 0.3s ease-in-out;
+width: 100%;
+padding: 10px;
+border: 1px solid #ccc;
+border-radius: 5px;
+transition: border-color 0.3s ease-in-out;
 } 
 
 .input-container {
-  position: relative;
-  width: 100%;
+position: relative;
+width: 100%;
 }
-        
+      
 .toggle-password, .toggle-password-new {
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
+position: absolute;
+top: 50%;
+right: 10px;
+transform: translateY(-50%);
 }
 
 .contraseniaanterior, .newcontrasenia{
-  height: 35px;
+height: 35px;
 }
 
 .contrasenia{
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+display: flex;
+flex-direction: column;
+align-items: flex-start;
 }
 
 .contraseniaanterior, .newcontrasenia {
-    height: fit-content;
-    width: 100%;
+  height: fit-content;
+  width: 100%;
 }
 
 
@@ -251,17 +252,17 @@ input[type="text"], input[type="password"]{
 
 
 @media (min-width: 992px) and (max-width: 1199px) {
-  .imge{
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    margin-left: 15px;
-    
+.imge{
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  margin-left: 15px;
+  
 }
 
 }
 @media (max-width: 991px){
-  .small-css{
-    font-size: large;
-  }
+.small-css{
+  font-size: large;
+}
 }

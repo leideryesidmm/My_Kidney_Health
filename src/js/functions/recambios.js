@@ -164,7 +164,7 @@ let listRecambios = async (recambios) => {
       fechas=obtenerFechas(new Date(recambiosHechos[0].recambio.prescripcionDia.cita.fecha), new Date(recambiosHechos[0].recambio.prescripcionDia.cita.fechaFin),recambiosHechos,prescripcion)
     }
       console.log(fechas);
-      let msg=`<table class="table" id="tableRecambios" style="border:2px solid">
+      let msg=`<table class="table" id="tableRecambios" name="tableRecambios" style="border:2px solid">
       <thead>
         <th style="border:2px solid">Fecha</th>
         <th style="border:2px solid">Hora</th>
@@ -204,7 +204,7 @@ let listRecambios = async (recambios) => {
               if(recam.recambio.idRecambio==recambiod.idRecambio){
                 hecho=true;
                 msg+=`
-              <td style="border:1px solid;background-color:#53DA44">${recam.fecha_real}</td>
+              <td style="border:1px solid;background-color:#53DA44">${new Date(recam.fecha_real).toLocaleTimeString()}</td>
               <td style="border:1px solid;background-color:#53DA44">${recambiod.concentracion}</td>
               <td style="border:1px solid;background-color:#53DA44">${decodeURIComponent(CryptoJS.AES.decrypt(recam.drenajeDialisis, 'clave_secreta').toString(CryptoJS.enc.Utf8))}</td>
               <td style="border:1px solid;background-color:#53DA44">${decodeURIComponent(CryptoJS.AES.decrypt(recam.drenajeDialisis, 'clave_secreta').toString(CryptoJS.enc.Utf8))-2000}</td>
@@ -234,6 +234,7 @@ let listRecambios = async (recambios) => {
       msg+=`</tbody>
       </table>`;
       document.getElementById("recambios").innerHTML=msg;
+      exportarTabla();
       var tableData = [
         {
             fecha: "2023-08-26",
@@ -287,3 +288,37 @@ function obtenerFechas(fechaIni,fechaFin,recambios,prescripcion){
 
   return datesArray;
 }
+
+function exportarTabla() {
+  const table = document.getElementById('tableRecambios');
+  const exportButton = document.getElementById('exportarBoton');
+
+  exportButton.addEventListener('click', () => {
+    const wb = XLSX.utils.table_to_book(table, { sheet: 'Recambios' });
+
+    const estilo = {
+      font: { bold: true, color: { rgb: "FF0000" } },
+      alignment: { horizontal: "center" }
+    };
+
+    // Verificar si la hoja de cálculo contiene celdas
+    if (wb.Sheets && wb.Sheets['Recambios']) {
+      // Obtener el rango de celdas
+      const range = XLSX.utils.decode_range(wb.Sheets['Recambios']['!ref']);
+
+      // Aplicar el estilo a todas las celdas
+      for (let R = range.s.r; R <= range.e.r; ++R) {
+        for (let C = range.s.c; C <= range.e.c; ++C) {
+          const cell_address = { r: R, c: C };
+          const cell = wb.Sheets['Recambios'][XLSX.utils.encode_cell(cell_address)];
+          if (!cell.s) cell.s = estilo;
+        }
+      }
+
+      XLSX.writeFile(wb, 'Recambios.xlsx');
+    } else {
+      console.error('La hoja de cálculo está vacía o no contiene la celda A1');
+    }
+  });
+}
+

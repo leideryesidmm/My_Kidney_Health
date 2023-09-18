@@ -81,7 +81,7 @@ let principal = () => {
             '<h5><b>Mi Perfil</b></h5>' +
             '</div>' +
             '<div class="description" class="col-md-6 col-12 text-center" >'+
-            '<p>En esta sección podrá visualizar su información personal y médica<p>';
+            '<p class="msg-secciones">En esta sección podrá visualizar su información personal y médica<p>';
             }
             else{
                 msg+='<div class="grid-item-content" class="col-md-6 col-12  text-center" id="textcontainer">' +
