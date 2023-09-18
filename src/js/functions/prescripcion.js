@@ -298,9 +298,19 @@ let mostrarPrescripcion= async (prescripcion, fecha, recambios) => {
     let hoy=new Date()
     let datos1=await datos();
     let cont=0;
+    
     prescripcionDiaHoy1.recambios.forEach(recambio => {
       accion="";
-        msg+='<div class="col-lg-5 card card-menor">'
+      if(prescripcionDiaHoy1.recambios.length==2&&(cont==0||cont==2)){
+        msg+='<div class=col-lg-1></div>'
+      }
+      if(prescripcionDiaHoy1.recambios.length==4&&(cont==0||cont==2)){
+        msg+='<div class=col-lg-1></div>'
+      }
+      if(prescripcionDiaHoy1.recambios.length==3){
+        msg+='<div class=col-lg-2></div>'
+      }
+        msg+=`<div class="col-lg-${prescripcionDiaHoy1.recambios.length==1?'12':prescripcionDiaHoy1.recambios.length==3?'8':'5'} card card-menor">`
         +'<div class="row">'
         +`    <div class="col-2 estado" style="`;
         if(recambios[cont]!=null){
@@ -393,7 +403,9 @@ let mostrarPrescripcion= async (prescripcion, fecha, recambios) => {
         msg+='</div>'
             +'</div>'
             +'</div>'
-    cont++;});
+    cont++;
+  }
+    );
     
     
     msg+='</div>';
@@ -457,6 +469,7 @@ let tablaRecambios=async(recambios)=>{
     msg+='</tbody>'
     +'</table>';
     document.getElementById("recamTable").innerHTML=msg;
+    console.log("llego aqui")
     new DataTable('#recambioTable', {
         language: {
             url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json',
@@ -466,7 +479,7 @@ let tablaRecambios=async(recambios)=>{
 
   let datos= async () => {
     let data=new Array();
-    let cardinalidad=["Primer Recambio","Segundo Recambio", "Tercer Recambio", "Cuarto Recambio", "Quinto Recambio"];
+    let cardinalidad=["Primer Recambio","Segundo Recambio", "Tercer Recambio", "Cuarto Recambio", "Quinto Recambio", "Sexto Recambio"];
     let cont=0;
     prescripcionDia=JSON.parse(localStorage.getItem('prescripcionActual'));
     let msg="";
@@ -584,7 +597,7 @@ let mostrarHistoricoMedico=async (prescripciones) => {
       msg+=`<tr>
         <td>${cont}</td>
         <td>${prescripcion.cita.fecha==undefined||prescripcion.cita.fecha==null?"Sin fecha de Inicio":formatDate(new Date(prescripcion.cita.fecha))}</td>
-        <td>${prescripcion.cita.fechaFin==undefined||prescripcion.cita.fecha_fin==null?"Sin fecha de fin":formatDate(new Date(prescripcion.cita.fecha_fin))}</td>
+        <td>${prescripcion.cita.fechaFin==undefined||prescripcion.cita.fechaFin==null?"Sin fecha de fin":formatDate(new Date(prescripcion.cita.fechaFin))}</td>
         <td>${prescripcion.cita.orificioSalida}</td>
         <td>
         <a class="icon-link" onclick="antigua(${prescripcion.cita.idCita})"> 
@@ -634,7 +647,7 @@ let mostrarPrescripcionAntiguaMedico=async(prescripcion)=>{
                         <h6><b>Fecha inicial:</b> ${prescripcion.cita.fecha==undefined||prescripcion.cita.fecha==null?"Sin fecha de Inicio":formatDate(new Date(prescripcion.cita.fecha))} </h6>
                     </div>
                     <div class="col-sm-6">
-                        <h6><b>Fecha final:</b> ${prescripcion.cita.fechaFin==undefined||prescripcion.cita.fecha_fin==null?"Sin fecha de fin":formatDate(new Date(prescripcion.cita.fecha_fin))} </h6>
+                        <h6><b>Fecha final:</b> ${prescripcion.cita.fechaFin==undefined||prescripcion.cita.fecha_Fin==null?"Sin fecha de fin":formatDate(new Date(prescripcion.cita.fecha_fin))} </h6>
                     </div>
                   </div>
                   <div id="prescripcionesDia">

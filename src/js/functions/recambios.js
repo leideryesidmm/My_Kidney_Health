@@ -164,7 +164,7 @@ let listRecambios = async (recambios) => {
       fechas=obtenerFechas(new Date(recambiosHechos[0].recambio.prescripcionDia.cita.fecha), new Date(recambiosHechos[0].recambio.prescripcionDia.cita.fechaFin),recambiosHechos,prescripcion)
     }
       console.log(fechas);
-      let msg=`<table id="tableRecambios" style="border:2px solid">
+      let msg=`<table class="table" id="tableRecambios" style="border:2px solid">
       <thead>
         <th style="border:2px solid">Fecha</th>
         <th style="border:2px solid">Hora</th>

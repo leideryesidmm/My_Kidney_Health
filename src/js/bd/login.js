@@ -1,4 +1,4 @@
-let servidorAPI = "http://localhost:8081/";
+let servidorAPI = "http://localhost:8081/api/";
 
 function isAuthenticated() {
   return localStorage.getItem("authenticated") === "true";
