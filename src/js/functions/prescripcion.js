@@ -403,9 +403,19 @@ let mostrarPrescripcion= async (prescripcion, fecha, recambios) => {
     let hoy=new Date()
     let datos1=await datos();
     let cont=0;
+    
     prescripcionDiaHoy1.recambios.forEach(recambio => {
       accion="";
-        msg+='<div class="col-lg-5 card card-menor">'
+      if(prescripcionDiaHoy1.recambios.length==2&&(cont==0||cont==2)){
+        msg+='<div class=col-lg-1></div>'
+      }
+      if(prescripcionDiaHoy1.recambios.length==4&&(cont==0||cont==2)){
+        msg+='<div class=col-lg-1></div>'
+      }
+      if(prescripcionDiaHoy1.recambios.length==3){
+        msg+='<div class=col-lg-2></div>'
+      }
+        msg+=`<div class="col-lg-${prescripcionDiaHoy1.recambios.length==1?'12':prescripcionDiaHoy1.recambios.length==3?'8':'5'} card card-menor">`
         +'<div class="row">'
         +`    <div class="col-2 estado" style="`;
         if(recambios[cont]!=null){
@@ -498,7 +508,9 @@ let mostrarPrescripcion= async (prescripcion, fecha, recambios) => {
         msg+='</div>'
             +'</div>'
             +'</div>'
-    cont++;});
+    cont++;
+  }
+    );
     
     
     msg+='</div>';
@@ -560,6 +572,7 @@ let tablaRecambios=async(recambios)=>{
     msg+='</tbody>'
     +'</table>';
     document.getElementById("recamTable").innerHTML=msg;
+    console.log("llego aqui")
     new DataTable('#recambioTable', {
         language: {
             url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json',
@@ -569,7 +582,7 @@ let tablaRecambios=async(recambios)=>{
 
   let datos= async () => {
     let data=new Array();
-    let cardinalidad=["Primer Recambio","Segundo Recambio", "Tercer Recambio", "Cuarto Recambio", "Quinto Recambio"];
+    let cardinalidad=["Primer Recambio","Segundo Recambio", "Tercer Recambio", "Cuarto Recambio", "Quinto Recambio", "Sexto Recambio"];
     let cont=0;
     prescripcionDia=JSON.parse(localStorage.getItem('prescripcionActual'));
     let msg="";
