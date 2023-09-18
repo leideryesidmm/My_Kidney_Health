@@ -351,9 +351,9 @@ else{
           '</div>'+
           '<div class="form-row">'+  
             '<div class="form-column">'+
-              '<label for="selectedEps" id="data">Eps:<label id="asq">*</label></label>'+
+              '<label for="selectedEps" id="data" class="labeleps">Eps:<label id="asq" class="labeleps">*</label></label>'+
               '<br>'+
-              '<select id="selectedEps" class="custom-select" required></select>'+
+              '<select id="selectedEps"required></select>'+
             '</div>'+ 
             '<div class="form-column">'+
               '<label for="estatura" id="data">Estatura:</label>'+
@@ -361,14 +361,15 @@ else{
               '<input type="text" class="estatura" id="estatura" name="estatura" placeholder="Estatura en cm">'+
             '</div>'+         
           '</div>'+
-            '<div class="form-column" id="enf">'+
-            '<div class="hipertension">'+
+          '<div class="form-row">'+
+            '<div class="form-column">'+
+            
               '<label for="hipertension" id="data2">Hipertensión: </label> ' +
               ' <input type="checkbox" id="hipertension" name="hipertension">'+
-              '</div>'+
-              '<div class="diabetes">'+
-              '<label for="diabetes" id="data2">Diabetes: </label> ' +
+              '<label for="diabetes" id="data2" class="labeldiabetes">Diabetes: </label> ' +
               ' <input type="checkbox" id="diabetes" name="diabetes">'+
+              '</div>'+
+              '<div class="form-column">'+
               '</div>'+
             '</div>'+'<div class="buttons">'+
             '<div class="btn-save">'+

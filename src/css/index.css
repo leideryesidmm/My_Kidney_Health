@@ -423,6 +423,14 @@ th {
   flex-direction: column;
 }
 
+#exportarBoton{
+  border: none;
+  cursor: pointer;
+  padding: 3px;
+  border-style: none;
+  float: right;
+}
+
 .description {
   text-align: center;
   font-style: italic;
@@ -483,4 +491,8 @@ li{
  
 .form-check input[type="checkbox"] {
   margin-bottom: 0.5rem;
+}
+
+#btnChequeo{
+  float: right;
 }

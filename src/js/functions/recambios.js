@@ -296,10 +296,7 @@ function exportarTabla() {
   exportButton.addEventListener('click', () => {
     const wb = XLSX.utils.table_to_book(table, { sheet: 'Recambios' });
 
-    const estilo = {
-      font: { bold: true, color: { rgb: "FF0000" } },
-      alignment: { horizontal: "center" }
-    };
+    
 
     // Verificar si la hoja de cálculo contiene celdas
     if (wb.Sheets && wb.Sheets['Recambios']) {
@@ -311,7 +308,6 @@ function exportarTabla() {
         for (let C = range.s.c; C <= range.e.c; ++C) {
           const cell_address = { r: R, c: C };
           const cell = wb.Sheets['Recambios'][XLSX.utils.encode_cell(cell_address)];
-          if (!cell.s) cell.s = estilo;
         }
       }
 

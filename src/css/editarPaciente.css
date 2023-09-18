@@ -261,9 +261,9 @@ body {
       transition: transform 0.3s ease-in-out;
   }
   
+   
     
-    
-    input[type="text"], input[type="date"], input[type="number"], select{
+    input[type="text"], input[type="date"], input[type="number"], #selectedEps{
        
        width: 97%;
         margin: 5px 0;
@@ -273,30 +273,6 @@ body {
         transition: border-color 0.3s ease-in-out;
     }
 
-    
-
-
-    #selectedEps{
-       
-      width: 95%;
-      height: 20%;
-       padding: 10px;
-       margin: 5px 0;
-       border: 1px solid #ccc;
-       border-radius: 5px;
-       transition: border-color 0.3s ease-in-out;
-   }
-
-   [id^="selectedCantidad"], #selectCantidad{
-    width: 95%;
-    height: 25px;
-     margin: 5px 0;
-     border: 1px solid #ccc;
-     border-radius: 5px;
-     text-align-last: center;
-
-   }
-
    #selectedOrificio{
     width: 95%;
     height: 25px;
@@ -305,6 +281,18 @@ body {
      border-radius: 5px;
      text-align-last: center;
    }
+
+  .labeleps{
+    margin-top: 5px;
+  }
+
+  #selectedEps{
+    margin-bottom: 15px;
+  }
+
+  .labeldiabetes{
+    margin-left: 20px;
+  }
 
   
 
@@ -346,22 +334,6 @@ body {
 
 
     
-
-    #enf{
-      border-color: #555;
-      margin-top: 4%;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .hipertension, .diabetes{
-      display: flex;
-      justify-content: start;
-      align-items: start;
-     
-    }
-
-    
 #nombreUsuario{
   color: white;
 }
@@ -392,6 +364,8 @@ border-radius: 5px;
 text-decoration: none;
 margin-left: 1%;
 }
+
+
   
   /* Estilos responsivos */
   @media (max-width: 768px) {

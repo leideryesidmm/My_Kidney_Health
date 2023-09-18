@@ -273,7 +273,7 @@ let mostrarInfoMedico=async()=>{
                   '</div>'+
                 '</div>'+
                 '<div class="form-row">'+
-                              '<div class="form-column">'+
+                              '<div class="form-column" id="colcorreo">'+
                     '<label for="correo" id="data">Correo:<label id="asq">*</label></label>'+
                     '<br>'+
                     '<input type="text" class="correo" id="correo" name="correo" required>'+
@@ -284,7 +284,7 @@ let mostrarInfoMedico=async()=>{
                     '<a href="administrador.html" class="cancelar">Cancelar</a>'+
                   '</div>'+
                   '<div class="btn-save">'+
-                    '<button type="submit" class="guardarPac">Actualizar</button>'+
+                    '<button type="submit" class="guardarMed">Actualizar</button>'+
                   '</div>'+
                   '</div>'
                   '</div>'
