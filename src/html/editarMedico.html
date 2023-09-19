@@ -63,8 +63,44 @@ integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLAS
             </div>
       </nav>
         <br>
-
+        
         <div id="editarMedico"></div>
+        <div class="modal fade" id="successModal" tabindex="1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Aviso</h5>
+                <a href="administrador.html"><button type="button" class="close btn-cerrar" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button></a>
+              </div>
+              <div class="modal-body">
+                <p>La información del médico ha sido actualizada.</p>
+              </div>
+              <div class="modal-footer">
+                <a href="administrador.html"><button href="administrador.html" type="button" class="btn btn-primary">Aceptar</button></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal fade" id="errorModal" tabindex="1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Aviso</h5>
+                <button onclick="modalClose('errorModal')" type="button" class="close btn-cerrar" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>La información del médico no se ha podido actualizar.</p>
+              </div>
+              <div class="modal-footer">
+                <button onclick="modalClose('errorModal')" type="button" class="btn btn-primary">Aceptar</button>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
     <script src="../js/functions/medico.js"></script>
