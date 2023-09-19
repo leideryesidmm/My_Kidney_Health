@@ -131,6 +131,7 @@ let listarMedicos = async () => {
         const medicosDesencriptados = medicos
         .filter(medico => medico.activo)
         .map(medico => {
+          console.log(medico)
           let cedulaDesencriptada = CryptoJS.AES.decrypt(medico.cedula, 'clave_secreta').toString(CryptoJS.enc.Utf8);
           let nombreDesencriptado = CryptoJS.AES.decrypt(medico.nombre, 'clave_secreta').toString(CryptoJS.enc.Utf8);
           let celularDesencriptado = CryptoJS.AES.decrypt(medico.celular, 'clave_secreta').toString(CryptoJS.enc.Utf8);
@@ -506,11 +507,13 @@ let selectedEspecialidad=document.getElementById("selectedEspecialidad");
     }
   })
     .then(response => {
+      console.log(response)
       if (response.ok) {
         if (response.status === 200 || response.status === 204) {
           $('#successModal').modal('show');
         }
       } else {
+        $('#errorModal').modal('show');
       }
     })
     .catch(error => {

@@ -1,8 +1,7 @@
-let medicosRegistrados = async () => {
+let medicosRegistrados = async (medicos) => {
   let cont = 1;
   try {
-    const medicos = await listarMedicos();
-
+    medicos=await medicos;
     let msg = "";
     if (medicos != null && medicos.length > 0) {
       msg += '<br>' +
@@ -143,12 +142,12 @@ let irEditarMedico = async (ced) => {
 
 
   
-let medicosInhabilitados = async () => {
+let medicosInhabilitados = async (medicos) => {
   let cont = 1;
 
 
   try {
-    const medicos = await listarMedicosInactivos();
+    medicos = await medicos;
     let msg = "";
 
     if (medicos != null && medicos.length > 0) {
@@ -292,11 +291,9 @@ let mostrarInfoMedico=async()=>{
               document.getElementById("editarMedico").innerHTML=msg;
     }
 
-
-    medicosRegistrados();
-medicosInhabilitados();
-
-
+function modalClose(id) {
+  $('#'+id).modal('hide');
+}
 
 
 

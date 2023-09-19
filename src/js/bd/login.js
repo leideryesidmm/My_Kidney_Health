@@ -1,4 +1,4 @@
-let servidorAPI = "http://localhost:8081/api/";
+let servidorAPI = "http://localhost:8104/";
 
 function isAuthenticated() {
   return localStorage.getItem("authenticated") === "true";
@@ -140,6 +140,10 @@ let logout = () => {
 
 let onload = async () => {
   let pathname = window.location.pathname
+  let data = localStorage.getItem("datos");
+  let dato=JSON.parse(data);
+  console.log(data);
+      let usuario = dato.usuario;
   if (isAuthenticated()) {
     if (pathname.includes("login.html") || pathname.includes("index.html") ) {
       if(usuario=="medico"){
