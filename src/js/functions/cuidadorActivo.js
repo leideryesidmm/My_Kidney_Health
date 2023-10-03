@@ -17,42 +17,44 @@ let cuidadorPrincipal=async(cuidadores, cuidAntiguos)=>{
     else{
         document.getElementById("img-editar").innerHTML='<a href="editarCuidador.html"><img src="../img/'+'editarPerfil.png" alt="editar"></a>';
     msg+=
-    '<div class="container">' +
+
+    '<br><div class="container">' +
 '<h3>Cuidador Actual</h3>' +
 '<div class="cuidadores">' +
-    '<label for="varCuidador" class="varCuidador"><strong>Nombre:</strong></label>' +
-            '<br>' +
-            '<label for="nombre" id="nombre" class="nombre">'+cuidadores.nombre+'</label>' +
-        '</div>' +
-      '<br>' +
-    '<div class="row justify-content-center">' +
-        '<div class="col-6 d-flex align-items-center justify-content-center" style="margin-left: 10px; margin-right: 10px;">' +
-            '<label for="cedCuidador" class="cedCuidador"><strong>Cédula:</strong></label>' +
-        '<br>' +
-        '<label for="cedula_cuidador" id="cedula_cuidador" class="cedula_cuidador">'+cuidadores.cedula+'</label>' +
-        '</div>' +
-        '<div class="col-5 d-flex align-items-center justify-content-center" style="margin-left: 10px; margin-right: 10px;">' +
-            '<label for="varParentesco"><strong>Parentesco:</strong></label>' +
-            '<br>' +
-                '<label for="parentesco" id="parentesco" class="parentesco">'+cuidadores.parentesco+'</label>' +
+
+
+'<main id="cuidadorActivo" class="cuidadorActivo">'+
+    '<div class="row">'+
+        '<div class="col nombreCuidador">'+
+            '<label for="nombre"><b>Nombre:</b></label><br>'+
+            '<label>'+cuidadores.nombre+'</label>'+
+        '</div>'+
+    '</div>'+
+    '<div class="row">'+
+        '<div class="col-6">'+
+            '<label for="nombre"><b>Cédula:</b></label><br>'+
+            '<label>'+cuidadores.cedula+'</label>'+
+        '</div>'+
+        '<div class="col-6">'+
+            '<label for="nombre"><b>Parentesco:</b></label><br>'+
+            '<label>'+cuidadores.parentesco+'</label>'+
+        '</div>'+
+    '</div>'+
+    '<div class="row">'+
+        '<div class="col-6">'+
+            '<label for="nombre"><b>Teléfono:</b></label><br>'+
+            '<label>'+cuidadores.telefono+'</label>'+
+        '</div>'+
+        '<div class="col-6">'+
+            '<label for="nombre"><b>Dirección:</b></label><br>'+
+            '<label>'+cuidadores.direccion+'</label>'+
+        '</div>'+
+    '</div>'+
+'</main>'+
         '</div>' +
         
-        '</div>' +
-        '<br>' +
-        '<div class="row justify-content-center">' +
-            '<div class="col-6 d-flex align-items-center justify-content-center" style="margin-left: 10px; margin-right: 10px;" id="tlf">' +
-                '<label for="varTelefono"><strong>Teléfono:</strong></label>' +
-                '<br>' +
-                '<label for="telefono" id="telefono" class="telefono">'+cuidadores.telefono+'</label>' +
-            '</div>' +
-            '<div class="col-6 d-flex align-items-center justify-content-center" style="margin-left: 10px; margin-right: 10px;" id="address">' +
-                '<label for="varDirección"><strong>Dirección:</strong></label>' +
-                '<br>' +
-                    '<label for="direccion" id="direccion" class="direccion">'+cuidadores.direccion+'</label>' +
-            '</div>' +
-            '</div>' +
+        
 '</div>' +
-'<br>' +
     '<div class="btn-container">';
     if(cuidAntiguos.length>=1){
        msg+= '<button class="cambiarCuidador" type="submit" id="cambiar" onclick="cuidadoresInactivos(cuidadoresAntiguos())" "class="cambiarCuidador">Cambiar</button>'};
@@ -84,7 +86,7 @@ let cuidadoresInactivos = async (cuidadores) => {
           '<td>' + cuidador.cedulaCuidador + '</td>' +
           '<td>' + cuidador.nombre + '</td>' +
           '<td>' +
-          '<button onclick="reactivarCuidador(\'' + cuidador.cedulaCuidador + '\')" type="button">' +
+          '<button onclick="reactivarCuidador(\'' + cuidador.cedulaCuidador + '\')" type="button" id="reactivarCuidador">' +
           '<img src="../img/actualizar.png" class="actualizar"/>' +
           '</button>' +
           '</td>' +

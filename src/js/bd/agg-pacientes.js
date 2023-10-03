@@ -256,7 +256,8 @@ let crearVisita = async (cedulaPaciente) => {
         console.log(response);
         if (response.ok) {
           $('#visita').modal('hide');
-          location.reload();
+          $('#successModalVisitaAgg').modal('show');
+          
         } else {
           $('#errorModal').modal('show');
         }
@@ -298,8 +299,9 @@ let crearChequeoMensual = async (cedulaPaciente) => {
 
     try {
       if (response.ok) {
-        $('#chequeo').modal('hide');
-        location.reload();
+        $('#agregarChequeo').modal('hide');
+        $('#successModalChequeoAgg').modal('show');
+        
       } else {
         $('#errorModal').modal('show');
       }
@@ -328,13 +330,15 @@ let ultimaCita = async (cedulaPaciente) => {
       },
       body: JSON.stringify(paciente)
     });
-
-    let ultimaCita = await peticion.json();
-    console.log(ultimaCita);
-    
+    if(peticion.status === 200){
+    let ultimaCita = await peticion.json();   
     return ultimaCita;
+  }
+  else{
+
+  }
   } catch (error) {
-    console.error("Error en encontrarUltimaCita:", error);
+    console.error("Error en encontrar Ultima Cita:", error);
     return null; 
   }
 };

@@ -567,7 +567,7 @@ let validacirChecks=validarCeckbox();
     await crearCita(event);
     await crearPrescripcionDia(event);
     await crearRecambios(event);
-    location.href="prescripcionesM.html"
+    $('#successModal').modal('show');
   }
     else{
       $('#errorModal').modal('show');
@@ -797,7 +797,7 @@ let validacirChecks=validarCeckbox();
     await crearCita(event);
     await crearPrescripcionDia(event);
     await crearRecambios(event);
-    location.href="pacientes.html"
+    $('#successModal').modal('show');
   }
     else{
       $('#errorModal').modal('show');
@@ -828,12 +828,11 @@ let validacirChecks=validarCeckbox();
         "Content-Type":"application/json"
       }
     })
-      if (peticion.ok) {
+      if (peticion.status===200) {
         let visita= await peticion.json();
         return visita;
         }
    else{
-      $('#errorModalVisita').modal('show');
       return null;
     }
   }
@@ -856,11 +855,11 @@ let validacirChecks=validarCeckbox();
         }
       });
   
-      if (peticion.ok) {
+      if (peticion.status===200) {
         let chequeo = await peticion.json();
         return chequeo;
       } else {
-        $('#errorModalChequeo').modal('show');
+        
         return null;
       }
     } catch (error) {

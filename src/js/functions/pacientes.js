@@ -5,9 +5,6 @@ let pacientesTratados = async () => {
 
     let msg = "";
     if (pacientes != null && pacientes.length > 0) {
-      let cita=ultimaCita();
-      let fechaIni=cita.fecha;
-      let fechaFin=cita.fechaFin;
       msg += '<br>' +
         '<table class="paciente" id="paciente">' +
         '<thead>' +
@@ -186,6 +183,3 @@ let pacientesInhabilitados = async () => {
     },
 });
 };
-
-pacientesTratados();
-pacientesInhabilitados();

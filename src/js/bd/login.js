@@ -140,11 +140,12 @@ let logout = () => {
 
 let onload = async () => {
   let pathname = window.location.pathname
-  let data = localStorage.getItem("datos");
+  
+  if (isAuthenticated()) {
+    let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
   console.log(data);
       let usuario = dato.usuario;
-  if (isAuthenticated()) {
     if (pathname.includes("login.html") || pathname.includes("index.html") ) {
       if(usuario=="medico"){
         location.href="pacientes.html";

@@ -73,36 +73,24 @@ integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLAS
     </div>
 
 
-  <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="successModalLabel">Aviso</h5>
-          <a href="javascript:void(0);"><button onclick="redireccionar()" type="button" class="close" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button></a>
-        </div>
-        <div class="modal-body">
-          <p>Los datos del paciente han sido modificados exitosamente.</p>
-        </div>
-        <div class="modal-footer">
-          <a href="javascript:void(0);"><button onclick="redireccionar()" type="button" class="btn btn-primary">Aceptar</button></a>
-        </div>
-        
-        <script>
-          let url = localStorage.getItem("url");
-          function redireccionar() {
-            if (url) {
-              window.location.href = url;
-            } else {
-              alert("No se ha encontrado una URL almacenada en el localStorage.");
-            }
-          }
-        </script>
+    <div class="modal fade" id="successModal" tabindex="1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="successModalLabel">Aviso</h5>
+            <a href="prescripcionesM.html"><button type="button" class="close btn-cerrar" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button></a>
+          </div>
+          <div class="modal-body">
+            <p>Se ha registrado una nueva prescpción.</p>
+          </div>
+          <div class="modal-footer">
+            <a href="prescripcionesM.html"><button href="prescripcionesM.html" type="button" class="btn btn-primary">Aceptar</button></a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
     integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"

@@ -263,7 +263,7 @@ body {
   
    
     
-    input[type="text"], input[type="date"], input[type="number"], #selectedEps{
+    input[type="text"], input[type="date"], input[type="number"], select{
        
        width: 97%;
         margin: 5px 0;
@@ -273,6 +273,8 @@ body {
         transition: border-color 0.3s ease-in-out;
     }
 
+    
+
    #selectedOrificio{
     width: 95%;
     height: 25px;
@@ -280,6 +282,10 @@ body {
      border: 1px solid #ccc;
      border-radius: 5px;
      text-align-last: center;
+   }
+
+   .nocheSeca{
+    text-align: center;
    }
 
   .labeleps{
@@ -319,9 +325,16 @@ body {
   border-style: none;
   }
 
-  .cancelar:focus, .guardarPac:focus{
-    outline: none;
-  }
+  .cancelar:hover, .guardarPac:hover{
+    color: white;
+text-decoration: none;  }
+
+.enfermedades{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 25px;
+}
 
   .buttons{
       display: flex;

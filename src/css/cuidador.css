@@ -33,6 +33,7 @@ h3 {
   display: flex;
   justify-content: space-between; 
   align-items: center; 
+  height: 70px;
 }
 
 .navbar h1{
@@ -48,11 +49,14 @@ h3 {
   margin: 0 auto;
 }
 
+#cuidadorActivo{
+  margin: 0 auto;
+}
 
 .row {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    align-items: left;
+    
 }
 
 
@@ -170,7 +174,7 @@ h3 {
     text-align: center;
   }
 
-  button[type="button"] {
+  #reactivarCuidador {
     background-color: transparent;
     border: none;
     padding: 0;

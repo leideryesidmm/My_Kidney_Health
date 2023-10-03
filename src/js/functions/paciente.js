@@ -298,9 +298,12 @@ let editarPaciente=async()=>{
           '<label for="ocupacion" id="data">Ocupación:</label>'+
           '<br>'+
           '<input type="text" enterkeyhint="next" enterkeyhint="previous"  class="ocupacion" id="ocupacion" name="ocupacion" placeholder="Ocupación">'+
-
-             
             '</div>'+
+            '<div class="form-column">'+
+              '<label for="selectedEps" id="data" class="labeleps">Eps:<label id="asq" class="labeleps">*</label></label>'+
+              '<br>'+
+              '<select id="selectedEps" required></select>'+
+            '</div>'+ 
             '</div>'+
             '<div class="container">'+
             '<label for="correo" id="prueba">Foto de Perfil: &nbsp&nbsp</label>'+
@@ -313,8 +316,14 @@ let editarPaciente=async()=>{
             '<div class="btn-save">'+
               '<button type="submit" class="guardarPac">Actualizar</button>'+
             '</div>'+
-            '</div>'
-            '</div>';}
+            '</div>'+
+            '</div>'+
+        '</form>';
+
+        document.getElementById("container").innerHTML=msg;
+        document.getElementById("selectedDocumento").value = localStorage.getItem("documento");
+        listaEps();
+            }
 
            
 else{
@@ -351,26 +360,17 @@ else{
           '</div>'+
           '<div class="form-row">'+  
             '<div class="form-column">'+
-              '<label for="selectedEps" id="data" class="labeleps">Eps:<label id="asq" class="labeleps">*</label></label>'+
-              '<br>'+
-              '<select id="selectedEps"required></select>'+
-            '</div>'+ 
-            '<div class="form-column">'+
               '<label for="estatura" id="data">Estatura:</label>'+
               '<br>'+
               '<input type="text" class="estatura" id="estatura" name="estatura" placeholder="Estatura en cm">'+
-            '</div>'+         
-          '</div>'+
-          '<div class="form-row">'+
-            '<div class="form-column">'+
-            
+            '</div>'+ 
+            '<div class="form-column enfermedades" >'+
               '<label for="hipertension" id="data2">Hipertensión: </label> ' +
               ' <input type="checkbox" id="hipertension" name="hipertension">'+
               '<label for="diabetes" id="data2" class="labeldiabetes">Diabetes: </label> ' +
               ' <input type="checkbox" id="diabetes" name="diabetes">'+
               '</div>'+
-              '<div class="form-column">'+
-              '</div>'+
+             
             '</div>'+'<div class="buttons">'+
             '<div class="btn-save">'+
               '<button onclick="cancelar()" class="cancelar">Cancelar</button>'+
@@ -378,14 +378,15 @@ else{
             '<div class="btn-save">'+
               '<button type="submit" class="guardarPac">Actualizar</button>'+
             '</div>'+
-            '</div>';
+            '</div>'+
+            '</form>';
+
+        document.getElementById("container").innerHTML=msg;
+      
 }
           
-          msg+=
-        '</form>';
-
-          document.getElementById("container").innerHTML=msg;
-          document.getElementById("selectedDocumento").value = localStorage.getItem("documento");
+         
+        
          
 }
 

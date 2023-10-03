@@ -76,14 +76,16 @@ let crearCuidador = async () => {
           unionCuidadorPacienteInDto
         )
       })
-      .then(response => response.json())
-      .then(data => {
-        
+      
+      .then(response => {
+        if(response.status===200){
+          $("#successModal").modal("show");
+        }
       })
       .catch(error => {
         console.error(error);
       });
-      location.href = 'cuidador.html';
+
 
     }
   });
@@ -640,7 +642,7 @@ let reactivarCuidador = async (cedulaCuidador) => {
         .then(response => {
           if (response.ok) {
             if (response.status === 200 || response.status === 204) {
-              $('#successModal').modal('show');
+              $('#successModalReactivar').modal('show');
             }
           } else {
             fetch(localStorage.getItem("servidorAPI") + "paciente/cuidador/ReactivarCuidadorAntiguoSinActivo", {
@@ -660,7 +662,6 @@ let reactivarCuidador = async (cedulaCuidador) => {
         });
     }
   });
-  location.reload();
 }
 
 let inhabilitarCuidador=async()=>{
