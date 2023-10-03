@@ -364,6 +364,16 @@ console.log(paciente);
       var decryptedCorreo = CryptoJS.AES.decrypt(paciente.correo, 'clave_secreta').toString(CryptoJS.enc.Utf8);
       document.getElementById("correo").value = decryptedCorreo;
     }
+    const selectEps = document.getElementById('selectedEps');
+  const descripcionEps= paciente.eps.nombre;
+  console.log(descripcionEps);
+  
+  Array.from(selectEps.options).forEach((option, index) => {
+    if (option.textContent === descripcionEps) {
+      console.log("ENTRO AL IF DE SELECT EPS");
+      selectEps.selectedIndex = index;
+    }
+  })
     console.log(paciente.foto);
   if (paciente.foto!=null) {
     const binaryString = window.atob(paciente.foto);
@@ -377,6 +387,7 @@ console.log(paciente);
   console.log(imageUrl);
   document.getElementById("imageFile").value = imageUrl;
   }
+  
   }
   else{
     var decryptedNombre = CryptoJS.AES.decrypt(paciente.nombre, 'clave_secreta').toString(CryptoJS.enc.Utf8);
@@ -399,19 +410,13 @@ console.log(paciente);
   document.getElementById("pesoseco").value = pesoseco;
   
 
-  const selectEps = document.getElementById('selectedEps');
-  const descripcionEps= paciente.eps.nombre;
-  console.log(descripcionEps);
   
-  Array.from(selectEps.options).forEach((option, index) => {
-    if (option.textContent === descripcionEps) {
-      selectEps.selectedIndex = index;
-    }
-  })
   var decryptedEstatura = paciente.altura;
   document.getElementById("estatura").value=decryptedEstatura;
 }
+console.log(pacienteActual);
   return pacienteActual;
+  
 }
 
 let listaEps = async () => {
@@ -424,9 +429,9 @@ let listaEps = async () => {
   });
 
   const selectEps = document.getElementById('selectedEps');
-  
+  console.log(selectEps);
 
-  if (selectEps.length === 0) {
+  if (selectEps.length == 0) {
     const epss = await peticion.json();
     const optionSeleccionar = document.createElement('option');
     optionSeleccionar.textContent = "Seleccione";
@@ -486,7 +491,7 @@ let actualizarPaciente = async (event) => {
   let fechaNacimiento= document.getElementById("fecha").value;
   let telefono = document.getElementById("telefono").value;
   let direccion = document.getElementById("direccion").value;
-  let eps = paciente.eps.idEps;
+
   let selectTipoDocumento = selectedDocumento.options[selectedDocumento.selectedIndex];
   let tipo_documento = selectTipoDocumento.value;
   let peso = paciente.peso;
@@ -496,6 +501,8 @@ let actualizarPaciente = async (event) => {
   let estatura=paciente.altura;
   var diabetes = paciente.diabetes;
      var hipertension = paciente.hipertension;
+     let selectedOption = selectedEps.options[selectedEps.selectedIndex];
+  let eps = selectedOption.value;
       
 
   pacienteInDto = {
@@ -516,7 +523,8 @@ let actualizarPaciente = async (event) => {
     contrasenia:paciente.contrasenia,
     altura:estatura,
     diabetes:diabetes,
-    hipertension:hipertension
+    hipertension:hipertension,
+    eps: parseInt(eps,10)
   };
 }
 else{
@@ -525,15 +533,15 @@ else{
   let telefono = paciente.celular;
   let direccion = paciente.direccion;
   let tipo_documento= paciente.tipo_documento;
-  let selectedOption = selectedEps.options[selectedEps.selectedIndex];
-  let eps = selectedOption.value;
   let peso = document.getElementById("peso").value;
   let pesoseco=document.getElementById("pesoseco").value;
   let ocupacion=paciente.ocupacion;
   let correo=paciente.correo;
-  let estatura=document.getElementById("estatura").value;;
+  let estatura=document.getElementById("estatura").value;
+  let eps = paciente.eps.idEps;
   var diabetes = document.getElementById('diabetes').checked;
   var hipertension = document.getElementById('hipertension').checked;
+
 
   pacienteInDto = {
     direccion: direccion,
@@ -541,7 +549,7 @@ else{
     peso:parseInt(peso,10),
     pesoSeco:parseInt(pesoseco,10),
     nombre: nombre,
-    eps: parseInt(eps,10),
+    eps: eps,
     celular: telefono,
     ocupacion: ocupacion,
     correo: correo,
@@ -606,6 +614,7 @@ console.log(formData);
   });
 }
 
+let eventoPerfil=async()=>{
 document.addEventListener("DOMContentLoaded", async () => {
   try {
     await perfil();
@@ -640,3 +649,4 @@ document.addEventListener("DOMContentLoaded", async () => {
   console.error("Error in DOMContentLoaded:", error);
 }
 });
+}

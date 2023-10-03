@@ -109,8 +109,10 @@ function generarPrescripciones(){
           
     '</div>'+
     '<div class="form-column">' +
-        '<label id="data">Fecha Final de la prescripción:</label>'+
-        '<input type="date" class="fechaFin" id="fechaFin" required>'+
+        '<label id="data">Fecha Final de la prescripción:</label>';
+        let fechaManana = new Date();
+        fechaManana.setDate(fechaManana.getDate() + 1);
+        msg += `<input type="date" class="fechaFin" id="fechaFin" min="${fechaManana.toISOString().split('T')[0]}" required>`+
         '</div>' +
         '</div>' +
     '<hr>';
@@ -275,7 +277,9 @@ function generarSelects(idCantidad) {
         asquer.innerText="*";
 
         var rangoH=document.createElement("input");
-        rangoH.type="text";
+        rangoH.type="number";
+        rangoH.min="1";
+        rangoH.max="15";
         rangoH.className="rango";
         rangoH.id = "rango"+idConcentracion;
         rangoH.setAttribute("required", "true");
@@ -604,31 +608,32 @@ let mostrarPrecripcionMedico=async (prescripcion) => {
   document.getElementById("actual").classList.add("active");
   document.getElementById("historico").classList.remove("active");
   prescripcion=await prescripcion
-  let recambiosHechos=await finAllRecambiosHechos(prescripcion.cita.idCita);
-  console.log("DSc")
   console.log(prescripcion)
-  localStorage.setItem("selectPrescripcion", JSON.stringify(prescripcion))
-  if(prescripcion.cita==undefined||new Date(prescripcion.cita.fechaFin)<new Date()){
-    console.log("no hay prescriocion");
+  if(prescripcion==undefined||new Date(prescripcion.cita.fechaFin)<new Date()){
+    console.log("no hay prescripcion");
     let msg='<h3>No hay prescripción activa a la fecha</h3><br>'+
     '<a href="agregarPrescripcion.html" class="btn btn-primary">Nueva</a>';
     document.getElementById("cardBody").innerHTML=msg;
     return;
   }
+  let recambiosHechos=await finAllRecambiosHechos(prescripcion.cita.idCita);
+  console.log("DSc")
+  console.log(prescripcion)
+  localStorage.setItem("selectPrescripcion", JSON.stringify(prescripcion))
   console.log(await prescripcion)
   let msg="";
   let ordinal=["Primer","Segundo", "Tercer", "Cuarto", "Quinto"];
   
   msg+=`
   <div class="dropdown">
-  <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="btnChequeo">Chequeo Mensual
+  <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="btnChequeo">Seguimiento Mensual
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
 </svg>
   </button>
   <ul class="dropdown-menu">
-    <li><a class="dropdown-item" onclick="agregarVisita()">Agregar visita especialista</a></li>
-    <li><a class="dropdown-item" onclick="mostrarVisita()">Ver información visita especialista</a></li>
+    <li><a class="dropdown-item" onclick="agregarVisita()">Agregar visita a especialistas</a></li>
+    <li><a class="dropdown-item" onclick="mostrarVisita()">Ver información de visitas a especialista</a></li>
     <li><a class="dropdown-item" onclick="agregarChequeo()">Agregar chequeo mensual</a></li>
     <li><a class="dropdown-item" onclick="mostrarChequeo()">Ver información chequeo mensual</a></li>
   </ul>
@@ -666,8 +671,8 @@ let mostrarPrecripcionMedico=async (prescripcion) => {
                     prescripcionDia.recambios.forEach(recambio => {
                       msg+=`<tr>
                       <td>${ordinal[cont]+" recambio"}</td>
-                      <td>${recambio.concentracion}</td>
-                      <td>${recambio.intervaloTiempo}</td>
+                      <td>${recambio.concentracion} %</td>
+                      <td>${recambio.intervaloTiempo} horas</td>
                     </tr>`
                     cont++;
                     });
@@ -899,7 +904,6 @@ let editarPrescripcion = async () => {
   let datos = await datosEditarPrescripcion();
   let prescripcionesHechas = datos.prescipcionDia.length;
   let ms = "";
-
   ms += '<div class="form-container">' +
       '<h2>Editar Prescripción</h2>' +
       '<p id="campos">Selecciona la cantidad de prescripciones</p>' +
@@ -924,9 +928,7 @@ let editarPrescripcion = async () => {
   document.getElementById("container").innerHTML = ms;
   let selectCantidad = document.getElementById("selectCantidad");
   selectCantidad.value = prescripcionesHechas;
-
   generarPrescripcionesLlenados();
-
   selectCantidad.addEventListener("change", function() {
     const cantidadSeleccionada = parseInt(selectCantidad.value);
     if (cantidadSeleccionada !== 0) {
@@ -934,8 +936,6 @@ let editarPrescripcion = async () => {
     }
   });
 }
-
-
 let checkboxsSeleccionados = {};
 let rec=[];
 let generarPrescripcionesLlenados=async()=>{
@@ -1039,13 +1039,10 @@ let generarPrescripcionesLlenados=async()=>{
   let checkboxNocheSeca = document.getElementById("nocheSeca" + idCantidad);
   checkboxNocheSeca.checked = nocheSec;
   }
-
-
   document.getElementById("fechaFin").value = fechaFin;
   let selecorificio = document.getElementById("selectedOrificio");
   selecorificio.value = orificio;
   
-
   let ms="";
   if(cantidad>0){
   ms+=
@@ -1073,12 +1070,11 @@ let generarPrescripcionesLlenados=async()=>{
   
   for(var i=0; i<cantidad;i++){
     let idCantidad=i+1;
-    let selCantidad = document.getElementById("selectedCantidad"+idCantidad);
-   
+    let selCantidad = document.getElementById("selectedCantidad"+idCantidad).value;
+   console.log(selCantidad);
     if(i<recambios.length){
   selCantidad.value = recambios[i].length;
     
-
   selCantidad.addEventListener("change", function() {
     const cantidadSeleccionada = parseInt(selCantidad.value);
    
@@ -1087,49 +1083,39 @@ let generarPrescripcionesLlenados=async()=>{
     
   });
 }
-   
+console.log(document.getElementById("selectedCantidad" + idCantidad).value);
     generarSelectsLlenados(idCantidad, document.getElementById("selectedCantidad" + idCantidad).value);
    
   }
 }
-
-
 let generarSelectsLlenados = async (idCantidad, cantidadSeleccionada) => {
  
   var container = document.getElementById("selectContainer" + idCantidad);
   container.innerHTML = "";
-
   var row = document.createElement("div");
   row.className = "row";
-
   for (var i = 0; i < cantidadSeleccionada; i++) {
     var idConcentracion = "concentracion" + (i + 1)+""+idCantidad; 
-
     var col = document.createElement("div");
     col.id = "selectsPrescripcion";
     col.className = "col-12 col-md-6 col-lg-4 col-xl-3"; 
     
     var selectContainer = document.createElement("div");
     selectContainer.className = "form-group";
-
     var label = document.createElement("label");
     label.className = "form-label";
     label.id = "labelConcentracion";
     label.for = idConcentracion;
     label.innerText = "Concentración " + (i + 1) + ":"; 
     
-
     var select = document.createElement("select");
     select.className = "form-control";
     select.id = idConcentracion;
     select.setAttribute("required", "true");
-
     var opciones = ["Seleccione...", "1.5%", "2.5%", "4.25%"];
-
     var rang = document.createElement("label");
     rang.id="data";
     rang.for="rangoH";
-
     var textRango = document.createElement("label");
     textRango.id="data";
     textRango.for="";
@@ -1138,13 +1124,11 @@ let generarSelectsLlenados = async (idCantidad, cantidadSeleccionada) => {
     var asquer = document.createElement("label");
     asquer.id="asq";
     asquer.innerText= " *";
-
     var rangoH=document.createElement("input");
     rangoH.type="number";
     rangoH.className="rango";
     rangoH.id = "rango"+idConcentracion;
     rangoH.setAttribute("required", "true");
-
     for (var j = 0; j < opciones.length; j++) {
         var option = document.createElement("option");
         if(j==0){
@@ -1158,7 +1142,6 @@ let generarSelectsLlenados = async (idCantidad, cantidadSeleccionada) => {
         select.appendChild(option);
         }
     }
-
     selectContainer.appendChild(label);
     selectContainer.appendChild(select);
     selectContainer.appendChild(rang);
@@ -1166,18 +1149,15 @@ let generarSelectsLlenados = async (idCantidad, cantidadSeleccionada) => {
     selectContainer.appendChild(asquer);
     selectContainer.appendChild(rangoH);
     
-
     col.appendChild(selectContainer);
     row.appendChild(col);
 }
   container.appendChild(row);
-
   let datos = await datosEditarPrescripcion();
   var cantidad=document.getElementById("selectCantidad").value;
  
   let recambios=datos.recambios;
   let prescipcionesDia=datos.prescipcionDia;
-
   await new Promise((resolve) => setTimeout(resolve, 0));
   for(var i=0;i<recambios.length;i++){
     let idCantidad = i+1;
@@ -1200,7 +1180,6 @@ let generarSelectsLlenados = async (idCantidad, cantidadSeleccionada) => {
         habilitaDeshabilitDias(dia, cantidad);
         habilitarDeshabilitarDias(dia, cantidad);
         
-
       });
     });
   }
@@ -1208,7 +1187,6 @@ let generarSelectsLlenados = async (idCantidad, cantidadSeleccionada) => {
 };
 function habilitarDeshabilitarDias(dia, cantidad) {
   const checkboxes = [];
-
   // Obtener todos los checkboxes para el día
   for (let i = 1; i <= cantidad; i++) {
     const checkbox = document.getElementById(`${dia}${i}`);
@@ -1216,9 +1194,7 @@ function habilitarDeshabilitarDias(dia, cantidad) {
       checkboxes.push(checkbox);
     }
   }
-
   const anyCheckboxChecked = checkboxes.some((checkbox) => checkbox.checked);
-
   checkboxes.forEach((checkbox) => {
     if (checkbox.checked) {
       checkbox.disabled = false; // Habilitar los checkboxes marcados
@@ -1227,10 +1203,8 @@ function habilitarDeshabilitarDias(dia, cantidad) {
     }
   });
 }
-
 function habilitaDeshabilitDias(dia, cantidad) {
   const checkboxes = [];
-
   // Obtener todos los checkboxes para el día
   for (let i = 1; i <= cantidad; i++) {
     const checkbox = document.getElementById(`${dia}${i}`);
@@ -1238,7 +1212,6 @@ function habilitaDeshabilitDias(dia, cantidad) {
       checkboxes.push(checkbox);
     }
   }
-
   checkboxes.forEach((checkbox, index) => {
     checkbox.addEventListener('change', () => {
       checkboxes.forEach((otherCheckbox, otherIndex) => {
@@ -1251,6 +1224,11 @@ function habilitaDeshabilitDias(dia, cantidad) {
 }
 
 let mostrarChequeo=async()=>{
+  let chequeo=await obtenerUltimoChequeo();
+  if(chequeo==null){
+    $('#errorModalChequeo').modal('show');
+  }
+  else{
   let msg="";
   let chequeo=await obtenerUltimoChequeo();
   if(chequeo!=null){
@@ -1326,12 +1304,16 @@ let mostrarChequeo=async()=>{
           $("#mostrarChequeo").modal("show");
   }
 }
+}
 
 
 let mostrarVisita=async()=>{
   let msg="";
   let visita=await obtenerUltimaVisita();
-  if(visita!=null){
+  if(visita==null){
+    $('#errorModalVisita').modal('show');
+  }
+  else{
   console.log(visita);
   let nombrePaciente=CryptoJS.AES.decrypt(visita.cita.paciente.nombre,"clave_secreta").toString(CryptoJS.enc.Utf8);
   let cedulaPaciente=CryptoJS.AES.decrypt(visita.cita.paciente.cedula,"clave_secreta").toString(CryptoJS.enc.Utf8);
@@ -1426,11 +1408,16 @@ let mostrarVisita=async()=>{
 }
 
 let agregarVisita=async()=>{
+  let visita= await obtenerUltimaVisita();
+  if(visita!=null){
+$("#errorModalVisitaExistente").modal("show");
+  }
+else{
   let msg="";
   let paciente= await encontrarPaciente();
   let cedula=CryptoJS.AES.decrypt(paciente.cedula, "clave_secreta").toString(CryptoJS.enc.Utf8);
   let nombre=CryptoJS.AES.decrypt(paciente.nombre, "clave_secreta").toString(CryptoJS.enc.Utf8);
-  console.log(paciente);
+  
   msg+='<div class="modal-dialog">' +
           '<div class="modal-content">' +
           '<div class="modal-header">' +
@@ -1497,8 +1484,14 @@ let agregarVisita=async()=>{
           document.getElementById("visita").innerHTML=msg;
           $("#visita").modal("show");
 }
+}
 
 let agregarChequeo=async()=>{
+  let chequeo= await obtenerUltimoChequeo();
+  if(chequeo!=null){
+$("#errorModalChequeoExistente").modal("show");
+  }
+else{
   let msg="";
   let paciente= await encontrarPaciente();
   let cedula=CryptoJS.AES.decrypt(paciente.cedula, "clave_secreta").toString(CryptoJS.enc.Utf8);
@@ -1572,8 +1565,10 @@ let agregarChequeo=async()=>{
           document.getElementById("agregarChequeo").innerHTML=msg;
           $("#agregarChequeo").modal("show");
 }
+}
 
 let editarChequeo=async()=>{
+  
   let msg="";
   let chequeo=await obtenerUltimoChequeo();
   console.log(chequeo);
@@ -1656,7 +1651,6 @@ let editarChequeo=async()=>{
 
 let editarVisita=async()=>{
   let msg="";
-  let visita=await obtenerUltimaVisita();
   
   let nombrePaciente=CryptoJS.AES.decrypt(visita.cita.paciente.nombre,"clave_secreta").toString(CryptoJS.enc.Utf8);
   let cedulaPaciente=CryptoJS.AES.decrypt(visita.cita.paciente.cedula,"clave_secreta").toString(CryptoJS.enc.Utf8);
@@ -1749,4 +1743,5 @@ let editarVisita=async()=>{
           document.getElementById("editarVisita").innerHTML=msg;
           $("#editarVisita").modal("show");
 }
+
 

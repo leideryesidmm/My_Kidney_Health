@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-let servidorAPI = "http://localhost:8081/";
-=======
 let servidorAPI = "http://localhost:8104/";
->>>>>>> 658b57c9699019c41c8c2ccc7cece475cf877e78
 
 function isAuthenticated() {
   return localStorage.getItem("authenticated") === "true";
@@ -144,11 +140,12 @@ let logout = () => {
 
 let onload = async () => {
   let pathname = window.location.pathname
-  let data = localStorage.getItem("datos");
+  
+  if (isAuthenticated()) {
+    let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
   console.log(data);
       let usuario = dato.usuario;
-  if (isAuthenticated()) {
     if (pathname.includes("login.html") || pathname.includes("index.html") ) {
       if(usuario=="medico"){
         location.href="pacientes.html";

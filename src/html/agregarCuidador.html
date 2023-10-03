@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>Agregar Cuidador</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../css/agregarCuidador.css">
     <link href="https://fonts.googleapis.com/css2?family=Jost&display=swap" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
     
     
 </head>
@@ -26,7 +28,7 @@
         <div id="agregarCuidador">
         <div class="form-container">
             <h5>Agregar Cuidador</h5>
-            <form>
+            <form onsubmit="crearCuidador()">
                 <div class="cedCuidador">
                     <label for="cedula_cuidador">Cédula:</label>
                     <input type="text" enterkeyhint="next" name="cedula_cuidador" id="cedula_cuidador" class="cedula_cuidador" required>
@@ -51,10 +53,7 @@
                     <label for="tel">Teléfono:</label>
                     <input type="text" enterkeyhint="send" name="telefono" id="telefono" class="telefono" required>
                 </div>
-            
 
-    
-    
     <div class="btn-container">
         <a href="cuidador.html" class="btn-cancelar">Cancelar</a>
         <button class="btn-nuevo" id="guardarCuidador">Guardar</button>
@@ -62,43 +61,44 @@
 </form>
 </div>
 </div>
+
+
+<div class="modal fade" id="successModal" tabindex="1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="successModalLabel">Aviso</h5>
+        <a href="cuidador.html"><button type="button" class="close btn-cerrar" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button></a>
+      </div>
+      <div class="modal-body">
+        <p>Se ha agregado un nuevo cuidador.</p>
+      </div>
+      <div class="modal-footer">
+        <a href="cuidador.html"><button href="alergias.html" type="button" class="btn btn-primary">Aceptar</button></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
-   <script src="../js/bd/cuidador.js">
-   </script>
+   <script src="../js/bd/cuidador.js"></script>
    <script src="../js/functions/cuidadorActivo.js"></script>
+   <script src="../js/bd/login.js"></script>
    <script>
 
 obtenerCedulaEncriptada();
     listaParentesco();
-    crearCuidador();
-    
+    onload()
    </script>
-   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
    
+   
+   
+  
+  
 
-
-
-<div id="contenedorMensajeError">
-    <div class="modal fade" id="avisoModal" tabindex="-1" role="dialog" aria-labelledby="avisoModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="avisoModalLabel">Aviso</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <p id="avisoMensaje"></p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      </div>
-      <script src="../js/bd/login.js"></script>
-      <script>onload()</script>
+      
 </body>
 </html>
