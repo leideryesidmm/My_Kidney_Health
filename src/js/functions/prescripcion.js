@@ -600,101 +600,102 @@ let tablaRecambios=async(recambios)=>{
     return data;
   }
 
-let mostrarPrecripcionMedico=async (prescripcion) => {
-  document.getElementById("actual").classList.add("active");
-  document.getElementById("historico").classList.remove("active");
-  prescripcion=await prescripcion
-  let recambiosHechos=await finAllRecambiosHechos(prescripcion.cita.idCita);
-  console.log("DSc")
-  console.log(prescripcion)
-  localStorage.setItem("selectPrescripcion", JSON.stringify(prescripcion))
-  if(prescripcion.cita==undefined||new Date(prescripcion.cita.fechaFin)<new Date()){
-    console.log("no hay prescriocion");
-    let msg='<h3>No hay prescripción activa a la fecha</h3><br>'+
-    '<a href="agregarPrescripcion.html" class="btn btn-primary">Nueva</a>';
-    document.getElementById("cardBody").innerHTML=msg;
-    return;
-  }
-  console.log(await prescripcion)
-  let msg="";
-  let ordinal=["Primer","Segundo", "Tercer", "Cuarto", "Quinto"];
-  
-  msg+=`
-  <div class="dropdown">
-  <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="btnChequeo">Chequeo Mensual
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
-</svg>
-  </button>
-  <ul class="dropdown-menu">
-    <li><a class="dropdown-item" onclick="agregarVisita()">Agregar visita especialista</a></li>
-    <li><a class="dropdown-item" onclick="mostrarVisita()">Ver información visita especialista</a></li>
-    <li><a class="dropdown-item" onclick="agregarChequeo()">Agregar chequeo mensual</a></li>
-    <li><a class="dropdown-item" onclick="mostrarChequeo()">Ver información chequeo mensual</a></li>
-  </ul>
-</div>
-<br>
-<br>
-  <h4>Prescripcion actual</h4><br>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <h6><b>Fecha inicial:</b> ${prescripcion.cita.fecha==undefined||prescripcion.cita.fecha==null?"Sin fecha de Inicio":formatDate(new Date(prescripcion.cita.fecha))} </h6>
-                    </div>
-                    <div class="col-sm-6">
-                        <h6><b>Fecha final:</b> ${prescripcion.cita.fechaFin==undefined||prescripcion.cita.fechaFin==null?"Sin fecha de fin":formatDate(new Date(prescripcion.cita.fechaFin))} </h6>
-                    </div>
-                  </div>
-                  <div id="prescripcionesDia">
-                    `;
-
-
-                    prescripcion.unionPrescripcionDiasRecambios.forEach(prescripcionDia => {
-                      console.log(prescripcionDia)
-                      msg+=`<br><div class="row" style="margin:0 auto;">
-                      <div class="col"><h6><b>Dias:</b> ${obtenerDias(prescripcionDia.prescripcionDia)}</h6></div>
-                      <div class="col-12 table-responsive">
-                          <table class="table">
-                              <thead>
-                                <tr>
-                                  <th>Recambio</th>
-                                  <th>Concentración</th>
-                                  <th>Duración</th>
-                                </tr>
-                              </thead>
-                              <tbody>`
-                              let cont=0;
-                    prescripcionDia.recambios.forEach(recambio => {
-                      msg+=`<tr>
-                      <td>${ordinal[cont]+" recambio"}</td>
-                      <td>${recambio.concentracion}</td>
-                      <td>${recambio.intervaloTiempo}</td>
-                    </tr>`
-                    cont++;
-                    });
-                                
-                      msg+=        `
-                              </tbody>
-                            </table>
-                      </div>
-                      
-                    </div>`
-                    });
-
-                    msg+=`
-                  </div>
-                  
+  let mostrarPrecripcionMedico=async (prescripcion) => {
+    document.getElementById("actual").classList.add("active");
+    document.getElementById("historico").classList.remove("active");
+    prescripcion=await prescripcion
+    console.log(prescripcion)
+    if(prescripcion==undefined||new Date(prescripcion.cita.fechaFin)<new Date()){
+      console.log("no hay prescripcion");
+      let msg='<h3>No hay prescripción activa a la fecha</h3><br>'+
+      '<a href="agregarPrescripcion.html" class="btn btn-primary">Nueva</a>';
+      document.getElementById("cardBody").innerHTML=msg;
+      return;
+    }
+    let recambiosHechos=await finAllRecambiosHechos(prescripcion.cita.idCita);
+    console.log("DSc")
+    console.log(prescripcion)
+    localStorage.setItem("selectPrescripcion", JSON.stringify(prescripcion))
+    console.log(await prescripcion)
+    let msg="";
+    let ordinal=["Primer","Segundo", "Tercer", "Cuarto", "Quinto"];
     
-                  <div class="row" style="margin:0 auto;">
-                  <div class="text-end">
-                  ${recambiosHechos==null||recambiosHechos==undefined || recambiosHechos.length==0?'<a href="editarPrescripcion.html" class="btn btn-primary">Editar</a>':""}
-                  <a href="recambiosPaciente.html?idCita=${prescripcion.cita.idCita}" class="btn btn-primary">Recambios</a>
-                  <a onclick="finalizar(${prescripcion.cita.idCita})" class="btn btn-primary">Finalizar</a>
-                  </div>
-                  </div>
-  `;
-  console.log(recambiosHechos);
-  document.getElementById("cardBody").innerHTML=msg;
-}
+    msg+=`
+    <div class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="btnChequeo">Seguimiento Mensual
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+  </svg>
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" onclick="agregarVisita()">Agregar visita a especialistas</a></li>
+      <li><a class="dropdown-item" onclick="mostrarVisita()">Ver información de visitas a especialista</a></li>
+      <li><a class="dropdown-item" onclick="agregarChequeo()">Agregar chequeo mensual</a></li>
+      <li><a class="dropdown-item" onclick="mostrarChequeo()">Ver información chequeo mensual</a></li>
+    </ul>
+  </div>
+  <br>
+  <br>
+    <h4>Prescripcion actual</h4><br>
+                  <div class="row">
+                      <div class="col-sm-6">
+                          <h6><b>Fecha inicial:</b> ${prescripcion.cita.fecha==undefined||prescripcion.cita.fecha==null?"Sin fecha de Inicio":formatDate(new Date(prescripcion.cita.fecha))} </h6>
+                      </div>
+                      <div class="col-sm-6">
+                          <h6><b>Fecha final:</b> ${prescripcion.cita.fechaFin==undefined||prescripcion.cita.fechaFin==null?"Sin fecha de fin":formatDate(new Date(prescripcion.cita.fechaFin))} </h6>
+                      </div>
+                    </div>
+                    <div id="prescripcionesDia">
+                      `;
+  
+  
+                      prescripcion.unionPrescripcionDiasRecambios.forEach(prescripcionDia => {
+                        console.log(prescripcionDia)
+                        msg+=`<br><div class="row" style="margin:0 auto;">
+                        <div class="col"><h6><b>Dias:</b> ${obtenerDias(prescripcionDia.prescripcionDia)}</h6></div>
+                        <div class="col-12 table-responsive">
+                            <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th>Recambio</th>
+                                    <th>Concentración</th>
+                                    <th>Duración</th>
+                                  </tr>
+                                </thead>
+                                <tbody>`
+                                let cont=0;
+                      prescripcionDia.recambios.forEach(recambio => {
+                        msg+=`<tr>
+                        <td>${ordinal[cont]+" recambio"}</td>
+                        <td>${recambio.concentracion} %</td>
+                        <td>${recambio.intervaloTiempo} horas</td>
+                      </tr>`
+                      cont++;
+                      });
+                                  
+                        msg+=        `
+                                </tbody>
+                              </table>
+                        </div>
+                        
+                      </div>`
+                      });
+  
+                      msg+=`
+                    </div>
+                    
+      
+                    <div class="row" style="margin:0 auto;">
+                    <div class="text-end">
+                    ${recambiosHechos==null||recambiosHechos==undefined || recambiosHechos.length==0?'<a href="editarPrescripcion.html" class="btn btn-primary">Editar</a>':""}
+                    <a href="recambiosPaciente.html?idCita=${prescripcion.cita.idCita}" class="btn btn-primary">Recambios</a>
+                    <a onclick="finalizar(${prescripcion.cita.idCita})" class="btn btn-primary">Finalizar</a>
+                    </div>
+                    </div>
+    `;
+    console.log(recambiosHechos);
+    document.getElementById("cardBody").innerHTML=msg;
+  }
 
 let mostrarHistoricoMedico=async (prescripciones) => {
   prescripciones=await prescripciones;

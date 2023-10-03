@@ -23,8 +23,9 @@ let prescripciones= async()=>{
         "Content-Type":"application/json"
       }
 });
+if(peticion.status===200){
     const prescripcion=await peticion.json();
-return prescripcion;
+return prescripcion;}
 }
 
 let obtenerCedulaEncriptada=async(id, cedula)=>{
