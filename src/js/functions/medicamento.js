@@ -57,6 +57,13 @@ let NavBarMedicamento = () => {
 }
 
 let listMedicamentos = async (medicamentos) => {
+  
+if(usuario=="paciente"){
+  let msge="";
+  msge+=
+  ' <a class="btn-flotante" href="addMedicamento.html"><button id="redondo" class="btn text-white"><h3>+</h3></button></a>';
+  document.getElementById("flotante").innerHTML=msge;
+  }
   medicamentos = await medicamentos;
   let msg = "";
   let ms="";
@@ -109,22 +116,10 @@ let listMedicamentos = async (medicamentos) => {
       '<p class="fecha_fin" id="fecha_fin">' + 
       " " + medicamento.fechaFin+"</p>" +
       "</div>" +
-      '<div class="dos">' +
-      "<p><strong>Dosis:</strong></p>" +
-      '<p class="dosis" id="dosis">' +
-      medicamento.dosis +
-      "</p>" +
-      "</div>" +
       '<div class="toma">' +
       "<p><strong>Tomas:</strong></p>" +
       '<p class="tomas" id="tomas">' +
       medicamento.tomas +
-      "</p>" +
-      "</div>" +
-      '<div class="tiempo">' +
-      "<p><strong>Intervalo de Horas:</strong></p>" +
-      '<p class="intervalo_tiempo" id="intervalo_tiempo">' +
-      medicamento.intervaloTiempo +
       "</p>" +
       "</div>";
       if(usuario==="paciente"){
@@ -199,12 +194,6 @@ const fechaFormateada = `${year}-${month}-${day}`;
 return fechaFormateada;
 }
 
-if(usuario=="paciente"){
-let msge="";
-msge+=
-' <a class="btn-flotante" href="addMedicamento.html"><button id="redondo" class="btn text-white"><h3>+</h3></button></a>';
-document.getElementById("flotante").innerHTML=msge;
-}
       
 
 

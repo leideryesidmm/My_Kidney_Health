@@ -224,12 +224,12 @@ let listRecambios = async (recambios) => {
               })
               if(hecho==false){
                 msg+=`
-                <td style="border:1px solid;" colspan="4"><h5 id="sinHacer"><i>Sin hacer.</i></h5></td>
+                <td style="border:1px solid;" colspan="4"><h5 id="sinHacer"><i>Sin registro.</i></h5></td>
                 `
               }
           }else{
             msg+=`
-                <td style="border:1px solid;" colspan="4"><h5 id="sinHacer"><i>Sin hacer.</i></h5></td>
+                <td style="border:1px solid;" colspan="4"><h5 id="sinHacer"><i>Sin registro.</i></h5></td>
                 `
           }
          

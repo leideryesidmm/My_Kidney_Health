@@ -118,7 +118,7 @@ let pacientesInhabilitados = async () => {
 
     if (pacientes != null && pacientes.length > 0) {
       msg += '<div class="container">' +
-        '<h2>Pacientes Inhabilitados</h2>' +
+        '<h2>Pacientes inactivos</h2>' +
         '<br>' +
         '<table class="pacientesInhabilitados" id="pacientesInhabilitados">' +
         '<thead>' +

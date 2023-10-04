@@ -60,7 +60,7 @@ let agregarPrescripcion = async () => {
 
     ms += '<div class="form-container">' +
         '<h2>Agregar Prescripción</h2>' +
-        '<p id="campos">Selecciona la cantidad de prescripciones</p>'+
+        '<p id="campos">Selecciona la cantidad de prescripciones mensuales</p>'+
         '<form id="paciente-form" onsubmit="obtenerValoresDePrescripcion(event)">';
     ms +=
         '<div class="form-row">' +
@@ -124,12 +124,12 @@ function generarPrescripciones(){
         '<div class="form-row" >' +
         '<div class="form-column" id="">' +
         '<div class="nocheSeca">' +
-        '<label for="nocheSeca" id="data2">Noche Seca: &nbsp</label>' +
+        '<label for="nocheSeca" id="data2">Noche seca: &nbsp</label>' +
         '<input type="checkbox" id="nocheSeca'+idCantidad+'" name="nocheSeca">' +
         '</div>' +    
         '</div>' +             
         '<div class="form-column">' +
-        '<label for="recambios" id="data">Cantidad de Recambios:<label id="asq">*</label></label>' +
+        '<label for="recambios" id="data">Cantidad de recambios diarios:<label id="asq">*</label></label>' +
         '<br>' +
         '<select  id="selectedCantidad' + idCantidad + '" required onchange="generarSelects(' + idCantidad + ' )" >'+
                 '<option value="">Seleccione...</option>'+
@@ -609,7 +609,7 @@ let mostrarPrecripcionMedico=async (prescripcion) => {
   document.getElementById("historico").classList.remove("active");
   prescripcion=await prescripcion
   console.log(prescripcion)
-  if(prescripcion==undefined||new Date(prescripcion.cita.fechaFin)<new Date()){
+  if(prescripcion==undefined||new Date(prescripcion.cita.fechaFin)<=new Date()){
     console.log("no hay prescripcion");
     let msg='<h3>No hay prescripción activa a la fecha</h3><br>'+
     '<a href="agregarPrescripcion.html" class="btn btn-primary">Nueva</a>';
@@ -906,7 +906,7 @@ let editarPrescripcion = async () => {
   let ms = "";
   ms += '<div class="form-container">' +
       '<h2>Editar Prescripción</h2>' +
-      '<p id="campos">Selecciona la cantidad de prescripciones</p>' +
+      '<p id="campos">Selecciona la cantidad de prescripciones mensuales</p>' +
       '<form id="paciente-form" onsubmit="obtenerDatosParaEditar(event)">';
   ms +=
       '<div class="form-row">' +
@@ -985,12 +985,12 @@ let generarPrescripcionesLlenados=async()=>{
       '<div class="form-row" >' +
       '<div class="form-column" id="">' +
       '<div class="nocheSeca">' +
-      '<label for="nocheSeca" id="data2">Noche Seca: &nbsp</label>' +
+      '<label for="nocheSeca" id="data2">Noche seca: &nbsp</label>' +
       '<input type="checkbox" id="nocheSeca'+idCantidad+'" name="nocheSeca">' +
       '</div>' +    
       '</div>' +             
       '<div class="form-column">' +
-      '<label for="recambios" id="data">Cantidad de Recambios:<label id="asq">*</label></label>' +
+      '<label for="recambios" id="data">Cantidad de recambios diarios:<label id="asq">*</label></label>' +
       '<br>' +
       '<select id="selectedCantidad' + idCantidad + '" required>'+
               '<option value="">0</option>'+

@@ -279,9 +279,7 @@ let encontrarMedicamento=async()=>{
   fechaFormateada = fechaDefecto.toISOString().split('T')[0];
   document.getElementById("fecha_fin").value=fechaFormateada;
   document.getElementById("tomas").value=medicamento.tomas;
-  document.getElementById("dosis").value=medicamento.dosis;
   document.getElementById("recetado").value=medicamento.recetado;
-  document.getElementById("intervalos_tiempo").value=medicamento.intervaloTiempo;
   console.log(medicamento.viaAdministracion.idViaAdministracion);
   const selectVias = document.getElementById("selectVias");
   selectVias.value = medicamento.viaAdministracion.idViaAdministracion;
@@ -318,10 +316,8 @@ let actualizarMedicamento=async ()=> {
   let formulamedicamento={
       "concentracion": concentracionEncriptada,
       "descripcion": descripcionEncriptada,
-      "dosis": document.getElementById("dosis").value,
       "fechaFin": document.getElementById("fecha_fin").value+"T00:00:00.001Z",
       "fechaIni": document.getElementById("fecha_inicio").value+"T00:00:00.001Z",
-      "intervaloTiempo": document.getElementById("intervalos_tiempo").value,
       "nombre": nombreEncriptado,
       "paciente": cedEncriptada,
       "tomas": document.getElementById("tomas").value,
@@ -416,10 +412,8 @@ console.log(concentracion);
   let formulamedicamento={
       "concentracion": concentracionEncriptada,
       "descripcion": descripcionEncriptada,
-      "dosis": document.getElementById("dosis").value,
       "fechaFin": document.getElementById("fecha_fin").value+"T00:00:00.001Z",
       "fechaIni": document.getElementById("fecha_inicio").value+"T00:00:00.001Z",
-      "intervaloTiempo": document.getElementById("intervalos_tiempo").value,
       "nombre": nombreEncriptado,
       "paciente": cedEncriptada,
       "tomas": document.getElementById("tomas").value,
