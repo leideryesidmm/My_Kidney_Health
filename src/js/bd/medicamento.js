@@ -234,7 +234,11 @@ let listarVias= async()=>{
   const selectVias = document.getElementById('selectVias');
   const vias=await peticion.json();
   const optionSeleccionar = document.createElement('option');
+<<<<<<< HEAD
+  optionSeleccionar.textContent = "Seleccione...";
+=======
   optionSeleccionar.textContent = "Seleccione";
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
   selectVias.appendChild(optionSeleccionar);
   vias.forEach(via=>{
     const option = document.createElement('option');

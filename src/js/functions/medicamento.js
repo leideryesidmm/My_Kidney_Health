@@ -181,6 +181,7 @@ let listMedicamentos = async (medicamentos) => {
 
   ms += msg + "</div>";
 
+
   document.getElementById("acordeon1").innerHTML = ms;
 };
 

@@ -335,6 +335,22 @@ body {
   border-style: none;
   }
 
+<<<<<<< HEAD
+  .guardarMed{
+    background-color: #04BAFC;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 3px 20px;
+    font-size: 15px;
+    font-family: 'Jost', sans-serif;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-left: 1%;
+  }
+
+=======
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
   .cancelar:hover, .guardarPac:hover{
     color: white;
 text-decoration: none;  }
