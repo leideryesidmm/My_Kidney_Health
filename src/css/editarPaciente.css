@@ -81,6 +81,14 @@ body {
     clear: both;
   }
 
+  .close{
+    border: none;
+    border-radius: 80%;
+    background-color: #ffffff;
+    opacity: 1;  
+    font-size: 24px;
+  }
+
   .container {
     text-align: center;
     background-color: #dbf5f7;
@@ -111,7 +119,7 @@ body {
     font-weight: bold;
     font-size: 14px;
     transition: transform 0.3s ease-in-out; 
-    
+    margin-right: 3px;
   }
   
  
@@ -300,7 +308,9 @@ body {
     margin-left: 20px;
   }
 
-  
+  #diabetes, #hipertension{
+    margin-bottom: 2px;
+  }
 
     .btn-save {
       display: flex;
@@ -323,6 +333,19 @@ body {
   margin: 0 auto;
   border-radius: 10px;
   border-style: none;
+  }
+
+  .guardarMed{
+    background-color: #04BAFC;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 3px 20px;
+    font-size: 15px;
+    font-family: 'Jost', sans-serif;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-left: 1%;
   }
 
   .cancelar:hover, .guardarPac:hover{

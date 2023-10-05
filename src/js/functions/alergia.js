@@ -57,7 +57,7 @@ let listAlergias = async (alergias) => {
                 '</div>' +
                 '<div class="modal-footer">' +
                 '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>' +
-                '<button type="submit" id="editarAlergia" onclick="editarAlergia(' + alergia.idAlergia + ')" class="btn btn-primary">Guardar</button>' +
+                '<button type="submit" id="editarAlergia" onclick="editarAlergia(' + alergia.idAlergia + ')" class="btn btn-primary">Actualizar</button>' +
                 '</div>' +
                 '</div>' +
                 '</div>' +

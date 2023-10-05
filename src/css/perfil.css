@@ -96,7 +96,6 @@ label{
     align-items: flex-start;
     justify-content: space-between;
     background-color: #00DBA1;
-    opacity: 0.48;
     height: fit-content;
     width: 350px;
     align-items: center;
@@ -173,24 +172,37 @@ label{
   color: #fff;
   border: none;
   cursor: pointer;
-  padding: 3px 20px;
+  padding: 0px 20px;
   font-size: 20px;
   font-family: 'Jost', sans-serif;
   border-radius: 5px;
   text-decoration: none;
-  opacity: 0.60;
   width: fit-content;
   margin-left: 50%;
+  margin-top: 60px;
 }
+
+.ver-cuidador:hover{
+color: #fff;
+}
+
 
 .title {
   color: #fff;
   display: flex;
+  height: fit-content;
   justify-content: center;
   align-items: center;
   vertical-align: middle;
 }
 
+.close{
+  border: none;
+  border-radius: 80%;
+  background-color: #ffffff;
+  opacity: 1;  
+  font-size: 24px;
+}
 .inf-cuidador p {
     margin: 0 5%; 
     font-size: 20px;

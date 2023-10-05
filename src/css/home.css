@@ -5,6 +5,7 @@
 }
 #text{
     color: white;
+    
 }
 #navbarSupportedContent{
     justify-content: right;
@@ -122,6 +123,9 @@ p{
 @media (max-width: 991px){
   .small-css{
     font-size: large;
+  }
+  #text{
+    font-size: 25px;
   }
 }
 #foot{

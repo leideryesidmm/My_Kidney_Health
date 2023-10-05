@@ -4,7 +4,6 @@ function isAuthenticated() {
   return localStorage.getItem("authenticated") === "true";
 }
 
-
 let login = async (event) => {
   event.preventDefault();
 

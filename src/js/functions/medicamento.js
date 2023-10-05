@@ -171,10 +171,11 @@ if(usuario=="paciente"){
     }
   } else {
     msg +=
-      '<b><p class="sinMedicamentos">No tiene medicamentos registrados<p></b>';
+      '<b><p class="sinMedicamentos">No tiene medicamentos registrados. <p></b>';
   }
 
-  ms += msg + "</div><br>";
+  ms += msg + "</div>";
+
 
   document.getElementById("acordeon1").innerHTML = ms;
 };

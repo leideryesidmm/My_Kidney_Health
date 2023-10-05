@@ -244,7 +244,7 @@ let cuidadorPorPaciente=async()=>{
       if (selectParentesco.length === 0) {
         const parentescos = await peticion.json();
         const optionSeleccionar = document.createElement('option');
-        optionSeleccionar.textContent = "Seleccione";
+        optionSeleccionar.textContent = "Seleccione...";
         selectParentesco.appendChild(optionSeleccionar);
         parentescos.forEach(parentesco => {
           const option = document.createElement('option');
@@ -271,7 +271,7 @@ let cuidadorPorPaciente=async()=>{
       if (selectParentesco.length === 0) {
         const parentescos = await peticion.json();
         const optionSeleccionar = document.createElement('option');
-        optionSeleccionar.textContent = "Seleccione";
+        optionSeleccionar.textContent = "Seleccione...";
         selectParentesco.appendChild(optionSeleccionar);
         parentescos.forEach(parentesco => {
           const option = document.createElement('option');
@@ -706,7 +706,7 @@ let inhabilitarCuidador=async()=>{
     cuidadorInDto:cuidador,
     pacienteInDto:paciente
   }
-  const peticion2= await fetch(localStorage.getItem("servidorAPI") + "paciente/cuidador/inhabilitarCuidadorActivo",{
+  await fetch(localStorage.getItem("servidorAPI") + "paciente/cuidador/inhabilitarCuidadorActivo",{
     method: "PATCH",
               body: JSON.stringify(
                 cuidadorPaciente
@@ -723,5 +723,4 @@ let inhabilitarCuidador=async()=>{
       }
     }
   })
-  location.reload();
 }

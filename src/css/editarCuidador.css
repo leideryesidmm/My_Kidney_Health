@@ -108,6 +108,11 @@ h3 {
         
 }
 
+.btn-cancelar:hover{
+  text-decoration: none;
+  color: #fff;
+}
+
 .btn-nuevo{
     background-color: #04BAFC;
     color: #fff;

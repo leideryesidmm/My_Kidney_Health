@@ -224,7 +224,7 @@ let mostrarInfoMedico=async()=>{
     let msg="";
   
       msg+='<div class="form-container">'+
-          '<h2>Editar Información</h2>'+
+          '<h2>Editar Médico</h2>'+
           '<p id="campos"><b>*</b> Campos requeridos</p>'+
           '<form id="paciente-form" onsubmit="actualizarMedico(event)">';
           msg+='<div class="form-row">'+

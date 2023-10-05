@@ -213,7 +213,7 @@ let listarEspecialidad = async () => {
     if (selectEspecialidad.length === 0) {
       
       const optionSeleccionar = document.createElement('option');
-      optionSeleccionar.textContent = "Seleccione..";
+      optionSeleccionar.textContent = "Seleccione...";
       selectEspecialidad.appendChild(optionSeleccionar);
       especialidades.forEach(especialidad => {
         const option = document.createElement('option');
@@ -432,7 +432,7 @@ let listaEspecialidad = async () => {
   if (selectEspecialidad.length === 0) {
     const especialidades = await peticion.json();
     const optionSeleccionar = document.createElement('option');
-    optionSeleccionar.textContent = "Seleccione";
+    optionSeleccionar.textContent = "Seleccione...";
     selectEspecialidad.appendChild(optionSeleccionar);
     especialidades.forEach(especialidad => {
       const option = document.createElement('option');

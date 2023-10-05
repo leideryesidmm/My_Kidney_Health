@@ -370,7 +370,6 @@ console.log(paciente);
   
   Array.from(selectEps.options).forEach((option, index) => {
     if (option.textContent === descripcionEps) {
-      console.log("ENTRO AL IF DE SELECT EPS");
       selectEps.selectedIndex = index;
     }
   })
@@ -381,7 +380,7 @@ console.log(paciente);
   for (let i = 0; i < binaryString.length; i++) {
     byteArray[i] = binaryString.charCodeAt(i);
   }
-  const blob = new Blob([byteArray], { type: 'image/jpeg' });
+  const blob = new Blob([byteArray], { type: 'image/*' });
 
   const imageUrl = URL.createObjectURL(blob);
   console.log(imageUrl);
@@ -434,7 +433,7 @@ let listaEps = async () => {
   if (selectEps.length == 0) {
     const epss = await peticion.json();
     const optionSeleccionar = document.createElement('option');
-    optionSeleccionar.textContent = "Seleccione";
+    optionSeleccionar.textContent = "Seleccione...";
     selectEps.appendChild(optionSeleccionar);
     epss.forEach(eps => {
       const option = document.createElement('option');
@@ -483,7 +482,7 @@ let actualizarPaciente = async (event) => {
       body: JSON.stringify(pacienteInDto)
 });
     const paciente=await peticion.json();
-    
+    console.log(paciente);
   
   if(usuario=="paciente"){
 
@@ -522,6 +521,7 @@ let actualizarPaciente = async (event) => {
     rh:paciente.rh,
     contrasenia:paciente.contrasenia,
     altura:estatura,
+    cambio_contrasenia:paciente.cambio_contrasenia,
     diabetes:diabetes,
     hipertension:hipertension,
     eps: parseInt(eps,10)
@@ -537,6 +537,7 @@ else{
   let pesoseco=document.getElementById("pesoseco").value;
   let ocupacion=paciente.ocupacion;
   let correo=paciente.correo;
+  let cambiocontrasenia=paciente.cambio_contrasenia;
   let estatura=document.getElementById("estatura").value;
   let eps = paciente.eps.idEps;
   var diabetes = document.getElementById('diabetes').checked;
@@ -552,6 +553,7 @@ else{
     eps: eps,
     celular: telefono,
     ocupacion: ocupacion,
+    cambio_contrasenia:cambiocontrasenia,
     correo: correo,
     activo:true,
     cedula:cedulaEncriptada,

@@ -496,3 +496,7 @@ li{
 #btnChequeo{
   float: right;
 }
+
+#msg-orificio{
+  text-align: center;
+}

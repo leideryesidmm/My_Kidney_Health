@@ -22,7 +22,7 @@ integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLAS
 <body>
     <nav id="nav" class=" navbar-expand-lg navbar-light">
         <div class="row">
-          <div class="col-1 no-effect"><a href="administrador.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a></div>  
+          <div class="col-1"><a href="administrador.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a></div>  
           <div class="col-1">
             <div class="logo"><img src="../img/logo3.png" alt=""></div>
           </div>
@@ -105,9 +105,11 @@ integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLAS
         <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
     <script src="../js/functions/medico.js"></script>
     <script src="../js/bd/medico.js"></script>
+    <script src="../js/bd/nombreNavBar.js"></script>
     <script>
         encontrarMedico(mostrarInfoMedico());
-        listaEspecialidad()
+        listaEspecialidad();
+        nombreNavBar();
     </script>
 </body>
 </html>
