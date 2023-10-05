@@ -1,0 +1,234 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #dbf5f7;
+    color: #000000;
+    text-align: center;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+  } 
+  
+ 
+  .logo {
+    font-size: 20px;
+  }
+  
+  .containerPac {
+    text-align: center;
+    background-color: #dbf5f7;
+    color: #808080;
+    padding: 20px;
+  }
+  
+
+  #campos{
+    color:red;
+    margin-left: 5%;
+    margin-bottom: 0;
+  }
+
+  #asq{
+    color: red;
+    font-weight: bold;
+        font-size: 14px;
+        transition: transform 0.3s ease-in-out;
+  }
+
+  #data2{
+    color: #555;
+    font-weight: bold;
+    font-size: 14px;
+    transition: transform 0.3s ease-in-out; 
+    
+  }
+
+  .form-row{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    flex-wrap: wrap;
+  }
+  
+  
+  
+  .form-column {
+    display: inline-block;
+
+    width: 45%;
+  }
+
+  label {
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+  .checkbox-container {
+    text-align: left;
+  }
+  
+  button {
+    /* background-color: #63D0FF; */
+    /* color: #ffffff; */
+    border: none;
+    cursor: pointer;
+    /* padding: 10px 40px;
+    font-size: 18px;
+    margin: 0 auto;
+    border-radius: 10px; */
+  }
+
+  .form-container {
+    color: #000000;
+    padding: 20px;
+    height: fit-content;
+    font-size: 15px;
+    text-align: left;
+    width: 60%;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    margin: 0 auto;
+  }
+    
+    .nombre:focus,
+    .documento:focus,
+    .fecha:focus,
+    #direccion:focus,
+    .eps:focus,
+    .telefono:focus,
+    .ocupacion:focus,
+    .tiposangre:focus,
+    .rh:focus,
+    .peso:focus,
+    .pesoseco:focus,
+    .correo:focus,
+    .estatura:focus{
+        border-top-color: transparent;
+        border-right-color: transparent;
+        border-left-color: transparent;
+        border-bottom-color: #89898f;
+        outline: none;
+        content: "";
+      }
+    
+      #data {
+        color: #555;
+        font-weight: bold;
+        font-size: 14px;
+        transform: translateY(10px);
+        transition: transform 0.3s ease-in-out;
+    }
+  
+    
+    
+    input[type="text"], input[type="date"], input[type="tel"], input[type="email"], select{
+       
+       width: 100%;
+        padding: 10px;
+        margin: 5px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        transition: border-color 0.3s ease-in-out;
+    }
+
+
+    #selectEps, #selectTipo{
+       
+      width: 100%;
+      height: 20%;
+       padding: 10px;
+       margin: 5px 0;
+       border: 1px solid #ccc;
+       border-radius: 5px;
+       transition: border-color 0.3s ease-in-out;
+   }
+
+    .btn-save {
+      display: flex;
+      justify-content: center; 
+      margin-top: 10px; 
+      border-radius: 10px;
+      padding: 10px;
+        margin: 5px 0;
+    }
+
+
+    h1, h2{
+      text-align: center;
+    }
+
+    #colcorreo{
+        margin: 0px;
+    }
+ 
+    .cancelar{
+      background-color: gray;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  padding: 10px 40px;
+  font-size: 18px;
+  margin: 0 auto;
+  border-radius: 10px;
+  border-style: none;
+  text-decoration: none;
+  }
+
+  .guardarMed{
+    background-color: #04BAFC;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  padding: 10px 40px;
+  font-size: 18px;
+  margin: 0 auto;
+  border-radius: 10px;
+  border-style: none;
+  text-decoration: none;
+  }
+
+  .cancelar:hover, .guardarPac:hover{
+   color: white;
+  }
+
+
+
+  .buttons{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+      gap:10px;
+      text-decoration: none;
+  }
+
+#correo{
+    margin: 0px;
+}
+    
+
+    #enf{
+      display: column;
+      border-color: #555;
+      margin-top: 4%;
+      margin: 0 auto;
+    }
+    
+  .logo img {
+  
+    width: 50px;
+    height: 50px;
+  }
+  
+  
+  /* Estilos responsivos */
+  @media (max-width: 768px) {
+    form-column{
+      width: 100%;
+    }
+  }

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/recambiosGuardados.css">
+    <link rel="stylesheet" type="text/css" href="../css/index.css">
+    <link rel="stylesheet" type="text/css" href="../css/navResponsive.css">
+    <link href="https://fonts.googleapis.com/css2?family=Jost&display=swap" rel="stylesheet">
+    <title>Todos los Recambios</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.0.4/popper.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+      <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Jost&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="">
+        <div class="banner" name="banner" id="banner">           
+        </div>
+        <br>
+
+        <h3>Todos los recambios</h3><br>
+        <div class="container">
+            <div class="recamTable" id="recamTable"></div>            
+            <br>
+            
+        </div>
+        <br>
+        
+
+<!-- modales -->
+        <div>
+            <div class="modal" tabindex="-1" id="eliminarrecambio">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Eliminar Recambio</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>¿Está seguro(a) de eliminar este recambio?</p>
+                            <label class="idRecambio" id="idRecambio">Recambio Id aquí</label>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="modal" tabindex="-1" id="nuevacontrasenia">
+              <form id="miFormulario" onsubmit="cambioContrasenia(event)"> 
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Cambiar Contraseña</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="contrasenia">
+                        <p>Contraseña actual: <label id="asq">*</label></p>
+                        <div class="input-container">
+                          <input type="password" name="contraseniaanterior" id="contraseniaanterior" placeholder="Inserte la contraseña actual" required>
+                          <i class="toggle-password toggle-contraseniaanterior fas fa-eye" onclick="passwordVisibilityActual('contraseniaanterior', 'toggle-contraseniaanterior')"></i>
+                        </div>
+                        <br>
+                        <p>Nueva contraseña: <label id="asq">*</label></p>
+                        <div class="input-container">
+                          <input type="password" name="newcontrasenia" id="newcontrasenia" placeholder="Inserte la nueva contraseña" required>
+                          <i class="toggle-password-new fas fa-eye" onclick="passwordVisibilityActual('newcontrasenia', 'toggle-password-new')"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                      <button type="submit" class="btn btn-primary" id="guardarContrasenia">Guardar</button> 
+                    </div>
+                  </div>
+                </div>
+              </form> 
+            </div>
+          </div>
+
+
+          <div class="modal fade" id="contraseniacambiada" tabindex="1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="successModalLabel">Aviso</h5>
+                  <a href="recambiosguardados.html"><button type="button" class="close btn-cerrar" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button></a>
+                </div>
+                <div class="modal-body">
+                  <p>La contraseña ha sido cambiada exitosamente.</p>
+                </div>
+                <div class="modal-footer">
+                  <a href="recambiosguardados.html"><button href="recambiosguardados.html" type="button" class="btn btn-primary">Aceptar</button></a>
+                </div>
+              </div>
+            </div>
+          </div>
+      
+          <div class="modal fade" id="contraseniaerronea" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="successModalLabel">Aviso</h5>
+                  <a href="recambiosguardados.html"><button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button></a>
+                </div>
+                <div class="modal-body">
+                  <p>La contraseña actual ingresada no es correcta. Inténtelo nuevamente</p>
+                </div>
+                <div class="modal-footer">
+                 <button type="button" id="btnAceptar" class="btn btn-primary">Aceptar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+
+
+          <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+          <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+          <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+        <script src="../js/bd/login.js"></script>
+        <script src="../js/bd/prescripcion.js"></script>
+        <script src="../js/functions/recambios.js"></script>
+        
+        <script src="../js/functions/prescripcion.js"></script>
+        <script src="../js/functions/principal.js"></script>
+        <script src="../js/bd/nombreNavBar.js"></script>
+
+
+        <script>
+        onload();
+        NavBarRecambios();
+        nombreNavBar();
+        tablaRecambios(recambiosHechos());
+        </script>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+    integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+    integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+    crossorigin="anonymous"></script>
+    
+
+</html>

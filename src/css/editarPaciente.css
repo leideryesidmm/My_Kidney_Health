@@ -1,0 +1,409 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #dbf5f7;
+    color: #000000;
+    text-align: center;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+  }
+  
+  .logo {
+    font-size: 20px;
+  }
+  
+  nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  nav ul li {
+    display: inline-block;
+    margin-right: 40px;
+    position: relative;
+  }
+  
+  nav ul li a {
+    color: #fff;
+    display: block;
+    text-decoration: none;
+  }
+  
+  nav ul li:hover > ul {
+    display: block;
+    background-color: #63d0ff;
+  }
+  
+  nav ul ul {
+    width: 120px;
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #63d0ff;
+    padding: 0;
+  }
+
+   nav ul ul li {
+    width: 120px;
+    float: none;
+    display: list-item;
+    position: relative;
+  }
+  
+  nav ul ul li a {
+    padding: 10px 15px;
+    color: #fff;
+  }
+  
+  nav ul ul li a:hover {
+    background-color: #bedfec;
+  }
+  
+  nav ul ul ul {
+    top: 0;
+    left: 100%;
+  }
+  
+  nav ul:before,
+  nav ul:after {
+    content: " ";
+    display: table;
+  }
+  
+  nav ul:after {
+    clear: both;
+  }
+
+  .container {
+    text-align: center;
+    background-color: #dbf5f7;
+    color: #808080;
+    padding: 20px;
+  }
+ 
+  #campos{
+    color:red;
+    text-align: center;
+    margin-bottom: 0;
+  }
+
+  [id^="selectedCantidad"]{
+    display: grid;
+  }
+
+  #asq{
+    color: red;
+    font-weight: bold;
+        font-size: 14px;
+        transition: transform 0.3s ease-in-out;
+  }
+
+  #data2{
+    
+    color: #555;
+    font-weight: bold;
+    font-size: 14px;
+    transition: transform 0.3s ease-in-out; 
+    
+  }
+  
+ 
+  .form-row{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+  flex-wrap: wrap;
+  }
+  
+  h2{
+    text-align: center;
+  }
+  
+  
+  .form-column {
+    display: inline-block;
+
+    width: 45%;
+  }
+  label {
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+
+  .form-label, #textRango{
+    font-size: 15px;
+    margin-bottom: 0;
+   
+  }
+
+  .rango{
+    margin: 0;
+  }
+
+  .rango{
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .rango:focus{
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-left-color: transparent;
+    border-bottom-color: #89898f;
+    outline: none;
+    content: "";
+  }
+
+  #selectsPrescripcion{
+    margin: 0 auto;
+  }
+
+
+  .selectContainer{
+    display: flex;
+    margin: 0 auto;
+  }
+
+  .form-control{
+    width: 95%;
+    height: 25px;
+    text-align-last: center;
+    padding: 0;
+  }
+
+  #prescrip{
+    width: 100%;
+    margin-right: 10%;
+    margin-left: 0;
+  }
+
+
+  .checkbox-container {
+    text-align: left;
+  }
+  
+  .guardarPac {
+    background-color: #63D0FF;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    padding: 10px 40px;
+    font-size: 18px;
+    margin: 0 auto;
+    border-radius: 10px;
+  }
+
+
+
+  .form-container {
+    color: #000000;
+    padding: 20px;
+    height: fit-content;
+    font-size: 15px;
+    text-align: left;
+    width: 80%;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    margin: 0 auto;
+  }
+    
+    .nombre:focus,
+    .documento:focus,
+    .fecha:focus,
+    #direccion:focus,
+    .eps:focus,
+    .telefono:focus,
+    .ocupacion:focus,
+    .tiposangre:focus,
+    .rh:focus,
+    .peso:focus,
+    .pesoseco:focus,
+    .correo:focus,
+    .estatura:focus{
+        border-top-color: transparent;
+        border-right-color: transparent;
+        border-left-color: transparent;
+        border-bottom-color: #89898f;
+        outline: none;
+        content: "";
+      }
+    
+      #data {
+        color: #555;
+        font-weight: bold;
+        font-size: 14px;
+        transform: translateY(10px);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    #labelConcentracion, #fechaF{
+      color: #555;
+        font-weight: bold;
+        font-size: 14px;
+        margin-bottom: -10px;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    #prueba {
+      color: #555;
+      font-weight: bold;
+      font-size: 14px;
+      transition: transform 0.3s ease-in-out;
+  }
+  
+   
+    
+    input[type="text"], input[type="date"], input[type="number"], select{
+       
+       width: 97%;
+        margin: 5px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        height: 25px;
+        transition: border-color 0.3s ease-in-out;
+    }
+
+    
+
+   #selectedOrificio{
+    width: 95%;
+    height: 25px;
+     margin: 5px 0;
+     border: 1px solid #ccc;
+     border-radius: 5px;
+     text-align-last: center;
+   }
+
+   .nocheSeca{
+    text-align: center;
+   }
+
+  .labeleps{
+    margin-top: 5px;
+  }
+
+  #selectedEps{
+    margin-bottom: 15px;
+  }
+
+  .labeldiabetes{
+    margin-left: 20px;
+  }
+
+  
+
+    .btn-save {
+      display: flex;
+      justify-content: center; 
+      margin-top: 10px; 
+      border-radius: 10px;
+    }
+
+    h1{
+      text-align: center;
+    }
+ 
+    .cancelar{
+      background-color: gray;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  padding: 10px 40px;
+  font-size: 18px;
+  margin: 0 auto;
+  border-radius: 10px;
+  border-style: none;
+  }
+
+  .guardarMed{
+    background-color: #04BAFC;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 3px 20px;
+    font-size: 15px;
+    font-family: 'Jost', sans-serif;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-left: 1%;
+  }
+
+  .cancelar:hover, .guardarPac:hover{
+    color: white;
+text-decoration: none;  }
+
+.enfermedades{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 25px;
+}
+
+  .buttons{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+      gap:10px;
+      text-decoration: none;
+  }
+
+
+    
+#nombreUsuario{
+  color: white;
+}
+
+.cancelar{
+    
+  background-color: gray;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 3px 20px;
+  font-size: 15px;
+  font-family: 'Jost', sans-serif;
+  border-radius: 5px;
+  text-decoration: none;
+  margin-right: 3%;        
+}
+
+.guardarPac{
+background-color: #04BAFC;
+color: #fff;
+border: none;
+cursor: pointer;
+padding: 3px 20px;
+font-size: 15px;
+font-family: 'Jost', sans-serif;
+border-radius: 5px;
+text-decoration: none;
+margin-left: 1%;
+}
+
+
+  
+  /* Estilos responsivos */
+  @media (max-width: 768px) {
+    .form-column {
+      width: 100%;
+    }
+    .buttons{
+      width: 100px;
+    }
+  }
+
+   
+
+   
+  

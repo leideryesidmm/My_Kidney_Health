@@ -1,0 +1,143 @@
+body {
+  background-color: #dbf5f7;
+  color: #000000;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+.paciente, .pacientesInhabilitados,
+.medico, .medicosInhabilitados {
+  width: 100%;
+  border: rgb(194, 193, 193) 1px solid;
+
+}
+
+.paciente th, td, .pacientesInhabilitados th, td,
+.medico th, td, .medicosInhabilitados th, td {
+  width: 300px;
+  margin-top: auto;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.paciente td, .pacientesInhabilitados td,
+.medico td, .medicosInhabilitados td {
+  border-bottom: 1px solid rgb(194, 193, 193); 
+  height: 60px;
+}
+
+
+.paciente thead, .pacientesInhabilitados thead,
+.medico thead, .medicosInhabilitados thead {
+  background-color: #B2EAF2;
+
+}
+
+.paciente thead:hover, .pacientesInhabilitados thead:hover,
+.medico thead:hover, .medicosInhabilitados thead:hover {
+  background-color: #04BAFC;
+  color: white;
+}
+
+.paciente tbody tr:hover, .pacientesInhabilitados tbody tr:hover,
+.medico tbody tr:hover, .medicosInhabilitados tbody tr:hover {
+  background-color: #e7e7e7;
+}
+
+
+
+#nuevo {
+  cursor: pointer;
+  /* margin-left: 91%; */
+
+}
+
+a {
+  padding: 5px ;
+}
+
+.actualizar,
+.ver,
+.inhabilitar, 
+.visita,
+.chequeo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+#btn-green {
+background-color: rgb(126, 224, 27);
+}
+
+.especialistas{
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-title{
+  text-align:center;
+}
+
+
+
+
+input[type="text"]:focus, input[type="password"]:focus{
+  border-top-color: transparent;
+  border-right-color: transparent;
+  border-left-color: transparent;
+  border-bottom-color: rgb(236, 224, 224);
+  outline: none;
+  content: "";
+}
+
+input[type="text"], input[type="password"]{
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: border-color 0.3s ease-in-out;
+} 
+
+.input-container {
+  position: relative;
+  width: 100%;
+}
+        
+.toggle-password, .toggle-password-new {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+}
+
+.contraseniaanterior, .newcontrasenia{
+  height: 35px;
+}
+
+.contrasenia{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.contraseniaanterior, .newcontrasenia {
+    height: fit-content;
+    width: 100%;
+}
+
+li{
+  cursor: pointer;
+}
+

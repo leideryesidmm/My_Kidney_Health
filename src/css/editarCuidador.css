@@ -1,0 +1,145 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: #000;
+}
+
+h3 {
+    text-align: center;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+}
+    
+
+
+
+.navbar {
+  background-color: #04BAFC;
+  height: 70px;
+}
+
+
+#icono {
+  width: 30px;
+    height: 30px;
+  margin-left: 20px;
+  
+}
+
+.navbar h1{
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  width: 300px;
+  margin: 0 auto;
+}
+  
+  .cedCuidador input[type="text"]:focus,
+  .name input[type="text"]:focus,
+  .address input[type="text"]:focus,
+  .tlf input[type="text"]:focus,
+  .parentesc input[type="text"]:focus{
+      border-top-color: transparent;
+      border-right-color: transparent;
+      border-left-color: transparent;
+      border-bottom-color: #89898f;
+      outline: none;
+      content: "";
+    }
+  
+    label {
+      color: #555;
+      font-weight: bold;
+      font-size: 14px;
+      transform: translateY(10px);
+      transition: transform 0.3s ease-in-out;
+  }
+
+  
+  
+  input[type="text"]{
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      transition: border-color 0.3s ease-in-out;
+  }
+  
+  input:focus, textarea:focus {
+      border-color: #007bff;
+  }
+  
+  input:focus + label, textarea:focus + label {
+      transform: translateY(-25px);
+      font-size: 12px;
+  }
+  
+  .btn-container {
+      display: flex;
+      justify-content:center;
+      margin-top: 10px;
+      gap: 20px;
+  }
+
+
+.btn-cancelar{
+    
+        background-color: gray;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        padding: 3px 20px;
+        font-size: 15px;
+        font-family: 'Jost', sans-serif;
+        border-radius: 5px;
+        text-decoration: none;
+        margin-right: 3%;
+        
+}
+
+.btn-nuevo{
+    background-color: #04BAFC;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 3px 20px;
+    font-size: 15px;
+    font-family: 'Jost', sans-serif;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-left: 1%;
+}
+
+.modal-body{
+  text-align: center;
+}
+
+h5{
+  text-align: center;
+}
+
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    [class*="col-"] {
+      width: 100%;
+    }
+  }
+  .close{
+    border: none;
+    border-radius: 80%;
+    background-color: #ffffff;
+    opacity: 1;  
+    font-size: 24px;
+  }

@@ -1,0 +1,338 @@
+body{
+  background-color: #ffffff;
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;}
+
+
+#btnguardar {
+  background-color: #89898f;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  width: 350px;
+}
+
+
+
+
+
+p{
+  padding: 0 5px 0 0;
+}
+
+label{
+  padding: 0 3px 0 0;
+}
+
+#icono {
+  width: 30px;
+    height: 30px;
+    vertical-align: middle
+}
+
+#asq{
+  color: red;
+  font-weight: bold;
+      font-size: 14px;
+      transition: transform 0.3s ease-in-out;
+}
+
+.navbar {
+  background-color: #04BAFC;
+  height: 70px;
+  width: 100%;
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+}
+
+.name{
+  margin-bottom: 10px;
+}
+.navbar h1{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+
+#icon {
+  width: 30px;
+    height: 30px;
+  padding: 0;
+  margin-left: 20px;
+}
+
+.subtitle{
+  color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.editarPerfil img{
+  width: 40px;
+    height: 40px;
+    margin-left: auto;
+}
+
+
+
+.titleAlergia{
+    color:#000;
+    margin-left:50px;
+}
+
+.nav-cuidador {
+    display: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    background-color: #00DBA1;
+    opacity: 0.48;
+    height: fit-content;
+    width: 350px;
+    align-items: center;
+    margin: 0 auto;
+  }
+
+
+  
+  .nav-cuidador p {
+    margin: 0 auto;
+    height: 25px;
+    margin-left: 10px;
+    width: 100%;
+  }
+
+  
+  
+  .nombreCuidador,
+  .cuidador {
+    color: #fff;
+    font-size: 24px;
+  }
+
+.titleAlergia,
+.dataAlergia {
+  margin: 0;
+}
+
+.alergiasPac h3,
+.dataAlergia{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+  .titleAlergia{
+    color: #000;
+    font-size: 15px;
+  }
+  
+  
+
+.dataCuidador{
+    background-color: #E0E0E0;
+  width: 350px;
+  margin: 0 auto;
+    
+}
+
+.valor{
+  text-align: center;
+}
+
+
+.cuidador-nuevo{
+  background-color: #00DBA1;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 3px 20px;
+  font-size: 15px;
+  font-family: 'Jost', sans-serif;
+  border-radius: 5px;
+  text-decoration: none;
+  margin-left: 1%;
+  margin-right: 10%;
+  float: right;
+  opacity: 0.60;
+  
+}
+
+.ver-cuidador{
+  background-color: #085774;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 3px 20px;
+  font-size: 20px;
+  font-family: 'Jost', sans-serif;
+  border-radius: 5px;
+  text-decoration: none;
+  opacity: 0.60;
+  width: fit-content;
+  margin-left: 50%;
+}
+
+.title {
+  color: #fff;
+  display: flex;
+  height: fit-content;
+}
+
+.inf-cuidador p {
+    margin: 0 5%; 
+    font-size: 20px;
+    
+}
+.info-cuidador p {
+  margin: 0 5%; 
+  font-size: 17px;
+  
+}
+
+
+.dataCuidadorUp{
+  width: 96%;
+  margin: 0 auto;
+}
+
+.row{
+  display: flex;
+  justify-content: center;
+  display: inline-block;
+    vertical-align: top;
+  margin: 0 auto;
+}
+
+.devolverse{
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
+  width: 5%;
+}
+
+.personales{
+  position: relative;
+}
+
+.personales, .medicos, .fotografia{
+ 
+  margin: 10px;
+  justify-content: center;
+  align-items: center;
+    margin: 0 auto;
+    padding: 0;
+    color: #000000;
+    font-family: 'Jost', sans-serif;
+    padding: 20px;
+    height: fit-content;
+    font-size: 20px;
+    text-align: left;
+    width: 90%;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.datos {
+  display: flex;
+  justify-content: space-between; 
+  gap:15px;
+}
+
+
+
+
+  .input-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.toggle-password,
+.toggle-password-new {
+    position: absolute;
+    right: 10px; 
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+#imagen {
+  position: absolute;
+  top: 0;
+  right: 0; 
+  width: 70px;
+  height: 70px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#imagen img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 50%;
+}
+
+input[type="password"]:focus{
+  border-top-color: transparent;
+  border-right-color: transparent;
+  border-left-color: transparent;
+  border-bottom-color: #89898f;
+  outline: none;
+  content: "";
+}
+
+#newcontrasenia, #contraseniaanterior{
+  width: 100%;
+  height: 40px;
+  border-radius: 5px;
+  border-color: #89898f;
+}
+
+.botonEditarPerfil{
+  display: flex;
+  justify-content: end;
+}
+
+.botonAgregarAlergia{
+  display: flex;
+  justify-content:center;
+}
+
+.botonEditarPerfil a, .botonAgregarAlergia a{
+  background-color: #00DBA1;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 3px 20px;
+    font-size: 15px;
+    font-family: 'Jost', sans-serif;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 5px;
+    width: fit-content;
+}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  [class*="col-"]:not(.no-effect) {
+    width: 100%;
+  }
+  .datos{
+    flex-direction: column;
+  }
+}

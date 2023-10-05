@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Agregar Cuidador</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/agregarCuidador.css">
+    <link href="https://fonts.googleapis.com/css2?family=Jost&display=swap" rel="stylesheet">
+    
+    
+    
+</head>
+<body>
+    
+        <div class="navbar" name="navbar" id="navbar">
+            <div class="col-2"><a href="cuidador.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a></div>
+            <div class="col-8"><h1 class="title">Cuidador</h1></div>
+            <div class="col-2">
+        </div>
+        </div>
+        <br>
+            
+
+
+        <div id="agregarCuidador">
+        <div class="form-container">
+            <h5>Agregar Cuidador</h5>
+            <form onsubmit="crearCuidador()">
+                <div class="cedCuidador">
+                    <label for="cedula_cuidador">Cédula:</label>
+                    <input type="text" enterkeyhint="next" name="cedula_cuidador" id="cedula_cuidador" class="cedula_cuidador" required>
+                </div>
+
+                <div class="name">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" name="nombre" id="nombre" class="nombre" required>
+                </div>
+
+                <div class="parents">
+                    <label for="selectedParentesco">Parentesco:</label>
+                    <select id="selectedParentesco" class="custom-select" required></select>
+                </div>
+
+                <div class="address">
+                    <label for="direccion">Dirección:</label>
+                    <input type="text" enterkeyhint="next" enterkeyhint="previous" name="direccion" id="direccion" class="direccion" required>
+                </div>
+
+                <div class="tlf">
+                    <label for="tel">Teléfono:</label>
+                    <input type="text" enterkeyhint="send" name="telefono" id="telefono" class="telefono" required>
+                </div>
+
+    <div class="btn-container">
+        <a href="cuidador.html" class="btn-cancelar">Cancelar</a>
+        <button class="btn-nuevo" id="guardarCuidador">Guardar</button>
+    </div>
+</form>
+</div>
+</div>
+
+
+<div class="modal fade" id="successModal" tabindex="1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="successModalLabel">Aviso</h5>
+        <a href="cuidador.html"><button type="button" class="close btn-cerrar" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button></a>
+      </div>
+      <div class="modal-body">
+        <p>Se ha agregado un nuevo cuidador.</p>
+      </div>
+      <div class="modal-footer">
+        <a href="cuidador.html"><button href="alergias.html" type="button" class="btn btn-primary">Aceptar</button></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+   <script src="../js/bd/cuidador.js"></script>
+   <script src="../js/functions/cuidadorActivo.js"></script>
+   <script src="../js/bd/login.js"></script>
+   <script>
+
+obtenerCedulaEncriptada();
+    listaParentesco();
+    onload()
+   </script>
+   
+   
+   
+  
+  
+
+      
+</body>
+</html>

@@ -1,0 +1,206 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: #000;
+}
+
+h3 {
+    text-align: center;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: bold;}
+
+.container{
+    
+    width: 100%;
+    text-align: center;
+}
+
+
+
+#icono {
+  width: 30px;
+    height: 30px;
+    margin-top: 6px;
+  padding: 0;
+  margin-left: 20px;
+}
+
+.navbar {
+  background-color: #04BAFC;
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
+  height: 70px;
+}
+
+.navbar h1{
+  align-items: center;
+  
+}
+
+.title{
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+#cuidadorActivo{
+  margin: 0 auto;
+}
+
+.row {
+    display: flex;
+    align-items: left;
+    
+}
+
+
+
+
+.btn-container {
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    gap: 15px;
+
+}
+
+.btn-container button, a {
+  width: 80px;
+  height: 30px;
+}
+
+.cuidadores, .varCuidador, .nombre{
+    justify-content: center;
+    text-align: center;
+}
+
+
+
+.cambiarCuidador{
+    
+        background-color: #00DBA1;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        font-size: 15px;
+        font-family: 'Jost', sans-serif;
+        border-radius: 5px;
+        text-decoration: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;        
+}
+
+.btn-nuevo{
+    background-color: #04BAFC;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    font-family: 'Jost', sans-serif;
+    border-radius: 5px;
+    text-decoration: none;
+    display: flex;
+        justify-content: center;
+        align-items: center;
+}
+
+.inhabilitarCuidador{
+  background-color: #c71919;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    font-family: 'Jost', sans-serif;
+    border-radius: 5px;
+    text-decoration: none;
+    display: flex;
+        justify-content: center;
+        align-items: center;
+}
+
+.cerrarInactivos{
+  background-color: #c71919;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    font-family: 'Jost', sans-serif;
+    border-radius: 5px;
+    text-decoration: none;
+    width: 80px;
+    height: 30px;
+}
+
+.cuidadoresInactivos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .msg-reactivar {
+    background-color: #04BAFC;
+    color: #fff;
+    opacity: 0.6;
+  }
+  
+  table {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-collapse: collapse; /* Agrega esta línea para colapsar los bordes de la tabla */
+    border-spacing: 0; /* Agrega esta línea para eliminar el espacio entre las celdas */
+  }
+  
+  table th {
+    background-color: #00DBA1;
+    opacity: 0.5;
+  }
+  
+  th.header {
+    background-color: #f2f2f2;
+    border: none;
+  }
+  
+  td.data {
+    border: 1px solid #ccc;
+    text-align: center;
+  }
+
+  #reactivarCuidador {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+
+
+button img{
+    width: 40px;
+    height: 40px;
+}  
+
+#sinCuidador{
+  color: #fa0808;
+}
+
+ #edit img{
+    width: 40px;
+    height: 40px;
+    float: left;
+    margin-left: 30%;
+  }
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    [class*="col-"] {
+      width: 100%;
+    }
+  }
