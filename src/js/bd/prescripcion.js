@@ -26,10 +26,6 @@ let prescripciones= async()=>{
 if(peticion.status===200){
     const prescripcion=await peticion.json();
 return prescripcion;}
-<<<<<<< HEAD
-
-=======
->>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
 }
 
 let obtenerCedulaEncriptada=async(id, cedula)=>{

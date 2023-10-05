@@ -213,11 +213,7 @@ let listarEspecialidad = async () => {
     if (selectEspecialidad.length === 0) {
       
       const optionSeleccionar = document.createElement('option');
-<<<<<<< HEAD
       optionSeleccionar.textContent = "Seleccione...";
-=======
-      optionSeleccionar.textContent = "Seleccione..";
->>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
       selectEspecialidad.appendChild(optionSeleccionar);
       especialidades.forEach(especialidad => {
         const option = document.createElement('option');
@@ -436,11 +432,7 @@ let listaEspecialidad = async () => {
   if (selectEspecialidad.length === 0) {
     const especialidades = await peticion.json();
     const optionSeleccionar = document.createElement('option');
-<<<<<<< HEAD
     optionSeleccionar.textContent = "Seleccione...";
-=======
-    optionSeleccionar.textContent = "Seleccione";
->>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
     selectEspecialidad.appendChild(optionSeleccionar);
     especialidades.forEach(especialidad => {
       const option = document.createElement('option');

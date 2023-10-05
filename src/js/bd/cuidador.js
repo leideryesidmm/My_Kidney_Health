@@ -244,11 +244,7 @@ let cuidadorPorPaciente=async()=>{
       if (selectParentesco.length === 0) {
         const parentescos = await peticion.json();
         const optionSeleccionar = document.createElement('option');
-<<<<<<< HEAD
         optionSeleccionar.textContent = "Seleccione...";
-=======
-        optionSeleccionar.textContent = "Seleccione";
->>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
         selectParentesco.appendChild(optionSeleccionar);
         parentescos.forEach(parentesco => {
           const option = document.createElement('option');
@@ -275,11 +271,7 @@ let cuidadorPorPaciente=async()=>{
       if (selectParentesco.length === 0) {
         const parentescos = await peticion.json();
         const optionSeleccionar = document.createElement('option');
-<<<<<<< HEAD
         optionSeleccionar.textContent = "Seleccione...";
-=======
-        optionSeleccionar.textContent = "Seleccione";
->>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
         selectParentesco.appendChild(optionSeleccionar);
         parentescos.forEach(parentesco => {
           const option = document.createElement('option');
@@ -714,11 +706,7 @@ let inhabilitarCuidador=async()=>{
     cuidadorInDto:cuidador,
     pacienteInDto:paciente
   }
-<<<<<<< HEAD
   await fetch(localStorage.getItem("servidorAPI") + "paciente/cuidador/inhabilitarCuidadorActivo",{
-=======
-  const peticion2= await fetch(localStorage.getItem("servidorAPI") + "paciente/cuidador/inhabilitarCuidadorActivo",{
->>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
     method: "PATCH",
               body: JSON.stringify(
                 cuidadorPaciente
@@ -735,8 +723,4 @@ let inhabilitarCuidador=async()=>{
       }
     }
   })
-<<<<<<< HEAD
-=======
-  location.reload();
->>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
 }
