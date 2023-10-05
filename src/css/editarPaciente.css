@@ -325,6 +325,7 @@ body {
   border-style: none;
   }
 
+<<<<<<< HEAD
   .guardarMed{
     background-color: #04BAFC;
     color: #fff;
@@ -338,6 +339,8 @@ body {
     margin-left: 1%;
   }
 
+=======
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
   .cancelar:hover, .guardarPac:hover{
     color: white;
 text-decoration: none;  }

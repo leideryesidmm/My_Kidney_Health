@@ -370,6 +370,10 @@ console.log(paciente);
   
   Array.from(selectEps.options).forEach((option, index) => {
     if (option.textContent === descripcionEps) {
+<<<<<<< HEAD
+=======
+      console.log("ENTRO AL IF DE SELECT EPS");
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
       selectEps.selectedIndex = index;
     }
   })
@@ -380,7 +384,11 @@ console.log(paciente);
   for (let i = 0; i < binaryString.length; i++) {
     byteArray[i] = binaryString.charCodeAt(i);
   }
+<<<<<<< HEAD
   const blob = new Blob([byteArray], { type: 'image/*' });
+=======
+  const blob = new Blob([byteArray], { type: 'image/jpeg' });
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
 
   const imageUrl = URL.createObjectURL(blob);
   console.log(imageUrl);
@@ -433,7 +441,11 @@ let listaEps = async () => {
   if (selectEps.length == 0) {
     const epss = await peticion.json();
     const optionSeleccionar = document.createElement('option');
+<<<<<<< HEAD
     optionSeleccionar.textContent = "Seleccione...";
+=======
+    optionSeleccionar.textContent = "Seleccione";
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
     selectEps.appendChild(optionSeleccionar);
     epss.forEach(eps => {
       const option = document.createElement('option');

@@ -99,7 +99,11 @@ let listRecambios = async (recambios) => {
       +'            <p><strong>Drenaje:</strong></p>'
       +'            <p class="drenaje" id="drenaje">'
       +'            '+(CryptoJS.AES.decrypt(decodeURIComponent(recambio.drenajeDialisis), "clave_secreta").toString(CryptoJS.enc.Utf8))
+<<<<<<< HEAD
       +'            ml</p>'
+=======
+      +'            </p>'
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
       +'        </div>'
       +'        <div class="balan">'
       +'            <p><strong>Balance:</strong></p>'
@@ -146,7 +150,11 @@ let listRecambios = async (recambios) => {
       ms+='<div class="row">'+
       '<div class="col-10"></div>'+
       '<div class="col-2">'+
+<<<<<<< HEAD
           '<a href="agregarrecambio.html"><img src="../img/nuevo.png" alt="" id="icono"></a>'+
+=======
+          '<a href="agregarRecambio.html"><img src="../img/nuevo.png" alt="" id="icono"></a>'+
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
       '</div>'+
   '</div>';
   document.getElementById("agregar").innerHTML=ms;

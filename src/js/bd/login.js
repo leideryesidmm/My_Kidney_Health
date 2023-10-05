@@ -4,6 +4,10 @@ function isAuthenticated() {
   return localStorage.getItem("authenticated") === "true";
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
 let login = async (event) => {
   event.preventDefault();
 

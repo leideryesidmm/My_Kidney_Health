@@ -176,10 +176,17 @@ let listMedicamentos = async (medicamentos) => {
     }
   } else {
     msg +=
+<<<<<<< HEAD
       '<b><p class="sinMedicamentos">No tiene medicamentos registrados.<p></b>';
   }
 
   ms += msg + "</div>";
+=======
+      '<b><p class="sinMedicamentos">No tiene medicamentos registrados<p></b>';
+  }
+
+  ms += msg + "</div><br>";
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
 
   document.getElementById("acordeon1").innerHTML = ms;
 };

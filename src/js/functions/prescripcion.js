@@ -102,8 +102,13 @@ function generarPrescripciones(){
             '<option value="perfecto">Perfecto</option>'+
             '<option value="bueno">Bueno</option>'+
             '<option value="equivoco">Equívoco</option>'+
+<<<<<<< HEAD
             '<option value="infección Aguda">Infección Aguda</option>'+
             '<option value="infección Crónica">Infeccion Crónica</option>'+
+=======
+            '<option value="infeccionAguda">Infección Aguda</option>'+
+            '<option value="infeccionCronica">Infeccion Crónica</option>'+
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
             '<option value="trauma">Trauma</option>'+
           '</select>'+
           
@@ -458,7 +463,11 @@ let mostrarPrescripcion= async (prescripcion, fecha, recambios) => {
             fecha.getDate() === hoy.getDate()){
               estado="P";
                 msg+='background-color:#e6b216;">';
+<<<<<<< HEAD
                 accion='<a style="color:black" href="agregarrecambio.html?idRecambio='+recambio.idRecambio+'">'
+=======
+                accion='<a style="color:black" href="agregarRecambio.html?idRecambio='+recambio.idRecambio+'">'
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
                     +'<svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">'
                     +'<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>'
                     +'<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>'
@@ -478,7 +487,11 @@ let mostrarPrescripcion= async (prescripcion, fecha, recambios) => {
                 fecha.getDate() === (hoy.getDate()-1)){
                     estado="P";
                     msg+='background-color:rgb(252, 130, 59);">';
+<<<<<<< HEAD
                     accion='<a style="color:black" href="agregarrecambio.html?idRecambio='+recambio.idRecambio+'">'
+=======
+                    accion='<a style="color:black" href="agregarRecambio.html?idRecambio='+recambio.idRecambio+'">'
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
                     +'<svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">'
                     +'<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>'
                     +'<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>'
@@ -527,7 +540,11 @@ let verRecambio=async(idRecambio)=>{
 
   document.getElementById("inicio").innerText=recambio.hora_ini.replace("T", " ");
   document.getElementById("final").innerText=recambio.hora_fin.replace("T", " ");
+<<<<<<< HEAD
   document.getElementById("drenaje").innerText=decodeURIComponent(CryptoJS.AES.decrypt(recambio.drenajeDialisis, 'clave_secreta').toString(CryptoJS.enc.Utf8))+" ml";
+=======
+  document.getElementById("drenaje").innerText=decodeURIComponent(CryptoJS.AES.decrypt(recambio.drenajeDialisis, 'clave_secreta').toString(CryptoJS.enc.Utf8));
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
   document.getElementById("concentracion").innerText=recambio.recambio.concentracion+"%";
   document.getElementById("estadoOrificio").innerText=decodeURIComponent(CryptoJS.AES.decrypt(recambio.orificioSalida, 'clave_secreta').toString(CryptoJS.enc.Utf8));
   document.getElementById("caracteristicaliquido").innerText=decodeURIComponent(CryptoJS.AES.decrypt(recambio.caracteristicaLiquido, 'clave_secreta').toString(CryptoJS.enc.Utf8));
@@ -904,7 +921,10 @@ let editarPrescripcion = async () => {
   let datos = await datosEditarPrescripcion();
   let prescripcionesHechas = datos.prescipcionDia.length;
   let ms = "";
+<<<<<<< HEAD
 
+=======
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
   ms += '<div class="form-container">' +
       '<h2>Editar Prescripción</h2>' +
       '<p id="campos">Selecciona la cantidad de prescripciones</p>' +
@@ -929,9 +949,13 @@ let editarPrescripcion = async () => {
   document.getElementById("container").innerHTML = ms;
   let selectCantidad = document.getElementById("selectCantidad");
   selectCantidad.value = prescripcionesHechas;
+<<<<<<< HEAD
 
   generarPrescripcionesLlenados();
 
+=======
+  generarPrescripcionesLlenados();
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
   selectCantidad.addEventListener("change", function() {
     const cantidadSeleccionada = parseInt(selectCantidad.value);
     if (cantidadSeleccionada !== 0) {
@@ -939,8 +963,11 @@ let editarPrescripcion = async () => {
     }
   });
 }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
 let checkboxsSeleccionados = {};
 let rec=[];
 let generarPrescripcionesLlenados=async()=>{
@@ -973,10 +1000,15 @@ let generarPrescripcionesLlenados=async()=>{
         
   '</div>'+
   '<div class="form-column">' +
+<<<<<<< HEAD
       '<label id="data">Fecha Final de la prescripción:</label>';
       let fechaManana = new Date();
       fechaManana.setDate(fechaManana.getDate() + 1);
       msg += `<input type="date" class="fechaFin" id="fechaFin" min="${fechaManana.toISOString().split('T')[0]}" required>`+
+=======
+      '<label id="data">Fecha Final de la prescripción:</label>'+
+      '<input type="date" class="fechaFin" id="fechaFin" required>'+
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
       '</div>' +
       '</div>' +
   '<hr>';
@@ -1046,13 +1078,19 @@ let generarPrescripcionesLlenados=async()=>{
   let checkboxNocheSeca = document.getElementById("nocheSeca" + idCantidad);
   checkboxNocheSeca.checked = nocheSec;
   }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
   document.getElementById("fechaFin").value = fechaFin;
   let selecorificio = document.getElementById("selectedOrificio");
   selecorificio.value = orificio;
   
+<<<<<<< HEAD
 
+=======
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
   let ms="";
   if(cantidad>0){
   ms+=
@@ -1080,12 +1118,20 @@ let generarPrescripcionesLlenados=async()=>{
   
   for(var i=0; i<cantidad;i++){
     let idCantidad=i+1;
+<<<<<<< HEAD
     let selCantidad = document.getElementById("selectedCantidad"+idCantidad);
    
     if(i<recambios.length){
   selCantidad.value = recambios[i].length;
     
 
+=======
+    let selCantidad = document.getElementById("selectedCantidad"+idCantidad).value;
+   console.log(selCantidad);
+    if(i<recambios.length){
+  selCantidad.value = recambios[i].length;
+    
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
   selCantidad.addEventListener("change", function() {
     const cantidadSeleccionada = parseInt(selCantidad.value);
    
@@ -1094,17 +1140,25 @@ let generarPrescripcionesLlenados=async()=>{
     
   });
 }
+<<<<<<< HEAD
    
+=======
+console.log(document.getElementById("selectedCantidad" + idCantidad).value);
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
     generarSelectsLlenados(idCantidad, document.getElementById("selectedCantidad" + idCantidad).value);
    
   }
 }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
 let generarSelectsLlenados = async (idCantidad, cantidadSeleccionada) => {
  
   var container = document.getElementById("selectContainer" + idCantidad);
   container.innerHTML = "";
+<<<<<<< HEAD
 
   var row = document.createElement("div");
   row.className = "row";
@@ -1112,24 +1166,37 @@ let generarSelectsLlenados = async (idCantidad, cantidadSeleccionada) => {
   for (var i = 0; i < cantidadSeleccionada; i++) {
     var idConcentracion = "concentracion" + (i + 1)+""+idCantidad; 
 
+=======
+  var row = document.createElement("div");
+  row.className = "row";
+  for (var i = 0; i < cantidadSeleccionada; i++) {
+    var idConcentracion = "concentracion" + (i + 1)+""+idCantidad; 
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
     var col = document.createElement("div");
     col.id = "selectsPrescripcion";
     col.className = "col-12 col-md-6 col-lg-4 col-xl-3"; 
     
     var selectContainer = document.createElement("div");
     selectContainer.className = "form-group";
+<<<<<<< HEAD
 
+=======
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
     var label = document.createElement("label");
     label.className = "form-label";
     label.id = "labelConcentracion";
     label.for = idConcentracion;
     label.innerText = "Concentración " + (i + 1) + ":"; 
     
+<<<<<<< HEAD
 
+=======
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
     var select = document.createElement("select");
     select.className = "form-control";
     select.id = idConcentracion;
     select.setAttribute("required", "true");
+<<<<<<< HEAD
 
     var opciones = ["Seleccione...", "1.5%", "2.5%", "4.25%"];
 
@@ -1137,6 +1204,12 @@ let generarSelectsLlenados = async (idCantidad, cantidadSeleccionada) => {
     rang.id="data";
     rang.for="rangoH";
 
+=======
+    var opciones = ["Seleccione...", "1.5%", "2.5%", "4.25%"];
+    var rang = document.createElement("label");
+    rang.id="data";
+    rang.for="rangoH";
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
     var textRango = document.createElement("label");
     textRango.id="data";
     textRango.for="";
@@ -1145,6 +1218,7 @@ let generarSelectsLlenados = async (idCantidad, cantidadSeleccionada) => {
     var asquer = document.createElement("label");
     asquer.id="asq";
     asquer.innerText= " *";
+<<<<<<< HEAD
 
     var rangoH=document.createElement("input");
     rangoH.type="number";
@@ -1155,6 +1229,13 @@ let generarSelectsLlenados = async (idCantidad, cantidadSeleccionada) => {
     rangoH.id = "rango"+idConcentracion;
     rangoH.setAttribute("required", "true");
 
+=======
+    var rangoH=document.createElement("input");
+    rangoH.type="number";
+    rangoH.className="rango";
+    rangoH.id = "rango"+idConcentracion;
+    rangoH.setAttribute("required", "true");
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
     for (var j = 0; j < opciones.length; j++) {
         var option = document.createElement("option");
         if(j==0){
@@ -1168,7 +1249,10 @@ let generarSelectsLlenados = async (idCantidad, cantidadSeleccionada) => {
         select.appendChild(option);
         }
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
     selectContainer.appendChild(label);
     selectContainer.appendChild(select);
     selectContainer.appendChild(rang);
@@ -1176,20 +1260,31 @@ let generarSelectsLlenados = async (idCantidad, cantidadSeleccionada) => {
     selectContainer.appendChild(asquer);
     selectContainer.appendChild(rangoH);
     
+<<<<<<< HEAD
 
+=======
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
     col.appendChild(selectContainer);
     row.appendChild(col);
 }
   container.appendChild(row);
+<<<<<<< HEAD
 
+=======
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
   let datos = await datosEditarPrescripcion();
   var cantidad=document.getElementById("selectCantidad").value;
  
   let recambios=datos.recambios;
   let prescipcionesDia=datos.prescipcionDia;
+<<<<<<< HEAD
 
   await new Promise((resolve) => setTimeout(resolve, 0));
   for(var i=0;i<cantidad.length;i++){
+=======
+  await new Promise((resolve) => setTimeout(resolve, 0));
+  for(var i=0;i<recambios.length;i++){
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
     let idCantidad = i+1;
     let recambio=recambios[i];
     let prescipcionDia=prescipcionesDia[i];
@@ -1210,7 +1305,10 @@ let generarSelectsLlenados = async (idCantidad, cantidadSeleccionada) => {
         habilitaDeshabilitDias(dia, cantidad);
         habilitarDeshabilitarDias(dia, cantidad);
         
+<<<<<<< HEAD
 
+=======
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
       });
     });
   }
@@ -1218,7 +1316,10 @@ let generarSelectsLlenados = async (idCantidad, cantidadSeleccionada) => {
 };
 function habilitarDeshabilitarDias(dia, cantidad) {
   const checkboxes = [];
+<<<<<<< HEAD
 
+=======
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
   // Obtener todos los checkboxes para el día
   for (let i = 1; i <= cantidad; i++) {
     const checkbox = document.getElementById(`${dia}${i}`);
@@ -1226,9 +1327,13 @@ function habilitarDeshabilitarDias(dia, cantidad) {
       checkboxes.push(checkbox);
     }
   }
+<<<<<<< HEAD
 
   const anyCheckboxChecked = checkboxes.some((checkbox) => checkbox.checked);
 
+=======
+  const anyCheckboxChecked = checkboxes.some((checkbox) => checkbox.checked);
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
   checkboxes.forEach((checkbox) => {
     if (checkbox.checked) {
       checkbox.disabled = false; // Habilitar los checkboxes marcados
@@ -1237,10 +1342,15 @@ function habilitarDeshabilitarDias(dia, cantidad) {
     }
   });
 }
+<<<<<<< HEAD
 
 function habilitaDeshabilitDias(dia, cantidad) {
   const checkboxes = [];
 
+=======
+function habilitaDeshabilitDias(dia, cantidad) {
+  const checkboxes = [];
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
   // Obtener todos los checkboxes para el día
   for (let i = 1; i <= cantidad; i++) {
     const checkbox = document.getElementById(`${dia}${i}`);
@@ -1248,7 +1358,10 @@ function habilitaDeshabilitDias(dia, cantidad) {
       checkboxes.push(checkbox);
     }
   }
+<<<<<<< HEAD
 
+=======
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
   checkboxes.forEach((checkbox, index) => {
     checkbox.addEventListener('change', () => {
       checkboxes.forEach((otherCheckbox, otherIndex) => {
@@ -1421,7 +1534,11 @@ let mostrarVisita=async()=>{
           </div>
           </div><br>
           <div class="row text-center">
+<<<<<<< HEAD
           <div class="col-12"><img src="../img/farmacia.png" alt="farmacia" width="50" height="55" />&nbsp
+=======
+          <div class="col-12"><img src="../img/Farmacia.png" alt="" width="50" height="55" />&nbsp
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
           ${farmacia?
             `<input class="form-check-input" type="checkbox" name="visita" value="farmacia" id="farmacia" checked disabled>`:`<input class="form-check-input" type="checkbox" name="visita" value="farmacia" id="farmacia" disabled>`}
             <label class="form-check-label" for="flexCheckDefault">
@@ -1503,7 +1620,11 @@ else{
           '</div>' +
           '</div><br>' +
           '<div class="row text-center">' +
+<<<<<<< HEAD
           '<div class="col-12"><img src="../img/farmacia.png" alt="farmacia" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="farmacia" id="farmacia">' +
+=======
+          '<div class="col-12"><img src="../img/Farmacia.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="farmacia" id="farmacia">' +
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
           '  <label class="form-check-label" for="flexCheckDefault">' +
           '    Farmacia' +
           '  </label>' +
@@ -1688,7 +1809,11 @@ let editarChequeo=async()=>{
 
 let editarVisita=async()=>{
   let msg="";
+<<<<<<< HEAD
   let visita=await obtenerUltimaVisita();
+=======
+  
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
   let nombrePaciente=CryptoJS.AES.decrypt(visita.cita.paciente.nombre,"clave_secreta").toString(CryptoJS.enc.Utf8);
   let cedulaPaciente=CryptoJS.AES.decrypt(visita.cita.paciente.cedula,"clave_secreta").toString(CryptoJS.enc.Utf8);
   let nefrologia=visita.nefrologia;
@@ -1760,7 +1885,11 @@ let editarVisita=async()=>{
           </div>
           </div><br>
           <div class="row text-center">
+<<<<<<< HEAD
           <div class="col-12"><img src="../img/farmacia.png" alt="farmacia" width="50" height="55" />&nbsp
+=======
+          <div class="col-12"><img src="../img/Farmacia.png" alt="" width="50" height="55" />&nbsp
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
           ${farmacia?
             `<input class="form-check-input" type="checkbox" name="visita" value="farmacia" id="editarFarmacia" checked >`:`<input class="form-check-input" type="checkbox" name="visita" value="farmacia" id="editarFarmacia">`}
             <label class="form-check-label" for="flexCheckDefault">

@@ -5,7 +5,10 @@
 }
 #text{
     color: white;
+<<<<<<< HEAD
     
+=======
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
 }
 #navbarSupportedContent{
     justify-content: right;
@@ -124,9 +127,12 @@ p{
   .small-css{
     font-size: large;
   }
+<<<<<<< HEAD
   #text{
     font-size: 25px;
   }
+=======
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
 }
 #foot{
   width: 50%;

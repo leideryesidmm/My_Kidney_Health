@@ -52,6 +52,7 @@ body {
     justify-content: center;
     align-items: center;
     margin: 0 auto;
+<<<<<<< HEAD
     flex-wrap: wrap;
   }
   
@@ -63,6 +64,17 @@ body {
     width: 45%;
   }
 
+=======
+  }
+  
+  
+  .form-column {
+    display: inline-block;
+    vertical-align: top;
+    width: 45%;
+    margin-left: 5%;
+  }
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
   label {
     font-size: 20px;
     margin-bottom: 5px;
@@ -228,7 +240,11 @@ body {
   
   /* Estilos responsivos */
   @media (max-width: 768px) {
+<<<<<<< HEAD
     form-column{
+=======
+    .form-column {
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
       width: 100%;
     }
   }

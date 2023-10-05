@@ -186,7 +186,13 @@ label{
 .title {
   color: #fff;
   display: flex;
+<<<<<<< HEAD
   height: fit-content;
+=======
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+>>>>>>> b56680aba3c54616d6d15fdc2f1995e344f344e5
 }
 
 .inf-cuidador p {
