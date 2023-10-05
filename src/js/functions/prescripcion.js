@@ -752,9 +752,9 @@ let mostrarHistoricoMedico=async (prescripciones) => {
 }
  function  antigua (idCita) {
   let prescripciones=JSON.parse(localStorage.getItem("prescripcionesT"))
-  console.log(prescripciones);
+  
   prescripciones.forEach(prescripcion => {
-    console.log(prescripcion)
+    
     if(prescripcion.cita.idCita==idCita)
     mostrarPrescripcionAntiguaMedico(prescripcion)
   });
@@ -783,7 +783,7 @@ let mostrarPrescripcionAntiguaMedico=async(prescripcion)=>{
 
 
                     prescripcion.unionPrescripcionDiasRecambios.forEach(prescripcionDia => {
-                      console.log(prescripcionDia)
+                    
                       msg+=`<br><div class="row" style="margin:0 auto;">
                       <div class="col"><h6><b>Dias:</b> ${obtenerDias(prescripcionDia.prescripcionDia)}</h6></div>
                       <div class="col-12 table-responsive">
@@ -904,6 +904,7 @@ let editarPrescripcion = async () => {
   let datos = await datosEditarPrescripcion();
   let prescripcionesHechas = datos.prescipcionDia.length;
   let ms = "";
+
   ms += '<div class="form-container">' +
       '<h2>Editar Prescripción</h2>' +
       '<p id="campos">Selecciona la cantidad de prescripciones</p>' +
@@ -928,7 +929,9 @@ let editarPrescripcion = async () => {
   document.getElementById("container").innerHTML = ms;
   let selectCantidad = document.getElementById("selectCantidad");
   selectCantidad.value = prescripcionesHechas;
+
   generarPrescripcionesLlenados();
+
   selectCantidad.addEventListener("change", function() {
     const cantidadSeleccionada = parseInt(selectCantidad.value);
     if (cantidadSeleccionada !== 0) {
@@ -936,6 +939,8 @@ let editarPrescripcion = async () => {
     }
   });
 }
+
+
 let checkboxsSeleccionados = {};
 let rec=[];
 let generarPrescripcionesLlenados=async()=>{
@@ -945,6 +950,7 @@ let generarPrescripcionesLlenados=async()=>{
   let prescripcionesDia=datos.prescipcionDia;
   let recambios=datos.recambios;
   var cantidad=document.getElementById("selectCantidad").value;
+
   let containerExtra = document.getElementById("containerExtra");
   containerExtra.innerHTML = "";
   let msg="";
@@ -1039,10 +1045,13 @@ let generarPrescripcionesLlenados=async()=>{
   let checkboxNocheSeca = document.getElementById("nocheSeca" + idCantidad);
   checkboxNocheSeca.checked = nocheSec;
   }
+
+
   document.getElementById("fechaFin").value = fechaFin;
   let selecorificio = document.getElementById("selectedOrificio");
   selecorificio.value = orificio;
   
+
   let ms="";
   if(cantidad>0){
   ms+=
@@ -1070,89 +1079,111 @@ let generarPrescripcionesLlenados=async()=>{
   
   for(var i=0; i<cantidad;i++){
     let idCantidad=i+1;
-    let selCantidad = document.getElementById("selectedCantidad"+idCantidad).value;
-   console.log(selCantidad);
+    let selCantidad = document.getElementById("selectedCantidad"+idCantidad);
+   
     if(i<recambios.length){
   selCantidad.value = recambios[i].length;
-    
+    }
   selCantidad.addEventListener("change", function() {
     const cantidadSeleccionada = parseInt(selCantidad.value);
    
-    if (cantidadSeleccionada !== 0) {
-      generarSelectsLlenados(idCantidad, document.getElementById("selectedCantidad" + idCantidad).value);    }
+    if(cantidadSeleccionada !== 0) {
+      generarSelectsLlenados(idCantidad);    }
     
   });
-}
-console.log(document.getElementById("selectedCantidad" + idCantidad).value);
-    generarSelectsLlenados(idCantidad, document.getElementById("selectedCantidad" + idCantidad).value);
+
+   
+    generarSelectsLlenados(idCantidad);
    
   }
 }
-let generarSelectsLlenados = async (idCantidad, cantidadSeleccionada) => {
- 
-  var container = document.getElementById("selectContainer" + idCantidad);
-  container.innerHTML = "";
-  var row = document.createElement("div");
-  row.className = "row";
-  for (var i = 0; i < cantidadSeleccionada; i++) {
-    var idConcentracion = "concentracion" + (i + 1)+""+idCantidad; 
-    var col = document.createElement("div");
-    col.id = "selectsPrescripcion";
-    col.className = "col-12 col-md-6 col-lg-4 col-xl-3"; 
-    
-    var selectContainer = document.createElement("div");
-    selectContainer.className = "form-group";
-    var label = document.createElement("label");
-    label.className = "form-label";
-    label.id = "labelConcentracion";
-    label.for = idConcentracion;
-    label.innerText = "Concentración " + (i + 1) + ":"; 
-    
-    var select = document.createElement("select");
-    select.className = "form-control";
-    select.id = idConcentracion;
-    select.setAttribute("required", "true");
-    var opciones = ["Seleccione...", "1.5%", "2.5%", "4.25%"];
-    var rang = document.createElement("label");
-    rang.id="data";
-    rang.for="rangoH";
-    var textRango = document.createElement("label");
-    textRango.id="data";
-    textRango.for="";
-    textRango.innerText ="Rango de Horas: " ;
-    
-    var asquer = document.createElement("label");
-    asquer.id="asq";
-    asquer.innerText= " *";
-    var rangoH=document.createElement("input");
-    rangoH.type="number";
-    rangoH.className="rango";
-    rangoH.id = "rango"+idConcentracion;
-    rangoH.setAttribute("required", "true");
-    for (var j = 0; j < opciones.length; j++) {
-        var option = document.createElement("option");
-        if(j==0){
-          option.value = opciones[j];
-          option.value="";
-          select.appendChild(option);
+
+
+let  generarSelectsLlenados=async(idCantidad)=> {
+  var select = document.getElementById("selectedCantidad" + idCantidad);
+  
+  if (select.value !== "") {
+    var cantidad = document.getElementById("selectedCantidad" + idCantidad).value;
+    var container = document.getElementById("selectContainer" + idCantidad);
+    container.innerHTML = ""; 
+
+    var row = document.createElement("div");
+    row.className = "row";
+
+    for (var i = 0; i < cantidad; i++) {
+        var idConcentracion = "concentracion" + (i + 1)+""+idCantidad; 
+
+        var col = document.createElement("div");
+        col.id = "selectsPrescripcion";
+        col.className = "col-12 col-md-6 col-lg-4 col-xl-3"; 
+
+        var selectContainer = document.createElement("div");
+        selectContainer.className = "form-group";
+
+        var label = document.createElement("label");
+        label.className = "form-label";
+        label.id = "labelContrasentacion";
+        label.for = idConcentracion;
+        label.innerText = "Concentración " + (i + 1) + ":"; 
+        
+
+        var select = document.createElement("select");
+        select.className = "form-control";
+        select.id = idConcentracion;
+        select.setAttribute("required", "true");
+
+        var opciones = ["Seleccione...", "1.5%", "2.5%", "4.25%"];
+
+        var rang = document.createElement("label");
+        rang.id="data";
+        rang.for="rangoH";
+
+        var textRango = document.createElement("label");
+        textRango.id="data";
+        textRango.for="";
+        textRango.innerText ="Rango de Horas:";
+        
+        var asquer = document.createElement("label");
+        asquer.id="data";
+        asquer.innerText="*";
+
+        var rangoH=document.createElement("input");
+        rangoH.type="number";
+        rangoH.min="1";
+        rangoH.max="15";
+        rangoH.className="rango";
+        rangoH.id = "rango"+idConcentracion;
+        rangoH.setAttribute("required", "true");
+
+        for (var j = 0; j < opciones.length; j++) {
+            var option = document.createElement("option");
+            if(j==0){
+              option.value = opciones[j];
+              option.value="";
+              select.appendChild(option);
+            }
+            else{
+            option.value = opciones[j];
+            option.text = opciones[j];
+            select.appendChild(option);
+            }
         }
-        else{
-        option.value = opciones[j];
-        option.text = opciones[j];
-        select.appendChild(option);
-        }
+
+        selectContainer.appendChild(label);
+        selectContainer.appendChild(select);
+        selectContainer.appendChild(rang);
+        selectContainer.appendChild(textRango);
+        selectContainer.appendChild(asquer);
+        selectContainer.appendChild(rangoH);
+        
+
+        col.appendChild(selectContainer);
+        row.appendChild(col);
     }
-    selectContainer.appendChild(label);
-    selectContainer.appendChild(select);
-    selectContainer.appendChild(rang);
-    selectContainer.appendChild(textRango);
-    selectContainer.appendChild(asquer);
-    selectContainer.appendChild(rangoH);
-    
-    col.appendChild(selectContainer);
-    row.appendChild(col);
-}
-  container.appendChild(row);
+
+    container.appendChild(row);
+  }
+
   let datos = await datosEditarPrescripcion();
   var cantidad=document.getElementById("selectCantidad").value;
  
@@ -1180,6 +1211,7 @@ let generarSelectsLlenados = async (idCantidad, cantidadSeleccionada) => {
         habilitaDeshabilitDias(dia, cantidad);
         habilitarDeshabilitarDias(dia, cantidad);
         
+
       });
     });
   }
@@ -1187,6 +1219,7 @@ let generarSelectsLlenados = async (idCantidad, cantidadSeleccionada) => {
 };
 function habilitarDeshabilitarDias(dia, cantidad) {
   const checkboxes = [];
+
   // Obtener todos los checkboxes para el día
   for (let i = 1; i <= cantidad; i++) {
     const checkbox = document.getElementById(`${dia}${i}`);
@@ -1194,7 +1227,9 @@ function habilitarDeshabilitarDias(dia, cantidad) {
       checkboxes.push(checkbox);
     }
   }
+
   const anyCheckboxChecked = checkboxes.some((checkbox) => checkbox.checked);
+
   checkboxes.forEach((checkbox) => {
     if (checkbox.checked) {
       checkbox.disabled = false; // Habilitar los checkboxes marcados
@@ -1203,8 +1238,10 @@ function habilitarDeshabilitarDias(dia, cantidad) {
     }
   });
 }
+
 function habilitaDeshabilitDias(dia, cantidad) {
   const checkboxes = [];
+
   // Obtener todos los checkboxes para el día
   for (let i = 1; i <= cantidad; i++) {
     const checkbox = document.getElementById(`${dia}${i}`);
@@ -1212,6 +1249,7 @@ function habilitaDeshabilitDias(dia, cantidad) {
       checkboxes.push(checkbox);
     }
   }
+
   checkboxes.forEach((checkbox, index) => {
     checkbox.addEventListener('change', () => {
       checkboxes.forEach((otherCheckbox, otherIndex) => {

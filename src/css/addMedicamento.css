@@ -19,6 +19,13 @@ h3 {
   height: 70px;
 }
 
+#si, #no{
+  margin-right: 3px;
+}
+#receta, #norecetado{
+  margin-top: 5px;
+}
+
 .col-8{
   margin: 0;
 }

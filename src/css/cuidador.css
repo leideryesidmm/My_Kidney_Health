@@ -111,6 +111,11 @@ h3 {
         align-items: center;
 }
 
+.btn-nuevo:hover{
+  text-decoration: none;
+  color: #fff;
+}
+
 .inhabilitarCuidador{
   background-color: #c71919;
     color: #fff;

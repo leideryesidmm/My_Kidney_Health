@@ -28,6 +28,8 @@ body{
 }
 
 
+
+
 .navbar img{
   height: 30px;
   margin: 0;
@@ -95,6 +97,11 @@ input:focus + label, textarea:focus + label {
         border-radius: 5px;
         text-decoration: none;
         
+}
+
+.btn-cancelar:hover{
+  text-decoration: none;
+  color: #fff;
 }
 
 .cedula_cuidador, .custom-select, .telefono, .direccion, .nombre{

@@ -178,7 +178,7 @@ let listRecambios = async (recambios) => {
       <thead>
         <th style="border:2px solid">Fecha</th>
         <th style="border:2px solid">Hora</th>
-        <th style="border:2px solid">Concentación</th>
+        <th style="border:2px solid">Concentración</th>
         <th style="border:2px solid">Drenaje</th>
         <th style="border:2px solid">Balance</th>
         <th style="border:2px solid">Total Ultrafiltrado</th>
@@ -215,9 +215,9 @@ let listRecambios = async (recambios) => {
                 hecho=true;
                 msg+=`
               <td style="border:1px solid;background-color:#53DA44">${new Date(recam.fecha_real).toLocaleTimeString()}</td>
-              <td style="border:1px solid;background-color:#53DA44">${recambiod.concentracion}</td>
-              <td style="border:1px solid;background-color:#53DA44">${decodeURIComponent(CryptoJS.AES.decrypt(recam.drenajeDialisis, 'clave_secreta').toString(CryptoJS.enc.Utf8))}</td>
-              <td style="border:1px solid;background-color:#53DA44">${decodeURIComponent(CryptoJS.AES.decrypt(recam.drenajeDialisis, 'clave_secreta').toString(CryptoJS.enc.Utf8))-2000}</td>
+              <td style="border:1px solid;background-color:#53DA44">${recambiod.concentracion} %</td>
+              <td style="border:1px solid;background-color:#53DA44">${decodeURIComponent(CryptoJS.AES.decrypt(recam.drenajeDialisis, 'clave_secreta').toString(CryptoJS.enc.Utf8))} ml</td>
+              <td style="border:1px solid;background-color:#53DA44">${decodeURIComponent(CryptoJS.AES.decrypt(recam.drenajeDialisis, 'clave_secreta').toString(CryptoJS.enc.Utf8))-2000} ml</td>
               `
               }
               
@@ -234,7 +234,7 @@ let listRecambios = async (recambios) => {
           }
          
         
-        if(ciclo==0)msg+=`<td rowspan="${fecha.prescripOriginal.recambios.length}" style="border:2px solid">${ultrafiltrado}</td>
+        if(ciclo==0)msg+=`<td rowspan="${fecha.prescripOriginal.recambios.length}" style="border:2px solid">${ultrafiltrado} ml</td>
         `
         
         ciclo++;

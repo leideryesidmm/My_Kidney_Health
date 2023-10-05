@@ -483,7 +483,7 @@ let actualizarPaciente = async (event) => {
       body: JSON.stringify(pacienteInDto)
 });
     const paciente=await peticion.json();
-    
+    console.log(paciente);
   
   if(usuario=="paciente"){
 
@@ -522,6 +522,7 @@ let actualizarPaciente = async (event) => {
     rh:paciente.rh,
     contrasenia:paciente.contrasenia,
     altura:estatura,
+    cambio_contrasenia:paciente.cambio_contrasenia,
     diabetes:diabetes,
     hipertension:hipertension,
     eps: parseInt(eps,10)
@@ -537,6 +538,7 @@ else{
   let pesoseco=document.getElementById("pesoseco").value;
   let ocupacion=paciente.ocupacion;
   let correo=paciente.correo;
+  let cambiocontrasenia=paciente.cambio_contrasenia;
   let estatura=document.getElementById("estatura").value;
   let eps = paciente.eps.idEps;
   var diabetes = document.getElementById('diabetes').checked;
@@ -552,6 +554,7 @@ else{
     eps: eps,
     celular: telefono,
     ocupacion: ocupacion,
+    cambio_contrasenia:cambiocontrasenia,
     correo: correo,
     activo:true,
     cedula:cedulaEncriptada,

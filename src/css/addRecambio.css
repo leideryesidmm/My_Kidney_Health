@@ -139,6 +139,11 @@ h5{
     margin-right: 5%;
 }
 
+.btn-cancelar:hover{
+  text-decoration: none;
+  color: #fff;
+}
+
 .btn-nuevo {
     background-color: #00DBA1;
     color: #fff;

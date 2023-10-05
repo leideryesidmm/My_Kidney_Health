@@ -61,6 +61,10 @@ if(paciente!=null){
             '<label for="nombre"><b>Nombre:</b></label>'+
             '<label for="" id="nombre">'+paciente.nombre+'</label>'+
           '</div>'+
+          '<div class="tipoDocumento">'+
+            '<label for="tipoDocumento"><b>Tipo de Documento:</b></label>'+
+            '<label for="" id="tipoDocumento">'+paciente.tipo_documento+'</label>'+
+          '</div>'+
           '<div class="documento">'+
             '<label for="documento"><b>Documento:</b></label>'+
             '<label for="" id="documento">'+paciente.cedula+'</label>'+
@@ -83,7 +87,7 @@ if(paciente!=null){
           '</div>';
           if(paciente.ocupacion!=null && paciente.ocupacion!= ""){
           msg+='<div class="ocupacion">'+
-            '<label for="ocupacion"><b>Ocupacion:</b></label>'+
+            '<label for="ocupacion"><b>Ocupación:</b></label>'+
             '<label for="" id="ocupacion">'+paciente.ocupacion+'</label>'+
           '</div>';}
           if(paciente.correo!=null && paciente.correo!= ""){
@@ -349,12 +353,12 @@ else{
           '<div class="form-column">'+
               '<label for="peso" id="data">Peso:<label id="asq">*</label></label>'+
               '<br>'+
-              '<input type="text" class="peso" id="peso" name="peso" required>'+
+              '<input type="number" class="peso" id="peso" name="peso" required>'+
             '</div>'+
             '<div class="form-column">'+
               '<label for="pesoseco" id="data">Peso Seco:<label id="asq">*</label></label>'+
               '<br>'+
-              '<input type="text" class="pesoseco" id="pesoseco" name="pesoseco" required>'+
+              '<input type="number" class="pesoseco" id="pesoseco" name="pesoseco" required>'+
             '</div>'+
             
           '</div>'+
@@ -362,7 +366,7 @@ else{
             '<div class="form-column">'+
               '<label for="estatura" id="data">Estatura:</label>'+
               '<br>'+
-              '<input type="text" class="estatura" id="estatura" name="estatura" placeholder="Estatura en cm">'+
+              '<input type="number" class="estatura" id="estatura" name="estatura" placeholder="Estatura en cm">'+
             '</div>'+ 
             '<div class="form-column enfermedades" >'+
               '<label for="hipertension" id="data2">Hipertensión: </label> ' +
