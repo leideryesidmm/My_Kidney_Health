@@ -113,7 +113,7 @@ if(paciente!=null){
       '<div class="col-md-6">'+    
       '<div class="medicos">'+
         '<div class="subtitle">'+
-          '<h3>Datos Médicos</h3>'+
+          '<h3>Datos profesional de la salud</h3>'+
         '</div>'+
           '<div class="peso">'+
             '<label for="peso"><b>Peso:</b></label>'+

@@ -232,6 +232,7 @@ thead {
 }
 #sinHacer {
   color: #fa0808;
+  font-size: 1rem;
 }
 thead:hover {
   background-color: #04BAFC;
@@ -499,4 +500,8 @@ li{
 
 #msg-orificio{
   text-align: center;
+}
+
+#fechasD{
+  font-size: 1rem;
 }

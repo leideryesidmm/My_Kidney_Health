@@ -6,7 +6,7 @@ function isAuthenticated() {
 
 let login = async (event) => {
   event.preventDefault();
-
+  document.getElementById("log-in").disabled=true;
   const peticion3 = await fetch(servidorAPI + 'Usuario/findAdmin', {
     method: 'GET',
     headers: {
@@ -121,6 +121,7 @@ let medicoEncontrado=false;
       let msg="";
       msg+='<p class="error">¡Datos Incorrectos!</p>';
       document.getElementById("datosIncorrectos").innerHTML=msg;
+      document.getElementById("log-in").disabled=false;
     }
 }
 // Función para manejar el cierre de sesión
