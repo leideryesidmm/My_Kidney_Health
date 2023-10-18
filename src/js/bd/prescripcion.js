@@ -270,9 +270,9 @@ let crearRecambio = async () => {
       "drenajeDialisis": drenajeEncriptado,
       "orificioSalida": orificioEncriptada,
       "recambio": concentracionSelect,
-      "fecha_real":`${fecha_real.getFullYear()}-${(fecha_real.getMonth() + 1).toString().padStart(2, '0')}-${fecha_real.getDate().toString().padStart(2, '0')}T${fecha_real.getHours().toString().padStart(2, '0')}:${fecha_real.getMinutes().toString().padStart(2, '0')}`,
-      "hora_ini":fechayhoraIni,
-      "hora_fin":fechayhoraFin
+      "fechaReal":`${fecha_real.getFullYear()}-${(fecha_real.getMonth() + 1).toString().padStart(2, '0')}-${fecha_real.getDate().toString().padStart(2, '0')}T${fecha_real.getHours().toString().padStart(2, '0')}:${fecha_real.getMinutes().toString().padStart(2, '0')}`,
+      "horaIni":fechayhoraIni,
+      "horaFin":fechayhoraFin
     };
     console.log("este es el recambio que se hizo:")
     console.log(recambioHechoInDto)
@@ -580,7 +580,7 @@ let validacirChecks=validarCeckbox();
     let cantidad = parseInt(document.getElementById("selectCantidad").value);
    
    
-      await fetch(localStorage.getItem("servidorAPI") + 'Prueba/Cita', {
+      await fetch(localStorage.getItem("servidorAPI") + 'Medico/Cita', {
         method: 'POST',
         headers: {
           "Accept": "application/json",

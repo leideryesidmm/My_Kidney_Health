@@ -419,7 +419,7 @@ console.log(pacienteActual);
 }
 
 let listaEps = async () => {
-  const peticion = await fetch(localStorage.getItem("servidorAPI") + "Prueba/ListEps", {
+  const peticion = await fetch(localStorage.getItem("servidorAPI") + "paciente/ListEps", {
     method: "GET",
     headers: {
       "Accept": "application/json",
