@@ -28,7 +28,7 @@
   <nav id="nav" class=" navbar-expand-lg navbar-light">
     <div class="row">
       <div class="col-2">
-        <div class="logo"><img src="../img/logo3.png" alt=""></div>
+        <div class="logo"><img src="../img/logo3.png" alt="Logo aplicación"></div>
       </div>
       <div class="col-8">
         <div class="title">
@@ -43,7 +43,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto align-items-center ">
             <li class="nav-item active">
-              <a id="text" class="nav-link" href="administrador.html">profesional<span class="sr-only"></span></a>
+              <a id="text" class="nav-link" href="pacientes.html">Pacientes<span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item active">
+              <a id="text" class="nav-link" href="administrador.html">Profesionales<span class="sr-only"></span></a>
             </li>
             <div class="d-flex align-items-center">
             <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -139,6 +142,33 @@
       </div>
     </div>
   </div>
+
+  <div class="modal fade" id="restaurarContraseniaPaciente" tabindex="1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="successModalLabel">Aviso</h5>
+          <button onclick="redireccionar()" type="button" class="close btn-cerrar" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>La contraseña ha sido restaurada exitosamente.</p>
+        </div>
+        <div class="modal-footer">
+          <button onclick="redireccionar()" type="button" class="btn btn-primary">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function redireccionar() {
+        $("#restaurarContraseniaPaciente").modal("hide");
+    }
+</script>
+
+
   <div class="modal fade" id="contraseniaerronea" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">

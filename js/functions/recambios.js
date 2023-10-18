@@ -3,7 +3,7 @@ let NavBarRecambios = () => {
   let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
   if (usuario == "paciente") {
       ms +=          
-      '<div class="navbar" id="bann" style="padding:0"><div class="col-2"><a href="principal.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a></div>'+
+      '<div class="navbar" id="bann" style="padding:0"><div class="col-2"><a href="principal.html" class="devolverse"><img src="../img/devolverseColor.png" alt="Ir atrás" id="icono"></a></div>'+
       '<div class="col-8"><h1 class="title-principal-app">Mis Recambios</h1></div>'+
       '<div class="col-2"></div></div>';
   }
@@ -11,9 +11,9 @@ let NavBarRecambios = () => {
       ms +=
       '<nav id="nav" class=" navbar-expand-lg navbar-light">'+
       '<div class="row">'+
-      '<div class="col-1 no-effect"><a href="principal.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a></div>'+  
+      '<div class="col-1 no-effect"><a href="principal.html" class="devolverse"><img src="../img/devolverseColor.png" alt="Ir atrás" id="icono"></a></div>'+  
       '<div class="col-1">'+
-          '<div class="logo"><img src="../img/logo3.png" alt=""></div>'+
+          '<div class="logo"><img src="../img/logo3.png" alt="Logo app"></div>'+
         '</div>'+
         '<div class="col-8">'+
           '<div class="title">'+
@@ -122,10 +122,10 @@ let listRecambios = async (recambios) => {
       +'        </div>';
           if(usuario=="paciente"){
               msg+='<div class="btn-editar-container">'
-      +'            <a href="editarRecambio.html" class="btn-editar"><img src="../img/editaraler.png"></a>'
+      +'            <a href="editarRecambio.html" class="btn-editar"><img src="../img/editaraler.png" alt="Editar recambio"></a>'
       +'            <div>'
       +'                <a href="" class="btn-inhabilitar" data-bs-toggle="modal"'
-      +'                    data-bs-target="#eliminarrecambio"><img src="../img/inhabilitar.png" alt=""'
+      +'                    data-bs-target="#eliminarrecambio"><img src="../img/inhabilitar.png" alt="Eliminar recambio"'
       +'                        id="inhabilitar-rec"></a>'
       +'            </div>'
       +'        </div>';
@@ -146,7 +146,7 @@ let listRecambios = async (recambios) => {
       ms+='<div class="row">'+
       '<div class="col-10"></div>'+
       '<div class="col-2">'+
-          '<a href="agregarrecambio.html"><img src="../img/nuevo.png" alt="" id="icono"></a>'+
+          '<a href="agregarrecambio.html"><img src="../img/nuevo.png" alt="Agregar recambio" id="icono"></a>'+
       '</div>'+
   '</div>';
   document.getElementById("agregar").innerHTML=ms;
@@ -215,7 +215,7 @@ let listRecambios = async (recambios) => {
               if(recam.recambio.idRecambio==recambiod.idRecambio){
                 hecho=true;
                 msg+=`
-              <td style="border:1px solid;background-color:#53DA44">${new Date(recam.fecha_real).toLocaleTimeString().substring(0,new Date(recam.fecha_real).toLocaleTimeString().length-3)}</td>
+              <td style="border:1px solid;background-color:#53DA44">${new Date(recam.fechaReal).toLocaleTimeString().substring(0,new Date(recam.fechaReal).toLocaleTimeString().length-3)}</td>
               <td style="border:1px solid;background-color:#53DA44">${recambiod.concentracion} %</td>
               <td style="border:1px solid;background-color:#53DA44">${decodeURIComponent(CryptoJS.AES.decrypt(recam.drenajeDialisis, 'clave_secreta').toString(CryptoJS.enc.Utf8))} ml</td>
               <td style="border:1px solid;background-color:#53DA44">${(parseInt(CryptoJS.AES.decrypt(decodeURIComponent(recam.drenajeDialisis), "clave_secreta").toString(CryptoJS.enc.Utf8),10)-2000)} ml</td>
@@ -289,7 +289,7 @@ function obtenerFechas(fechaIni,fechaFin,recambios,prescripcion){
     });
     let recamb=[];
     recambios.forEach(recambio => {
-      let fecha_real=new Date(recambio.fecha_real)
+      let fecha_real=new Date(recambio.fechaReal)
       fecha_real.setHours(0,0,0,0)
       currentDate.setHours(0,0,0,0)
       if(currentDate.getTime()===fecha_real.getTime()){
@@ -331,7 +331,7 @@ function exportarTabla() {
         }
       }
 
-      XLSX.writeFile(wb, 'Recambios.xlsx');
+      XLSX.writeFile(wb, `${localStorage.getItem("nombrePaciente")}.xlsx`);
     } else {
       console.error('La hoja de cálculo está vacía o no contiene la celda A1');
     }

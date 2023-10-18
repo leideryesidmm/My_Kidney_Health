@@ -5,6 +5,7 @@ function isAuthenticated() {
 }
 
 let login = async (event) => {
+  let esAdmin=false;
   event.preventDefault();
   document.getElementById("log-in").disabled=true;
   const peticion3 = await fetch(servidorAPI + 'Usuario/findAdmin', {
@@ -17,25 +18,28 @@ let login = async (event) => {
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
   if(peticion3.status!=204){
-  const administrador = await peticion3.json();
-  console.log(administrador);
-
-
-  if (username === CryptoJS.AES.decrypt(administrador.cedula,"clave_secreta").toString(CryptoJS.enc.Utf8) && password === CryptoJS.AES.decrypt(administrador.contrasenia,"clave_secreta").toString(CryptoJS.enc.Utf8) && administrador.tipoUsuario==="admin") {
-    localStorage.setItem("authenticated", "true");
-    const cedula = encodeURIComponent(administrador.cedula)
-    let usuario="administrador"
-    datos={
-    cedula:cedula, usuario:usuario
+  const administradores = await peticion3.json();
+  console.log(administradores);
+  administradores.forEach(administrador => {
+    if (username === CryptoJS.AES.decrypt(administrador.cedula,"clave_secreta").toString(CryptoJS.enc.Utf8) && password === CryptoJS.AES.decrypt(administrador.contrasenia,"clave_secreta").toString(CryptoJS.enc.Utf8) && administrador.tipoUsuario==="admin") {
+      localStorage.setItem("authenticated", "true");
+      const cedula = encodeURIComponent(administrador.cedula)
+      let usuario="administrador"
+      datos={
+      cedula:cedula, usuario:usuario
+      }
+      const data = JSON.stringify(datos);
+      localStorage.setItem("datos", data);
+      localStorage.setItem("servidorAPI", servidorAPI);
+      location.href="administrador.html";
+      esAdmin=true;
+      return;
     }
-    const data = JSON.stringify(datos);
-    localStorage.setItem("datos", data);
-    localStorage.setItem("servidorAPI", servidorAPI);
-    location.href="administrador.html";
+  });
+  if(esAdmin==true){
     return;
-    
-
-  }}
+  }
+  }
   let decryptedCedula = null;
   let contrasenia = null;
   console.log(servidorAPI + 'Medico/findAllPacientes');
@@ -79,9 +83,9 @@ let medicoEncontrado=false;
       localStorage.setItem("datos", data);
       localStorage.setItem("servidorAPI", servidorAPI);
       console.log(localStorage.setItem("datos", data))
-      let cambiado=paciente.cambio_contrasenia;
+      let cambiado=paciente.cambioContrasenia;
       localStorage.setItem("cambiado", cambiado);
-      console.log(cambiado)
+      console.log(cambiado);
       if(!cambiado){
         location.href="cambiarContrasenia.html"
         pacienteEncontrado=true;
@@ -118,12 +122,14 @@ let medicoEncontrado=false;
       })
     }
     if(!pacienteEncontrado && !medicoEncontrado){
+      $('#errorDatosModal').modal('show');
       let msg="";
       msg+='<p class="error">¡Datos Incorrectos!</p>';
       document.getElementById("datosIncorrectos").innerHTML=msg;
       document.getElementById("log-in").disabled=false;
     }
 }
+      
 // Función para manejar el cierre de sesión
 let logout = () => {
   localStorage.removeItem("authenticated")

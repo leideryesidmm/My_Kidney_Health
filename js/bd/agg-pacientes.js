@@ -53,31 +53,14 @@ let validarPaciente = async () => {
   return false;
 }
 
-/*let guardarImagen=async(event)=>{
-event.preventDefault();
-let cedula = JSON.parse(localStorage.getItem("datos")).cedula;
-let foto=event.target.img-foto.files[0]
-console.log(cedula);
-let unionPacienteFotoInDto={
-  cedula:cedula, foto:foto
-}
-fetch(servidorAPI+"paciente/foto", {
-  method: 'POST',
-  headers: {
-    "Accept":"application/json",
-"Content-Type":"application/json"
-  },
-  body: JSON.stringify(
-    unionPacienteFotoInDto
-  )
-});
-}*/
 
 let crearPaciente=async(event)=> {
   event.preventDefault();
+  const btnGuardar=document.getElementById("guardarPaciente");
+  btnGuardar.style.background="gray";
+  btnGuardar.disabled=true;
   var  existe= await validarPaciente();
   console.log(existe);
-  let expresionCorreo= /\w+@\.+[a-z]/;
       var nombre = document.getElementById('nombre').value;
       var documento = document.getElementById('documento').value;
       var fechaNacimiento = document.getElementById('fecha').value+'T02:45:05.101Z';
@@ -102,6 +85,8 @@ let crearPaciente=async(event)=> {
      var  tipoDocumentoEncriptado = CryptoJS.AES.encrypt(tipoDocumento, 'clave_secreta').toString();
      var diabetes = document.getElementById('diabetes').checked;
      var hipertension = document.getElementById('hipertension').checked;
+     var fecha_registro = new Date();
+//fecha_registro.setHours(fecha_registro.getHours() - 10);
       const pacienteInDto = {
 
        altura : estatura,
@@ -120,8 +105,9 @@ let crearPaciente=async(event)=> {
        correo:correo,
        diabetes:diabetes,
        hipertension:hipertension,
-       tipo_documento:tipoDocumentoEncriptado,
-       activo:true
+       tipoDocumento:tipoDocumentoEncriptado,
+       activo:true,
+       fechaRegistro:fecha_registro
 
       }
 

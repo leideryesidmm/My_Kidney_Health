@@ -3,7 +3,7 @@ let NavBarPrescripcion = () => {
     let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
     if (usuario == "paciente") {
         ms +=
-        '<div class="navbar" id="bann" style="padding:0"><div class="col-2"><a href="principal.html" class="devolverse"><img src="../img/devolverseColor.png" alt=""></a></div>'+
+        '<div class="navbar" id="bann" style="padding:0"><div class="col-2"><a href="principal.html" class="devolverse"><img src="../img/devolverseColor.png" alt="Ir atrás"></a></div>'+
         '<div class="col-8"><h1 class="title-presc">Prescripciones</h1></div>'+
         '<div class="col-2"></div></div>';
     }
@@ -11,9 +11,9 @@ let NavBarPrescripcion = () => {
         ms +=
         '<nav id="nav" class=" navbar-expand-lg navbar-light">'+
         '<div class="row">'+
-        '<div class="col-1 no-effect"><a href="principal.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a></div>'+  
+        '<div class="col-1 no-effect"><a href="principal.html" class="devolverse"><img src="../img/devolverseColor.png" alt="Ir atrás" id="icono"></a></div>'+  
         '<div class="col-1">'+
-            '<div class="logo"><img src="../img/logo3.png" alt=""></div>'+
+            '<div class="logo"><img src="../img/logo3.png" alt="Logo app"></div>'+
           '</div>'+
           '<div class="col-8">'+
             '<div class="title">'+
@@ -95,7 +95,7 @@ function generarPrescripciones(){
     msg+=
     '<div class="form-row">'+
     '<div class="form-column">' +
-    '<label for="orificio" id="data">Orificio:</label>' +
+    '<label for="orificio" id="data">Orificio:</label><label id="asq">*</label>' +
     '<br>' +
           '<select id="selectedOrificio" required>'+
             '<option value="">Seleccione...</option>'+
@@ -109,7 +109,7 @@ function generarPrescripciones(){
           
     '</div>'+
     '<div class="form-column">' +
-        '<label id="data">Fecha Final de la prescripción:</label>';
+        '<label id="data">Fecha Final de la prescripción:</label><label id="asq">*</label>';
         let fechaManana = new Date();
         fechaManana.setDate(fechaManana.getDate() + 1);
         msg += `<input type="date" class="fechaFin" id="fechaFin" min="${fechaManana.toISOString().split('T')[0]}" required>`+
@@ -181,7 +181,7 @@ function generarPrescripciones(){
     '<a type="button" href="prescripcionesM.html" class="cancelar">Cancelar</a>' +
     '</div>' +
     '<div class="btn-save">' +
-    '<button type="submit" class="guardarPac">Guardar</button>' +
+    '<button type="submit" data-toggle="modal" id="agregarPrescripcion" class="guardarPac">Guardar</button>' +
     '</div>' +
     '</div>'+
     '</form>';
@@ -251,13 +251,14 @@ function generarSelects(idCantidad) {
 
         var label = document.createElement("label");
         label.className = "form-label";
-        label.id = "labelContrasentacion";
+        label.id = "data";
         label.for = idConcentracion;
         label.innerText = "Concentración " + (i + 1) + ":"; 
-        
+        var asquerisco = document.createElement("label");
+    asquerisco.id="asq";
+    asquerisco.innerText= " *";
 
         var select = document.createElement("select");
-        select.className = "form-control";
         select.id = idConcentracion;
         select.setAttribute("required", "true");
 
@@ -273,7 +274,7 @@ function generarSelects(idCantidad) {
         textRango.innerText ="Rango de Horas:";
         
         var asquer = document.createElement("label");
-        asquer.id="data";
+        asquer.id="asq";
         asquer.innerText="*";
 
         var rangoH=document.createElement("input");
@@ -299,6 +300,7 @@ function generarSelects(idCantidad) {
         }
 
         selectContainer.appendChild(label);
+        selectContainer.appendChild(asquerisco);
         selectContainer.appendChild(select);
         selectContainer.appendChild(rang);
         selectContainer.appendChild(textRango);
@@ -536,15 +538,17 @@ let mostrarPrescripcion= async (prescripcion, fecha, recambios) => {
 let verRecambio=async(idRecambio)=>{
   try {
   let recambio=JSON.parse(localStorage.getItem("recambios"))[idRecambio];
-  console.log(recambio)
+
   document.getElementById("inicio").innerText=recambio.horaIni.replace("T", " ");
   document.getElementById("final").innerText=recambio.horaFin.replace("T", " ");
   document.getElementById("drenaje").innerText=decodeURIComponent(CryptoJS.AES.decrypt(recambio.drenajeDialisis, 'clave_secreta').toString(CryptoJS.enc.Utf8))+" ml";
   document.getElementById("concentracion").innerText=recambio.recambio.concentracion+"%";
   document.getElementById("estadoOrificio").innerText=decodeURIComponent(CryptoJS.AES.decrypt(recambio.orificioSalida, 'clave_secreta').toString(CryptoJS.enc.Utf8));
   document.getElementById("caracteristicaliquido").innerText=decodeURIComponent(CryptoJS.AES.decrypt(recambio.caracteristicaLiquido, 'clave_secreta').toString(CryptoJS.enc.Utf8));
-  
-    console.log("0 errores")
+  console.log("hasta aqui")
+  let fecha=formatearFecha(new Date(localStorage.getItem("fecha_real")))
+  console.log(fecha)
+  document.getElementById("successModalLabel").innerText="Recambio de la fecha: "+fecha;
   $('#verRecambio').modal('show');
   } catch (error) {
   }
@@ -565,37 +569,156 @@ let prescripcionDiaFecha= async (prescripcion,fecha) =>{
 }
 
 let tablaRecambios=async(recambios)=>{
-    recambios=await recambios;
+  recambios=await recambios;
+  
+  let msg='<table class="table table-bordered" id="recambioTable">'
+  +'<thead>'
+  +'  <tr>'
+  +'    <th>Inicio</th>'
+  +'    <th>Final</th>'
+  +'    <th>Concentración</th>'
+  +'    <th>Drenaje</th>'
+  +'  </tr>'
+  +'</thead>'
+  +'<tbody id="seguimientoData">';
+  recambios.forEach(recambio => {
+  msg+='  <tr>'
+  +'    <td style="font-size:70%">'+recambio.horaIni.split("T")[0]+' \n '+recambio.fecha.split("T")[1]+'</th>'
+  +'    <td style="font-size:70%">'+recambio.horaFin.split("T")[0]+' \n '+recambio.fecha.split("T")[1]+'</th>'
+  +'    <td style="font-size:90%">'+recambio.recambio.concentracion+' %</th>'
+  +'    <td style="font-size:90%">'+CryptoJS.AES.decrypt(recambio.drenajeDialisis, 'clave_secreta').toString(CryptoJS.enc.Utf8)+' ml</th>'
+  +'  </tr>';
+  });
+  
+  msg+='</tbody>'
+  +'</table>';
+  document.getElementById("recamTable").innerHTML=msg;
+  console.log("llego aqui")
+  new DataTable('#recambioTable', {
+      language: {
+          url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json',
+      },
+  })
+}
+
+let tablaVisitas=async(visitas)=>{
+  document.getElementById("visitas").classList.add("active");
+  document.getElementById("chequeos").classList.remove("active");
+    visitas=await visitas;
     
-    let msg='<table class="table table-bordered" id="recambioTable">'
+  let msg="";
+  
+    msg='<div class="container scroll"><table class="table table-bordered" id="visitasTabla">'
     +'<thead>'
     +'  <tr>'
-    +'    <th>Inicio</th>'
-    +'    <th>Final</th>'
-    +'    <th>Concentración</th>'
-    +'    <th>Drenaje</th>'
+    +'    <th>Fecha</th>'
+    +'    <th>Nefrología</th>'
+    +'    <th>Enfermería</th>'
+    +'    <th>Nutricionista</th>'
+    +'    <th>Psicología</th>'
+    +'    <th>Trabajo Social</th>'
+    +'    <th>Auxiliar de Admisiones</th>'
+    +'    <th>Farmacia</th>'
+    +'    <th>Entrenamiento</th>'
+    +'    <th>Reentrenamiento</th>'
+    +'    <th>Visita domiciliaria</th>'
     +'  </tr>'
     +'</thead>'
-    +'<tbody id="seguimientoData">';
-    recambios.forEach(recambio => {
-    msg+='  <tr>'
-    +'    <td style="font-size:70%">'+recambio.hora_ini.split("T")[0]+' \n '+recambio.fecha.split("T")[1]+'</th>'
-    +'    <td style="font-size:70%">'+recambio.hora_fin.split("T")[0]+' \n '+recambio.fecha.split("T")[1]+'</th>'
-    +'    <td style="font-size:90%">'+recambio.recambio.concentracion+'</th>'
-    +'    <td style="font-size:90%">'+CryptoJS.AES.decrypt(recambio.drenajeDialisis, 'clave_secreta').toString(CryptoJS.enc.Utf8);+'</th>'
-    +'  </tr>';
-    });
+    +'<tbody>';
     
+    visitas.forEach(visita => {
+    msg+=` <tr>
+       <td style="font-size:90%">${visita.cita.fecha.split("T")[0]}</td>
+       <td style="font-size:90%">${visita.nefrologia?"Si":"No"}</td>
+       <td style="font-size:90%">${visita.enfermeria?"Si":"No"}</td>
+       <td style="font-size:90%">${visita.nutricion?"Si":"No"}</td>
+       <td style="font-size:90%">${visita.psicologia?"Si":"No"}</td>
+       <td style="font-size:90%">${visita.trabajoSocial?"Si":"No"}</td>
+       <td style="font-size:90%">${visita.auxiliarAdmisiones?"Si":"No"}</td>
+       <td style="font-size:90%">${visita.farmacia?"Si":"No"}</td>
+       <td style="font-size:90%">${visita.entrenamiento?"Si":"No"}</td>
+       <td style="font-size:90%">${visita.reentrenamiento?"Si":"No"}</td>
+       <td style="font-size:90%">${visita.visita_domiciliaria?"Si":"No"}</td>
+      </tr>`;
+    
+    
+    });
     msg+='</tbody>'
-    +'</table>';
-    document.getElementById("recamTable").innerHTML=msg;
-    console.log("llego aqui")
-    new DataTable('#recambioTable', {
+    +'</table></div>';
+  
+    document.getElementById("visitaTable").innerHTML=msg;
+    new DataTable('#visitasTabla', {
         language: {
             url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json',
         },
     })
   }
+
+  
+  let tablaChequeos=async(chequeos)=>{
+    chequeos=await chequeos;
+    
+  let msg="";
+  
+    msg='<div class="container scroll"><table class="table table-bordered" id="chequeosTabla">'
+    +'<thead>'
+    +'  <tr>'
+    +'    <th>Fecha</th>'
+    +'    <th>Peso</th>'
+    +'    <th>Peso seco</th>'
+    +'    <th>Tensión arterial</th>'
+    +'    <th>Hemoglobina</th>'
+    +'    <th>Colesterol Total</th>'
+    +'    <th>Fósforo</th>'
+    +'    <th>Glicemia</th>'
+    +'    <th>Potasio</th>'
+    +'    <th>Triglicéridos</th>'
+    +'    <th>Nitrógeno Uréico</th>'
+    +'    <th>LDH</th>'
+    +'    <th>HDL</th>'
+    +'    <th>Glucosa</th>'
+    +'    <th>Creatinina</th>'
+    +'    <th>KT/V</th>'
+    +'  </tr>'
+    +'</thead>'
+    +'<tbody>';
+    
+    chequeos.forEach(chequeo => {
+      console.log(chequeo.cita.fecha.split("T")[0]);
+    msg+=` <tr>
+      <td style="font-size:90%">${chequeo.cita.fecha.split("T")[0]}</td>
+       <td style="font-size:90%">${chequeo.peso} Kgs.</td>
+       <td style="font-size:90%">${chequeo.peso_seco} Kgs.</td>
+       <td style="font-size:90%">${chequeo.tensionArterial} mm Hg</td>
+       <td style="font-size:90%">${chequeo.hemoglobina} g/L</td>
+       <td style="font-size:90%">${chequeo.colesterolTotal} mg/dL</td>
+       <td style="font-size:90%">${chequeo.fosforo} mg/dL</td>
+       <td style="font-size:90%">${chequeo.glicemia} mg/dL</td>
+       <td style="font-size:90%">${chequeo.potasio} mmol/L</td>
+       <td style="font-size:90%">${chequeo.trigliceridos} mg/dL</td>
+       <td style="font-size:90%">${chequeo.nitrogenoUreico} mg/dL</td>
+       <td style="font-size:90%">${chequeo.ldh} U/L</td>
+       <td style="font-size:90%">${chequeo.hdl} mg/dL</td>
+       <td style="font-size:90%">${chequeo.glucosa} mg/dL</td>
+       <td style="font-size:90%">${chequeo.creatinina} mg/dL</td>
+       <td style="font-size:90%">${chequeo.ktv}</td>
+      </tr>`;
+    
+    
+    });
+    console.log(msg);
+    msg+='</tbody>'
+    +'</table></div>';
+    document.getElementById("chequeos").classList.add("active");
+    document.getElementById("visitas").classList.remove("active");
+    document.getElementById("visitaTable").innerHTML=msg;
+    new DataTable('#chequeosTabla', {
+        language: {
+            url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json',
+        },
+    })
+  }
+
 
   let datos= async () => {
     let data=new Array();
@@ -617,6 +740,7 @@ let tablaRecambios=async(recambios)=>{
     return data;
   }
 
+  
 let mostrarPrecripcionMedico=async (prescripcion) => {
   document.getElementById("actual").classList.add("active");
   document.getElementById("historico").classList.remove("active");
@@ -649,6 +773,7 @@ let mostrarPrecripcionMedico=async (prescripcion) => {
     <li><a class="dropdown-item" onclick="mostrarVisita()">Ver información de visitas a especialista</a></li>
     <li><a class="dropdown-item" onclick="agregarChequeo()">Agregar chequeo mensual</a></li>
     <li><a class="dropdown-item" onclick="mostrarChequeo()">Ver información chequeo mensual</a></li>
+    <li><a class="dropdown-item" href="historicoSeguimiento.html">Historial seguimiento mensual</a></li>
   </ul>
 </div>
 <br>
@@ -706,7 +831,8 @@ let mostrarPrecripcionMedico=async (prescripcion) => {
                   <div class="text-end">
                   ${recambiosHechos==null||recambiosHechos==undefined || recambiosHechos.length==0?'<a href="editarPrescripcion.html" class="btn btn-primary">Editar</a>':""}
                   <a href="recambiosPaciente.html?idCita=${prescripcion.cita.idCita}" class="btn btn-primary">Recambios</a>
-                  <a onclick="finalizar(${prescripcion.cita.idCita})" class="btn btn-primary">Finalizar</a>
+                  <a href="" onclick="finalizar(${prescripcion.cita.idCita})" class="btn btn-primary">Finalizar</a>
+                  
                   </div>
                   </div>
   `;
@@ -726,7 +852,7 @@ let mostrarHistoricoMedico=async (prescripciones) => {
   <thead>
     <tr>
       <th>#</th>
-      <th>Fecha inicico</th>
+      <th>Fecha inicio</th>
       <th>Fecha fin</th>
       <th>Orificio de Salida</th>
       <th>Acciones</th>
@@ -742,7 +868,7 @@ let mostrarHistoricoMedico=async (prescripciones) => {
         <td>${CryptoJS.AES.decrypt(prescripcion.cita.orificioSalida,"clave_secreta").toString(CryptoJS.enc.Utf8)}</td>
         <td>
         <a class="icon-link" onclick="antigua(${prescripcion.cita.idCita})"> 
-        <img src="../img/ver.png" class="ver"/>
+        <img src="../img/ver.png" class="ver" alt="Ver recambios"/>
         </a>
         </td>
       </tr>`
@@ -963,7 +1089,6 @@ let generarPrescripcionesLlenados=async()=>{
   let prescripcionesDia=datos.prescipcionDia;
   let recambios=datos.recambios;
   var cantidad=document.getElementById("selectCantidad").value;
-
   let containerExtra = document.getElementById("containerExtra");
   containerExtra.innerHTML = "";
   let msg="";
@@ -973,7 +1098,7 @@ let generarPrescripcionesLlenados=async()=>{
   msg+=
   '<div class="form-row">'+
   '<div class="form-column">' +
-  '<label for="orificio" id="data">Orificio:</label>' +
+  '<label for="orificio" id="data">Orificio:</label><label id="asq">*</label>' +
   '<br>' +
         '<select id="selectedOrificio" required>'+
           '<option value="">Seleccione...</option>'+
@@ -987,7 +1112,7 @@ let generarPrescripcionesLlenados=async()=>{
         
   '</div>'+
   '<div class="form-column">' +
-      '<label id="data">Fecha Final de la prescripción:</label>';
+      '<label id="data">Fecha Final de la prescripción:</label><label id="asq">*</label>';
       let fechaManana = new Date();
       fechaManana.setDate(fechaManana.getDate() + 1);
       msg += `<input type="date" class="fechaFin" id="fechaFin" min="${fechaManana.toISOString().split('T')[0]}" required>`+
@@ -1011,7 +1136,7 @@ let generarPrescripcionesLlenados=async()=>{
       '</div>' +    
       '</div>' +             
       '<div class="form-column">' +
-      '<label for="recambios" id="data">Cantidad de recambios diarios:<label id="asq">*</label></label>' +
+      '<label for="recambios" id="data">Cantidad de Recambios diarios:<label id="asquerisco">*</label></label>' +
       '<br>' +
       '<select id="selectedCantidad' + idCantidad + '" required>'+
               '<option value="">0</option>'+
@@ -1075,7 +1200,7 @@ let generarPrescripcionesLlenados=async()=>{
   '<a type="button" href="prescripcionesM.html" class="cancelar">Cancelar</a>' +
   '</div>' +
   '<div class="btn-save">' +
-  '<button type="submit" class="guardarPac">Actualizar</button>' +
+  '<button type="submit" data-toggle="modal" id="editarPrescripcion" class="guardarPac">Actualizar</button>' +
   '</div>' +
   '</div>'+
   '</form>';
@@ -1099,105 +1224,104 @@ let generarPrescripcionesLlenados=async()=>{
     if(i<recambios.length){
   selCantidad.value = recambios[i].length;
     }
+
   selCantidad.addEventListener("change", function() {
     const cantidadSeleccionada = parseInt(selCantidad.value);
    
-    if(cantidadSeleccionada !== 0) {
-      generarSelectsLlenados(idCantidad);    }
+    if (cantidadSeleccionada !== 0) {
+      generarSelectsLlenados(idCantidad, document.getElementById("selectedCantidad" + idCantidad).value);    }
     
   });
 
    
-    generarSelectsLlenados(idCantidad);
+    generarSelectsLlenados(idCantidad, document.getElementById("selectedCantidad" + idCantidad).value);
    
   }
 }
 
 
-let  generarSelectsLlenados=async(idCantidad)=> {
-  var select = document.getElementById("selectedCantidad" + idCantidad);
-  
-  if (select.value !== "") {
-    var cantidad = document.getElementById("selectedCantidad" + idCantidad).value;
-    var container = document.getElementById("selectContainer" + idCantidad);
-    container.innerHTML = ""; 
+let generarSelectsLlenados = async (idCantidad, cantidadSeleccionada) => {
+ 
+  var container = document.getElementById("selectContainer" + idCantidad);
+  container.innerHTML = "";
 
-    var row = document.createElement("div");
-    row.className = "row";
+  var row = document.createElement("div");
+  row.className = "row";
 
-    for (var i = 0; i < cantidad; i++) {
-        var idConcentracion = "concentracion" + (i + 1)+""+idCantidad; 
+  for (var i = 0; i < cantidadSeleccionada; i++) {
+    var idConcentracion = "concentracion" + (i + 1)+""+idCantidad; 
 
-        var col = document.createElement("div");
-        col.id = "selectsPrescripcion";
-        col.className = "col-12 col-md-6 col-lg-4 col-xl-3"; 
+    var col = document.createElement("div");
+    col.id = "selectsPrescripcion";
+    col.className = "col-12 col-md-6 col-lg-4 col-xl-3"; 
+    
+    var selectContainer = document.createElement("div");
+    selectContainer.className = "form-group";
 
-        var selectContainer = document.createElement("div");
-        selectContainer.className = "form-group";
+    var label = document.createElement("label");
+    label.className = "form-label";
+    label.id = "data";
+    label.for = idConcentracion;
+    label.innerText = "Concentración " + (i + 1) + ":"; 
+    var asquerisco = document.createElement("label");
+    asquerisco.id="asq";
+    asquerisco.innerText= " *";
 
-        var label = document.createElement("label");
-        label.className = "form-label";
-        label.id = "labelContrasentacion";
-        label.for = idConcentracion;
-        label.innerText = "Concentración " + (i + 1) + ":"; 
-        
+    var select = document.createElement("select");
+    select.id = idConcentracion;
+    select.setAttribute("required", "true");
 
-        var select = document.createElement("select");
-        select.className = "form-control";
-        select.id = idConcentracion;
-        select.setAttribute("required", "true");
+    var opciones = ["Seleccione...", "1.5%", "2.5%", "4.25%"];
 
-        var opciones = ["Seleccione...", "1.5%", "2.5%", "4.25%"];
+    var rang = document.createElement("label");
+    rang.id="data";
+    rang.for="rangoH";
 
-        var rang = document.createElement("label");
-        rang.id="data";
-        rang.for="rangoH";
+    var textRango = document.createElement("label");
+    textRango.id="data";
+    textRango.for="";
+    textRango.innerText ="Rango de Horas: " ;
+    
+    var asquer = document.createElement("label");
+    asquer.id="asq";
+    asquer.innerText= " *";
 
-        var textRango = document.createElement("label");
-        textRango.id="data";
-        textRango.for="";
-        textRango.innerText ="Rango de Horas:";
-        
-        var asquer = document.createElement("label");
-        asquer.id="data";
-        asquer.innerText="*";
-
-        var rangoH=document.createElement("input");
-        rangoH.type="number";
+    var rangoH=document.createElement("input");
+    rangoH.type="number";
+    rangoH.type="number";
         rangoH.min="1";
         rangoH.max="15";
-        rangoH.className="rango";
-        rangoH.id = "rango"+idConcentracion;
-        rangoH.setAttribute("required", "true");
+    rangoH.className="rango";
+    rangoH.id = "rango"+idConcentracion;
+    rangoH.setAttribute("required", "true");
 
-        for (var j = 0; j < opciones.length; j++) {
-            var option = document.createElement("option");
-            if(j==0){
-              option.value = opciones[j];
-              option.value="";
-              select.appendChild(option);
-            }
-            else{
-            option.value = opciones[j];
-            option.text = opciones[j];
-            select.appendChild(option);
-            }
+    for (var j = 0; j < opciones.length; j++) {
+        var option = document.createElement("option");
+        if(j==0){
+          option.value = opciones[j];
+          option.value="";
+          select.appendChild(option);
         }
-
-        selectContainer.appendChild(label);
-        selectContainer.appendChild(select);
-        selectContainer.appendChild(rang);
-        selectContainer.appendChild(textRango);
-        selectContainer.appendChild(asquer);
-        selectContainer.appendChild(rangoH);
-        
-
-        col.appendChild(selectContainer);
-        row.appendChild(col);
+        else{
+        option.value = opciones[j];
+        option.text = opciones[j];
+        select.appendChild(option);
+        }
     }
 
-    container.appendChild(row);
-  }
+    selectContainer.appendChild(label);
+    selectContainer.appendChild(asquerisco);
+    selectContainer.appendChild(select);
+    selectContainer.appendChild(rang);
+    selectContainer.appendChild(textRango);
+    selectContainer.appendChild(asquer);
+    selectContainer.appendChild(rangoH);
+    
+
+    col.appendChild(selectContainer);
+    row.appendChild(col);
+}
+  container.appendChild(row);
 
   let datos = await datosEditarPrescripcion();
   var cantidad=document.getElementById("selectCantidad").value;
@@ -1206,7 +1330,7 @@ let  generarSelectsLlenados=async(idCantidad)=> {
   let prescipcionesDia=datos.prescipcionDia;
 
   await new Promise((resolve) => setTimeout(resolve, 0));
-  for(var i=0;i<cantidad.length;i++){
+  for(var i=0;i<recambios.length;i++){
     let idCantidad = i+1;
     let recambio=recambios[i];
     let prescipcionDia=prescipcionesDia[i];
@@ -1301,47 +1425,67 @@ let mostrarChequeo=async()=>{
           <div class="">
           <div class="row">
           <div class="col-6 p-3">
-          <div class="row border p-2">
-          <div class="centrar-label col-6"><label class="form-label" for="tensionArterial">Tension Arterial</label></div>
-          <div class="col-6"><input class="form-control" type="number" name="chequeo" id="tensionArterial" disabled value="`+chequeo.tensionArterial+`"></input></div>
+          <div class="row mt-2 border p-2">
+          <div class="centrar-label col-6"><label class="form-label" for="peso">Peso:</label></div>
+          <div class="col-6"><input class="form-control" type="text" name="chequeo" id="peso" disabled value="`+chequeo.peso+` Kgs. "></input></div>
           </div>
           <div class="row mt-2 border p-2">
-          <div class="centrar-label col-6"><label class="form-label" for="colesterolTotal">Colesterol Total</label></div>
-          <div class="col-6"><input class="form-control" type="number" name="chequeo" id="colesterolTotal" disabled value="`+chequeo.colesterolTotal+`"></input></div>
+          <div class="centrar-label col-6"><label class="form-label" for="tensionArterial">Tensión Arterial:</label></div>
+          <div class="col-6"><input class="form-control" type="text" name="chequeo" id="tensionArterial" disabled value="`+chequeo.tensionArterial+` mm Hg"></input></div>
           </div>
           <div class="row mt-2 border p-2">
-          <div class="centrar-label col-6"><label class="form-label" for="glicemia"> Glicemia</label></div>
-          <div class="col-6"><input class="form-control" type="number" name="chequeo" id="glicemia" disabled value="`+chequeo.glicemia+`"></input></div>
+          <div class="centrar-label col-6"><label class="form-label" for="colesterolTotal">Colesterol Total:</label></div>
+          <div class="col-6"><input class="form-control" type="text" name="chequeo" id="colesterolTotal" disabled value="`+chequeo.colesterolTotal+` mg/dL"></input></div>
+          </div>
+          <div class="row mt-2 border p-2">
+          <div class="centrar-label col-6"><label class="form-label" for="glicemia"> Glicemia:</label></div>
+          <div class="col-6"><input class="form-control" type="text" name="chequeo" id="glicemia" disabled value="`+chequeo.glicemia+` mg/dL"></input></div>
           </div>
           <div class="row mt-2 border p-2">
           <div class="centrar-label col-6"><label class="form-label" for="triglicerios">Triglicerios:</label></div>
-          <div class="col-6"><input class="form-control" type="number" name="chequeo" id="triglicerios" disabled value="`+chequeo.trigliceridos+`"></input></div>
+          <div class="col-6"><input class="form-control" type="text" name="chequeo" id="triglicerios" disabled value="`+chequeo.trigliceridos+` mg/dL"></input></div>
           </div>
           <div class="row mt-2 border p-2">
           <div class="centrar-label col-6"><label class="form-label" for="ldh">LDH:</label></div>
-          <div class="col-6"><input class="form-control" type="number" name="chequeo" id="ldh" disabled value="`+chequeo.ldh+`"></input></div>
+          <div class="col-6"><input class="form-control" type="text" name="chequeo" id="ldh" disabled value="`+chequeo.ldh+` U/L"></input></div>
+          </div>
+          <div class="row mt-2 border p-2">
+          <div class="centrar-label col-6"><label class="form-label" for="glucosa">Glucosa:</label></div>
+          <div class="col-6"><input class="form-control" type="text" name="chequeo" id="glucosa" disabled value="`+chequeo.glucosa+` mg/dL"></input></div>
+          </div>
+          <div class="row mt-2 border p-2">
+          <div class="centrar-label col-6"><label class="form-label" for="ktv">KT/V:</label></div>
+          <div class="col-6"><input class="form-control" type="number" name="chequeo" id="ktv" disabled value="`+chequeo.ktv+`"></input></div>
           </div>
           </div>
           <div class="col-6 p-3">
-          <div class="row border p-2">
-          <div class="centrar-label col-6"><label class="form-label" for="hemoglobina"> Hemoglobina</label></div>
-          <div class="col-6"><input class="form-control" type="number" name="chequeo" id="hemoglobina" disabled value="`+chequeo.hemoglobina+`"></input></div>
+          <div class="row mt-2 border p-2">
+          <div class="centrar-label col-6"><label class="form-label" for="peso_seco">Peso seco:</label></div>
+          <div class="col-6"><input class="form-control" type="text" name="chequeo" id="peso_seco" disabled value="`+chequeo.peso_seco+` Kgs. "></input></div>
+          </div>
+          <div class="row mt-2 border p-2">
+          <div class="centrar-label col-6"><label class="form-label" for="hemoglobina"> Hemoglobina:</label></div>
+          <div class="col-6"><input class="form-control" type="text" name="chequeo" id="hemoglobina" disabled value="`+chequeo.hemoglobina+` g/L"></input></div>
           </div>
           <div class="row mt-2 border p-2">
           <div class="centrar-label col-6"><label class="form-label" for="fosforo">Fósforo:</label></div>
-          <div class="col-6"><input class="form-control" type="number" name="chequeo" id="fosforo" disabled value="`+chequeo.fosforo+`"></input></div>
+          <div class="col-6"><input class="form-control" type="text" name="chequeo" id="fosforo" disabled value="`+chequeo.fosforo+`mg/dL"></input></div>
           </div>
           <div class="row mt-2 border p-2">
           <div class="centrar-label col-6"><label class="form-label" for="potasio">Potasio:</label></div>
-          <div class="col-6"><input class="form-control" type="number" name="chequeo" id="potasio" disabled value="`+chequeo.potasio+`"></input></div>
+          <div class="col-6"><input class="form-control" type="text" name="chequeo" id="potasio" disabled value="`+chequeo.potasio+`mmol/L"></input></div>
           </div>
           <div class="row mt-2 border p-2">
           <div class="centrar-label col-6"><label class="form-label" for="nitrogenoUreico">Nitrógeno Uréico:</label></div>
-          <div class="col-6"><input class="form-control" type="number" name="chequeo" id="nitrogenoUreico" disabled value="`+chequeo.nitrogenoUreico+`"></input></div>
+          <div class="col-6"><input class="form-control" type="text" name="chequeo" id="nitrogenoUreico" disabled value="`+chequeo.nitrogenoUreico+` mg/dL"></input></div>
           </div>
           <div class="row mt-2 border p-2">
           <div class="centrar-label col-6"><label class="form-label" for="hdl">HDL:</label></div>
-          <div class="col-6"><input class="form-control" type="number" name="chequeo" id="hdl" disabled value="`+chequeo.hdl+`"></input></div>
+          <div class="col-6"><input class="form-control" type="text" name="chequeo" id="hdl" disabled value="`+chequeo.hdl+` mg/dL"></input></div>
+          </div>
+          <div class="row mt-2 border p-2">
+          <div class="centrar-label col-6"><label class="form-label" for="creatinina">Creatinina:</label></div>
+          <div class="col-6"><input class="form-control" type="text" name="chequeo" id="creatinina" disabled value="`+chequeo.creatinina+` mg/dL"></input></div>
           </div>
           </div>
            </div>
@@ -1378,6 +1522,9 @@ let mostrarVisita=async()=>{
   let trabajoSocial=visita.trabajoSocial;
   let auxiliarAdmisiones=visita.auxiliarAdmisiones;
   let farmacia=visita.farmacia;
+  let entrenamiento=visita.entrenamiento;
+  let reentrenamiento=visita.reentrenamiento;
+  let visitadomiciliaria=visita.visita_domiciliaria;
   msg +=
           `<div class="modal-dialog">
           <div class="modal-content">
@@ -1390,14 +1537,14 @@ let mostrarVisita=async()=>{
           <label class="cedulaPaciente" id="cedulaPaciente"><b>Nombre: </b>` + nombrePaciente + `</label><br>
           <div class="especialistas"><br><form id="checkboxForm">
           <div class="row">
-          <div class="col-6"><img src="../img/nefrologo.png" alt="" width="50" height="55" />&nbsp
+          <div class="col-6"><img src="../img/nefrologo.png" alt="Nefrología" width="50" height="55" />&nbsp
           ${nefrologia?
             `<input class="form-check-input" type="checkbox" name="visita" value="nefrologia" id="nefrologia" checked disabled>`:`<input class="form-check-input" type="checkbox" name="visita" value="nefrologia" id="nefrologia" disabled>`}
             <label class="form-check-label" for="flexCheckDefault">
               Nefrólogo
             </label>
           </div>
-           <div class="col-6"><img src="../img/enfermera.png" alt="" width="50" height="55" />&nbsp 
+           <div class="col-6"><img src="../img/enfermera.png" alt="Enfermería" width="50" height="55" />&nbsp 
           ${enfermeria?
           `<input class="form-check-input" type="checkbox" name="visita" value="enfermeria" id="enfermeria" checked disabled>`:`<input class="form-check-input" type="checkbox" name="visita" value="enfermeria" id="enfermeria" disabled>`}
             <label class="form-check-label" for="flexCheckDefault">
@@ -1406,14 +1553,14 @@ let mostrarVisita=async()=>{
           </div>
           </div><br>
           <div class="row">
-          <div class="col-6"><img src="../img/nutricion.png" alt="" width="50" height="55" />&nbsp
+          <div class="col-6"><img src="../img/nutricion.png" alt="Nutrición" width="50" height="55" />&nbsp
           ${nutricion?
           `<input class="form-check-input" type="checkbox" name="visita" value="nutricion" id="nutricion" checked disabled>`:`<input class="form-check-input" type="checkbox" name="visita" value="nutricion" id="nutricion" disabled>`}
             <label class="form-check-label" for="flexCheckDefault">
               Nutricionista
             </label>
           </div>
-          <div class="col-6"><img src="../img/psicologo.png" alt="" width="50" height="55" />&nbsp
+          <div class="col-6"><img src="../img/psicologo.png" alt="Psicología" width="50" height="55" />&nbsp
           ${psicologia?
             `<input class="form-check-input" type="checkbox" name="visita" value="psicologia" id="psicologia" checked disabled>`:`<input class="form-check-input" type="checkbox" name="visita" value="psicologia" id="psicologia" disabled>`}
             <label class="form-check-label" for="flexCheckDefault">
@@ -1422,14 +1569,14 @@ let mostrarVisita=async()=>{
           </div>
           </div><br>
           <div class="row">
-          <div class="col-6"><img src="../img/asistencia.png" alt="" width="50" height="55" />&nbsp
+          <div class="col-6"><img src="../img/asistencia.png" alt="Trabajo social" width="50" height="55" />&nbsp
           ${trabajoSocial?
             `<input class="form-check-input" type="checkbox" name="visita" value="trabajoSocial" id="trabajoSocial" checked disabled>`:`<input class="form-check-input" type="checkbox" name="visita" value="trabajoSocial" id="trabajoSocial" disabled>`}
             <label class="form-check-label" for="flexCheckDefault">
               Trabajador Social
             </label>
           </div>
-          <div class="col-6"><img src="../img/admision.png" alt="" width="50" height="55" />&nbsp
+          <div class="col-6"><img src="../img/admision.png" alt="Auxiliar de admisiones" width="50" height="55" />&nbsp
           ${auxiliarAdmisiones?
             `<input class="form-check-input" type="checkbox" name="visita" value="auxiliarAdmisiones" id="auxiliarAdmisiones" checked disabled>`:`<input class="form-check-input" type="checkbox" name="visita" value="auxiliarAdmisiones" id="auxiliarAdmisiones" disabled>`}
             <label class="form-check-label" for="flexCheckDefault">
@@ -1437,15 +1584,39 @@ let mostrarVisita=async()=>{
             </label>
           </div>
           </div><br>
-          <div class="row text-center">
-          <div class="col-12"><img src="../img/farmacia.png" alt="farmacia" width="50" height="55" />&nbsp
+          <div class="row">
+          <div class="col-6"><img src="../img/farmacia.png" alt="farmacia" width="50" height="55" />&nbsp
           ${farmacia?
             `<input class="form-check-input" type="checkbox" name="visita" value="farmacia" id="farmacia" checked disabled>`:`<input class="form-check-input" type="checkbox" name="visita" value="farmacia" id="farmacia" disabled>`}
             <label class="form-check-label" for="flexCheckDefault">
               Farmacia
             </label>
           </div>
-          </div></form>
+          <div class="col-6"><img src="../img/entrenamiento.png" alt="entrenamiento" width="50" height="55" />&nbsp
+          ${entrenamiento?
+            `<input class="form-check-input" type="checkbox" name="visita" value="entrenamiento" id="entrenamiento" checked disabled>`:`<input class="form-check-input" type="checkbox" name="visita" value="entrenamiento" id="entrenamiento" disabled>`}
+            <label class="form-check-label" for="flexCheckDefault">
+              Entrenamiento
+            </label>
+          </div>
+          </div><br>
+          <div class="row">
+          <div class="col-6"><img src="../img/reentrenamiento.png" alt="reentrenamiento" width="50" height="55" />&nbsp
+          ${reentrenamiento?
+            `<input class="form-check-input" type="checkbox" name="visita" value="reentrenamiento" id="reentrenamiento" checked disabled>`:`<input class="form-check-input" type="checkbox" name="visita" value="reentrenamiento" id="reentrenamiento" disabled>`}
+            <label class="form-check-label" for="flexCheckDefault">
+              Reentrenamiento
+            </label>
+          </div>
+          <div class="col-6"><img src="../img/casa.png" alt="visitadomiciliaria" width="50" height="55" />&nbsp
+          ${visitadomiciliaria?
+            `<input class="form-check-input" type="checkbox" name="visita" value="visitadomiciliaria" id="visitadomiciliaria" checked disabled>`:`<input class="form-check-input" type="checkbox" name="visita" value="visitadomiciliaria" id="visitadomiciliaria" disabled>`}
+            <label class="form-check-label" for="flexCheckDefault">
+              Visita domiciliaria
+            </label>
+          </div>
+          </div>
+          </form>
           </div>
           </div>
           <div class="modal-footer">
@@ -1484,48 +1655,68 @@ else{
           '<label class="cedulaPaciente" id="cedulaPaciente"><b>Nombre: </b>' + nombre + '</label><br>' +
           '<div class="especialistas"><br><form id="checkboxForm">' +
           '<div class="row">' +
-          '<div class="col-6"><img src="../img/nefrologo.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="nefrologia" id="nefrologia">' +
+          '<div class="col-6"><img src="../img/nefrologo.png" alt="Nefrolofía" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="nefrologia" id="nefrologia">' +
           '  <label class="form-check-label" for="flexCheckDefault">' +
           '    Nefrólogo' +
           '  </label>' +
           '</div>' +
-          '<div class="col-6"><img src="../img/enfermera.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="enfermeria" id="enfermeria">' +
+          '<div class="col-6"><img src="../img/enfermera.png" alt="Enfermería" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="enfermeria" id="enfermeria">' +
           '  <label class="form-check-label" for="flexCheckDefault">' +
           '    Enfermera' +
           '  </label>' +
           '</div>' +
           '</div><br>' +
           '<div class="row">' +
-          '<div class="col-6"><img src="../img/nutricion.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="nutricion" id="nutricion">' +
+          '<div class="col-6"><img src="../img/nutricion.png" alt="Nutrición" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="nutricion" id="nutricion">' +
           '  <label class="form-check-label" for="flexCheckDefault">' +
           '    Nutricionista' +
           '  </label>' +
           '</div>' +
-          '<div class="col-6"><img src="../img/psicologo.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="psicologia" id="psicologia">' +
+          '<div class="col-6"><img src="../img/psicologo.png" alt="Psicología" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="psicologia" id="psicologia">' +
           '  <label class="form-check-label" for="flexCheckDefault">' +
           '    Psicólogo' +
           '  </label>' +
           '</div>' +
           '</div><br>' +
           '<div class="row">' +
-          '<div class="col-6"><img src="../img/asistencia.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="trabajoSocial" id="trabajoSocial">' +
+          '<div class="col-6"><img src="../img/asistencia.png" alt="Trabajo social" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="trabajoSocial" id="trabajoSocial">' +
           '  <label class="form-check-label" for="flexCheckDefault">' +
           '    Trabajador Social' +
           '  </label>' +
           '</div>' +
-          '<div class="col-6"><img src="../img/admision.png" alt="" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="auxiliarAdmisiones" id="auxiliarAdmisiones">' +
+          '<div class="col-6"><img src="../img/admision.png" alt="Auxiliar de admisiones" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="auxiliarAdmisiones" id="auxiliarAdmisiones">' +
           '  <label class="form-check-label" for="flexCheckDefault">' +
           '    Aux. de Admisiones' +
           '  </label>' +
           '</div>' +
           '</div><br>' +
-          '<div class="row text-center">' +
-          '<div class="col-12"><img src="../img/farmacia.png" alt="farmacia" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="farmacia" id="farmacia">' +
+          '<div class="row">' +
+          '<div class="col-6"><img src="../img/farmacia.png" alt="farmacia" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="farmacia" id="farmacia">' +
           '  <label class="form-check-label" for="flexCheckDefault">' +
           '    Farmacia' +
           '  </label>' +
           '</div>' +
-          '</div></form>' +
+          '<div class="col-6"><img src="../img/entrenamiento.png" alt="entrenamiento" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="entrenamiento" id="entrenamiento">' +
+          '  <label class="form-check-label" for="flexCheckDefault">' +
+          '    Entrenamiento' +
+          '  </label>' +
+          '</div>' +
+          '</div><br>'+
+
+          '<div class="row">' +
+          '<div class="col-6"><img src="../img/reentrenamiento.png" alt="reentrenamiento" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="reentrenamiento" id="reentrenamiento">' +
+          '  <label class="form-check-label" for="flexCheckDefault">' +
+          '    Reentrenamiento' +
+          '  </label>' +
+          '</div>' +
+          '<div class="col-6"><img src="../img/casa.png" alt="visitadomiciliaria" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="visitadomiciliaria" id="visitadomiciliaria">' +
+          '  <label class="form-check-label" for="flexCheckDefault">' +
+          '    Visita Domiciliaria' +
+          '  </label>' +
+          '</div>' +
+          '</div>'+
+
+          '</form>' +
           '</div>' +
           '</div>' +
           '<div class="modal-footer">' +
@@ -1564,30 +1755,46 @@ else{
   '<div class="">' +
   '<div class="row">' +
   '<div class="col-6 p-3">' +
-  '<div class="row border p-2">' +
-  '<div class="centrar-label col-6"><label class="form-label" for="tensionArterial">Tension Arterial</label></div>' +
-  '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="tensionArterial" /></div>' +
+  '<div class="row mt-2  border p-2">' +
+  '<div class="centrar-label col-6"><label class="form-label" for="Peso">Peso:</label></div>' +
+  '<div class="col-6"><input class="form-control" placeholder="peso en Kgs." type="number" name="chequeo" id="peso" /></div>' +
   '</div>' +
   '<div class="row mt-2 border p-2">' +
-  '<div class="centrar-label col-6"><label class="form-label" for="colesterolTotal">Colesterol Total</label></div>' +
+  '<div class="centrar-label col-6"><label class="form-label" for="tensionArterial">Tensión Arterial:</label></div>' +
+  '<div class="col-6"><input class="form-control" placeholder="Tensión en mm Hg" type="number" name="chequeo" id="tensionArterial" /></div>' +
+  '</div>' +
+  '<div class="row mt-2 border p-2">' +
+  '<div class="centrar-label col-6"><label class="form-label" for="colesterolTotal">Colesterol Total:</label></div>' +
   '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="colesterolTotal" /></div>' +
   '</div>' +
   '<div class="row mt-2 border p-2">' +
-  '<div class="centrar-label col-6"><label class="form-label" for="glicemia"> Glicemia</label></div>' +
+  '<div class="centrar-label col-6"><label class="form-label" for="glicemia"> Glicemia:</label></div>' +
   '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="glicemia" /></div>' +
   '</div>' +
   '<div class="row mt-2 border p-2">' +
   '<div class="centrar-label col-6"><label class="form-label" for="trigliceridos">Trigliceridos:</label></div>' +
-  '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="trigliceridos" /></div>' +
+  '<div class="col-6"><input class="form-control" placeholder="Trigliceridos en mg/dL" type="number" name="chequeo" id="trigliceridos" /></div>' +
   '</div>' +
   '<div class="row mt-2 border p-2">' +
   '<div class="centrar-label col-6"><label class="form-label" for="ldh">LDH:</label></div>' +
   '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="ldh" /></div>' +
   '</div>' +
+  '<div class="row mt-2 border p-2">' +
+  '<div class="centrar-label col-6"><label class="form-label" for="ldh">Glucosa:</label></div>' +
+  '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="glucosa" /></div>' +
+  '</div>' +
+  '<div class="row mt-2 border p-2">' +
+  '<div class="centrar-label col-6"><label class="form-label" for="ktv">KT/V:</label></div>' +
+  '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="ktv" /></div>' +
+  '</div>' +
   '</div>' +
   '<div class="col-6 p-3">' +
-  '<div class="row border p-2">' +
-  '<div class="centrar-label col-6"><label class="form-label" for="hemoglobina"> Hemoglobina</label></div>' +
+  '<div class="row mt-2 border p-2">' +
+  '<div class="centrar-label col-6"><label class="form-label" for="pesoSeco">Peso seco:</label></div>' +
+  '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="peso_seco" /></div>' +
+  '</div>' +
+  '<div class="row mt-2 border p-2">' +
+  '<div class="centrar-label col-6"><label class="form-label" for="hemoglobina"> Hemoglobina:</label></div>' +
   '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="hemoglobina" /></div>' +
   '</div>' +
   '<div class="row mt-2 border p-2">' +
@@ -1606,10 +1813,18 @@ else{
   '<div class="centrar-label col-6"><label class="form-label" for="hdl">HDL:</label></div>' +
   '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="hdl" /></div>' +
   '</div>' +
+  '<div class="row mt-2 border p-2">' +
+  '<div class="centrar-label col-6"><label class="form-label" for="hdl">Creatinina:</label></div>' +
+  '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="creatinina" /></div>' +
+  '</div>' +
+  
   '</div>' +
   ' </div>' +
   '</div>' +
   '</div>' +
+  
+  '</div'+
+  '<br>'+
   '<div class="modal-footer">' +
   '<button type="button" class="btn btn-secondary" href="prescripcionesM.html" data-bs-dismiss="modal">Cancelar</button>' +
   '<button type="submit" onclick="crearChequeoMensual(' + cedula + ')"" class="btn btn-primary">Guardar</button>' +
@@ -1646,7 +1861,11 @@ let editarChequeo=async()=>{
           <div class="row">
           <div class="col-6 p-3">
           <div class="row border p-2">
-          <div class="centrar-label col-6"><label class="form-label" for="tensionArterial">Tension Arterial</label></div>
+          <div class="centrar-label col-6"><label class="form-label" for="peso">Peso:</label></div>
+          <div class="col-6"><input class="form-control" type="number" name="chequeo" id="editarPeso" value="`+chequeo.peso+`"></input></div>
+          </div>
+          <div class="row border p-2">
+          <div class="centrar-label col-6"><label class="form-label" for="tensionArterial">Tensión Arterial:</label></div>
           <div class="col-6"><input class="form-control" type="number" name="chequeo" id="editarTensionArterial" value="`+chequeo.tensionArterial+`"></input></div>
           </div>
           <div class="row mt-2 border p-2">
@@ -1665,8 +1884,20 @@ let editarChequeo=async()=>{
           <div class="centrar-label col-6"><label class="form-label" for="ldh">LDH:</label></div>
           <div class="col-6"><input class="form-control" type="number" name="chequeo" id="editarLdh" value="`+chequeo.ldh+`"></input></div>
           </div>
+          <div class="row mt-2 border p-2">
+          <div class="centrar-label col-6"><label class="form-label" for="glucosa">Glucosa:</label></div>
+          <div class="col-6"><input class="form-control" type="number" name="chequeo" id="editarGlucosa" value="`+chequeo.glucosa+`"></input></div>
+          </div>
+          <div class="row mt-2 border p-2">
+          <div class="centrar-label col-6"><label class="form-label" for="ktv">KT/V:</label></div>
+          <div class="col-6"><input class="form-control" type="number" name="chequeo" id="editarKtv" value="`+chequeo.ktv+`"></input></div>
+          </div>
           </div>
           <div class="col-6 p-3">
+          <div class="row border p-2">
+          <div class="centrar-label col-6"><label class="form-label" for="peso_seco"> Peso seco:</label></div>
+          <div class="col-6"><input class="form-control" type="number" name="chequeo" id="editarPesoSeco" value="`+chequeo.peso_seco+`"></input></div>
+          </div>
           <div class="row border p-2">
           <div class="centrar-label col-6"><label class="form-label" for="hemoglobina"> Hemoglobina</label></div>
           <div class="col-6"><input class="form-control" type="number" name="chequeo" id="editarHemoglobina" value="`+chequeo.hemoglobina+`"></input></div>
@@ -1686,6 +1917,10 @@ let editarChequeo=async()=>{
           <div class="row mt-2 border p-2">
           <div class="centrar-label col-6"><label class="form-label" for="hdl">HDL:</label></div>
           <div class="col-6"><input class="form-control" type="number" name="chequeo" id="editarHdl" value="`+chequeo.hdl+`"></input></div>
+          </div>
+          <div class="row mt-2 border p-2">
+          <div class="centrar-label col-6"><label class="form-label" for="creatinina">Creatinina:</label></div>
+          <div class="col-6"><input class="form-control" type="number" name="chequeo" id="editarCreatinina" value="`+chequeo.creatinina+`"></input></div>
           </div>
           </div>
            </div>
@@ -1715,6 +1950,9 @@ let editarVisita=async()=>{
   let trabajoSocial=visita.trabajoSocial;
   let auxiliarAdmisiones=visita.auxiliarAdmisiones;
   let farmacia=visita.farmacia;
+  let entrenamiento=visita.entrenamiento;
+  let reentrenamiento=visita.reentrenamiento;
+  let visitadomiciliaria=visita.visita_domiciliaria;
   msg +=
           `<div class="modal-dialog">
           <div class="modal-content">
@@ -1729,14 +1967,14 @@ let editarVisita=async()=>{
           <input class="form-control" type="number" name="idCita" id="idCita" value="`+visita.cita.idCita+`" hidden>          
           <div class="especialistas"><br><form id="checkboxForm">
           <div class="row">
-          <div class="col-6"><img src="../img/nefrologo.png" alt="" width="50" height="55" />&nbsp
+          <div class="col-6"><img src="../img/nefrologo.png" alt="Nefrología" width="50" height="55" />&nbsp
           ${nefrologia?
             `<input class="form-check-input" type="checkbox" name="visita" value="nefrologia" id="editarNefrologia" checked >`:`<input class="form-check-input" type="checkbox" name="visita" value="nefrologia" id="editarNefrologia" >`}
             <label class="form-check-label" for="flexCheckDefault">
               Nefrólogo
             </label>
           </div>
-           <div class="col-6"><img src="../img/enfermera.png" alt="" width="50" height="55" />&nbsp 
+           <div class="col-6"><img src="../img/enfermera.png" alt="Enfermería" width="50" height="55" />&nbsp 
           ${enfermeria?
           `<input class="form-check-input" type="checkbox" name="visita" value="enfermeria" id="editarEnfermeria" checked>`:`<input class="form-check-input" type="checkbox" name="visita" value="enfermeria" id="editarEnfermeria" >`}
             <label class="form-check-label" for="flexCheckDefault">
@@ -1745,14 +1983,14 @@ let editarVisita=async()=>{
           </div>
           </div><br>
           <div class="row">
-          <div class="col-6"><img src="../img/nutricion.png" alt="" width="50" height="55" />&nbsp
+          <div class="col-6"><img src="../img/nutricion.png" alt="Nutrición" width="50" height="55" />&nbsp
           ${nutricion?
           `<input class="form-check-input" type="checkbox" name="visita" value="nutricion" id="editarNutricion" checked>`:`<input class="form-check-input" type="checkbox" name="visita" value="nutricion" id="editarNutricion" >`}
             <label class="form-check-label" for="flexCheckDefault">
               Nutricionista
             </label>
           </div>
-          <div class="col-6"><img src="../img/psicologo.png" alt="" width="50" height="55" />&nbsp
+          <div class="col-6"><img src="../img/psicologo.png" alt="Psicología" width="50" height="55" />&nbsp
           ${psicologia?
             `<input class="form-check-input" type="checkbox" name="visita" value="psicologia" id="editarPsicologia" checked>`:`<input class="form-check-input" type="checkbox" name="visita" value="psicologia" id="editarPsicologia">`}
             <label class="form-check-label" for="flexCheckDefault">
@@ -1761,14 +1999,14 @@ let editarVisita=async()=>{
           </div>
           </div><br>
           <div class="row">
-          <div class="col-6"><img src="../img/asistencia.png" alt="" width="50" height="55" />&nbsp
+          <div class="col-6"><img src="../img/asistencia.png" alt="Trabajo social" width="50" height="55" />&nbsp
           ${trabajoSocial?
             `<input class="form-check-input" type="checkbox" name="visita" value="trabajoSocial" id="editarTrabajoSocial" checked>`:`<input class="form-check-input" type="checkbox" name="visita" value="trabajoSocial" id="editarTrabajoSocial">`}
             <label class="form-check-label" for="flexCheckDefault">
               Trabajador Social
             </label>
           </div>
-          <div class="col-6"><img src="../img/admision.png" alt="" width="50" height="55" />&nbsp
+          <div class="col-6"><img src="../img/admision.png" alt="Auxiliar de admisiones" width="50" height="55" />&nbsp
           ${auxiliarAdmisiones?
             `<input class="form-check-input" type="checkbox" name="visita" value="auxiliarAdmisiones" id="editarAuxiliarAdmisiones" checked>`:`<input class="form-check-input" type="checkbox" name="visita" value="auxiliarAdmisiones" id="editarAuxiliarAdmisiones">`}
             <label class="form-check-label" for="flexCheckDefault">
@@ -1776,15 +2014,39 @@ let editarVisita=async()=>{
             </label>
           </div>
           </div><br>
-          <div class="row text-center">
-          <div class="col-12"><img src="../img/farmacia.png" alt="farmacia" width="50" height="55" />&nbsp
+          <div class="row">
+          <div class="col-6"><img src="../img/farmacia.png" alt="farmacia" width="50" height="55" />&nbsp
           ${farmacia?
             `<input class="form-check-input" type="checkbox" name="visita" value="farmacia" id="editarFarmacia" checked >`:`<input class="form-check-input" type="checkbox" name="visita" value="farmacia" id="editarFarmacia">`}
             <label class="form-check-label" for="flexCheckDefault">
               Farmacia
             </label>
           </div>
-          </div></form>
+          <div class="col-6"><img src="../img/entrenamiento.png" alt="entrenamiento" width="50" height="55" />&nbsp
+          ${entrenamiento?
+            `<input class="form-check-input" type="checkbox" name="visita" value="entrenamiento" id="editarEntrenamiento" checked >`:`<input class="form-check-input" type="checkbox" name="visita" value="entrenamiento" id="editarEntrenamiento">`}
+            <label class="form-check-label" for="flexCheckDefault">
+            Entrenamiento
+            </label>
+          </div>
+          </div><br>
+          <div class="row">
+          <div class="col-6"><img src="../img/reentrenamiento.png" alt="reentrenamiento" width="50" height="55" />&nbsp
+          ${reentrenamiento?
+            `<input class="form-check-input" type="checkbox" name="visita" value="reentrenamiento" id="editarReentrenamiento" checked >`:`<input class="form-check-input" type="checkbox" name="visita" value="reentrenamiento" id="editarReentrenamiento">`}
+            <label class="form-check-label" for="flexCheckDefault">
+            Reentrenamiento
+            </label>
+          </div>
+          <div class="col-6"><img src="../img/casa.png" alt="visita domiciliaria" width="50" height="55" />&nbsp
+          ${visitadomiciliaria?
+            `<input class="form-check-input" type="checkbox" name="visita" value="visitadomiciliaria" id="editarVisitaDomiciliaria" checked >`:`<input class="form-check-input" type="checkbox" name="visita" value="visitadomiciliaria" id="editarVisitaDomiciliaria">`}
+            <label class="form-check-label" for="flexCheckDefault">
+            Visita Domiciliaria
+            </label>
+          </div>
+          </div>
+          </form>
           </div>
           </div>
           <div class="modal-footer">

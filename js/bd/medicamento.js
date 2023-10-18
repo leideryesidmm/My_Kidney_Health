@@ -171,7 +171,7 @@ let listarMedicamentos= async()=>{
         intervaloTiempo:intervaloDesencriptado,
         nombre:nombreDesencriptado,
         tomas:tomasDesencriptadas,
-        via_Administracion:viaAdministracionDesencriptada,
+        viaAdministracion:viaAdministracionDesencriptada,
         idFormulaMedicamento:idFormulaMedicamento,
         recetado:recetado
       }
@@ -321,7 +321,7 @@ let actualizarMedicamento=async ()=> {
       "nombre": nombreEncriptado,
       "paciente": cedEncriptada,
       "tomas": document.getElementById("tomas").value,
-      "via_Administracion": document.getElementById("selectVias").value,
+      "viaAdministracion": document.getElementById("selectVias").value,
       "recetado":document.getElementById("recetado").value
   }
   console.log(formulamedicamento)
@@ -380,6 +380,9 @@ let eliminarMedicamento=async (idMedicamento)=> {
 }
 
 let crearMedicamento=async ()=> {
+  const btnMedicamento=document.getElementById("guardarmedicamento");
+  btnMedicamento.style.background="gray";
+  btnMedicamento.disabled="true";
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
   console.log(data);
@@ -417,7 +420,7 @@ console.log(concentracion);
       "nombre": nombreEncriptado,
       "paciente": cedEncriptada,
       "tomas": document.getElementById("tomas").value,
-      "via_Administracion": document.getElementById("selectVias").value,
+      "viaAdministracion": document.getElementById("selectVias").value,
       "recetado": recetado
   }
   console.log(formulamedicamento)

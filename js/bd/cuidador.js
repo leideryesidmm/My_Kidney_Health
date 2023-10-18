@@ -26,6 +26,10 @@ let obtenerCedulaEncriptada=async(cedula)=>{
 let crearCuidador = async () => {
   document.getElementById('agregarCuidador').addEventListener('submit', async function(event) {
     event.preventDefault();
+
+    var botonActualizar = document.getElementById("guardarCuidador");
+          botonActualizar.style.background = "gray";
+          botonActualizar.disabled = true;
     let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
       let cedul= decodeURIComponent(dato.cedula);
@@ -79,6 +83,7 @@ let crearCuidador = async () => {
       
       .then(response => {
         if(response.status===200){
+          
           $("#successModal").modal("show");
         }
       })
@@ -471,7 +476,9 @@ let cuidadorActivo= async()=>{
 */
 
 let actualizarCuidador = async () => {
-
+  var botonActualizar = document.getElementById("actCuid");
+  botonActualizar.style.background = "gray";
+  botonActualizar.disabled = true;
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
   console.log(data);
@@ -596,7 +603,10 @@ else{
   
 };
 
-let reactivarCuidador = async (cedulaCuidador) => {
+let reactivarCuidador = async (cedulaCuidador, cont) => {
+  const btnreactivar=document.getElementById("reactivarCuidador"+cont);
+  btnreactivar.style.filter= "grayscale(1)";
+  btnreactivar.disabled = true;
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
   console.log(data);
@@ -665,6 +675,17 @@ let reactivarCuidador = async (cedulaCuidador) => {
 }
 
 let inhabilitarCuidador=async()=>{
+
+  var botonActualizar = document.getElementById("inhabilitar");
+            botonActualizar.style.background = "gray";
+            botonActualizar.disabled = true;
+            if(document.getElementById("cambiar")!=null){
+            var botonCambiar = document.getElementById("cambiar");
+            botonCambiar.style.background = "gray";
+            botonCambiar.disabled = true;}
+            var botonNuevo = document.getElementById("nuevo");
+            botonNuevo.style.background = "gray";
+            botonNuevo.disabled = true;
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
   console.log(data);

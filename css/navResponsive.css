@@ -266,3 +266,7 @@ align-items: flex-start;
   font-size: large;
 }
 }
+
+.btn{
+  color: #fff;
+}

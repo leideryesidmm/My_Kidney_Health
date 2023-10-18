@@ -14,11 +14,12 @@
       crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   </head>
 
 <body>
         <div class="navbar" name="navbar" id="navbar" >
-          <div class="col-2"><a href="prescripciones.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a></div>
+          <div class="col-2"><a href="prescripciones.html" class="devolverse"><img src="../img/devolverseColor.png" alt="Ir atrás" id="icono"></a></div>
         <div class="col-8"><h1 class="title-alergias">Mis Recambios</h1></div>
         <div class="col-2"></div>
         </div>
@@ -78,7 +79,7 @@
           <div class="opcion">
             <label for="opcionEquivoco">
               <div class="imagen">
-                <img src="../img/orificioEquivoco.png" alt="Orificio equivoco" />
+                <img src="../img/orificioEquivoco.png" alt="Orificio equívoco" />
               </div>
             <input type="radio" name="opcion" id="opcionEquivoco" value="Equívoco" required/>
               Equívoco
@@ -114,18 +115,18 @@
         </div>
         <div class="btn-container">
           <a href="prescripciones.html" class="btn-cancelar">Cancelar</a>
-          <button type="submit" class="btn-nuevo">Agregar</button>
+          <button type="submit" class="btn-nuevo" data-toggle="modal" id="agregRecam">Agregar</button>
       </div>
           </form>
           
         </div>
 
-    <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal fade" id="successModal" data-backdrop="static" data-keyboard="false">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="successModalLabel">Aviso</h5>
-            <a href="prescripciones.html"><button type="button" class="close" aria-label="Close">
+            <a href="prescripciones.html"><button type="button" class="close" aria-label="Close" data-bs-dismiss="modal">
               <span aria-hidden="true">&times;</span>
             </button></a>
           </div>
@@ -133,18 +134,18 @@
             <p>Su recambio se ha guardado exitosamente</p>
           </div>
           <div class="modal-footer">
-            <a href="prescripciones.html"><button href="prescripciones.html" type="button" class="btn btn-primary">Aceptar</button></a>
+            <a href="prescripciones.html"><button href="prescripciones.html" type="button" data-bs-dismiss="modal" class="btn btn-primary">Aceptar</button></a>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="modal fade" id="modal3" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modal3" data-backdrop="static" data-keyboard="false">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="successModalLabel">Aviso</h5>
-            <a href="prescripciones.html"><button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <a href="prescripciones.html"><button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button></a>
           </div>
@@ -152,30 +153,32 @@
             <p>Lo sentimos, no se pudo guardar su recambio</p>
           </div>
           <div class="modal-footer">
-            <a href="prescripciones.html"><button href="prescripciones.html" type="button" class="btn btn-primary">Aceptar</button></a>
+            <a href="prescripciones.html"><button href="prescripciones.html" data-bs-dismiss="modal" type="button" class="btn btn-primary">Aceptar</button></a>
           </div>
         </div>
       </div>
     </div>
-    <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
+    <div class="modal fade" id="modal2" data-backdrop="static" data-keyboard="false">
+      <div class="modal-dialog" >
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="successModalLabel">Alerta</h5>
-            <a href="prescripciones.html"><button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <a href="prescripciones.html"><button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button></a>
           </div>
           <div class="modal-body">
-            <p>Está expulsando menos líquido de lo debido, por favor consulte un profesional de la salud</p>
+            <p id="urgente"></p>
           </div>
           <div class="modal-footer">
-            <a href="prescripciones.html"><button href="prescripciones.html" type="button" class="btn btn-primary">Aceptar</button></a>
+            <a href="prescripciones.html"><button href="prescripciones.html" data-bs-dismiss="modal" type="button" class="btn btn-primary">Aceptar</button></a>
           </div>
         </div>
       </div>
     </div>
-
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
 <script src="../js/bd/prescripcion.js">
 </script>

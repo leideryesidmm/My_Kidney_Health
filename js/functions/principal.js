@@ -3,17 +3,17 @@ let principal = () => {
     let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
     if (usuario == "paciente") {
         ms +=
-            '<div class="navbar"><div class="col-2 no-effect"><input type="image" id="logo-principal" src="../img/logo3.png"></div>' +
+            '<div class="navbar"><div class="col-2 no-effect"><input type="image" id="logo-principal" src="../img/logo3.png" alt="Logo app"></div>' +
             '<div class="col-8 no-effect"><h1 class="title-principal-app">Mi Salud Renal</h1></div>' +
-            '<div class="col-2 no-effect"><input type="image" class="logout" src="../img/log-out-white.png" onclick="logout()"></div></div>';
+            '<div class="col-2 no-effect"><input type="image" class="logout" src="../img/log-out-white.png" onclick="logout()" alt="Cerrar sesión"></div></div>';
     }
     else {
         ms +=
         '<nav id="nav" class=" navbar-expand-lg navbar-light">'+
         '<div class="row">'+
-        '<div class="col-1 no-effect"><a href="pacientes.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a></div>'+  
+        '<div class="col-1 no-effect"><a href="pacientes.html" class="devolverse"><img src="../img/devolverseColor.png" alt="Ir atrás" id="icono"></a></div>'+  
         '<div class="col-1">'+
-            '<div class="logo"><img src="../img/logo3.png" alt=""></div>'+
+            '<div class="logo"><img src="../img/logo3.png" alt="Logo app"></div>'+
           '</div>'+
           '<div class="col-8">'+
             '<div class="title">'+
@@ -57,7 +57,7 @@ let principal = () => {
 
     let msg = "";
 
-        if(usuario=="medico"){
+        if(usuario=="medico" || usuario=="administrador"){
             msg +=
             '<br>' +
             '<div class="dataPaciente">' +
@@ -73,9 +73,16 @@ let principal = () => {
             '<div class="col-md-6 col-12 my-sm-2 d-flex flex-column align-items-center">' +
             '<div class="grid-item">' +
             '<div id="container">' +
-            '<a href="perfil.html"><img src="../img/perfil.png" width="160px" height="160px" alt=""></a>' +
+            '<a href="perfil.html"><img src="../img/perfil.png" width="160px" height="160px" alt="Perfil del paciente"></a>' +
             '</div>';
-            
+            if(usuario=="administrador"){
+              msg+='<div class="grid-item-content" class="col-md-6 col-12  text-center" id="textcontainer">' +
+            '<h5><b>Información del paciente</b></h5>' +
+            '</div>' +
+            '<div class="description" class="col-md-6 col-12 text-center" >'+
+                '<p>En esta sección podrá ver la información personal y médica del paciente<p>';
+            }
+            else{
             if (usuario == "paciente") {
                 msg+='<div class="grid-item-content" class="col-md-6 col-12  text-center" id="textcontainer">' +
             '<h5><b>Mi Perfil</b></h5>' +
@@ -97,7 +104,7 @@ let principal = () => {
             '<div class="grid-item">' +
             '<div id="container">';
             if(usuario=="paciente")
-            msg+='<a href="prescripciones.html"><img src="../img/prescripcion.png" width="230px" height="230px"  alt=""></a>'
+            msg+='<a href="prescripciones.html"><img src="../img/prescripcion.png" width="230px" height="230px"  alt="Prescripciones del paciente"></a>'
             else msg+='<a href="prescripcionesM.html"><img src="../img/prescripcion.png" width="230px" height="230px"  alt=""></a>'
 
             msg+='</div>' +
@@ -121,7 +128,7 @@ let principal = () => {
             '<div class="col-md-6 col-12 my-sm-2 d-flex flex-column align-items-center">' +
             '<div class="grid-item">' +
             '<div id="container">' +
-            '<a href="medicamento.html"><img src="../img/medicamentos.png" width="230px" height="230px" alt=""></a>' +
+            '<a href="medicamento.html"><img src="../img/medicamentos.png" width="230px" height="230px" alt="medicamentos del paciente"></a>' +
             '</div>' +
             '<div class="grid-item-content" class="col-md-6 col-12  text-center" id="textcontainer">' +
             '<h5><b>Medicamentos</b></h5>' +
@@ -133,14 +140,14 @@ let principal = () => {
             else{
                 msg+='<p>En esta sección podrá ver los medicamentos administrados por el paciente<p>';   
             }
-            if (usuario == "paciente") {
+            if (usuario == "paciente" ) {
               msg+='</div>' +
             '</div>' +
             '</div>' +
             '<div class="col-md-6 col-12 my-sm-2 d-flex flex-column align-items-center">' +
             '<div class="grid-item">' +
             '<div id="container">' +
-            '<a href="recambiosguardados.html"><img src="../img/recambios.png" width="230px" height="230px" alt=""></a>' +
+            '<a href="recambiosguardados.html"><img src="../img/recambios.png" width="230px" height="230px" alt="Historial de recambios"></a>' +
             '</div>' +
             '<div class="grid-item-content" class="col-md-6 col-12 text-center"  id="textcontainer" >' +
             '<h5><b>Historial</b></h5>' +
@@ -152,6 +159,7 @@ let principal = () => {
             '</div>' +
             '</div>';
             }
+          }
             
     
 
@@ -165,17 +173,18 @@ let NavBarEditar = () => {
     let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
     if (usuario == "paciente") {
         ms +=          
-        '<div class="navbar" id="bann"><div class="col-2"><a href="perfil.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a></div>'+
+        '<div class="navbar" id="bann"><div class="col-2"><a href="perfil.html" class="devolverse"><img src="../img/devolverseColor.png" alt="Ir atrás" id="icono"></a></div>'+
       '<div class="col-8"><h1 class="title-principal-app">Mi Salud Renal</h1></div>'+
       '<div class="col-2"></div></div>';
     }
     else {
+      
         ms +=
         '<nav id="nav" class=" navbar-expand-lg navbar-light">'+
         '<div class="row">'+
-        '<div class="col-1 no-effect"><a href="perfil.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a></div>'+  
+        `<div class="col-1 no-effect"><a href="${localStorage.getItem('url')}"` + 'class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a></div>'+  
         '<div class="col-1">'+
-            '<div class="logo"><img src="../img/logo3.png" alt=""></div>'+
+            '<div class="logo"><img src="../img/logo3.png" alt="Logo app"></div>'+
           '</div>'+
           '<div class="col-8">'+
             '<div class="title">'+

@@ -89,7 +89,6 @@ function passwordVisibilityActual(inputId, iconClass) {
 
 let cambioContrasenia = async (event) => {
   event.preventDefault();
-
 let data = localStorage.getItem("datos");
 let dato=JSON.parse(data);
 console.log(data);
@@ -166,7 +165,7 @@ let listaPacientes = async () => {
       console.log(usuario);
 
       let cedulaEncriptada="";
-      if(usuario=="medico"){
+      if(usuario=="medico" || usuario=="administrador"){
        cedulaEncriptada = await obtenerCedulasUsuarios(0,CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
       console.log(cedulaEncriptada);}
       else{
@@ -192,7 +191,7 @@ console.log(paciente)
     let direccionDesencriptada= CryptoJS.AES.decrypt(paciente.direccion,'clave_secreta').toString(CryptoJS.enc.Utf8);
     let ocupacionDesencriptada= CryptoJS.AES.decrypt(paciente.ocupacion,'clave_secreta').toString(CryptoJS.enc.Utf8);
     let correoDesencriptada= CryptoJS.AES.decrypt(paciente.correo,'clave_secreta').toString(CryptoJS.enc.Utf8);
-    let tipoDocumentoDesencriptada= CryptoJS.AES.decrypt(paciente.tipo_documento,'clave_secreta').toString(CryptoJS.enc.Utf8);
+    let tipoDocumentoDesencriptada= CryptoJS.AES.decrypt(paciente.tipoDocumento,'clave_secreta').toString(CryptoJS.enc.Utf8);
     let epsDesencriptada= paciente.eps.nombre;
     let peso= paciente.peso;
     let pesoSeco=paciente.pesoSeco;
@@ -202,7 +201,9 @@ console.log(paciente)
     let nacimiento=paciente.fechaNacimiento.split('T');
     let fechaNacimiento=nacimiento[0];
     let fecha=new Date(fechaNacimiento);
-
+    let fechaRegistro=paciente.fechaRegistro.split('T');
+    let fecha_registro=fechaRegistro[0];
+    let fecha_registrado=new Date(fecha_registro);
     let diabetes=paciente.diabetes;
     let hipertension=paciente.hipertension;
     let cedula=cedulaDesencriptado;
@@ -211,7 +212,7 @@ console.log(paciente)
     let tipo_documento=tipoDocumentoDesencriptada;
 
   pacienteAct = {
-    nombre: nombreDesencriptado, cedula:cedula, celular: celularDesencriptado, direccion: direccionDesencriptada, eps: epsDesencriptada, peso: peso, pesoSeco: pesoSeco, tiposangre: tiposangre, rh: rh, altura: altura, nacimiento: fecha, diabetes: diabetes, hipertension: hipertension, ocupacion:ocupacion, correo:correo, tipo_documento:tipo_documento
+    nombre: nombreDesencriptado, cedula:cedula, celular: celularDesencriptado, direccion: direccionDesencriptada, eps: epsDesencriptada, peso: peso, pesoSeco: pesoSeco, tiposangre: tiposangre, rh: rh, altura: altura, nacimiento: fecha, diabetes: diabetes, hipertension: hipertension, ocupacion:ocupacion, correo:correo, tipoDocumento:tipo_documento, fecha_registro:fecha_registrado
 
   }
   return pacienteAct;
@@ -380,11 +381,7 @@ console.log(paciente);
   for (let i = 0; i < binaryString.length; i++) {
     byteArray[i] = binaryString.charCodeAt(i);
   }
-  const blob = new Blob([byteArray], { type: 'image/*' });
-
-  const imageUrl = URL.createObjectURL(blob);
-  console.log(imageUrl);
-  document.getElementById("imageFile").value = imageUrl;
+ 
   }
   
   }
@@ -446,11 +443,16 @@ let listaEps = async () => {
 }
 
 function cancelar(){
-  location.href=localStorage.getItem("url");
+  location.href="pacientes.html";
 }
+
+
 
 let actualizarPaciente = async (event) => {  
   event.preventDefault();
+  var botonActualizar = document.getElementById("actualizarPerfil");
+            botonActualizar.style.background = "gray";
+            botonActualizar.disabled = true;
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
       let usuario = dato.usuario;
@@ -490,7 +492,7 @@ let actualizarPaciente = async (event) => {
   let fechaNacimiento= document.getElementById("fecha").value;
   let telefono = document.getElementById("telefono").value;
   let direccion = document.getElementById("direccion").value;
-
+      let foto=document.getElementById("imageFile").value;
   let selectTipoDocumento = selectedDocumento.options[selectedDocumento.selectedIndex];
   let tipo_documento = selectTipoDocumento.value;
   let peso = paciente.peso;
@@ -499,6 +501,7 @@ let actualizarPaciente = async (event) => {
   let correo=document.getElementById("correo").value;
   let estatura=paciente.altura;
   var diabetes = paciente.diabetes;
+  var fecha_registro=paciente.fechaRegistro;
      var hipertension = paciente.hipertension;
      let selectedOption = selectedEps.options[selectedEps.selectedIndex];
   let eps = selectedOption.value;
@@ -517,12 +520,13 @@ let actualizarPaciente = async (event) => {
     activo:true,
     cedula:cedulaEncriptada,
     tipoSangre:paciente.tipoSangre,
-    tipo_documento:CryptoJS.AES.encrypt(tipo_documento, 'clave_secreta').toString(),
+    tipoDocumento:CryptoJS.AES.encrypt(tipo_documento, 'clave_secreta').toString(),
     rh:paciente.rh,
     contrasenia:paciente.contrasenia,
     altura:estatura,
     cambio_contrasenia:paciente.cambio_contrasenia,
     diabetes:diabetes,
+    fechaRegistro:fecha_registro,
     hipertension:hipertension,
     eps: parseInt(eps,10)
   };
@@ -532,11 +536,12 @@ else{
   let fechaNacimiento=paciente.fechaNacimiento;
   let telefono = paciente.celular;
   let direccion = paciente.direccion;
-  let tipo_documento= paciente.tipo_documento;
+  let tipo_documento= paciente.tipoDocumento;
   let peso = document.getElementById("peso").value;
   let pesoseco=document.getElementById("pesoseco").value;
   let ocupacion=paciente.ocupacion;
   let correo=paciente.correo;
+  let fecha_registro=paciente.fechaRegistro;
   let cambiocontrasenia=paciente.cambio_contrasenia;
   let estatura=document.getElementById("estatura").value;
   let eps = paciente.eps.idEps;
@@ -555,10 +560,11 @@ else{
     ocupacion: ocupacion,
     cambio_contrasenia:cambiocontrasenia,
     correo: correo,
+    fechaRegistro:fecha_registro,
     activo:true,
     cedula:cedulaEncriptada,
     tipoSangre:paciente.tipoSangre,
-    tipo_documento:tipo_documento,
+    tipoDocumento:tipo_documento,
     rh:paciente.rh,
     contrasenia:paciente.contrasenia,
     altura:parseInt(estatura,10),
@@ -581,6 +587,8 @@ else{
       if (response.ok) {
         if (response.status === 200 || response.status === 204) {
           $('#successModal').modal('show');
+          
+            
         }
       } else {
       }
@@ -589,9 +597,11 @@ else{
       console.error(error);
     });
 }
+function cerrarModal() {
+  modal.style.display = 'none';
+}
 
 let subirFoto = async () => {
-  console.log("ENTRO AL METODO DE SUBIR FOTO");
   let dato = JSON.parse(dat);
   let cedul = decodeURIComponent(dato.cedula);
 console.log(cedul);
@@ -607,11 +617,7 @@ console.log(formData);
   .then(response => response.json())
   .then(data => {
     if (data.success) {
-      console.log("ENTRO AL IF DE SUBIR FOTO");
-      alert("Imagen subida exitosamente");
     } else {
-      console.log("ENTRO AL ELSE DE SUBIR FOTO");
-      alert("Error al subir la imagen");
     }
   });
 }

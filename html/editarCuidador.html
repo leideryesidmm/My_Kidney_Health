@@ -10,12 +10,16 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
 </head>
+
 <body>
     
         <div class="navbar" name="navbar" id="navbar">
             
-            <div class="col-2"><a href="cuidador.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a></div>
+            <div class="col-2"><a href="cuidador.html" class="devolverse"><img src="../img/devolverseColor.png" alt="Ir atrás" id="icono"></a></div>
         <div class="col-8"><h1 class="title">Cuidador</h1></div>
         <div class="col-2"></div>
         </div>
@@ -51,7 +55,7 @@
     </form>
     <div class="btn-container">
         <a href="cuidador.html" class="btn-cancelar">Cancelar</a>
-        <button onclick="actualizarCuidador()" type="submit" class="btn-nuevo">Actualizar</button>
+        <button onclick="actualizarCuidador()" data-toggle="modal" data-target="#succesModal" type="submit" class="btn-nuevo" id="actCuid">Actualizar</button>
         
     </div>
         </div>
@@ -59,12 +63,12 @@
     
     
 
-    <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal fade" id="successModal" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="successModalLabel">Aviso</h5>
-              <a href="cuidador.html"><button type="button" class="close" aria-label="Close">
+              <a href="cuidador.html"><button type="button" class="close" aria-label="Close" data-bs-dismiss="modal">
                 <span aria-hidden="true">&times;</span>
               </button></a>
             </div>
@@ -72,12 +76,16 @@
               <p>Los datos del cuidador han sido modificados exitosamente.</p>
             </div>
             <div class="modal-footer">
-              <a href="cuidador.html"><button href="cuidador.html" type="button" class="btn btn-primary">Aceptar</button></a>
+              <a href="cuidador.html"><button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button></a>
             </div>
           </div>
         </div>
       </div>
 
+
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
     <script src="../js/bd/cuidador.js"></script>
     <script src="../js/bd/login.js"></script>

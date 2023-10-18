@@ -136,6 +136,7 @@ let listarMedicos = async () => {
           let nombreDesencriptado = CryptoJS.AES.decrypt(medico.nombre, 'clave_secreta').toString(CryptoJS.enc.Utf8);
           let celularDesencriptado = CryptoJS.AES.decrypt(medico.celular, 'clave_secreta').toString(CryptoJS.enc.Utf8);
           let correoDesencriptado = CryptoJS.AES.decrypt(medico.correo, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+          let profesionDesencriptada=CryptoJS.AES.decrypt(medico.profesion, 'clave_secreta').toString(CryptoJS.enc.Utf8);
           
 
           return {
@@ -143,7 +144,7 @@ let listarMedicos = async () => {
             cedula: cedulaDesencriptada,
             celular: celularDesencriptado,
             correo: correoDesencriptado,
-            aniosExperiencia: medico.aniosExperiencia,
+            profesion: profesionDesencriptada,
             especialidad: medico.especialidad.descripcion
           };
         });
@@ -254,6 +255,9 @@ let listarEspecialidad = async () => {
 
   let crearMedico=async(event)=> {
     event.preventDefault();
+    const  btnMedico=document.getElementById("guardarMedico");
+    btnMedico.style.background="gray";
+    btnMedico.disabled="true";
     var  existe= await validarMedico();
  
         var nombre = document.getElementById('nombre').value;
@@ -263,11 +267,13 @@ let listarEspecialidad = async () => {
         var especialidad=selectedOption.value;
         var selectOptionDoc = selectTipo.options[selectTipo.selectedIndex];
         var tipoDocumento=selectOptionDoc.value;
-        console.log(tipoDocumento);
-        var aniosExperiencia = document.getElementById('aniosExperiencia').value;
+        ;
         var correo= document.getElementById('correo').value;
         var telefono = document.getElementById('telefono').value;
-       
+        const selectProfesion = document.getElementById('selectProfesion');
+        var selectedOption = selectProfesion.options[selectProfesion.selectedIndex];
+        var profesion=selectedOption.value;
+        var profesionEncriptada=CryptoJS.AES.encrypt(profesion,'clave_secreta').toString();
        var  documentoEncriptado = CryptoJS.AES.encrypt(documento, 'clave_secreta').toString();
        var telefonoEncriptado = CryptoJS.AES.encrypt(telefono, 'clave_secreta').toString();
        var nombreEncriptado = CryptoJS.AES.encrypt(nombre, 'clave_secreta').toString();
@@ -277,13 +283,13 @@ let listarEspecialidad = async () => {
         const medicoInDto = {
   
         nombre : nombreEncriptado,
-        tipo_documento:tipoDocumentoEncriptado,
+        tipoDocumento:tipoDocumentoEncriptado,
         cedula : documentoEncriptado,
         celular : telefonoEncriptado,
         contrasenia:documentoEncriptado,
         correo:correo,
+        profesion:profesionEncriptada,
         especialidad:parseInt(especialidad),
-        aniosExperiencia:parseInt(aniosExperiencia),
         activo:true
   
         }
@@ -395,12 +401,11 @@ console.log(medico);
 
   var telefono = CryptoJS.AES.decrypt(medico.celular, 'clave_secreta').toString(CryptoJS.enc.Utf8);
   document.getElementById("telefono").value = telefono;
-  document.getElementById("aniosExperiencia").value = medico.aniosExperiencia;
   
 
 
   const selectDocumento = document.getElementById('selectedDocumento');
-  const descripcionDocumento= CryptoJS.AES.decrypt(medico.tipo_documento, 'clave_secreta').toString(CryptoJS.enc.Utf8);;
+  const descripcionDocumento= CryptoJS.AES.decrypt(medico.tipoDocumento, 'clave_secreta').toString(CryptoJS.enc.Utf8);;
   console.log(descripcionDocumento);
   
   Array.from(selectDocumento.options).forEach((option, index) => {
@@ -408,6 +413,28 @@ console.log(medico);
       selectDocumento.selectedIndex = index;
     }
   })
+  
+  const selectEspecialidad = document.getElementById('selectedEspecialidad');
+  
+  
+  Array.from(selectEspecialidad.options).forEach((option, index) => {
+    console.log(option.textContent);
+  
+    if (option.textContent === medico.especialidad.descripcion) {
+      selectEspecialidad.selectedIndex = index;
+    }
+  })
+
+  const selectProfesion = document.getElementById('selectedProfesion');
+  const profesion= CryptoJS.AES.decrypt(medico.profesion, 'clave_secreta').toString(CryptoJS.enc.Utf8);;
+  
+  
+  Array.from(selectProfesion.options).forEach((option, index) => {
+    if (option.textContent === profesion) {
+      selectProfesion.selectedIndex = index;
+    }
+  })
+
   var correo = CryptoJS.AES.decrypt(medico.correo, 'clave_secreta').toString(CryptoJS.enc.Utf8);
   document.getElementById("correo").value=correo;
  
@@ -428,7 +455,6 @@ let listaEspecialidad = async () => {
 
   const selectEspecialidad = document.getElementById('selectedEspecialidad');
   
-
   if (selectEspecialidad.length === 0) {
     const especialidades = await peticion.json();
     const optionSeleccionar = document.createElement('option');
@@ -440,6 +466,8 @@ let listaEspecialidad = async () => {
       option.textContent = especialidad.descripcion;
       selectEspecialidad.appendChild(option);
       Array.from(selectEspecialidad.options).forEach((option, index) => {
+        console.log(option.textContent);
+        console.log(especialidad.descripcion);
         if (option.textContent === especialidad.descripcion) {
           selectEspecialidad.selectedIndex = index;
         }
@@ -449,51 +477,82 @@ let listaEspecialidad = async () => {
   }
 }
 
-let actualizarMedico=async(event)=>{
-event.preventDefault();
-cedulaEncriptada = await obtenerCedulasUsuarios(0,localStorage.getItem("cedulaMedico"));
-      console.log(cedulaEncriptada);
-      
-      let medicoInDto={
-        cedula:cedulaEncriptada
-      }
+let restaurarContrasenia=async(ced, cont)=>{
+  let cedula = ced.toString();
+  let cedulaEncriptada = await obtenerCedulasUsuarios(0, cedula);
+  try {
+    const usuarioInDto = { cedula: cedulaEncriptada };
+
+    const response = await fetch(servidorAPI + 'Usuario/restaurarContrasenia', {
+      method: "PATCH",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(usuarioInDto)
+    });
+   if(response.ok){
+      $('#restaurarContrasenia'+cont).modal('hide');
+      $('#restaurarContraseniaPaciente').modal('show');
+   }
+}
+catch (error) {
+  console.error("Error al restaurar contraseña:", error);
+}
+}
+
+let actualizarMedico = async(event) => {
+  event.preventDefault();
+  
+  cedulaEncriptada = await obtenerCedulasUsuarios(0,localStorage.getItem("cedulaMedico"));
+  console.log(cedulaEncriptada);
+  
+  let medicoInDto = {
+    cedula: cedulaEncriptada
+  }
   const peticion = await fetch(localStorage.getItem("servidorAPI") + "Usuario/findMedicoByCedula", {
     method: "POST",
     headers: {
       "Accept": "application/json",
       "Content-Type": "application/json"
     },
-    body:JSON.stringify(medicoInDto)
+    body: JSON.stringify(medicoInDto)
   });
 
   const medico = await peticion.json();
   console.log(medico);
-let selectDocumento=document.getElementById("selectedDocumento");
-
-let selectedEspecialidad=document.getElementById("selectedEspecialidad");
+  let selectDocumento = document.getElementById("selectedDocumento");
+  let selectEspecialidad = document.getElementById("selectedEspecialidad"); 
+  let selectProfesion = document.getElementById("selectedProfesion");
   let nombre = document.getElementById("nombre").value;
   let telefono = document.getElementById("telefono").value;
-  let correo=document.getElementById("correo").value;
+  let correo = document.getElementById("correo").value;
+  
   let selectTipoDocumento = selectDocumento.options[selectDocumento.selectedIndex];
   let tipo_documento = selectTipoDocumento.value;
-  let selectEspecialidad = selectedEspecialidad.options[selectedEspecialidad.selectedIndex];
-  let especialidad = parseInt(selectEspecialidad.value);
-  let documento=medico.cedula;
-  let aniosExperiencia=parseInt(document.getElementById("aniosExperiencia").value);
-  let activo=medico.activo;
-  let contrasenia=medico.contrasenia;
-  let foto=medico.foto;
-  let tipoUsuario=medico.tipoUsuario;
 
-  let nombreEncriptado=CryptoJS.AES.encrypt(nombre,"clave_secreta").toString();
-  let telefonoEncriptado=CryptoJS.AES.encrypt(telefono,"clave_secreta").toString();
-  let correoEncriptado=CryptoJS.AES.encrypt(correo,"clave_secreta").toString();
-  let tipo_documentoEncriptado=CryptoJS.AES.encrypt(tipo_documento,"clave_secreta").toString();
+  let selectedOptionProfesion = selectProfesion.options[selectProfesion.selectedIndex]; 
+  let profesion = selectedOptionProfesion.value;
+  
+  let selEspecialidad = selectEspecialidad.options[selectEspecialidad.selectedIndex]; 
+  let especialidad = selEspecialidad.value;
+  
+  let documento = medico.cedula;
+  let activo = medico.activo;
+  let contrasenia = medico.contrasenia;
+  let foto = medico.foto;
+  let tipoUsuario = medico.tipoUsuario;
+
+  let nombreEncriptado = CryptoJS.AES.encrypt(nombre, "clave_secreta").toString();
+  let telefonoEncriptado = CryptoJS.AES.encrypt(telefono, "clave_secreta").toString();
+  let correoEncriptado = CryptoJS.AES.encrypt(correo, "clave_secreta").toString();
+  let tipo_documentoEncriptado = CryptoJS.AES.encrypt(tipo_documento, "clave_secreta").toString();
+  let profesionEncriptada = CryptoJS.AES.encrypt(profesion, "clave_secreta").toString();
 
 
   medicoInDto={
-    nombre:nombreEncriptado, celular:telefonoEncriptado, correo:correoEncriptado,tipo_documento:tipo_documentoEncriptado,especialidad:especialidad,
-    cedula:documento, aniosExperiencia:aniosExperiencia, activo:activo, contrasenia:contrasenia,foto:foto,tipoUsuario:tipoUsuario
+    nombre:nombreEncriptado, celular:telefonoEncriptado, correo:correoEncriptado,tipoDocumento:tipo_documentoEncriptado,especialidad:especialidad,
+    cedula:documento, profesion:profesionEncriptada, activo:activo, contrasenia:contrasenia,foto:foto,tipoUsuario:tipoUsuario
   }
 
   console.log(medicoInDto)

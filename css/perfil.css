@@ -184,6 +184,7 @@ label{
 
 .ver-cuidador:hover{
 color: #fff;
+text-decoration: none;
 }
 
 
@@ -196,7 +197,8 @@ color: #fff;
   vertical-align: middle;
 }
 
-.close{
+
+#close{
   border: none;
   border-radius: 80%;
   background-color: #ffffff;
@@ -327,6 +329,10 @@ input[type="password"]:focus{
   justify-content:center;
 }
 
+.editarPerfil:hover{
+  text-decoration: none;
+  color: #fff;
+}
 .botonEditarPerfil a, .botonAgregarAlergia a{
   background-color: #00DBA1;
     color: #fff;
@@ -349,4 +355,9 @@ input[type="password"]:focus{
   .datos{
     flex-direction: column;
   }
+}
+
+#addAlergia{
+  text-decoration: none;
+  color: #fff;
 }

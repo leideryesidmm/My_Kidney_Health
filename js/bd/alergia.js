@@ -112,9 +112,13 @@ $('#btnAceptar').click(function() {
 
 
 let crearAlergia = async () => {
+
+  
   document.getElementById('guardarAlergia').addEventListener('click', async function (event) {
     event.preventDefault();
-
+    const btnAlergia=document.getElementById("guardarAlergia");
+    btnAlergia.style.background="gray";
+    btnAlergia.disabeld="true";
     let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
   console.log(data);
@@ -129,7 +133,7 @@ let crearAlergia = async () => {
     let alergia = { nombre: encryptedNombre };
     let paciente = { cedula: cedulaEncriptada };
     let unionPacienteAlergiaInDto = { alergiaInDto: alergia, pacienteInDto: paciente }
-
+    
     fetch(localStorage.getItem("servidorAPI") + "paciente/alergia/crear", {
       method: "POST",
       body: JSON.stringify(unionPacienteAlergiaInDto),
@@ -199,6 +203,9 @@ let editarAlergia = async (id_alergia) => {
  
   nombreInput = document.getElementById('nombreEditar' + id_alergia).value;
   console.log(nombreInput)
+  const btnAlergia=document.getElementById("editarAlergia");
+    btnAlergia.style.background="gray";
+    btnAlergia.disabeld="true";
   let encryptedNombre = CryptoJS.AES.encrypt(nombreInput, 'clave_secreta').toString();
 
   fetch(localStorage.getItem("servidorAPI") + "paciente/alergia/editar/" + id_alergia, {

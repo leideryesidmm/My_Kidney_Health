@@ -48,8 +48,9 @@ let perfil=async()=>{
 
     document.getElementById("title").innerHTML=ms;
 if(paciente!=null){
+    let fecha_registro=new Date(paciente.fecha_registro).toLocaleDateString();
     msg+=
-
+    
   '<br>'+
     '<div class="datos">'+
     '<div class="col-md-6">'+
@@ -57,13 +58,17 @@ if(paciente!=null){
         '<div class="subtitle">'+
           '<h3>Datos Personales</h3>'+
         '</div>'+
+        '<div class="fechaRegistro">'+
+            '<label for="nombre"><b>Fecha de Registro:</b></label>'+
+            '<label for="" id="fechaRegistro">'+fecha_registro+'</label>'+
+          '</div>'+
           '<div class="nombrePaciente">'+
             '<label for="nombre"><b>Nombre:</b></label>'+
             '<label for="" id="nombre">'+paciente.nombre+'</label>'+
           '</div>'+
           '<div class="tipoDocumento">'+
             '<label for="tipoDocumento"><b>Tipo de Documento:</b></label>'+
-            '<label for="" id="tipoDocumento">'+paciente.tipo_documento+'</label>'+
+            '<label for="" id="tipoDocumento">'+paciente.tipoDocumento+'</label>'+
           '</div>'+
           '<div class="documento">'+
             '<label for="documento"><b>Documento:</b></label>'+
@@ -95,12 +100,12 @@ if(paciente!=null){
               '<label for="correo"><b>Correo:</b></label>'+
               '<label for="" id="correo">'+paciente.correo+'</label>'+
             '</div>';}
-            msg+='<img alt="" id="imagen">';
+            msg+='<img alt="Editar perfil" id="imagen">';
           let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
           var urlActual = window.location.href;
-          console.log(paciente.tipo_documento);
+          console.log(paciente.tipoDocumento);
             localStorage.setItem("url", urlActual);
-            localStorage.setItem("documento", paciente.tipo_documento);
+            localStorage.setItem("documento", paciente.tipoDocumento);
           if(usuario=="paciente"){
             msg+=
             '<div class="botonEditarPerfil">'+
@@ -173,7 +178,7 @@ if(alergia!=null && alergia !== ""){
     let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
     if(usuario=="medico"){
     msg+='<div class="botonAgregarAlergia">'+
-    '<a href="alergias.html"class="alerg-nueva" >Agregar Alergia</a>'+
+    '<a href="alergias.html"class="alerg-nueva" id="addAlergia">Agregar Alergia</a>'+
     '</div>'+
     '<br>';
     }
@@ -316,10 +321,10 @@ let editarPaciente=async()=>{
             '</div>'+
             '<div class="buttons">'+
             '<div class="btn-save">'+
-              '<a href="perfil.html" class="cancelar">Cancelar</a>'+
+              '<a href="perfil.html" class="cancelar" id="cancelar">Cancelar</a>'+
             '</div>'+
             '<div class="btn-save">'+
-              '<button type="submit" class="guardarPac">Actualizar</button>'+
+              '<button id="actualizarPerfil" type="submit" class="btn btn-primary" data-toggle="modal" data-target="#succesModal" >Actualizar</button>'+
             '</div>'+
             '</div>'+
             '</div>'+
@@ -381,7 +386,7 @@ else{
               '<button onclick="cancelar()" class="cancelar">Cancelar</button>'+
             '</div>'+
             '<div class="btn-save">'+
-              '<button type="submit" class="guardarPac">Actualizar</button>'+
+              '<button type="submit" data-toggle="modal" data-target="#successModal" id="actualizarPerfil">Actualizar</button>'+
             '</div>'+
             '</div>'+
             '</form>';

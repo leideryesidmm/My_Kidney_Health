@@ -47,6 +47,8 @@ function passwordVisibilityActual(inputId, iconClass) {
   }
 }
 
+
+
 let cambioContrasenia = async (event) => {
   event.preventDefault();
 
@@ -114,7 +116,30 @@ $('#btnAceptar').click(function() {
 };
 
 
+let restaurarContrasenia=async(ced, cont)=>{
+  let cedula = ced.toString();
+  let cedulaEncriptada = await obtenerCedulasUsuarios(0, cedula);
+  try {
+    const usuarioInDto = { cedula: cedulaEncriptada };
 
+    const response = await fetch(servidorAPI + 'Usuario/restaurarContrasenia', {
+      method: "PATCH",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(usuarioInDto)
+    });
+   if(response.ok){
+      $('#restaurarContrasenia'+cont).modal('hide');
+      $('#restaurarContraseniaPaciente').modal('show');
+      
+   }
+}
+catch (error) {
+  console.error("Error al restaurar contraseña:", error);
+}
+}
 
 
 let inhabilitarPaciente = async (ced) => {

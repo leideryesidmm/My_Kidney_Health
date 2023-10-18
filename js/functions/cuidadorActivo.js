@@ -15,7 +15,7 @@ let cuidadorPrincipal=async(cuidadores, cuidAntiguos)=>{
         '</div>';   
     }
     else{
-        document.getElementById("img-editar").innerHTML='<a href="editarCuidador.html"><img src="../img/'+'editarPerfil.png" alt="editar"></a>';
+        document.getElementById("img-editar").innerHTML='<a href="editarCuidador.html"><img src="../img/'+'editarPerfil.png" alt="editar Cuidador"></a>';
     msg+=
 
     '<br><div class="container">' +
@@ -59,7 +59,7 @@ let cuidadorPrincipal=async(cuidadores, cuidAntiguos)=>{
     if(cuidAntiguos.length>=1){
        msg+= '<button class="cambiarCuidador" type="submit" id="cambiar" onclick="cuidadoresInactivos(cuidadoresAntiguos())" "class="cambiarCuidador">Cambiar</button>'};
         msg+= '<a href="agregarCuidador.html" class="btn-nuevo" id="nuevo">Nuevo</a>' +
-        '<button class="inhabilitarCuidador" type="submit" id="inhabilitar"' + 'onclick="inhabilitarCuidador()" "class="inhabilitarCuidador">Inhabilitar</button>'
+        '<button class="inhabilitarCuidador" data-toggle="modal" data-target="#successModal" type="submit" id="inhabilitar"' + 'onclick="inhabilitarCuidador()" "class="inhabilitarCuidador">Inhabilitar</button>'
     '</div>';
 }
     document.getElementById("agregarCuidador").innerHTML = msg;
@@ -79,19 +79,24 @@ let cuidadoresInactivos = async (cuidadores) => {
       '<th>Acciones</th>' +
       '</tr>';
       if(cuidadores!=null){
+        let cont=0;
     cuidadores.forEach((cuidador) => {
+        
       if (cuidador.activo === false) {
+        
         msg +=
           '<tr>' +
           '<td>' + cuidador.cedulaCuidador + '</td>' +
           '<td>' + cuidador.nombre + '</td>' +
           '<td>' +
-          '<button onclick="reactivarCuidador(\'' + cuidador.cedulaCuidador + '\')" type="button" id="reactivarCuidador">' +
-          '<img src="../img/actualizar.png" class="actualizar"/>' +
+          '<button onclick="reactivarCuidador(\'' + cuidador.cedulaCuidador + '\', \''+cont+'\')" type="button" id="reactivarCuidador'+cont+'" class="reactivarCuidador" data-toggle="modal" data-target="#successModalReactivar">' +
+          '<img src="../img/actualizar.png" class="actualizar imagen-crecible-iconos" alt="actualizar Cuidador"/>' +
           '</button>' +
           '</td>' +
           '</tr>';
+          cont++;
       }
+      
     });}
     msg += '</table>';
     msg += '<button class="cerrarInactivos" onclick="cerrarCuidAnt()" type="submit" id="inhabilitar"' + '" "class="cerrarCambiarCuidador">Cerrar</button>'

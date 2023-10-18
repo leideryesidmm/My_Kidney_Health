@@ -2,6 +2,9 @@ let pacientesTratados = async () => {
   let cont = 1;
   try {
     const pacientes = await listarPacientes();
+    let data = localStorage.getItem("datos");
+  let dato=JSON.parse(data);
+      let usuario = dato.usuario;
 
     let msg = "";
     if (pacientes != null && pacientes.length > 0) {
@@ -24,22 +27,21 @@ let pacientesTratados = async () => {
           '<td>' + paciente.cedula + '</td>' +
           '<td>' +
           '<a class="icon-link" onclick="irPaciente(\'' + clave + '\', \'' + paciente.nombre + '\')">' +
-          '<img src="../img/ver.png" title="Ver Paciente" class="ver"/>' +
+          '<img src="../img/ver.png" title="Ver Paciente" class="ver imagen-crecible-iconos" alt="Ver paciente"/>' +
           '</a>';
-          var urlActual = window.location.href;
-          localStorage.setItem("url", urlActual);
+          if(usuario!="administrador"){
           msg+='<a class="icon-link" onclick="editarPaciente(\'' + clave + '\')">' +
-          '<img src="../img/lapiz.png" title="Editar Paciente" class="actualizar"/>' +
+          '<img src="../img/lapiz.png" title="Editar Paciente" alt="Editar paciente" class="actualizar imagen-crecible-iconos"/>' +
+          '</a>';
+          }
+          msg+='<a href="" data-bs-toggle="modal" data-bs-target="#inhabilitarpaciente' + cont + '" type="button">' +
+          '<img src="../img/cesta.png" title="Inhabilitar Paciente" alt="Inhabilitar paciente" class="inhabilitar imagen-crecible-iconos"/>' +
           '</a>' +
-          '<a href="" data-bs-toggle="modal" data-bs-target="#inhabilitarpaciente' + cont + '" type="button">' +
-          '<img src="../img/cesta.png" title="Inhabilitar Paciente" class="inhabilitar"/>' +
+
+
+          '<a href="" data-bs-toggle="modal" data-bs-target="#restaurarContrasenia' + cont + '" type="button">' +
+          '<img src="../img/restaurar.png" title="Restaurar Contraseña" alt="Restaurar Contraseña" class="restaurar imagen-crecible-iconos"/>' +
           '</a>' +
-          // '<a href="" data-bs-toggle="modal" data-bs-target="#visita' + cont + '" type="button">' +
-          // '<img src="../img/visita.png" title="Visita Especialista" class="visita"/>' +
-          // '</a>' +
-          // '<a href="" data-bs-toggle="modal" data-bs-target="#chequeo' + cont + '" type="button">' +
-          // '<img src="../img/examenes.png" title="Exámenes" class="chequeo"/>' +
-          // '</a>' +
           '</td>' +
           '</tr>';
 
@@ -59,6 +61,27 @@ let pacientesTratados = async () => {
           '<div class="modal-footer">' +
           '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>' +
           '<button type="submit" onclick="inhabilitarPaciente(' + paciente.cedula + ')"" class="btn btn-danger">Inhabilitar</button>' +
+          '</div>' +
+          '</div>' +
+          '</div>' +
+          '</div>';
+
+          msg +=
+          '<div class="modal" tabindex="-1" id="restaurarContrasenia' + cont + '" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">' +
+          '<div class="modal-dialog">' +
+          '<div class="modal-content">' +
+          '<div class="modal-header">' +
+          '<h5 class="modal-title">Restaurar Contraseña</h5>' +
+          '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
+          '</div>' +
+          '<div class="modal-body">' +
+          '<p><b>¿Está seguro(a) de restaurar la contraseña de este paciente?</b></p>' +
+          '<label class="cedulaPaciente" id="cedulaPaciente"><b>Cédula: </b>' + paciente.cedula + '</label><br>' +
+          '<label class="cedulaPaciente" id="cedulaPaciente"><b>Nombre: </b>' + paciente.nombre + '</label>' +
+          '</div>' +
+          '<div class="modal-footer">' +
+          '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>' +
+          '<button type="submit" onclick="restaurarContrasenia(' + paciente.cedula +','+ cont + ')"" class="btn btn-danger">Restaurar</button>' +
           '</div>' +
           '</div>' +
           '</div>' +
@@ -104,6 +127,8 @@ function irPaciente(cedula, nombre){
 
 function editarPaciente(cedula){
   localStorage.setItem("cedulaPaciente", cedula);
+  var urlActual = window.location.href;
+          localStorage.setItem("url", urlActual);
   location.href="editarPaciente.html";
 }
 
@@ -137,7 +162,7 @@ let pacientesInhabilitados = async () => {
           '<td>' + paciente.cedula + '</td>' +
           '<td>' +
           '<a  href="" data-bs-toggle="modal" data-bs-target="#habilitarpaciente' + cont + '" type="button">' +
-          '<img src="../img/actualizar.png" class="actualizar"/>' +
+          '<img src="../img/actualizar.png" class="actualizar imagen-crecible-iconos"/>' +
           '</a >' +
           '</td>' +
           '</tr>' +

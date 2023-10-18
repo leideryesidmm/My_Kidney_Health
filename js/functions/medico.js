@@ -16,20 +16,23 @@ let medicosRegistrados = async (medicos) => {
 
       medicos.forEach((medico) => {
         let clave = encodeURIComponent(CryptoJS.AES.encrypt(medico.cedula, "clave_secreta").toString())
-        console.log(medico.correo);
+      
         msg +=
           '<tr>' +
           '<td>' + medico.nombre + '</td>' +
           '<td>' + medico.cedula + '</td>' +
           '<td>' +
           '<a href="" data-bs-toggle="modal" data-bs-target="#vermedico' + cont + '" type="button">' +
-          '<img src="../img/ver.png" title="Ver profesional" class="ver"/>' +
+          '<img src="../img/ver.png" title="Ver Profesional" alt="Ver información del profesional" class="ver imagen-crecible-iconos"/>' +
           '</a>';
           msg+='<a href="" data-bs-toggle="modal" data-bs-target="#editarmedico' + cont + '" type="button" onclick="irEditarMedico('+medico.cedula+')">' +
-          '<img src="../img/lapiz.png" title="Editar profesional" class="actualizar"/>' +
+          '<img src="../img/lapiz.png" title="Editar Profesional" class="actualizar imagen-crecible-iconos" alt="Editar profesional"/>' +
           '</a>' +
           '<a href="" data-bs-toggle="modal" data-bs-target="#inhabilitarmedico' + cont + '" type="button">' +
-          '<img src="../img/cesta.png" title="Inhabilitar profesional" class="inhabilitar"/>' +
+          '<img src="../img/cesta.png" title="Inhabilitar Profesional" alt="Inhabilitar médico" class="inhabilitar imagen-crecible-iconos"/>' +
+          '</a>' +
+          '<a href="" data-bs-toggle="modal" data-bs-target="#restaurarContrasenia' + cont + '" type="button">' +
+          '<img src="../img/restaurar.png" title="Restaurar Contraseña" alt="Restaurar Contraseña" class="restaurar imagen-crecible-iconos"/>' +
           '</a>' +
           '</td>' +
           '</tr>';
@@ -39,11 +42,11 @@ let medicosRegistrados = async (medicos) => {
           '<div class="modal-dialog">' +
           '<div class="modal-content">' +
           '<div class="modal-header">' +
-          '<h5 class="modal-title">Inhabilitar profesional de la salud</h5>' +
+          '<h5 class="modal-title">Inhabilitar Médico</h5>' +
           '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
           '</div>' +
           '<div class="modal-body">' +
-          '<p><b>¿Está seguro(a) de inhabilitar este profesional de la salud?</b></p>' +
+          '<p><b>¿Está seguro(a) de inhabilitar este médico?</b></p>' +
           '<label class="cedulaMédico" id="cedulaMédico"><b>Cédula: </b>' + medico.cedula + '</label><br>' +
           '<label class="cedulaMédico" id="cedulaMédico"><b>Nombre: </b>' + medico.nombre + '</label>' +
           '</div>' +
@@ -55,12 +58,33 @@ let medicosRegistrados = async (medicos) => {
           '</div>' +
           '</div>';
 
+          msg +=
+          '<div class="modal" tabindex="-1" id="restaurarContrasenia' + cont + '">' +
+          '<div class="modal-dialog">' +
+          '<div class="modal-content">' +
+          '<div class="modal-header">' +
+          '<h5 class="modal-title">Restaurar Contraseña</h5>' +
+          '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
+          '</div>' +
+          '<div class="modal-body">' +
+          '<p><b>¿Está seguro(a) de restaurar la contraseña de este médico?</b></p>' +
+          '<label class="cedulaMedico" id="cedulaMedico"><b>Cédula: </b>' + medico.cedula + '</label><br>' +
+          '<label class="cedulaMedico" id="cedulaMedico"><b>Nombre: </b>' + medico.nombre + '</label>' +
+          '</div>' +
+          '<div class="modal-footer">' +
+          '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>' +
+          '<button type="submit" onclick="restaurarContrasenia(' + medico.cedula +','+ cont + ')"" class="btn btn-danger">Restaurar</button>' +
+          '</div>' +
+          '</div>' +
+          '</div>' +
+          '</div>';
+          
         msg +=
         '<div class="modal" tabindex="-1" id="vermedico' + cont + '">' +
         '<div class="modal-dialog">' +
           '<div class="modal-content">' +
             '<div class="modal-header">' +
-              '<h5 class="modal-title">Información del profesional de la Salud</h5>' +
+              '<h5 class="modal-title">Información del médico</h5>' +
               '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
             '</div>' +
             '<div class="modal-body">' +
@@ -74,9 +98,9 @@ let medicosRegistrados = async (medicos) => {
                     '<label for="documento"><b>Documento:&nbsp</b></label>' +
                     '<label for="" id="documento">' + medico.cedula + '</label>' +
                   '</div>' +
-                  '<div class="aniosExperiencia">' +
-                    '<label for="anios"><b>Años de Experiencia:&nbsp</b></label>' +
-                    '<label for="" id="aniosExperiencia">' + medico.aniosExperiencia + '</label>' +
+                  '<div class="profesion">' +
+                    '<label for="profesion"><b>Profesión:&nbsp</b></label>' +
+                    '<label for="" id="profesion">' + medico.profesion + '</label>' +
                   '</div>' +
                 '</div>' + 
                 '<div class="col-md-6">' +
@@ -117,7 +141,7 @@ let medicosRegistrados = async (medicos) => {
         '</tr>' +
         '</thead>' +
         '<tr>' +
-        '<td colspan="3">' + "No hay profesionales de la salud registrados." + '</td>' +
+        '<td colspan="3">' + "No hay médicos registrados." + '</td>' +
         '</tr>';
     }
     msg += '</table>';
@@ -152,7 +176,7 @@ let medicosInhabilitados = async (medicos) => {
 
     if (medicos != null && medicos.length > 0) {
       msg += '<div class="container">' +
-        '<h2>Profesionales de la salud inactivos</h2>' +
+        '<h2>Médicos Inhabilitados</h2>' +
         '<br>' +
         '<table class="medicosInhabilitados" id="medicosInhabilitados">' +
         '<thead>' +
@@ -171,7 +195,7 @@ let medicosInhabilitados = async (medicos) => {
           '<td>' + medico.cedula + '</td>' +
           '<td>' +
           '<a  href="" data-bs-toggle="modal" data-bs-target="#habilitarmedico' + cont + '" type="button">' +
-          '<img src="../img/actualizar.png" class="actualizar"/>' +
+          '<img src="../img/actualizar.png" class="actualizar imagen-crecible-iconos" alt="actualizar"/>' +
           '</a >' +
           '</td>' +
           '</tr>' +
@@ -183,11 +207,11 @@ let medicosInhabilitados = async (medicos) => {
           '<div class="modal-dialog">' +
           '<div class="modal-content">' +
           '<div class="modal-header">' +
-          '<h5 class="modal-title">Habilitar profesional de la salud</h5>' +
+          '<h5 class="modal-title">Habilitar Médico</h5>' +
           '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
           '</div>' +
           '<div class="modal-body">' +
-          '<p><b>¿Está seguro(a) de habilitar nuevamente este profesional de la salud?</b></p>' +
+          '<p><b>¿Está seguro(a) de habilitar nuevamente este médico?</b></p>' +
           '<label class="cedulaMedico" id="cedulaMedico"><b>Cédula: </b>' + medico.cedula + '</label><br>' +
           '<label class="cedulaMedico" id="cedulaMedico"><b>Nombre: </b>' + medico.nombre + '</label>' +
           '</div>' +
@@ -224,12 +248,12 @@ let mostrarInfoMedico=async()=>{
     let msg="";
   
       msg+='<div class="form-container">'+
-          '<h2>Editar profesional de la salud</h2>'+
+          '<h2>Editar Médico</h2>'+
           '<p id="campos"><b>*</b> Campos requeridos</p>'+
           '<form id="paciente-form" onsubmit="actualizarMedico(event)">';
           msg+='<div class="form-row">'+
               '<div class="form-column">'+
-                '<label for="nombre" id="data">Nombre del profesional:<label id="asq">*</label></label>'+
+                '<label for="nombre" id="data">Nombre del médico:<label id="asq">*</label></label>'+
                 '<br>'+
                 '<input type="text" enterkeyhint="next"  class="nombre" id="nombre" name="nombre" required>'+
               '</div>'+
@@ -259,17 +283,22 @@ let mostrarInfoMedico=async()=>{
             '</div>'+
             '<div class="form-row">'+
             '<div class="form-column">'+
+                    '<label for="selectProfesion" id="data">Profesión:<label id="asq">*</label></label>'+
+                      '<br>'+
+                     '<select name="selectedProfesion" id="selectedProfesion" required>'+
+                     '<option value="">Seleccione...</option>'+
+                     '<option value="Médico">Médico</option>'+
+                     '<option value="Enfermera">Enfermera</option>'+                       
+                      '</select>'+
+                  '</div>'+
+            '<div class="form-column">'+
                     '<label for="selectEspecialidad" id="data">Especialidad:<label id="asq">*</label></label>'+
                       '<br>'+
-                     '<select name="selectedEspecialidad" class="custom-select" id="selectedEspecialidad" required>'+
+                     '<select name="selectedEspecialidad" id="selectedEspecialidad" required>'+
                                                
                       '</select>'+
                     '</div>'+
-                    '<div class="form-column">'+
-                    '<label for="aniosExperiencia" id="data">Años de Especialidad:<label id="asq">*</label></label>'+
-                    '<br>'+
-                    '<input type="text" class="aniosExperiencia" id="aniosExperiencia" name="aniosExperiencia" required>'+
-                  '</div>'+
+                    
                 '</div>'+
                 '<div class="form-row">'+
                               '<div class="form-column" id="colcorreo">'+

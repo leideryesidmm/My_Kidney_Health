@@ -10,11 +10,12 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
     
         <div class="navbar" name="navbar" id="navbar">
-          <div class="col-2 no-effect"><a href="medicamento.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" ></a></div>
+          <div class="col-2 no-effect"><a href="medicamento.html" class="devolverse"><img src="../img/devolverseColor.png" alt="Ir atrás" ></a></div>
           <div class="col-8"><h1 class="title">Medicamentos</h1></div>
           <div class="col-2"></div>
         </div>
@@ -72,19 +73,19 @@
         </div>
         <div class="btn-container">
           <a href="medicamento.html" class="btn-cancelar">Cancelar</a>
-          <button onclick="crearMedicamento()" type="submit" class="btn-nuevo">Guardar</button>
+          <button onclick="crearMedicamento()"  type="submit" id="guardarmedicamento" data-toggle="modal" data-target="#succesModal" class="btn-nuevo">Guardar</button>
         </div>
         
       </div>
     </div>
     
 
-    <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal fade" id="successModal" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="successModalLabel">Aviso</h5>
-              <a href="medicamento.html"><button type="button" class="close" aria-label="Close">
+              <a href="medicamento.html"><button type="button" class="close" aria-label="Close" data-bs-dismiss="modal">
                 <span aria-hidden="true">&times;</span>
               </button></a>
             </div>
@@ -92,7 +93,7 @@
               <p>Su medicamento se ha creado exitosamente</p>
             </div>
             <div class="modal-footer">
-              <a href="medicamento.html"><button href="medicamento.html" type="button" class="btn btn-primary">Aceptar</button></a>
+              <a href="medicamento.html"><button data-bs-dismiss="modal" type="button" class="btn btn-primary">Aceptar</button></a>
             </div>
           </div>
         </div>
@@ -115,6 +116,11 @@
           </div>
         </div>
       </div>
+
+
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
       <script src="../js/functions/medicamento.js"></script>
     <script src="../js/bd/medicamento.js"></script>

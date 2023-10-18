@@ -1,10 +1,10 @@
-let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
+  let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
 let NavBarMedicamento = () => {
   let ms = "";
   
   if (usuario == "paciente") {
       ms +=          
-      '<div class="navbar" id="bann" style="padding:0"><div class="col-2"><a href="principal.html" class="devolverse"><img src="../img/devolverseColor.png" alt=""></a></div>'+
+      '<div class="navbar" id="bann" style="padding:0"><div class="col-2"><a href="principal.html" class="devolverse"><img src="../img/devolverseColor.png" alt="Ir atrás"></a></div>'+
       '<div class="col-8"><h1 class="title-principal-app">Medicamentos</h1></div>'+
       '<div class="col-2"></div></div>';
   }
@@ -12,9 +12,9 @@ let NavBarMedicamento = () => {
       ms +=
       '<nav id="nav" class=" navbar-expand-lg navbar-light">'+
       '<div class="row">'+
-      '<div class="col-1 no-effect"><a href="principal.html" class="devolverse"><img src="../img/devolverseColor.png" alt="" id="icono"></a></div>'+  
+      '<div class="col-1 no-effect"><a href="principal.html" class="devolverse"><img src="../img/devolverseColor.png" alt="Ir atrás" id="icono"></a></div>'+  
       '<div class="col-1">'+
-          '<div class="logo"><img src="../img/logo3.png" alt=""></div>'+
+          '<div class="logo"><img src="../img/logo3.png" alt="Logo app"></div>'+
         '</div>'+
         '<div class="col-8">'+
           '<div class="title">'+
@@ -98,7 +98,7 @@ if(usuario=="paciente"){
       '<div class="via">' +
       "<p><strong>Vía administración:</strong></p>" +
       '<p class="via_administracion" id="via_administracion">' +
-      medicamento.via_Administracion +
+      medicamento.viaAdministracion +
       "</div>" +
       '<div class="concentration">' +
       "<p><strong>Concentración:</strong></p>" +
@@ -124,10 +124,10 @@ if(usuario=="paciente"){
       "</div>";
       if(usuario==="paciente"){
         medicamentoHTML+='<div class="btn-editar-container">' +
-      '<a href="editarMedicamento.html?idFormulaMedicamento='+medicamento.idFormulaMedicamento+'" class="btn-editar"><img src="../img/editaraler.png"></a>' +
+      '<a href="editarMedicamento.html?idFormulaMedicamento='+medicamento.idFormulaMedicamento+'" class="btn-editar"><img src="../img/editaraler.png" alt="Editar Medicamento" class="imagen-crecible-iconos"></a>' +
       '<div><a href="" class="btn-inhabilitar" data-bs-toggle="modal" data-bs-target="#inhabilitarMedicamento' +
       cont +
-      '" ><img src="../img/inhabilitar.png" alt="" id="inhabilitar" class="btn-inhabilitar"></a></div>' +
+      '" ><img src="../img/inhabilitar.png" alt="Inhabilitar Medicamentos" id="inhabilitar" class="btn-inhabilitar imagen-crecible-iconos"></a></div>' +
       "</div>" +
       '<div class="modal" tabindex="-1" id="inhabilitarMedicamento' +
       cont +
