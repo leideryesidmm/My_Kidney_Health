@@ -578,6 +578,7 @@ let tablaRecambios=async(recambios)=>{
   +'    <th>Inicio</th>'
   +'    <th>Final</th>'
   +'    <th>Concentración</th>'
+  +'    <th>Líquido Entrante</th>'
   +'    <th>Drenaje</th>'
   +'  </tr>'
   +'</thead>'
@@ -587,6 +588,7 @@ let tablaRecambios=async(recambios)=>{
   +'    <td style="font-size:70%">'+recambio.horaIni.split("T")[0]+' \n '+recambio.fecha.split("T")[1]+'</th>'
   +'    <td style="font-size:70%">'+recambio.horaFin.split("T")[0]+' \n '+recambio.fecha.split("T")[1]+'</th>'
   +'    <td style="font-size:90%">'+recambio.recambio.concentracion+' %</th>'
+  +'    <td style="font-size:90%">'+CryptoJS.AES.decrypt(recambio.liquidoEntrante, 'clave_secreta').toString(CryptoJS.enc.Utf8)+' ml</th>'
   +'    <td style="font-size:90%">'+CryptoJS.AES.decrypt(recambio.drenajeDialisis, 'clave_secreta').toString(CryptoJS.enc.Utf8)+' ml</th>'
   +'  </tr>';
   });
