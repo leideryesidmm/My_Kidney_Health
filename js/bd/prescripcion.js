@@ -220,6 +220,7 @@ $('#btnAceptar').click(function() {
 
 let crearRecambio = async () => {
     let imagenGuardada = "";
+    var liquidoEntrante = document.getElementById('liquidoEntrante').value;
     var drenaje = document.getElementById('drenaje').value;
   
     var concentracionSelect = document.getElementById('selectConcentracion');
@@ -237,12 +238,14 @@ let crearRecambio = async () => {
       }
     }
 
+    let liquidoEntranteEncriptado=CryptoJS.AES.encrypt(liquidoEntrante, 'clave_secreta').toString();
     let drenajeEncriptado=CryptoJS.AES.encrypt(drenaje, 'clave_secreta').toString();
     let concentracionEncriptada=CryptoJS.AES.encrypt(concentracion, 'clave_secreta').toString();
     let liquidoEncriptado=CryptoJS.AES.encrypt(liquido, 'clave_secreta').toString();
     let imagenEncriptada=CryptoJS.AES.encrypt(imagenGuardada, 'clave_secreta').toString();
 
     let recambioUnitario={
+      liquidoEntrante:liquidoEntranteEncriptado,
       drenajeDialisis:drenajeEncriptado,
       concentracion:concentracionEncriptada,
       estadoLiquido:liquidoEncriptado,
@@ -286,12 +289,12 @@ let crearRecambio = async () => {
   .catch(error => {
   
   });
-if(drenaje<2000 && liquido=="Turbio"){
+if(drenaje<liquidoEntrante && liquido=="Turbio"){
   document.getElementById("urgente").innerText="Está drenando menos líquido de lo debido y el líquido tiene una característica turbia, ¡por favor consulte un profesional de la salud!";
   $('#successModal').modal('show');
 }
 else{
-  if(drenaje<2000){
+  if(drenaje<liquidoEntrante){
     document.getElementById("urgente").innerText="Está drenando menos líquido de lo debido, ¡por favor consulte un profesional de la salud!";
     $('#successModal').modal('show');
   }
@@ -314,6 +317,7 @@ else{
     })
     let fecha_real=new Date(localStorage.getItem("fecha_real"));
     console.log(fecha_real)
+    var liquidoEntrante = document.getElementById('liquidoEntrante').value;
     var drenaje = document.getElementById('drenaje').value;
     const valores = window.location.search;
     const urlParams = new URLSearchParams(valores);
@@ -322,11 +326,13 @@ else{
     var fechayhoraIni=document.getElementById("fechaHoraIni").value;
     var fechayhoraFin=document.getElementById("fechaHoraFin").value;
 
+    let liquidoEntranteEncriptado=CryptoJS.AES.encrypt(liquidoEntrante, 'clave_secreta').toString();
     let drenajeEncriptado=CryptoJS.AES.encrypt(drenaje, 'clave_secreta').toString();
     let liquidoEncriptado=CryptoJS.AES.encrypt(liquidoSelect, 'clave_secreta').toString();
     let orificioEncriptada=CryptoJS.AES.encrypt(orificio, 'clave_secreta').toString();
 
     let recambioHechoInDto={
+      "liquidoEntrante": liquidoEntranteEncriptado,
       "caracteristicaLiquido": liquidoEncriptado,
       "drenajeDialisis": drenajeEncriptado,
       "orificioSalida": orificioEncriptada,
@@ -347,15 +353,15 @@ else{
     })
     .then(response => {
       if (response.ok) {
-        if(drenaje<2000 || liquidoSelect=="Turbio"){
-          console.log(drenaje<2000 && liquidoSelect=="Turbio");
-          if(drenaje<2000 && liquidoSelect=="Turbio"){
+        if(drenaje<liquidoEntrante || liquidoSelect=="Turbio"){
+          console.log(drenaje<liquidoEntrante && liquidoSelect=="Turbio");
+          if(drenaje<liquidoEntrante && liquidoSelect=="Turbio"){
             
             document.getElementById("urgente").innerText="Está drenando menos líquido de lo debido y el líquido tiene una característica turbia, ¡por favor consulte un profesional de la salud!";
             $('#modal2').modal('show');
           }
           else{
-            if(drenaje<2000){
+            if(drenaje<liquidoEntrante){
               document.getElementById("urgente").innerText="Está drenando menos líquido de lo debido, ¡por favor consulte un profesional de la salud!";
               $('#modal2').modal('show');
             }
@@ -392,6 +398,7 @@ else{
     })
     let recambioHecho=await peticion.json()
     console.log(recambioHecho)
+    document.getElementById("liquidoEntrante").value=CryptoJS.AES.decrypt(recambioHecho.liquidoEntrante, "clave_secreta").toString(CryptoJS.enc.Utf8); 
     document.getElementById("drenaje").value=CryptoJS.AES.decrypt(recambioHecho.drenajeDialisis, "clave_secreta").toString(CryptoJS.enc.Utf8); 
     document.getElementById("fechaHoraIni").value=recambioHecho.horaIni;
     document.getElementById("fechaHoraFin").value=recambioHecho.horaFin;
@@ -427,6 +434,7 @@ for (let i = 0; i < inputRadios.length; i++) {
     })
     
     let fecha_real=new Date(localStorage.getItem("fecha_real"));
+    var liquidoEntrante = document.getElementById('liquidoEntrante').value;
     var drenaje = document.getElementById('drenaje').value;
     const valores = window.location.search;
     const urlParams = new URLSearchParams(valores);
@@ -435,11 +443,13 @@ for (let i = 0; i < inputRadios.length; i++) {
     var fechayhoraIni=document.getElementById("fechaHoraIni").value;
     var fechayhoraFin=document.getElementById("fechaHoraFin").value;
 
+    let liquidoEntranteEncriptado=CryptoJS.AES.encrypt(liquidoEntrante, 'clave_secreta').toString();
     let drenajeEncriptado=CryptoJS.AES.encrypt(drenaje, 'clave_secreta').toString();
     let liquidoEncriptado=CryptoJS.AES.encrypt(liquidoSelect, 'clave_secreta').toString();
     let orificioEncriptada=CryptoJS.AES.encrypt(orificio, 'clave_secreta').toString();
 
     let recambioHechoInDto={
+      "liquidoEntrante": liquidoEntranteEncriptado,
       "caracteristicaLiquido": liquidoEncriptado,
       "drenajeDialisis": drenajeEncriptado,
       "orificioSalida": orificioEncriptada,
@@ -457,13 +467,13 @@ for (let i = 0; i < inputRadios.length; i++) {
     })
     .then(response => {
       if (response.ok) {
-        if(drenaje<2000 || liquidoSelect=="Turbio"){
-          if(drenaje<2000 && liquidoSelect=="Turbio"){
+        if(drenaje<liquidoEntrante || liquidoSelect=="Turbio"){
+          if(drenaje<liquidoEntrante && liquidoSelect=="Turbio"){
             document.getElementById("urgente").innerText="Está drenando menos líquido de lo debido y el líquido tiene una característica turbia, ¡por favor consulte un profesional de la salud!";
             $('#modal2').modal('show');
           }
           else{
-            if(drenaje<2000){
+            if(drenaje<liquidoEntrante){
               document.getElementById("urgente").innerText="Está drenando menos líquido de lo debido, ¡por favor consulte un profesional de la salud!";
               $('#modal2').modal('show');
             }
