@@ -913,7 +913,7 @@ let mostrarPrescripcionAntiguaMedico=async(prescripcion)=>{
   localStorage.setItem("selectPrescripcion", JSON.stringify(prescripcion));
   let ordinal=["Primer","Segundo", "Tercer", "Cuarto", "Quinto"];
   let msg=`<div class="row" style="display:flex">
-  <div class="col-2"><a onclick="volver()" class="btn btn-primary">Volver</a></div>
+  <div class="col-2"><a onclick="volver()" class="btn btn-primary" id="btnVolver">Volver</a></div>
   <div class="col-8"><h4 style="text-align:center">Prescripción antigua</h4></div></div><br>
                 <div class="row" style="margin:0 auto;">
                     <div class="col-sm-6">
