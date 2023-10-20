@@ -293,6 +293,62 @@
         </div>
       </div>
 
+      <div class="modal fade" id="info" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="successModalLabel">Información</h5>
+              <a href="prescripciones.html"><button type="button" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button></a>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <h6><b>Letras:</b></h6> <br>
+                    <dl class="d-flex" style="margin-bottom: 0;">
+                        <dt class="me-3"><p>H: </p></dt>
+                        <dd style="margin-left: 10px;"><p> Hecho</p></dd>
+                    </dl>
+                    <dl class="d-flex" style="margin-bottom: 0;">
+                        <dt class="me-3"><p>SH: </p></dt>
+                        <dd style="margin-left: 10px;"><p> Sin hacer</p></dd>
+                    </dl>
+                    <dl class="d-flex" style="margin-bottom: 0;">
+                        <dt class="me-3"><p>P: </p></dt>
+                        <dd style="margin-left: 10px;"><p id="concentracion"> Pendiente</p></dd>
+                    </dl>
+                    <dl class="d-flex" style="margin-bottom: 0;">
+                      <dt class="me-3"><p>F: </p></dt>
+                      <dd style="margin-left: 10px;"><p> Recambio Futuro</p></dd>
+                  </dl> <br>
+                  <h6><b>Colores:</b></h6><br>
+                    <dl class="d-flex" style="margin-bottom: 0;">
+                        <dt class="me-3"><p style="color:#f73c3c">Rojo: </p></dt>
+                        <dd style="margin-left: 10px;"><p id="drenaje">- Esta drenando menos de los debido <br>- El liquido drenado es turbio</p></dd>
+                    </dl>
+                    <dl class="d-flex" style="margin-bottom: 0;">
+                        <dt class="me-3"><p style="color:rgb(11, 158, 11)">Verde: </p></dt>
+                        <dd style="margin-left: 10px;"><p id="estadoOrificio">Todo en normalidad</p></dd>
+                    </dl>
+                    <dl class="d-flex" style="margin-bottom: 0;">
+                        <dt class="me-3"><p style="color: slategray;">Gris: </p></dt>
+                        <dd style="margin-left: 10px;"><p id="caracteristicaliquido">Sin hacer antiguos o futuros</p></dd>
+                    </dl>
+                    <dl class="d-flex" style="margin-bottom: 0;">
+                      <dt class="me-3"><p style="color:#e6b216">Naranja/Amarillo: </p></dt>
+                      <dd style="margin-left: 10px;"><p id="caracteristicaliquido">Pendientes por hacer</p></dd>
+                  </dl>
+                </div>
+            </div>
+            
+            </div>
+            <div class="modal-footer">
+              <a href="prescripciones.html"><button href="prescripciones.html" type="button" class="btn btn-primary">Aceptar</button></a>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div class="modal fade" id="contraseniacambiada" tabindex="1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
