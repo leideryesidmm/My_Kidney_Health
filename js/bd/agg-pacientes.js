@@ -230,7 +230,7 @@ let crearVisita = async (cedulaPaciente) => {
   console.log(visitaEspecialistaDto);
 
   if (Object.keys(visitaEspecialistaDto).length > 0) {
-    const response = await fetch(localStorage.getItem("servidorAPI") + 'Medico/visitaEspecialista', {
+    await fetch(localStorage.getItem("servidorAPI") + 'Medico/visitaEspecialista', {
       method: "POST",
       body: JSON.stringify(visitaEspecialistaDto),
       headers: {
@@ -259,6 +259,7 @@ let crearVisita = async (cedulaPaciente) => {
 let crearChequeoMensual = async (cedulaPaciente) => {
 
   let ultCita=await ultimaCita(cedulaPaciente)
+  console.log(ultCita);
   let idCita=ultCita.idCita;
   var inputs = document.querySelectorAll("input[name='chequeo']");
   var chequeoMensualInDto = {
@@ -330,6 +331,7 @@ let ultimaCita = async (cedulaPaciente) => {
 };
 
 let obtenerCedEncriptada=async(cedula)=>{
+  console.log(cedula);
   const peticion= await fetch(localStorage.getItem("servidorAPI")+'Medico/findAllPacientes',{
     method:'GET',
     headers:{
@@ -343,7 +345,7 @@ let obtenerCedEncriptada=async(cedula)=>{
         let decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, 'clave_secreta').toString(CryptoJS.enc.Utf8);
         const cedulaCodificado = encodeURIComponent(decryptedCedula);
         console.log(cedula===cedulaCodificado);
-        if(cedula===parseInt(cedulaCodificado))
+        if(cedula===cedulaCodificado)
         cedulaEncriptada=paciente.cedula;
         
       })   

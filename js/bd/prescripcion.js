@@ -902,9 +902,8 @@ let validacirChecks=validarCeckbox();
     if(checks==true){
       const btnPrescripcion=document.getElementById("editarPrescripcion");
       btnPrescripcion.style.background="gray";
-      btnPrescripcion.disabled="true"
-    await eliminarCita();
-    await crearCita(event);
+      btnPrescripcion.disabled="true";
+    await cambiarCitaEnVisitaYchequeo(event);
     await crearPrescripcionDia(event);
     await crearRecambios(event);
     $('#successModal').modal('show');
@@ -915,7 +914,46 @@ let validacirChecks=validarCeckbox();
       btnPrescripcion.style.background="gray";
       btnPrescripcion.disabled="true"
     }
-  }    
+  }   
+  
+  let cambiarCitaEnVisitaYchequeo=async(event)=>{
+    let visitaEspecialistaDto=await obtenerUltimaVisita();
+    let chequeoMensualInDto=await obtenerUltimoChequeo();
+    console.log(visitaEspecialistaDto);
+    console.log(chequeoMensualInDto);
+    delete visitaEspecialistaDto.cita;
+    await eliminarCita();
+    await crearCita(event);
+    let ultimaCita=await encontrarUltimaCita();
+    let idCita=ultimaCita.idCita;
+    if(visitaEspecialistaDto!=null || visitaEspecialistaDto!=undefined){
+      visitaEspecialistaDto.cita=idCita;
+    await fetch(localStorage.getItem("servidorAPI") + 'Medico/visitaEspecialista',{
+      method: 'POST',
+          headers: {
+            "Accept":"application/json",
+        "Content-Type":"application/json"
+          },
+          body: JSON.stringify(visitaEspecialistaDto)
+    })
+  }
+  if(chequeoMensualInDto!=null || chequeoMensualInDto!=undefined){
+    chequeoMensualInDto.cita=idCita;
+    await fetch(localStorage.getItem("servidorAPI") + 'Medico/chequeoMensual',{
+      method: 'POST',
+          headers: {
+            "Accept":"application/json",
+        "Content-Type":"application/json"
+          },
+          body: JSON.stringify(chequeoMensualInDto)
+    })
+  }
+
+
+    //4. obtener el id de la nueva cita
+    //5. Crear visita y chequeo con id de la cita
+    
+  }
 
   let eliminarCita=async()=>{
     let cita=await encontrarUltimaCita()
@@ -1061,7 +1099,7 @@ let actualizarChequeo=async()=>{
 
   let chequeoInDto={
     cita:idCita, tensionArterial:tensionArterial, colesterolTotal:colesterolTotal,
-    glicemia:glicemia, trigliceridos:trigliceridos, ldh:ldh, hemoglobina:hemoglobina, fosforo:fosforo, potasio:potasio, nitrogenoUreico:nitrogenoUreico, hdl:hdl, glucosa:glucosa, creatinina:creatinina, ktv:ktv, peso:peso, peso_seco:pesoSeco
+    glicemia:glicemia, trigliceridos:trigliceridos, ldh:ldh, hemoglobina:hemoglobina, fosforo:fosforo, potasio:potasio, nitrogenoUreico:nitrogenoUreico, hdl:hdl, glucosa:glucosa, creatinina:creatinina, ktv:ktv, peso:peso, pesoSeco:pesoSeco
   }
   console.log(chequeoInDto);
 
@@ -1097,7 +1135,7 @@ let actualizarVisita=async()=>{
   let reentrenamiento=document.getElementById("editarReentrenamiento").checked?true:false;
   let visitadomiciliaria=document.getElementById("editarVisitaDomiciliaria").checked?true:false;
   console.log(visitadomiciliaria);
-  let visitaEspecialistaInDto={ cita:idCita, farmacia:farmacia, nefrologia:nefrologia, psicologia:psicologia, enfermeria:enfermeria, nutricion:nutricion, trabajoSocial:trabajoSocial, auxiliarAdmisiones:auxiliarAdmisiones, entrenamiento:entrenamiento, reentrenamiento:reentrenamiento, visita_domiciliaria:visitadomiciliaria
+  let visitaEspecialistaInDto={ cita:idCita, farmacia:farmacia, nefrologia:nefrologia, psicologia:psicologia, enfermeria:enfermeria, nutricion:nutricion, trabajoSocial:trabajoSocial, auxiliarAdmisiones:auxiliarAdmisiones, entrenamiento:entrenamiento, reentrenamiento:reentrenamiento, visitaDomiciliaria:visitadomiciliaria
   }
   
 

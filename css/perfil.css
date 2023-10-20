@@ -167,6 +167,11 @@ label{
   
 }
 
+.cuidador-nuevo:hover{
+  color: #fff;
+  text-decoration: none;
+}
+
 .ver-cuidador{
   background-color: #085774;
   color: #fff;

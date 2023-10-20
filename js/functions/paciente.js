@@ -71,7 +71,7 @@ if(paciente!=null){
             '<label for="" id="tipoDocumento">'+paciente.tipoDocumento+'</label>'+
           '</div>'+
           '<div class="documento">'+
-            '<label for="documento"><b>Documento:</b></label>'+
+            '<label for="documento"><b>Número de Documento:</b></label>'+
             '<label for="" id="documento">'+paciente.cedula+'</label>'+
           '</div>'+
           '<div class="fechaNacimiento">'+
@@ -359,12 +359,12 @@ else{
           '<div class="form-column">'+
               '<label for="peso" id="data">Peso:<label id="asq">*</label></label>'+
               '<br>'+
-              '<input type="number" class="peso" id="peso" name="peso" required>'+
+              '<input type="number" step="any" class="peso" id="peso" name="peso" required>'+
             '</div>'+
             '<div class="form-column">'+
               '<label for="pesoseco" id="data">Peso Seco:<label id="asq">*</label></label>'+
               '<br>'+
-              '<input type="number" class="pesoseco" id="pesoseco" name="pesoseco" required>'+
+              '<input type="number" step="any" class="pesoseco" id="pesoseco" name="pesoseco" required>'+
             '</div>'+
             
           '</div>'+

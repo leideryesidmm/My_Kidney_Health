@@ -638,7 +638,7 @@ let tablaVisitas=async(visitas)=>{
        <td style="font-size:90%">${visita.farmacia?"Si":"No"}</td>
        <td style="font-size:90%">${visita.entrenamiento?"Si":"No"}</td>
        <td style="font-size:90%">${visita.reentrenamiento?"Si":"No"}</td>
-       <td style="font-size:90%">${visita.visita_domiciliaria?"Si":"No"}</td>
+       <td style="font-size:90%">${visita.visitaDomiciliaria?"Si":"No"}</td>
       </tr>`;
     
     
@@ -688,7 +688,7 @@ let tablaVisitas=async(visitas)=>{
     msg+=` <tr>
       <td style="font-size:90%">${chequeo.cita.fecha.split("T")[0]}</td>
        <td style="font-size:90%">${chequeo.peso} Kgs.</td>
-       <td style="font-size:90%">${chequeo.peso_seco} Kgs.</td>
+       <td style="font-size:90%">${chequeo.pesoSeco} Kgs.</td>
        <td style="font-size:90%">${chequeo.tensionArterial} mm Hg</td>
        <td style="font-size:90%">${chequeo.hemoglobina} g/L</td>
        <td style="font-size:90%">${chequeo.colesterolTotal} mg/dL</td>
@@ -1461,7 +1461,7 @@ let mostrarChequeo=async()=>{
           <div class="col-6 p-3">
           <div class="row mt-2 border p-2">
           <div class="centrar-label col-6"><label class="form-label" for="peso_seco">Peso seco:</label></div>
-          <div class="col-6"><input class="form-control" type="text" name="chequeo" id="peso_seco" disabled value="`+chequeo.peso_seco+` Kgs. "></input></div>
+          <div class="col-6"><input class="form-control" type="text" name="chequeo" id="peso_seco" disabled value="`+chequeo.pesoSeco+` Kgs. "></input></div>
           </div>
           <div class="row mt-2 border p-2">
           <div class="centrar-label col-6"><label class="form-label" for="hemoglobina"> Hemoglobina:</label></div>
@@ -1524,7 +1524,7 @@ let mostrarVisita=async()=>{
   let farmacia=visita.farmacia;
   let entrenamiento=visita.entrenamiento;
   let reentrenamiento=visita.reentrenamiento;
-  let visitadomiciliaria=visita.visita_domiciliaria;
+  let visitadomiciliaria=visita.visitaDomiciliaria;
   msg +=
           `<div class="modal-dialog">
           <div class="modal-content">
@@ -1761,7 +1761,7 @@ else{
   '</div>' +
   '<div class="row mt-2 border p-2">' +
   '<div class="centrar-label col-6"><label class="form-label" for="tensionArterial">Tensión Arterial:</label></div>' +
-  '<div class="col-6"><input class="form-control" placeholder="Tensión en mm Hg" type="number" name="chequeo" id="tensionArterial" /></div>' +
+  '<div class="col-6"><input class="form-control" placeholder="Tensión en mm Hg" type="text" name="chequeo" id="tensionArterial" /></div>' +
   '</div>' +
   '<div class="row mt-2 border p-2">' +
   '<div class="centrar-label col-6"><label class="form-label" for="colesterolTotal">Colesterol Total:</label></div>' +
@@ -1866,7 +1866,7 @@ let editarChequeo=async()=>{
           </div>
           <div class="row border p-2">
           <div class="centrar-label col-6"><label class="form-label" for="tensionArterial">Tensión Arterial:</label></div>
-          <div class="col-6"><input class="form-control" type="number" name="chequeo" id="editarTensionArterial" value="`+chequeo.tensionArterial+`"></input></div>
+          <div class="col-6"><input class="form-control" type="text" name="chequeo" id="editarTensionArterial" value="`+chequeo.tensionArterial+`"></input></div>
           </div>
           <div class="row mt-2 border p-2">
           <div class="centrar-label col-6"><label class="form-label" for="colesterolTotal">Colesterol Total</label></div>
@@ -1896,7 +1896,7 @@ let editarChequeo=async()=>{
           <div class="col-6 p-3">
           <div class="row border p-2">
           <div class="centrar-label col-6"><label class="form-label" for="peso_seco"> Peso seco:</label></div>
-          <div class="col-6"><input class="form-control" type="number" name="chequeo" id="editarPesoSeco" value="`+chequeo.peso_seco+`"></input></div>
+          <div class="col-6"><input class="form-control" type="number" name="chequeo" id="editarPesoSeco" value="`+chequeo.pesoSeco+`"></input></div>
           </div>
           <div class="row border p-2">
           <div class="centrar-label col-6"><label class="form-label" for="hemoglobina"> Hemoglobina</label></div>
@@ -1952,7 +1952,7 @@ let editarVisita=async()=>{
   let farmacia=visita.farmacia;
   let entrenamiento=visita.entrenamiento;
   let reentrenamiento=visita.reentrenamiento;
-  let visitadomiciliaria=visita.visita_domiciliaria;
+  let visitadomiciliaria=visita.visitaDomiciliaria;
   msg +=
           `<div class="modal-dialog">
           <div class="modal-content">
