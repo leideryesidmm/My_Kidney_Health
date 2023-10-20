@@ -1662,48 +1662,48 @@ else{
           '<div class="especialistas"><br><form id="checkboxForm">' +
           '<div class="row">' +
           '<div class="col-6"><img src="../img/nefrologo.png" alt="Nefrolofía" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="nefrologia" id="nefrologia">' +
-          '  <label class="form-check-label" for="flexCheckDefault">' +
+          '  <label class="form-check-label" for="nefrologia">' +
           '    Nefrólogo' +
           '  </label>' +
           '</div>' +
           '<div class="col-6"><img src="../img/enfermera.png" alt="Enfermería" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="enfermeria" id="enfermeria">' +
-          '  <label class="form-check-label" for="flexCheckDefault">' +
+          '  <label class="form-check-label" for="enfermeria">' +
           '    Enfermera' +
           '  </label>' +
           '</div>' +
           '</div><br>' +
           '<div class="row">' +
           '<div class="col-6"><img src="../img/nutricion.png" alt="Nutrición" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="nutricion" id="nutricion">' +
-          '  <label class="form-check-label" for="flexCheckDefault">' +
+          '  <label class="form-check-label" for="nutricion">' +
           '    Nutricionista' +
           '  </label>' +
           '</div>' +
           '<div class="col-6"><img src="../img/psicologo.png" alt="Psicología" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="psicologia" id="psicologia">' +
-          '  <label class="form-check-label" for="flexCheckDefault">' +
+          '  <label class="form-check-label" for="psicologia">' +
           '    Psicólogo' +
           '  </label>' +
           '</div>' +
           '</div><br>' +
           '<div class="row">' +
           '<div class="col-6"><img src="../img/asistencia.png" alt="Trabajo social" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="trabajoSocial" id="trabajoSocial">' +
-          '  <label class="form-check-label" for="flexCheckDefault">' +
+          '  <label class="form-check-label" for="trabajoSocial">' +
           '    Trabajador Social' +
           '  </label>' +
           '</div>' +
           '<div class="col-6"><img src="../img/admision.png" alt="Auxiliar de admisiones" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="auxiliarAdmisiones" id="auxiliarAdmisiones">' +
-          '  <label class="form-check-label" for="flexCheckDefault">' +
+          '  <label class="form-check-label" for="auxiliarAdmisiones">' +
           '    Aux. de Admisiones' +
           '  </label>' +
           '</div>' +
           '</div><br>' +
           '<div class="row">' +
           '<div class="col-6"><img src="../img/farmacia.png" alt="farmacia" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="farmacia" id="farmacia">' +
-          '  <label class="form-check-label" for="flexCheckDefault">' +
+          '  <label class="form-check-label" for="farmacia">' +
           '    Farmacia' +
           '  </label>' +
           '</div>' +
           '<div class="col-6"><img src="../img/entrenamiento.png" alt="entrenamiento" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="entrenamiento" id="entrenamiento">' +
-          '  <label class="form-check-label" for="flexCheckDefault">' +
+          '  <label class="form-check-label" for="entrenamiento">' +
           '    Entrenamiento' +
           '  </label>' +
           '</div>' +
@@ -1711,12 +1711,12 @@ else{
 
           '<div class="row">' +
           '<div class="col-6"><img src="../img/reentrenamiento.png" alt="reentrenamiento" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="reentrenamiento" id="reentrenamiento">' +
-          '  <label class="form-check-label" for="flexCheckDefault">' +
+          '  <label class="form-check-label" for="reentrenamiento">' +
           '    Reentrenamiento' +
           '  </label>' +
           '</div>' +
-          '<div class="col-6"><img src="../img/casa.png" alt="visitadomiciliaria" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="visitadomiciliaria" id="visitadomiciliaria">' +
-          '  <label class="form-check-label" for="flexCheckDefault">' +
+          '<div class="col-6"><img src="../img/casa.png" alt="visitadomiciliaria" width="50" height="55" />&nbsp<input class="form-check-input" type="checkbox" name="visita" value="visitaDomiciliaria" id="visitaDomiciliaria">' +
+          '  <label class="form-check-label" for="visitaDomiciliaria">' +
           '    Visita Domiciliaria' +
           '  </label>' +
           '</div>' +
@@ -1797,7 +1797,7 @@ else{
   '<div class="col-6 p-3">' +
   '<div class="row mt-2 border p-2">' +
   '<div class="centrar-label col-6"><label class="form-label" for="pesoSeco">Peso seco:</label></div>' +
-  '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="peso_seco" /></div>' +
+  '<div class="col-6"><input class="form-control" type="number" name="chequeo" id="pesoSeco" /></div>' +
   '</div>' +
   '<div class="row mt-2 border p-2">' +
   '<div class="centrar-label col-6"><label class="form-label" for="hemoglobina"> Hemoglobina:</label></div>' +
@@ -1976,14 +1976,14 @@ let editarVisita=async()=>{
           <div class="col-6"><img src="../img/nefrologo.png" alt="Nefrología" width="50" height="55" />&nbsp
           ${nefrologia?
             `<input class="form-check-input" type="checkbox" name="visita" value="nefrologia" id="editarNefrologia" checked >`:`<input class="form-check-input" type="checkbox" name="visita" value="nefrologia" id="editarNefrologia" >`}
-            <label class="form-check-label" for="flexCheckDefault">
+            <label class="form-check-label" for="editarNefrologia">
               Nefrólogo
             </label>
           </div>
            <div class="col-6"><img src="../img/enfermera.png" alt="Enfermería" width="50" height="55" />&nbsp 
           ${enfermeria?
           `<input class="form-check-input" type="checkbox" name="visita" value="enfermeria" id="editarEnfermeria" checked>`:`<input class="form-check-input" type="checkbox" name="visita" value="enfermeria" id="editarEnfermeria" >`}
-            <label class="form-check-label" for="flexCheckDefault">
+            <label class="form-check-label" for="editarEnfermeria">
               Enfermera
             </label>
           </div>
@@ -1992,14 +1992,14 @@ let editarVisita=async()=>{
           <div class="col-6"><img src="../img/nutricion.png" alt="Nutrición" width="50" height="55" />&nbsp
           ${nutricion?
           `<input class="form-check-input" type="checkbox" name="visita" value="nutricion" id="editarNutricion" checked>`:`<input class="form-check-input" type="checkbox" name="visita" value="nutricion" id="editarNutricion" >`}
-            <label class="form-check-label" for="flexCheckDefault">
+            <label class="form-check-label" for="editarNutricion">
               Nutricionista
             </label>
           </div>
           <div class="col-6"><img src="../img/psicologo.png" alt="Psicología" width="50" height="55" />&nbsp
           ${psicologia?
             `<input class="form-check-input" type="checkbox" name="visita" value="psicologia" id="editarPsicologia" checked>`:`<input class="form-check-input" type="checkbox" name="visita" value="psicologia" id="editarPsicologia">`}
-            <label class="form-check-label" for="flexCheckDefault">
+            <label class="form-check-label" for="editarPsicologia">
               Psicólogo
             </label>
           </div>
@@ -2008,14 +2008,14 @@ let editarVisita=async()=>{
           <div class="col-6"><img src="../img/asistencia.png" alt="Trabajo social" width="50" height="55" />&nbsp
           ${trabajoSocial?
             `<input class="form-check-input" type="checkbox" name="visita" value="trabajoSocial" id="editarTrabajoSocial" checked>`:`<input class="form-check-input" type="checkbox" name="visita" value="trabajoSocial" id="editarTrabajoSocial">`}
-            <label class="form-check-label" for="flexCheckDefault">
+            <label class="form-check-label" for="editarTrabajoSocial">
               Trabajador Social
             </label>
           </div>
           <div class="col-6"><img src="../img/admision.png" alt="Auxiliar de admisiones" width="50" height="55" />&nbsp
           ${auxiliarAdmisiones?
             `<input class="form-check-input" type="checkbox" name="visita" value="auxiliarAdmisiones" id="editarAuxiliarAdmisiones" checked>`:`<input class="form-check-input" type="checkbox" name="visita" value="auxiliarAdmisiones" id="editarAuxiliarAdmisiones">`}
-            <label class="form-check-label" for="flexCheckDefault">
+            <label class="form-check-label" for="editarAuxiliarAdmisiones">
               Aux. de Admisiones
             </label>
           </div>
@@ -2024,14 +2024,14 @@ let editarVisita=async()=>{
           <div class="col-6"><img src="../img/farmacia.png" alt="farmacia" width="50" height="55" />&nbsp
           ${farmacia?
             `<input class="form-check-input" type="checkbox" name="visita" value="farmacia" id="editarFarmacia" checked >`:`<input class="form-check-input" type="checkbox" name="visita" value="farmacia" id="editarFarmacia">`}
-            <label class="form-check-label" for="flexCheckDefault">
+            <label class="form-check-label" for="editarFarmacia">
               Farmacia
             </label>
           </div>
           <div class="col-6"><img src="../img/entrenamiento.png" alt="entrenamiento" width="50" height="55" />&nbsp
           ${entrenamiento?
             `<input class="form-check-input" type="checkbox" name="visita" value="entrenamiento" id="editarEntrenamiento" checked >`:`<input class="form-check-input" type="checkbox" name="visita" value="entrenamiento" id="editarEntrenamiento">`}
-            <label class="form-check-label" for="flexCheckDefault">
+            <label class="form-check-label" for="editarEntrenamiento">
             Entrenamiento
             </label>
           </div>
@@ -2040,14 +2040,14 @@ let editarVisita=async()=>{
           <div class="col-6"><img src="../img/reentrenamiento.png" alt="reentrenamiento" width="50" height="55" />&nbsp
           ${reentrenamiento?
             `<input class="form-check-input" type="checkbox" name="visita" value="reentrenamiento" id="editarReentrenamiento" checked >`:`<input class="form-check-input" type="checkbox" name="visita" value="reentrenamiento" id="editarReentrenamiento">`}
-            <label class="form-check-label" for="flexCheckDefault">
+            <label class="form-check-label" for="editarReentrenamiento">
             Reentrenamiento
             </label>
           </div>
           <div class="col-6"><img src="../img/casa.png" alt="visita domiciliaria" width="50" height="55" />&nbsp
           ${visitadomiciliaria?
-            `<input class="form-check-input" type="checkbox" name="visita" value="visitadomiciliaria" id="editarVisitaDomiciliaria" checked >`:`<input class="form-check-input" type="checkbox" name="visita" value="visitadomiciliaria" id="editarVisitaDomiciliaria">`}
-            <label class="form-check-label" for="flexCheckDefault">
+            `<input class="form-check-input" type="checkbox" name="visita" value="visitaDomiciliaria" id="editarVisitaDomiciliaria" checked >`:`<input class="form-check-input" type="checkbox" name="visita" value="visitadomiciliaria" id="editarVisitaDomiciliaria">`}
+            <label class="form-check-label" for="editarVisitaDomiciliaria">
             Visita Domiciliaria
             </label>
           </div>
