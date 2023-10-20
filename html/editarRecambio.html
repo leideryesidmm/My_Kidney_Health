@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <title>Editar Recambio</title>
+    <title>Editar recambio</title>
     <link rel="stylesheet" type="text/css" href="../css/index.css">
     <link rel="stylesheet" type="text/css" href="../css/addRecambio.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -27,11 +27,16 @@
 
         <div class="form-container">
           <h5>Editar Recambio</h5>
-      <form id="editarMedicamento">
+      <form id="editarMedicamento" onsubmit="editarRecambio(event)">
+
+        <div class="liquidoEntrante">
+          <label for="liquid">Líquido entrante:</label>
+          <input type="number" enterkeyhint="next"  name="liquidoEntrante" id="liquidoEntrante" class="liquidoEntrante" required>
+        </div>
 
         <div class="drenaje">
           <label for="dren">Drenaje:</label>
-          <input type="number" name="drenaje" id="drenaje" class="drenaje" required>
+          <input type="number" name="drenaje" min="0" max="4000" id="drenaje" class="drenaje" required>
         </div>
   
         <div class="concentracion">
@@ -112,12 +117,11 @@
             </label>
           </div>
         </div>
-      
+        <div class="btn-container">
+          <a href="prescripciones.html" class="btn-cancelar">Cancelar</a>
+          <button type="submit" class="btn-nuevo">Actualizar</button>
+      </div>
           </form>
-          <div class="btn-container">
-            <a href="prescripciones.html" class="btn-cancelar">Cancelar</a>
-            <button type="submit" class="btn-nuevo" onclick="editarRecambio()">Actualizar</button>
-        </div>
         </div>
 
         <div class="modal fade" id="successModal" data-backdrop="static" data-keyboard="false">

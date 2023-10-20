@@ -437,8 +437,11 @@ let mostrarPrescripcion= async (prescripcion, fecha, recambios) => {
         +'<div class="row">'
         +`    <div class="col-2 estado" style="`;
         if(recambios[cont]!=null){
+          console.log(decodeURIComponent(CryptoJS.AES.decrypt(recambios[cont].caracteristicaLiquido, 'clave_secreta').toString(CryptoJS.enc.Utf8))!="Turbio")
+          console.log(decodeURIComponent(CryptoJS.AES.decrypt(recambios[cont].caracteristicaLiquido, 'clave_secreta').toString(CryptoJS.enc.Utf8)))
+          console.log(recambios[cont])
           estado="H";
-            msg+='background-color:rgb(11, 158, 11);">';
+            msg+=`${parseInt(CryptoJS.AES.decrypt(recambios[cont].drenajeDialisis, 'clave_secreta').toString(CryptoJS.enc.Utf8))>=parseInt(CryptoJS.AES.decrypt(recambios[cont].liquidoEntrante, 'clave_secreta').toString(CryptoJS.enc.Utf8))&&decodeURIComponent(CryptoJS.AES.decrypt(recambios[cont].caracteristicaLiquido, 'clave_secreta').toString(CryptoJS.enc.Utf8))!="Turbio"?'background-color:rgb(11, 158, 11);">':'background-color:#f73c3c;">'}`;
             if(fecha.getFullYear() === hoy.getFullYear() &&
             fecha.getMonth() === hoy.getMonth() &&
             (fecha.getDate() === hoy.getDate()||fecha.getDate() === hoy.getDate()-1)){
@@ -485,7 +488,7 @@ let mostrarPrescripcion= async (prescripcion, fecha, recambios) => {
               fecha.getMonth() === hoy.getMonth() &&
               fecha.getDate() < (hoy.getDate()-1))){
                 estado="SH"
-                msg+='background-color:#f73c3c;">';
+                msg+='background-color:slategray;">';
             }else{
                 if(fecha.getFullYear() === hoy.getFullYear() &&
                 fecha.getMonth() === hoy.getMonth() &&
@@ -511,12 +514,12 @@ let mostrarPrescripcion= async (prescripcion, fecha, recambios) => {
         +'            <h6 id="vertical">'
         +estado
         +'            </h6>'
-        +'            <div class="tooltip-container">'+
+        +'            <div class="tooltip-container"><a style="cursor:pointer" onclick="verinfo()">'+
         '<span class="tooltip-text" data-toggle="tooltip" data-placement="top" title="H: Hecho&#10;P: Pendiente&#10;SH: Sin hacer&#10;F: Futuro">'+
       '<svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">'
         +'                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>'
         +'                <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>'
-        +'              </svg></span></div>'
+        +'              </svg></span></a></div>'
         +'        </div>'   
         +'    </div>'
         msg+=datos1[cont];
@@ -541,6 +544,7 @@ let verRecambio=async(idRecambio)=>{
 
   document.getElementById("inicio").innerText=recambio.horaIni.replace("T", " ");
   document.getElementById("final").innerText=recambio.horaFin.replace("T", " ");
+  document.getElementById("liquidoEntrante").innerText=decodeURIComponent(CryptoJS.AES.decrypt(recambio.liquidoEntrante, 'clave_secreta').toString(CryptoJS.enc.Utf8))+" ml";
   document.getElementById("drenaje").innerText=decodeURIComponent(CryptoJS.AES.decrypt(recambio.drenajeDialisis, 'clave_secreta').toString(CryptoJS.enc.Utf8))+" ml";
   document.getElementById("concentracion").innerText=recambio.recambio.concentracion+"%";
   document.getElementById("estadoOrificio").innerText=decodeURIComponent(CryptoJS.AES.decrypt(recambio.orificioSalida, 'clave_secreta').toString(CryptoJS.enc.Utf8));
@@ -577,6 +581,7 @@ let tablaRecambios=async(recambios)=>{
   +'    <th>Inicio</th>'
   +'    <th>Final</th>'
   +'    <th>Concentración</th>'
+  +'    <th>Líquido Entrante</th>'
   +'    <th>Drenaje</th>'
   +'  </tr>'
   +'</thead>'
@@ -586,6 +591,7 @@ let tablaRecambios=async(recambios)=>{
   +'    <td style="font-size:70%">'+recambio.horaIni.split("T")[0]+' \n '+recambio.fecha.split("T")[1]+'</th>'
   +'    <td style="font-size:70%">'+recambio.horaFin.split("T")[0]+' \n '+recambio.fecha.split("T")[1]+'</th>'
   +'    <td style="font-size:90%">'+recambio.recambio.concentracion+' %</th>'
+  +'    <td style="font-size:90%">'+CryptoJS.AES.decrypt(recambio.liquidoEntrante, 'clave_secreta').toString(CryptoJS.enc.Utf8)+' ml</th>'
   +'    <td style="font-size:90%">'+CryptoJS.AES.decrypt(recambio.drenajeDialisis, 'clave_secreta').toString(CryptoJS.enc.Utf8)+' ml</th>'
   +'  </tr>';
   });
@@ -2060,4 +2066,6 @@ let editarVisita=async()=>{
           $("#editarVisita").modal("show");
 }
 
-
+function verinfo() {
+  $("#info").modal("show");
+}
