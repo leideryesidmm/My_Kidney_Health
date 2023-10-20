@@ -27,11 +27,11 @@
 
         <div class="form-container">
           <h5>Editar Recambio</h5>
-      <form id="editarMedicamento">
+      <form id="editarMedicamento" onsubmit="editarRecambio(event)">
 
         <div class="drenaje">
           <label for="dren">Drenaje:</label>
-          <input type="number" name="drenaje" id="drenaje" class="drenaje" required>
+          <input type="number" name="drenaje" min="0" max="4000" id="drenaje" class="drenaje" required>
         </div>
   
         <div class="concentracion">
@@ -112,12 +112,11 @@
             </label>
           </div>
         </div>
-      
+        <div class="btn-container">
+          <a href="prescripciones.html" class="btn-cancelar">Cancelar</a>
+          <button type="submit" class="btn-nuevo">Actualizar</button>
+      </div>
           </form>
-          <div class="btn-container">
-            <a href="prescripciones.html" class="btn-cancelar">Cancelar</a>
-            <button type="submit" class="btn-nuevo" onclick="editarRecambio()">Actualizar</button>
-        </div>
         </div>
 
         <div class="modal fade" id="successModal" data-backdrop="static" data-keyboard="false">

@@ -418,7 +418,8 @@ for (let i = 0; i < inputRadios.length; i++) {
 
 
 
-  let editarRecambio=async()=>{
+  let editarRecambio=async(event)=>{
+    event.preventDefault();
     let orificio;
 
     document.getElementsByName("opcion").forEach(opcion => {

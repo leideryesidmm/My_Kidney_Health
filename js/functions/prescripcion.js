@@ -437,8 +437,11 @@ let mostrarPrescripcion= async (prescripcion, fecha, recambios) => {
         +'<div class="row">'
         +`    <div class="col-2 estado" style="`;
         if(recambios[cont]!=null){
+          console.log(recambios[cont].drenajeDialisis>recambios[cont].liquidoEntrante)
+          console.log(CryptoJS.AES.decrypt(recambios[cont].drenajeDialisis, 'clave_secreta').toString(CryptoJS.enc.Utf8))
+          console.log(recambios[cont])
           estado="H";
-            msg+='background-color:rgb(11, 158, 11);">';
+            msg+=`${CryptoJS.AES.decrypt(recambios[cont].drenajeDialisis, 'clave_secreta').toString(CryptoJS.enc.Utf8)>CryptoJS.AES.decrypt(recambios[cont].liquidoEntrante, 'clave_secreta').toString(CryptoJS.enc.Utf8)?'background-color:rgb(11, 158, 11);">':'background-color:#f73c3c;">'}`;
             if(fecha.getFullYear() === hoy.getFullYear() &&
             fecha.getMonth() === hoy.getMonth() &&
             (fecha.getDate() === hoy.getDate()||fecha.getDate() === hoy.getDate()-1)){
