@@ -29,6 +29,11 @@
           <h5>Editar Recambio</h5>
       <form id="editarMedicamento" onsubmit="editarRecambio(event)">
 
+        <div class="liquidoEntrante">
+          <label for="liquid">Líquido entrante:</label>
+          <input type="number" enterkeyhint="next"  name="liquidoEntrante" id="liquidoEntrante" class="liquidoEntrante" required>
+        </div>
+
         <div class="drenaje">
           <label for="dren">Drenaje:</label>
           <input type="number" name="drenaje" min="0" max="4000" id="drenaje" class="drenaje" required>

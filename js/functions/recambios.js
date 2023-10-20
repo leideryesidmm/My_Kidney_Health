@@ -180,6 +180,7 @@ let listRecambios = async (recambios) => {
         <th id="fechasD" style="border:2px solid">Fecha</th>
         <th id="fechasD" style="border:2px solid">Hora</th>
         <th id="fechasD" style="border:2px solid">Concentración</th>
+        <th id="fechasD" style="border:2px solid">Líquido Entrante</th>
         <th id="fechasD" style="border:2px solid">Drenaje</th>
         <th id="fechasD" style="border:2px solid">Balance</th>
         <th id="fechasD" style="border:2px solid">Total Ultrafiltrado</th>
@@ -206,10 +207,10 @@ let listRecambios = async (recambios) => {
             let hecho=false;
             fecha.recambios.forEach(recam=>{
               if(ciclo==0)
-                ultrafiltrado+=decodeURIComponent(CryptoJS.AES.decrypt(recam.drenajeDialisis, 'clave_secreta').toString(CryptoJS.enc.Utf8))-2000;
+                ultrafiltrado+=decodeURIComponent(CryptoJS.AES.decrypt(recam.drenajeDialisis, 'clave_secreta').toString(CryptoJS.enc.Utf8))-decodeURIComponent(CryptoJS.AES.decrypt(recam.liquidoEntrante, 'clave_secreta').toString(CryptoJS.enc.Utf8));
           })
             fecha.recambios.forEach(recam=>{
-              
+              console.log(recam)
               console.log("id recambio hecho"+recam.recambio.idRecambio)
               console.log("id recambio prescrito"+recambiod.idRecambio)
               if(recam.recambio.idRecambio==recambiod.idRecambio){
@@ -217,20 +218,21 @@ let listRecambios = async (recambios) => {
                 msg+=`
               <td style="border:1px solid;background-color:#53DA44">${new Date(recam.fechaReal).toLocaleTimeString().substring(0,new Date(recam.fechaReal).toLocaleTimeString().length-3)}</td>
               <td style="border:1px solid;background-color:#53DA44">${recambiod.concentracion} %</td>
+              <td style="border:1px solid;background-color:#53DA44">${decodeURIComponent(CryptoJS.AES.decrypt(recam.liquidoEntrante, 'clave_secreta').toString(CryptoJS.enc.Utf8))} ml</td>
               <td style="border:1px solid;background-color:#53DA44">${decodeURIComponent(CryptoJS.AES.decrypt(recam.drenajeDialisis, 'clave_secreta').toString(CryptoJS.enc.Utf8))} ml</td>
-              <td style="border:1px solid;background-color:#53DA44">${(parseInt(CryptoJS.AES.decrypt(decodeURIComponent(recam.drenajeDialisis), "clave_secreta").toString(CryptoJS.enc.Utf8),10)-2000)} ml</td>
+              <td style="border:1px solid;background-color:#53DA44">${(parseInt(CryptoJS.AES.decrypt(decodeURIComponent(recam.drenajeDialisis), "clave_secreta").toString(CryptoJS.enc.Utf8),10)-decodeURIComponent(CryptoJS.AES.decrypt(recam.liquidoEntrante, 'clave_secreta').toString(CryptoJS.enc.Utf8)))} ml</td>
               `
               }
               
             })
               if(hecho==false){
                 msg+=`
-                <td style="border:1px solid;" colspan="4"><h5 id="sinHacer"><i>Sin registro.</i></h5></td>
+                <td style="border:1px solid;" colspan="5"><h5 id="sinHacer"><i>Sin registro.</i></h5></td>
                 `
               }
           }else{
             msg+=`
-                <td style="border:1px solid;" colspan="4"><h5 id="sinHacer"><i>Sin registro.</i></h5></td>
+                <td style="border:1px solid;" colspan="5"><h5 id="sinHacer"><i>Sin registro.</i></h5></td>
                 `
           }
          
@@ -260,6 +262,7 @@ let listRecambios = async (recambios) => {
             fecha: "2023-08-26",
             hora: "2023-08-26T03:24:00",
             concentracion: 2.5,
+            liquidoEntrante: 2000,
             drenaje: 2300,
             balance: 300,
             totalUltrafiltrado: 300
