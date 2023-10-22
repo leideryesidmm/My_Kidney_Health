@@ -1,110 +1,6 @@
 
 var cedulaEncriptada= "";
 
-let prescripciones= async()=>{
-
-  let data = localStorage.getItem("datos");
-  let dato=JSON.parse(data);
-      let usuario = dato.usuario;
-      let cedul= decodeURIComponent(dato.cedula);
-      let cedEncriptada="";
-      let cedulaEncriptada="";
-      if(usuario=="medico"){
-       cedulaEncriptada = await obtenerCedulaEncriptada(0, CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
-      ;}
-      else{
-        cedulaEncriptada=cedul;
-      }
-    const peticion= await fetch(localStorage.getItem("servidorAPI")+"paciente/prescripcion/prescripcionActual",{
-      method:"POST",
-      body:JSON.stringify({cedula:cedulaEncriptada}),
-      headers:{
-        "Accept":"application/json",
-        "Content-Type":"application/json"
-      }
-});
-if(peticion.status===200){
-    const prescripcion=await peticion.json();
-return prescripcion;}
-}
-
-let visitas= async()=>{
-
-       let cedulaEncriptada = await obtenerCedulaEncriptada(0, CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
-      ;
-      const pacienteInDto={
-        cedula:cedulaEncriptada
-       }
-       console.log(pacienteInDto);
-    const peticion= await fetch(localStorage.getItem("servidorAPI")+"paciente/prescripcion/visitas",{
-      method:"POST",
-      body:JSON.stringify(pacienteInDto),
-      headers:{
-        "Accept":"application/json",
-        "Content-Type":"application/json"
-      }
-});
-if(peticion.status===200){
-    const visitas=await peticion.json();
-return visitas;}
-if(peticion.status===204){
-  let array=[];
-  return array;
-}
-}
-
-let chequeos= async()=>{
-
-  cedulaEncriptada = await obtenerCedulaEncriptada(0, CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
- ;
- const pacienteInDto={
-  cedula:cedulaEncriptada
- }
-const peticion= await fetch(localStorage.getItem("servidorAPI")+"paciente/prescripcion/chequeos",{
- method:"POST",
- body:JSON.stringify(pacienteInDto),
- headers:{
-   "Accept":"application/json",
-   "Content-Type":"application/json"
- }
-});
-if(peticion.status===200){
-const chequeos=await peticion.json();
-return chequeos;}
-if(peticion.status===204){
-  let array=[];
-  return array;
-}
-
-}
-
-let obtenerCedulaEncriptada=async(id, cedula)=>{
-  let result = ""
-  const peticion= await fetch(localStorage.getItem("servidorAPI")+'Usuario/findAllUsuarios',{
-    method:'GET',
-    headers:{
-      "Accept":"application/json",
-      "Content-Type": "application/json"
-    }
-      });
-      const pacientes=await peticion.json();
-      
-      pacientes.forEach(paciente=>{
-        let decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-        
-        if(cedula===decryptedCedula){   
-        
-      if(id == 0){
-        result = paciente.cedula;
-      }
-      if(id == 1){
-        result = paciente.contrasenia;
-      }
-    }
-    })
-    
-  return result;
-}
 let obtenerCedulasUsuarios=async(id, cedula)=>{
   let result = "";
   console.log(cedula);
@@ -216,6 +112,112 @@ $('#btnAceptar').click(function() {
 });
 }
 };
+
+let prescripciones= async()=>{
+
+  let data = localStorage.getItem("datos");
+  let dato=JSON.parse(data);
+      let usuario = dato.usuario;
+      let cedul= decodeURIComponent(dato.cedula);
+      let cedEncriptada="";
+      let cedulaEncriptada="";
+      if(usuario=="medico"){
+       cedulaEncriptada = await obtenerCedulaEncriptada(0, CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
+      ;}
+      else{
+        cedulaEncriptada=cedul;
+      }
+    const peticion= await fetch(localStorage.getItem("servidorAPI")+"paciente/prescripcion/prescripcionActual",{
+      method:"POST",
+      body:JSON.stringify({cedula:cedulaEncriptada}),
+      headers:{
+        "Accept":"application/json",
+        "Content-Type":"application/json"
+      }
+});
+if(peticion.status===200){
+    const prescripcion=await peticion.json();
+return prescripcion;}
+}
+
+let visitas= async()=>{
+
+       let cedulaEncriptada = await obtenerCedulaEncriptada(0, CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
+      ;
+      const pacienteInDto={
+        cedula:cedulaEncriptada
+       }
+       console.log(pacienteInDto);
+    const peticion= await fetch(localStorage.getItem("servidorAPI")+"paciente/prescripcion/visitas",{
+      method:"POST",
+      body:JSON.stringify(pacienteInDto),
+      headers:{
+        "Accept":"application/json",
+        "Content-Type":"application/json"
+      }
+});
+if(peticion.status===200){
+    const visitas=await peticion.json();
+return visitas;}
+if(peticion.status===204){
+  let array=[];
+  return array;
+}
+}
+
+let chequeos= async()=>{
+
+  cedulaEncriptada = await obtenerCedulaEncriptada(0, CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
+ ;
+ const pacienteInDto={
+  cedula:cedulaEncriptada
+ }
+const peticion= await fetch(localStorage.getItem("servidorAPI")+"paciente/prescripcion/chequeos",{
+ method:"POST",
+ body:JSON.stringify(pacienteInDto),
+ headers:{
+   "Accept":"application/json",
+   "Content-Type":"application/json"
+ }
+});
+if(peticion.status===200){
+const chequeos=await peticion.json();
+return chequeos;}
+if(peticion.status===204){
+  let array=[];
+  return array;
+}
+
+}
+
+let obtenerCedulaEncriptada=async(id, cedula)=>{
+  let result = ""
+  const peticion= await fetch(localStorage.getItem("servidorAPI")+'Usuario/findAllUsuarios',{
+    method:'GET',
+    headers:{
+      "Accept":"application/json",
+      "Content-Type": "application/json"
+    }
+      });
+      const pacientes=await peticion.json();
+      
+      pacientes.forEach(paciente=>{
+        let decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+        
+        if(cedula===decryptedCedula){   
+        
+      if(id == 0){
+        result = paciente.cedula;
+      }
+      if(id == 1){
+        result = paciente.contrasenia;
+      }
+    }
+    })
+    
+  return result;
+}
+
 
 
 let crearRecambio = async () => {
