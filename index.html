@@ -4,12 +4,17 @@
     <http-equiv='X-UA-Compatible' content='IE=edge'>
     <name='viewport' content='width=device-width, initial-scale=1.0'>
     <title>Mi Salud Renal</title>
+    <link rel="icon" type="image/png" href="img/logo3.png">
+    
     <link rel="stylesheet" type="text/css" href="./css/home.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
       rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+
   </head>
 
   <body> 
@@ -67,16 +72,50 @@
     </div>
     </section>
     <br><br>
+    <section style="height: 15%; width: 80%; display: flex; align-items:center;margin:0 auto" class="texto">
+    <div class="row">
+      <div class="col-8 text-center" style="padding: 1,1,1,1;">
+        <h4>Descarga nuestra app y sigue tu tratamiento desde tu móvil.</h4>
+      </div>
+      <div class="col-4 text-center" style="display: flex; align-items:center;">
+        <a id="descargaApk" style="margin: 0 auto;" href="https://dl.dropboxusercontent.com/scl/fi/hwp8yc28tx1hyjk9vr27p/Mi-Salud-Renal.apk?rlkey=al4wh557jhobay0mc5k86vk6t&dl=0" class="btn btn-primary" download="Mi_Salud_Renal" type="button">Descargar</a>
+      </div>
+    </div>
+    </section>
+        <br><br>
     <section id="instituciones">
       <div class="container-fluid">
-        <div id="equipo" class="container">
-        <div class="row">
-          <div class="col-3"><a href="https://ww2.ufps.edu.co/"><img src="./img/ufps.png" width="150px" height="150px" alt=""></a></div>
-          <div class="col-3"><img src="./img/enfermeria.png" width="150px" height="150px" alt=""></div>
-          <div class="col-3"><a href="https://ingsistemas.cloud.ufps.edu.co/"><img src="./img/ingenieria.png" width="150px" height="150px" alt=""></a></div>
-          <div class="col-3"><a href="https://ingsistemas.cloud.ufps.edu.co/rsc/Presentaci%C3%B3n%20de%20semilleros/2018_03_15_SILUX_2.pdf"><img src="./img/silux.png" width="250px" height="150px" alt=""></a></div>
+        <div id="equipo" class="container">    
+          <div id="carousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="row">
+                    <div class="col-6"><a href="https://ww2.ufps.edu.co/"><img src="./img/ufps.png" width="150px" height="150px" alt=""></a></div>
+                    <div class="col-6"><img src="./img/enfermeria.png" width="150px" height="150px" alt=""></div>        
+                  </div>
+                </div>
+                <div class="carousel-item">
+                  <div class="row">
+                    <div class="col-12"><a href="https://ingsistemas.cloud.ufps.edu.co/"><img src="./img/ingenieria.png" width="150px" height="150px" alt=""></a></div>
+                  </div>  
+                </div>
+                <div class="carousel-item">
+                  <div class="row">
+                    <div class="col-12"><a href="https://ingsistemas.cloud.ufps.edu.co/rsc/Presentaci%C3%B3n%20de%20semilleros/2018_03_15_SILUX_2.pdf"><img src="./img/silux.png" width="250px" height="150px" alt=""></a></div>
+                  </div>  
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only"></span>
+            </a>
+            <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only"></span>
+            </a>
+          </div>  
         </div>
-      </div></div>
+      </div>
     </section>
     <br>
     <section id="nuestro-equipo">
@@ -158,8 +197,8 @@
               <div class="card-body">
                 <h5 class="card-title">Milton <br> Vera</h5> 
                 <div class="d-md-none"><br></div>
-                <a href=""><img src="./img/github.png" class="imagen-crecible icono" alt="github"></a>
-                <a href=""><img src="./img/linkedin.png" class="imagen-crecible icono" alt="linkedin"></a>                
+                <a href="https://github.com/miljeveco"><img src="./img/github.png" class="imagen-crecible icono" alt="github"></a>
+                <a href="https://www.linkedin.com/in/miljeveco/"><img src="./img/linkedin.png" class="imagen-crecible icono" alt="linkedin"></a>                
                 <div class="d-md-none"><br><br></div>
                 <a href="mailto:miltonjesusvc@ufps.edu.co">
                   <img src="./img/mail.png" class="imagen-crecible icono" alt="Email">
@@ -178,11 +217,9 @@
             </div>
             <div class="col-7">
               <div class="card-body">
-                <h5 class="card-title title-movil">Marly <br> Florez</h5>
-                <div class="d-md-none"><br></div>
-                <a href=""><img src="./img/linkedin.png" class="imagen-crecible icono" alt="linkedin"></a>                
+                <h5 class="card-title title-movil">Marly <br> Florez</h5>               
                 <div class="d-md-none"><br><br></div>
-                <a href="mailto:jheyner21lobo@gmail.com">
+                <a href="mailto:marlyrociofgut@ufps.edu.co">
                   <img src="./img/mail.png" class="imagen-crecible icono" alt="Email">
                 </a>
               </div>
@@ -213,9 +250,6 @@
     </div>
     </div>
     </section>
-    <section id="instituciones">
-
-    </section>
     <br>
     <section id="footer" >
       <footer id="footer" >
@@ -225,9 +259,9 @@
           </div>
           <div class="versiones"> 
             
-            <label>Versión Frontend: 0.1.9</label>
+            <label>Versión Frontend: 0.1.10</label>
             <br>
-            <label>Versión Backend: 0.1.5</span>
+            <label>Versión Backend: 0.1.6</span>
           </div> 
         </div> 
       </footer>

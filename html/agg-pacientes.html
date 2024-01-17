@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrar Paciente</title>
+        <link rel="icon" type="image/png" href="../img/logo3.png">
 <link href="https://fonts.googleapis.com/css2?family=Jost&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -16,8 +18,7 @@ integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLAS
   <link rel="stylesheet" href="../css/agg-pacientes.css">
   <link rel="stylesheet" href="../css/navResponsive.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-  <title>Registrar Paciente</title>
+  
 </head>
 <body>
   <nav id="nav" class=" navbar-expand-lg navbar-light">
@@ -63,9 +64,9 @@ integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLAS
         </div>
   </nav>
   <main>
-    <div class="containerPac">
+    <section class="containerPac">
       
-      <div class="form-container">
+      <article class="form-container">
         <h1>Agregar Paciente</h1>
         <form id="paciente-form" onsubmit="crearPaciente(event)" >
           <p id="campos"><b>*</b> Campos requeridos</p>
@@ -90,7 +91,7 @@ integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLAS
               <label for="selectTipo" id="data">Tipo de documento:<label id="asq">*</label></label>
                 <br>
                 <select name="select" class="custom-select" id="selectTipo" required>
-                  <option value="">Seleccione...</option>
+                  <option value="" disabled selected>Seleccione...</option>
                   <option value="Cédula de ciudadanía">Cédula de ciudadanía</option>
                   <option value="Tarjeta de identidad">Tarjeta de identidad</option>
                   <option value="Cédula de extranjería">Cédula de extranjería</option>
@@ -132,7 +133,11 @@ integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLAS
             <div class="form-column">
               <label for="rh" id="data">Rh:<label id="asq"> *</label></label>
               <br>
-              <input type="text" class="rh" id="rh" name="rh" required>
+                <select name="selectRh" class="custom-select" id="selectRh" required>
+                  <option value="" disabled selected>Seleccione...</option>
+                  <option value="+">+</option>
+                  <option value="-">-</option>
+                </select>
             </div>
             <div class="form-column">
               <label for="peso" id="data">Peso:<label id="asq">*</label></label>
@@ -182,8 +187,8 @@ integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLAS
               <button type="submit" data-toggle="modal" id="guardarPaciente" class="btn btn-primary">Guardar</button>
             </div>
             </div>
-            </div>
-          </div>
+          </article>
+          </section>
           
         </form>
       </div>
@@ -330,12 +335,12 @@ integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLAS
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
 
 
-  <script src="../js/bd/agg-pacientes.js"></script>
-  <script src="../js/bd/paciente.js"></script>
-  <script src="../js/bd/login.js"></script>
-  <script src="../js/bd/nombreNavBar.js"></script>
+  <script src="../js/bd/agg-pacientes-obfuscated.js"></script>
+  <script src="../js/bd/paciente-obfuscated.js"></script>
+  <script src="../js/bd/login-obfuscated.js"></script>
+  <script src="../js/bd/nombreNavBar-obfuscated.js"></script>
 
-  <script src="../js/functions/principal.js"></script>
+  <script src="../js/functions/principal-obfuscated.js"></script>
   <script>listarEps();
   nombreNavBar();
   </script>

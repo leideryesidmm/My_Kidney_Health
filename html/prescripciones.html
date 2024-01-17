@@ -5,7 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Prescripcio</title>
+  <title>Prescripción</title>
+        <link rel="icon" type="image/png" href="../img/logo3.png">
   <link rel="stylesheet" href="../css/calendar.css">
  
 
@@ -31,19 +32,19 @@
 </head>
 
 <body>
-  <div class="banner" name="banner" id="banner">
-  </div>
+  <nav class="banner" name="banner" id="banner">
+  </nav>
   <br>
 
-  <div id="title" class="text-center centrado">
+  <section id="title" class="text-center centrado">
     <h3>Prescripción Actual de la diálisis</h3>
     <div class="col align-items-center centrado">
       <h5>Fecha Inicial de la prescripción:</h5>
       <h5 id="fechaP"></h5>
     </div>
     <h6 id="tipo"></h6>
-  </div>
-  <div class="container">
+  </section>
+  <section class="container">
     <div class="row">
       <div class="col-lg-4 root">
         <div class="calendar" id="calendar">
@@ -195,18 +196,18 @@
       </div>
 
     </div>
-  </div>
+  </section>
 
 
-  <div id="prescri"></div>
+  <section id="prescri"></section>
   <br>
-  <div class="row">
+  <aside class="row">
     <div class="col-1"></div>
     <div class="col-10">
       <div id="recamTable"></div>
     </div>
     <div class="col-1"></div>
-  </div>
+  </aside>
 
   <div>
     <div class="modal" tabindex="-1" id="nuevacontrasenia">
@@ -420,13 +421,13 @@
   <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
-  <script src="../js/functions/prescripcion.js"></script>
-  <script src="../js/bd/prescripcion.js"></script>
-  <script src="../js/functions/recambios.js"></script>
-  <script src="../js/bd/login.js"></script>
-  <script src="../js/bd/nombreNavBar.js"></script>
+  <script src="../js/functions/prescripcion-obfuscated.js"></script>
+  <script src="../js/bd/prescripcion-obfuscated.js"></script>
+  <script src="../js/functions/recambios-obfuscated.js"></script>
+  <script src="../js/bd/login-obfuscated.js"></script>
+  <script src="../js/bd/nombreNavBar-obfuscated.js"></script>
 
-  <script src="../js/functions/principal.js"></script>
+  <script src="../js/functions/principal-obfuscated.js"></script>
   <script>
     let prescripcionactual = prescripciones();
     cargar(prescripcionactual);

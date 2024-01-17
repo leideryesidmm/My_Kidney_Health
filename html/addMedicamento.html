@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>Agregar medicamento</title>
+          <link rel="icon" type="image/png" href="../img/logo3.png">
     <link rel="stylesheet" type="text/css" href="../css/addMedicamento.css">
     <link href="https://fonts.googleapis.com/css2?family=Jost&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -14,16 +15,16 @@
 </head>
 <body>
     
-        <div class="navbar" name="navbar" id="navbar">
+        <nav class="navbar" name="navbar" id="navbar">
           <div class="col-2 no-effect"><a href="medicamento.html" class="devolverse"><img src="../img/devolverseColor.png" alt="Ir atrás" ></a></div>
           <div class="col-8"><h1 class="title">Medicamentos</h1></div>
           <div class="col-2"></div>
-        </div>
+        </nav>
             <br>
-        <div class="form-container">
+        <main class="form-container">
             <h5>Agregar Medicamento</h5>
-        <div class="form-group">
-            <form>
+        <section class="form-group">
+            <form onsubmit="crearMedicamento(event)">
             <div class="name">
                 <label for="medicamento">Medicamento:</label>
                 <input type="text" name="medicamento" id="medicamento" class="medicamento" required>
@@ -56,7 +57,7 @@
 
             <div class="toma">
                 <label for="tomas">Tomas diarias:</label>
-                <input type="number" name="tomas" min="0" id="tomas" class="tomas" required>
+                <input type="number" name="tomas" min="1" id="tomas" class="tomas" required>
             </div>
 
             <div class="recetado">
@@ -68,15 +69,16 @@
               <label for="norecetado" id="no">No </label>
               <input type="radio" name="receta" id="norecetado" value="No" class="norecetado">
           </div>
+          <section class="btn-container">
+            <a href="medicamento.html" class="btn-cancelar">Cancelar</a>
+            <button  type="submit" id="guardarmedicamento" class="btn-nuevo">Guardar</button>
+          </section>
 
 </form>
-        </div>
-        <div class="btn-container">
-          <a href="medicamento.html" class="btn-cancelar">Cancelar</a>
-          <button onclick="crearMedicamento()"  type="submit" id="guardarmedicamento" data-toggle="modal" data-target="#succesModal" class="btn-nuevo">Guardar</button>
-        </div>
+</section>
         
-      </div>
+        
+      </main>
     </div>
     
 
@@ -122,8 +124,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
-      <script src="../js/functions/medicamento.js"></script>
-    <script src="../js/bd/medicamento.js"></script>
+      <script src="../js/functions/medicamento-obfuscated.js"></script>
+    <script src="../js/bd/medicamento-obfuscated.js"></script>
 
     <script type="module">
         listarVias();

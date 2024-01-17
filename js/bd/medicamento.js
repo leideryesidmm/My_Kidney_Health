@@ -13,7 +13,7 @@ let obtenerCedulasUsuarios=async(id, cedula)=>{
       const pacientes=await peticion.json();
       console.log(pacientes);
       pacientes.forEach(paciente=>{
-        let decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+        let decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, cajaNegra).toString(CryptoJS.enc.Utf8);
         console.log(decryptedCedula);
         if(cedula===decryptedCedula){   
         console.log("ENTRO");
@@ -55,7 +55,7 @@ console.log(data);
 
     let cedulaEncriptada="";
     let contraseniaEncriptadaBD="";
-    let decryptedCedula = CryptoJS.AES.decrypt(cedul, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+    let decryptedCedula = CryptoJS.AES.decrypt(cedul, cajaNegra).toString(CryptoJS.enc.Utf8);
      cedulaEncriptada = await obtenerCedulasUsuarios(0,decryptedCedula);
     console.log(decryptedCedula);
 
@@ -63,7 +63,7 @@ console.log(data);
     console.log(contraseniaEncriptadaBD);
 
 
-let contraseniaBD = CryptoJS.AES.decrypt(contraseniaEncriptadaBD, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+let contraseniaBD = CryptoJS.AES.decrypt(contraseniaEncriptadaBD, cajaNegra).toString(CryptoJS.enc.Utf8);
 console.log(contraseniaBD);
 
 const contraseniaAnterior = document.getElementById("contraseniaanterior").value;
@@ -71,7 +71,7 @@ const nuevaContrasenia = document.getElementById("newcontrasenia").value;
 console.log(nuevaContrasenia)
 
 if (contraseniaAnterior === contraseniaBD) {
-  const contraseniaEncriptada = CryptoJS.AES.encrypt(nuevaContrasenia, 'clave_secreta').toString();
+  const contraseniaEncriptada = CryptoJS.AES.encrypt(nuevaContrasenia, cajaNegra).toString();
 
   let usuarioInDto = { cedula: cedulaEncriptada, contrasenia: contraseniaEncriptada };
   console.log(usuarioInDto);
@@ -157,7 +157,7 @@ let listarMedicamentos= async()=>{
       let fechaFinalizacion=new Date(fechaFin).toLocaleDateString();
       let intervaloDesencriptado=medicamento.intervaloTiempo;
       let nombreDesencriptado=CryptoJS.AES.decrypt(medicamento.nombre, "clave_secreta").toString(CryptoJS.enc.Utf8);
-      let tomasDesencriptadas=medicamento.tomas;
+      let tomasDesencriptadas=CryptoJS.AES.decrypt(medicamento.tomas, "clave_secreta").toString(CryptoJS.enc.Utf8);
       let viaAdministracionDesencriptada=medicamento.viaAdministracion.descripcion;
       let idFormulaMedicamento=medicamento.idFormulaMedicamento;
       let recetado=medicamento.recetado;
@@ -266,6 +266,7 @@ let encontrarMedicamento=async()=>{
   let concentracionDesencriptada=CryptoJS.AES.decrypt(medicamento.concentracion, "clave_secreta").toString(CryptoJS.enc.Utf8);
   let descripcionDesencriptada=CryptoJS.AES.decrypt(medicamento.descripcion, "clave_secreta").toString(CryptoJS.enc.Utf8);
   let nombreDesencriptado=CryptoJS.AES.decrypt(medicamento.nombre, "clave_secreta").toString(CryptoJS.enc.Utf8);
+  let tomasDesencriptadas=CryptoJS.AES.decrypt(medicamento.tomas, "clave_secreta").toString(CryptoJS.enc.Utf8);
 
 
   document.getElementById("idMedicamento").value=medicamento.idFormulaMedicamento;
@@ -278,7 +279,7 @@ let encontrarMedicamento=async()=>{
   fechaDefecto = new Date(medicamento.fechaFin);
   fechaFormateada = fechaDefecto.toISOString().split('T')[0];
   document.getElementById("fecha_fin").value=fechaFormateada;
-  document.getElementById("tomas").value=medicamento.tomas;
+  document.getElementById("tomas").value=tomasDesencriptadas;
   document.getElementById("recetado").value=medicamento.recetado;
   console.log(medicamento.viaAdministracion.idViaAdministracion);
   const selectVias = document.getElementById("selectVias");
@@ -287,7 +288,8 @@ let encontrarMedicamento=async()=>{
 
 }
 //formulaMedicamento/actualizar/{id_formula_medicamento}
-let actualizarMedicamento=async ()=> {
+let actualizarMedicamento=async (event)=> {
+  event.preventDefault();
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
   console.log(data);
@@ -309,10 +311,12 @@ let actualizarMedicamento=async ()=> {
   let concentracion=document.getElementById("concentracion").value;
   let descripcion=document.getElementById("descripcion").value;
   let nombre=document.getElementById("medicamento").value;
+  let tomas=document.getElementById("tomas").value;
 
   let concentracionEncriptada=CryptoJS.AES.encrypt(concentracion, "clave_secreta").toString();
   let descripcionEncriptada=CryptoJS.AES.encrypt(descripcion, "clave_secreta").toString();
   let nombreEncriptado=CryptoJS.AES.encrypt(nombre, "clave_secreta").toString();
+  let tomasEncriptada=CryptoJS.AES.encrypt(tomas, "clave_secreta").toString();
   let formulamedicamento={
       "concentracion": concentracionEncriptada,
       "descripcion": descripcionEncriptada,
@@ -320,7 +324,7 @@ let actualizarMedicamento=async ()=> {
       "fechaIni": document.getElementById("fecha_inicio").value+"T00:00:00.001Z",
       "nombre": nombreEncriptado,
       "paciente": cedEncriptada,
-      "tomas": document.getElementById("tomas").value,
+      "tomas": tomasEncriptada,
       "viaAdministracion": document.getElementById("selectVias").value,
       "recetado":document.getElementById("recetado").value
   }
@@ -379,7 +383,8 @@ let eliminarMedicamento=async (idMedicamento)=> {
 })
 }
 
-let crearMedicamento=async ()=> {
+let crearMedicamento=async (event)=> {
+  event.preventDefault();
   const btnMedicamento=document.getElementById("guardarmedicamento");
   btnMedicamento.style.background="gray";
   btnMedicamento.disabled="true";
@@ -402,6 +407,7 @@ let crearMedicamento=async ()=> {
   let descripcion=document.getElementById("descripcion").value;
   let nombre=document.getElementById("medicamento").value;
   const receta = document.querySelector('input[type="radio"][name="receta"]');
+  let tomas=document.getElementById("tomas").value;
   let recetado=false;
   if(receta.checked){
    recetado=true;
@@ -411,6 +417,7 @@ console.log(concentracion);
   let concentracionEncriptada=CryptoJS.AES.encrypt(concentracion,"clave_secreta").toString();
   let descripcionEncriptada=CryptoJS.AES.encrypt(descripcion,"clave_secreta").toString();
   let nombreEncriptado=CryptoJS.AES.encrypt(nombre,"clave_secreta").toString();
+  let tomasEncriptada=CryptoJS.AES.encrypt(tomas,"clave_secreta").toString();
   
   let formulamedicamento={
       "concentracion": concentracionEncriptada,
@@ -419,7 +426,7 @@ console.log(concentracion);
       "fechaIni": document.getElementById("fecha_inicio").value+"T00:00:00.001Z",
       "nombre": nombreEncriptado,
       "paciente": cedEncriptada,
-      "tomas": document.getElementById("tomas").value,
+      "tomas": tomasEncriptada,
       "viaAdministracion": document.getElementById("selectVias").value,
       "recetado": recetado
   }

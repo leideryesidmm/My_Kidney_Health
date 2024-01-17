@@ -537,3 +537,8 @@ li{
 #btnVolver{
   color: #fff;
 }
+
+.estiloEnlace{
+  text-decoration: none;
+  color:black;
+}

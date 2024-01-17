@@ -12,7 +12,7 @@ let obtenerCedulaEncriptada=async(cedula)=>{
       const pacientes=await peticion.json();
       console.log(pacientes);
       pacientes.forEach(paciente=>{
-        let decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+        let decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, cajaNegra).toString(CryptoJS.enc.Utf8);
         const cedulaCodificado = encodeURIComponent(decryptedCedula);
         console.log(decryptedCedula);
         if(cedula===cedulaCodificado)
@@ -49,10 +49,10 @@ let crearCuidador = async () => {
   $('#avisoModal').modal('show');
       
     } else {
-      var encryptedCedulaC = CryptoJS.AES.encrypt(cedula_cuidador, 'clave_secreta').toString();
-      var encryptedNombre = CryptoJS.AES.encrypt(nombre, 'clave_secreta').toString();
-      var encryptedDireccion = CryptoJS.AES.encrypt(direccion, 'clave_secreta').toString();
-      var encryptedTelefono = CryptoJS.AES.encrypt(telefono, 'clave_secreta').toString(); 
+      var encryptedCedulaC = CryptoJS.AES.encrypt(cedula_cuidador, cajaNegra).toString();
+      var encryptedNombre = CryptoJS.AES.encrypt(nombre, cajaNegra).toString();
+      var encryptedDireccion = CryptoJS.AES.encrypt(direccion, cajaNegra).toString();
+      var encryptedTelefono = CryptoJS.AES.encrypt(telefono, cajaNegra).toString(); 
       let cuidador={
         
         cedulaCuidador: encryptedCedulaC,
@@ -128,7 +128,7 @@ let cuidadorPorPaciente=async()=>{
       console.log(cuidadores);
       let decryptedCedulas = [];
       cuidadores.forEach(cuidador=>{
-        let decryptedCedula = CryptoJS.AES.decrypt(cuidador.cuidador.cedulaCuidador, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+        let decryptedCedula = CryptoJS.AES.decrypt(cuidador.cuidador.cedulaCuidador, cajaNegra).toString(CryptoJS.enc.Utf8);
         decryptedCedulas.push(decryptedCedula);
         
       })
@@ -182,10 +182,10 @@ let cuidadorPorPaciente=async()=>{
     
         if (peticion2.status === 204) {
           cuidadores.forEach(cuidador => {
-            let cedulaCuidador = CryptoJS.AES.decrypt(cuidador.cuidador.cedulaCuidador, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-            let nombre = CryptoJS.AES.decrypt(cuidador.cuidador.nombre, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-            let direccion = CryptoJS.AES.decrypt(cuidador.cuidador.direccion, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-            let telefono = CryptoJS.AES.decrypt(cuidador.cuidador.telefono, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+            let cedulaCuidador = CryptoJS.AES.decrypt(cuidador.cuidador.cedulaCuidador, cajaNegra).toString(CryptoJS.enc.Utf8);
+            let nombre = CryptoJS.AES.decrypt(cuidador.cuidador.nombre, cajaNegra).toString(CryptoJS.enc.Utf8);
+            let direccion = CryptoJS.AES.decrypt(cuidador.cuidador.direccion, cajaNegra).toString(CryptoJS.enc.Utf8);
+            let telefono = CryptoJS.AES.decrypt(cuidador.cuidador.telefono, cajaNegra).toString(CryptoJS.enc.Utf8);
             let activo = cuidador.activo;
     
             const cuidadorDesencriptado = {
@@ -202,18 +202,18 @@ let cuidadorPorPaciente=async()=>{
           const cuidadorActivo = await peticion2.json();
     
           // Si hay un cuidador activo, desencripta su cédula y guárdala en una variable
-          let cedCuidadorActivo = CryptoJS.AES.decrypt(cuidadorActivo.cuidador.cedulaCuidador, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+          let cedCuidadorActivo = CryptoJS.AES.decrypt(cuidadorActivo.cuidador.cedulaCuidador, cajaNegra).toString(CryptoJS.enc.Utf8);
     
           cuidadores.forEach(cuidador => {
-            let cedAntiguo = CryptoJS.AES.decrypt(cuidador.cuidador.cedulaCuidador, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+            let cedAntiguo = CryptoJS.AES.decrypt(cuidador.cuidador.cedulaCuidador, cajaNegra).toString(CryptoJS.enc.Utf8);
     
             // Compara la cédula del cuidador actual con la cédula del cuidador activo
             if (cedAntiguo !== cedCuidadorActivo) {
               // Si no son iguales, añade el cuidador a la lista de desencriptados
-              let cedulaCuidador = CryptoJS.AES.decrypt(cuidador.cuidador.cedulaCuidador, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-              let nombre = CryptoJS.AES.decrypt(cuidador.cuidador.nombre, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-              let direccion = CryptoJS.AES.decrypt(cuidador.cuidador.direccion, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-              let telefono = CryptoJS.AES.decrypt(cuidador.cuidador.telefono, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+              let cedulaCuidador = CryptoJS.AES.decrypt(cuidador.cuidador.cedulaCuidador, cajaNegra).toString(CryptoJS.enc.Utf8);
+              let nombre = CryptoJS.AES.decrypt(cuidador.cuidador.nombre, cajaNegra).toString(CryptoJS.enc.Utf8);
+              let direccion = CryptoJS.AES.decrypt(cuidador.cuidador.direccion, cajaNegra).toString(CryptoJS.enc.Utf8);
+              let telefono = CryptoJS.AES.decrypt(cuidador.cuidador.telefono, cajaNegra).toString(CryptoJS.enc.Utf8);
               let activo = cuidador.activo;
     
               const cuidadorDesencriptado = {
@@ -323,10 +323,10 @@ let cuidadorActivo= async()=>{
     else{
     const cuidador=await peticion.json();
     console.log(cuidador);
-  var decryptedCedula = CryptoJS.AES.decrypt(cuidador.cuidador.cedulaCuidador, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-  var decryptedNombre = CryptoJS.AES.decrypt(cuidador.cuidador.nombre, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-  var decryptedDireccion = CryptoJS.AES.decrypt(cuidador.cuidador.direccion, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-  var decryptedTelefono = CryptoJS.AES.decrypt(cuidador.cuidador.telefono, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+  var decryptedCedula = CryptoJS.AES.decrypt(cuidador.cuidador.cedulaCuidador, cajaNegra).toString(CryptoJS.enc.Utf8);
+  var decryptedNombre = CryptoJS.AES.decrypt(cuidador.cuidador.nombre, cajaNegra).toString(CryptoJS.enc.Utf8);
+  var decryptedDireccion = CryptoJS.AES.decrypt(cuidador.cuidador.direccion, cajaNegra).toString(CryptoJS.enc.Utf8);
+  var decryptedTelefono = CryptoJS.AES.decrypt(cuidador.cuidador.telefono, cajaNegra).toString(CryptoJS.enc.Utf8);
   var parentesco=cuidador.cuidador.parentesco.descripcion;
 
   cuidadorDesencriptado.cedula=decryptedCedula;
@@ -372,10 +372,10 @@ let cuidadorActivo= async()=>{
     
       const cuidador = await peticion.json();
     
-      var decryptedCedula = CryptoJS.AES.decrypt(cuidador.cuidador.cedulaCuidador, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-      var decryptedNombre = CryptoJS.AES.decrypt(cuidador.cuidador.nombre, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-      var decryptedDireccion = CryptoJS.AES.decrypt(cuidador.cuidador.direccion, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-      var decryptedTelefono = CryptoJS.AES.decrypt(cuidador.cuidador.telefono, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+      var decryptedCedula = CryptoJS.AES.decrypt(cuidador.cuidador.cedulaCuidador, cajaNegra).toString(CryptoJS.enc.Utf8);
+      var decryptedNombre = CryptoJS.AES.decrypt(cuidador.cuidador.nombre, cajaNegra).toString(CryptoJS.enc.Utf8);
+      var decryptedDireccion = CryptoJS.AES.decrypt(cuidador.cuidador.direccion, cajaNegra).toString(CryptoJS.enc.Utf8);
+      var decryptedTelefono = CryptoJS.AES.decrypt(cuidador.cuidador.telefono, cajaNegra).toString(CryptoJS.enc.Utf8);
     
       document.getElementById("cedulaCuidador").value = decryptedCedula;
       document.getElementById("name").value = decryptedNombre;
@@ -406,10 +406,10 @@ let cuidadorActivo= async()=>{
 
   const cuidador = await peticion.json();
 
-  var decryptedCedula = CryptoJS.AES.decrypt(cuidador.cuidador.cedulaCuidador, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-  var decryptedNombre = CryptoJS.AES.decrypt(cuidador.cuidador.nombre, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-  var decryptedDireccion = CryptoJS.AES.decrypt(cuidador.cuidador.direccion, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-  var decryptedTelefono = CryptoJS.AES.decrypt(cuidador.cuidador.telefono, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+  var decryptedCedula = CryptoJS.AES.decrypt(cuidador.cuidador.cedulaCuidador, cajaNegra).toString(CryptoJS.enc.Utf8);
+  var decryptedNombre = CryptoJS.AES.decrypt(cuidador.cuidador.nombre, cajaNegra).toString(CryptoJS.enc.Utf8);
+  var decryptedDireccion = CryptoJS.AES.decrypt(cuidador.cuidador.direccion, cajaNegra).toString(CryptoJS.enc.Utf8);
+  var decryptedTelefono = CryptoJS.AES.decrypt(cuidador.cuidador.telefono, cajaNegra).toString(CryptoJS.enc.Utf8);
 
   document.getElementById("cedula_cuidador").value = decryptedCedula;
   document.getElementById("nombre").value = decryptedNombre;
@@ -441,10 +441,10 @@ let cuidadorActivo= async()=>{
     var direccion = document.getElementById('direccion').value;
     var telefono = document.getElementById('telefono').value;
 
-    var encryptedCedulaC = CryptoJS.AES.encrypt(cedulaCuidador, 'clave_secreta').toString();
-    var encryptedNombre = CryptoJS.AES.encrypt(nombre, 'clave_secreta').toString();
-    var encryptedDireccion = CryptoJS.AES.encrypt(direccion, 'clave_secreta').toString();
-    var encryptedTelefono = CryptoJS.AES.encrypt(telefono, 'clave_secreta').toString();
+    var encryptedCedulaC = CryptoJS.AES.encrypt(cedulaCuidador, cajaNegra).toString();
+    var encryptedNombre = CryptoJS.AES.encrypt(nombre, cajaNegra).toString();
+    var encryptedDireccion = CryptoJS.AES.encrypt(direccion, cajaNegra).toString();
+    var encryptedTelefono = CryptoJS.AES.encrypt(telefono, cajaNegra).toString();
 
     fetch(servidorAPI + 'paciente/cuidador/actualizar/' + cedula, {
       method: 'PUT',
@@ -517,10 +517,10 @@ let actualizarCuidador = async () => {
   console.log(direccion, nombre, parentesco,telefono);
   //cedula: decryptedCedula;
  let cuidador = {
-    direccion: CryptoJS.AES.encrypt(direccion, 'clave_secreta').toString(),
-    nombre: CryptoJS.AES.encrypt(nombre, 'clave_secreta').toString(),
+    direccion: CryptoJS.AES.encrypt(direccion, cajaNegra).toString(),
+    nombre: CryptoJS.AES.encrypt(nombre, cajaNegra).toString(),
     parentesco: parseInt(parentesco,10),
-    telefono: CryptoJS.AES.encrypt(telefono, 'clave_secreta').toString(),
+    telefono: CryptoJS.AES.encrypt(telefono, cajaNegra).toString(),
     cedulaCuidador: decryptedCedula
   };
 
@@ -624,7 +624,7 @@ let reactivarCuidador = async (cedulaCuidador, cont) => {
       }
   let cuidadoresAntiguos = await cuidAntiguos();
   cuidadoresAntiguos.forEach((cuidadorAntiguo) => {
-    let cedCuidador = CryptoJS.AES.decrypt(cuidadorAntiguo.cedulaCuidador, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+    let cedCuidador = CryptoJS.AES.decrypt(cuidadorAntiguo.cedulaCuidador, cajaNegra).toString(CryptoJS.enc.Utf8);
     let cedulaDesencriptada = parseInt(cedCuidador, 10);
     if (cedulaDesencriptada == cedulaCuidador) {
      
@@ -714,7 +714,7 @@ let inhabilitarCuidador=async()=>{
 
   const cuidadorActivo = await peticion.json();
   console.log(cuidadorActivo);
-  let cedCuidador = CryptoJS.AES.decrypt(cuidadorActivo.cuidador.cedulaCuidador, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+  let cedCuidador = CryptoJS.AES.decrypt(cuidadorActivo.cuidador.cedulaCuidador, cajaNegra).toString(CryptoJS.enc.Utf8);
   let cuidador={
     cedulaCuidador:cedCuidador,
     idCuidadorPaciente:cuidadorActivo.idCuidadorPaciente

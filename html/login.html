@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Log in</title>
+        <link rel="icon" type="image/png" href="../img/logo3.png">
   <link rel="stylesheet" type="text/css" href="../css/login.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -22,8 +23,8 @@
 
   <br>
 
-  <div class="form-container">
-    <div class="right-section">
+  <main class="form-container">
+    <section class="right-section">
       <div class="logo"><img src="../img/logo3.png" alt="Logo app"></div>
       <br>
       <p>Ingrese sus datos para iniciar sesión</p>
@@ -45,12 +46,12 @@
         <button id="log-in" type="submit" class="inicio">Iniciar sesión</button>
 
       </form>
-    </div>
-  </div>
+    </section>
+  </main>
 
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
-  <script src="../js/bd/login.js"></script>
+  <script src="../js/bd/login-obfuscated.js"></script>
 
   <script>
     onload();
@@ -61,7 +62,7 @@
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-body">
-        <p id="errorDatosIngresaados">Los datos ingresados son incorrectos, inténtelo nuevamente.</p>
+        <p id="errorDatosIngresaados">Los datos ingresados son incorrectos o el usuario se encuentra inhabilitado.</p>
       </div>
       <div class="modal-footer">
         <a href="login.html"><button href="login.html" type="button" class="btn btn-primary">Aceptar</button></a>

@@ -13,7 +13,7 @@ let obtenerCedulasUsuarios=async(id, cedula)=>{
       const pacientes=await peticion.json();
       console.log(pacientes);
       pacientes.forEach(paciente=>{
-        let decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+        let decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, cajaNegra).toString(CryptoJS.enc.Utf8);
         console.log(decryptedCedula);
         if(cedula===decryptedCedula){   
         console.log("ENTRO");
@@ -55,7 +55,7 @@ console.log(data);
 
     let cedulaEncriptada="";
     let contraseniaEncriptadaBD="";
-    let decryptedCedula = CryptoJS.AES.decrypt(cedul, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+    let decryptedCedula = CryptoJS.AES.decrypt(cedul, cajaNegra).toString(CryptoJS.enc.Utf8);
      cedulaEncriptada = await obtenerCedulasUsuarios(0,decryptedCedula);
     console.log(decryptedCedula);
 
@@ -63,7 +63,7 @@ console.log(data);
     console.log(contraseniaEncriptadaBD);
 
 
-let contraseniaBD = CryptoJS.AES.decrypt(contraseniaEncriptadaBD, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+let contraseniaBD = CryptoJS.AES.decrypt(contraseniaEncriptadaBD, cajaNegra).toString(CryptoJS.enc.Utf8);
 console.log(contraseniaBD);
 
 const contraseniaAnterior = document.getElementById("contraseniaanterior").value;
@@ -71,7 +71,7 @@ const nuevaContrasenia = document.getElementById("newcontrasenia").value;
 console.log(nuevaContrasenia)
 
 if (contraseniaAnterior === contraseniaBD) {
-  const contraseniaEncriptada = CryptoJS.AES.encrypt(nuevaContrasenia, 'clave_secreta').toString();
+  const contraseniaEncriptada = CryptoJS.AES.encrypt(nuevaContrasenia, cajaNegra).toString();
 
   let usuarioInDto = { cedula: cedulaEncriptada, contrasenia: contraseniaEncriptada };
   console.log(usuarioInDto);
@@ -129,7 +129,7 @@ let crearAlergia = async () => {
       let cedulaEncriptada = usuario="medico"?await obtenerCedulasUsuarios(0, CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8)):cedul;
 
     let nombreInput = document.getElementById('nombreCrear').value;
-    let encryptedNombre = CryptoJS.AES.encrypt(nombreInput, 'clave_secreta').toString();
+    let encryptedNombre = CryptoJS.AES.encrypt(nombreInput, cajaNegra).toString();
     let alergia = { nombre: encryptedNombre };
     let paciente = { cedula: cedulaEncriptada };
     let unionPacienteAlergiaInDto = { alergiaInDto: alergia, pacienteInDto: paciente }
@@ -191,7 +191,7 @@ let listarAlergias = async () => {
   let listAlergias = [];
 
   alergias.forEach(nombres => {
-    let decryptedNombre = CryptoJS.AES.decrypt(nombres.alergia.nombre, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+    let decryptedNombre = CryptoJS.AES.decrypt(nombres.alergia.nombre, cajaNegra).toString(CryptoJS.enc.Utf8);
     let objetoAlergia = { idAlergia: nombres.alergia.idAlergia, nombre: decryptedNombre }
     listAlergias.push(objetoAlergia);
   })
@@ -206,7 +206,7 @@ let editarAlergia = async (id_alergia) => {
   const btnAlergia=document.getElementById("editarAlergia");
     btnAlergia.style.background="gray";
     btnAlergia.disabeld="true";
-  let encryptedNombre = CryptoJS.AES.encrypt(nombreInput, 'clave_secreta').toString();
+  let encryptedNombre = CryptoJS.AES.encrypt(nombreInput, cajaNegra).toString();
 
   fetch(localStorage.getItem("servidorAPI") + "paciente/alergia/editar/" + id_alergia, {
     method: "PATCH",

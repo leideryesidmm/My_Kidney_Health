@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, shrink-to-fit=no ">
     <title>Agregar cuidador</title>
+        <link rel="icon" type="image/png" href="../img/logo3.png">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -26,8 +27,8 @@
             
 
 
-        <div id="agregarCuidador">
-        <div class="form-container">
+        <main id="agregarCuidador">
+        <section class="form-container">
             <h5>Agregar Cuidador</h5>
             <form onsubmit="crearCuidador()">
                 <div class="cedCuidador">
@@ -55,13 +56,13 @@
                     <input type="text" enterkeyhint="send" name="telefono" id="telefono" class="telefono" required>
                 </div>
 
-    <div class="btn-container">
+    <section class="btn-container">
         <a href="cuidador.html" class="btn-cancelar">Cancelar</a>
         <button class="btn-nuevo" data-toggle="modal" data-target="#succesModal" id="guardarCuidador" >Guardar</button>
-    </div>
+    </section>
 </form>
-</div>
-</div>
+</section>
+</main>
 
 <div class="modal fade" data-backdrop="static" data-keyboard="false" id="successModal">
   <div class="modal-dialog">
@@ -86,9 +87,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
-   <script src="../js/bd/cuidador.js"></script>
-   <script src="../js/functions/cuidadorActivo.js"></script>
-   <script src="../js/bd/login.js"></script>
+   <script src="../js/bd/cuidador-obfuscated.js"></script>
+   <script src="../js/functions/cuidadorActivo-obfuscated.js"></script>
+   <script src="../js/bd/login-obfuscated.js"></script>
    <script>
 
 obtenerCedulaEncriptada();

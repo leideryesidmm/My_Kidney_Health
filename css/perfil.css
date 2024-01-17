@@ -44,7 +44,7 @@ label{
 
 .navbar {
   background-color: #04BAFC;
-  height: 70px;
+  height: auto;
   width: 100%;
   display: flex;
   justify-content: center; 
@@ -163,7 +163,6 @@ label{
   margin-left: 1%;
   margin-right: 10%;
   float: right;
-  opacity: 0.60;
   
 }
 

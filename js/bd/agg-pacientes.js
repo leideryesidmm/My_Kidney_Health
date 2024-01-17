@@ -1,5 +1,5 @@
 
- let listarEps = async () => {
+let listarEps = async () => {
   const peticion = await fetch(localStorage.getItem("servidorAPI") + "paciente/ListEps", {
     method: "GET",
     headers: {
@@ -14,9 +14,12 @@
     const epss = await peticion.json();
     const optionSeleccionar = document.createElement('option');
     optionSeleccionar.textContent = "Seleccione...";
+    optionSeleccionar.selected=true;
+    optionSeleccionar.disabled=true;
     selectEps.appendChild(optionSeleccionar);
     epss.forEach(eps => {
       const option = document.createElement('option');
+
       option.value = eps.idEps;
       option.textContent = eps.nombre;
       selectEps.appendChild(option);
@@ -41,7 +44,7 @@ let validarPaciente = async () => {
   console.log(pacientes);
 
   for (const paciente of pacientes) {
-    let decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+    let decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, cajaNegra).toString(CryptoJS.enc.Utf8);
     const cedulaCodificado = decodeURIComponent(decryptedCedula);
     console.log(cedulaCodificado);
     console.log(decryptedCedula);
@@ -59,50 +62,57 @@ let crearPaciente=async(event)=> {
   const btnGuardar=document.getElementById("guardarPaciente");
   btnGuardar.style.background="gray";
   btnGuardar.disabled=true;
-  var  existe= await validarPaciente();
+  let  existe= await validarPaciente();
   console.log(existe);
-      var nombre = document.getElementById('nombre').value;
-      var documento = document.getElementById('documento').value;
-      var fechaNacimiento = document.getElementById('fecha').value+'T02:45:05.101Z';
-      var selectedOption = selectEps.options[selectEps.selectedIndex];
-      var eps = selectedOption.value;
-      var selectOptionDoc = selectTipo.options[selectTipo.selectedIndex];
-      var tipoDocumento=selectOptionDoc.value;
+      let nombre = document.getElementById('nombre').value;
+      let documento = document.getElementById('documento').value;
+      let fechaNacimiento = document.getElementById('fecha').value+'T02:45:05.101Z';
+      let selectedOption = selectEps.options[selectEps.selectedIndex];
+      let eps = selectedOption.value;
+      let selectOptionDoc = selectTipo.options[selectTipo.selectedIndex];
+      let tipoDocumento=selectOptionDoc.value;
       console.log(tipoDocumento);
-      var estatura = document.getElementById('estatura').value;
-      var tiposangre = document.getElementById('tiposangre').value;
-      var rh = document.getElementById('rh').value;
-      var direccion = document.getElementById('direccion').value;
-      var telefono = document.getElementById('telefono').value;
-      var ocupacion = document.getElementById('ocupacion').value;
-      var peso = document.getElementById('peso').value;
-      var pesoSeco = document.getElementById('pesoseco').value;
-      var correo= document.getElementById('correo').value;
-     var  documentoEncriptado = CryptoJS.AES.encrypt(documento, 'clave_secreta').toString();
-     var telefonoEncriptado = CryptoJS.AES.encrypt(telefono, 'clave_secreta').toString();
-     var nombreEncriptado = CryptoJS.AES.encrypt(nombre, 'clave_secreta').toString();
-     var correo = CryptoJS.AES.encrypt(correo, 'clave_secreta').toString();
-     var  tipoDocumentoEncriptado = CryptoJS.AES.encrypt(tipoDocumento, 'clave_secreta').toString();
-     var diabetes = document.getElementById('diabetes').checked;
-     var hipertension = document.getElementById('hipertension').checked;
-     var fecha_registro = new Date();
+      let estatura = document.getElementById('estatura').value;
+      let tiposangre = document.getElementById('tiposangre').value;
+      let rh = document.getElementById('selectRh').value;
+      let direccion = document.getElementById('direccion').value;
+      let telefono = document.getElementById('telefono').value;
+      let ocupacion = document.getElementById('ocupacion').value;
+      let peso = document.getElementById('peso').value;
+      let pesoSeco = document.getElementById('pesoseco').value;
+      let correo= document.getElementById('correo').value;
+     let  documentoEncriptado = CryptoJS.AES.encrypt(documento, cajaNegra).toString();
+     let  direccionEncriptado = CryptoJS.AES.encrypt(direccion, cajaNegra).toString();
+     let  ocupacionEncriptado = CryptoJS.AES.encrypt(ocupacion, cajaNegra).toString();
+     let  tipoSangreEncriptado = CryptoJS.AES.encrypt(ocupacion, cajaNegra).toString();
+     let telefonoEncriptado = CryptoJS.AES.encrypt(telefono, cajaNegra).toString();
+     let nombreEncriptado = CryptoJS.AES.encrypt(nombre, cajaNegra).toString();
+     let correoEncriptado = CryptoJS.AES.encrypt(correo, cajaNegra).toString();
+     let  tipoDocumentoEncriptado = CryptoJS.AES.encrypt(tipoDocumento, cajaNegra).toString();
+     let diabetes = document.getElementById('diabetes').checked;
+     let hipertension = document.getElementById('hipertension').checked;
+     let estaturaEncriptada=CryptoJS.AES.encrypt(estatura, cajaNegra).toString();
+     let pesoEncriptado=CryptoJS.AES.encrypt(peso, cajaNegra).toString();
+     let pesoSecoEncriptado=CryptoJS.AES.encrypt(pesoSeco, cajaNegra).toString();
+     let rhEncriptado=CryptoJS.AES.encrypt(rh, cajaNegra).toString();
+     let fecha_registro = new Date();
 //fecha_registro.setHours(fecha_registro.getHours() - 10);
       const pacienteInDto = {
 
-       altura : estatura,
+       altura : estaturaEncriptada,
        cedula : documentoEncriptado,
        celular : telefonoEncriptado,
        contrasenia:documentoEncriptado,
-       direccion : CryptoJS.AES.encrypt(direccion, 'clave_secreta').toString(),
+       direccion : direccionEncriptado,
        eps : parseInt(eps,10),
        fechaNacimiento : fechaNacimiento,
        nombre : nombreEncriptado,
-       ocupacion : CryptoJS.AES.encrypt(ocupacion, 'clave_secreta').toString(),
-       peso : peso,
-       pesoSeco : pesoSeco,   
-       rh : rh,
-       tipoSangre : CryptoJS.AES.encrypt(tiposangre, 'clave_secreta').toString(),
-       correo:correo,
+       ocupacion : ocupacionEncriptado,
+       peso : pesoEncriptado,
+       pesoSeco : pesoSecoEncriptado,   
+       rh : rhEncriptado,
+       tipoSangre : tipoSangreEncriptado,
+       correo:correoEncriptado,
        diabetes:diabetes,
        hipertension:hipertension,
        tipoDocumento:tipoDocumentoEncriptado,
@@ -112,9 +122,9 @@ let crearPaciente=async(event)=> {
       }
 
 if(existe==false){
-      let decryptedCedula = CryptoJS.AES.decrypt(pacienteInDto.nombre, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+      let decryptedCedula = CryptoJS.AES.decrypt(pacienteInDto.nombre, cajaNegra).toString(CryptoJS.enc.Utf8);
 console.log(decryptedCedula);
-let decryptedNombre = CryptoJS.AES.decrypt(pacienteInDto.cedula, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+let decryptedNombre = CryptoJS.AES.decrypt(pacienteInDto.cedula, cajaNegra).toString(CryptoJS.enc.Utf8);
 console.log(decryptedNombre);
 
       fetch(servidorAPI+"paciente/crearPaciente", {
@@ -155,8 +165,8 @@ console.log(decryptedNombre);
         const pacientesDesencriptados = pacientes
         .filter(paciente => paciente.activo)
         .map(paciente => {
-          let cedulaDesencriptada = CryptoJS.AES.decrypt(paciente.cedula, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-          let nombreDesencriptado = CryptoJS.AES.decrypt(paciente.nombre, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+          let cedulaDesencriptada = CryptoJS.AES.decrypt(paciente.cedula, cajaNegra).toString(CryptoJS.enc.Utf8);
+          let nombreDesencriptado = CryptoJS.AES.decrypt(paciente.nombre, cajaNegra).toString(CryptoJS.enc.Utf8);
 
           return {
             nombre: nombreDesencriptado,
@@ -173,6 +183,8 @@ console.log(decryptedNombre);
     console.error("Error fetching patients:", error);
   }
 };
+
+
 
 
 let listarPacientesInactivos = async () => {
@@ -193,8 +205,8 @@ let listarPacientesInactivos = async () => {
         const pacientesDesencriptados = pacientes
         .filter(paciente => !paciente.activo)
         .map(paciente => {
-          let cedulaDesencriptada = CryptoJS.AES.decrypt(paciente.cedula, 'clave_secreta').toString(CryptoJS.enc.Utf8);
-          let nombreDesencriptado = CryptoJS.AES.decrypt(paciente.nombre, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+          let cedulaDesencriptada = CryptoJS.AES.decrypt(paciente.cedula, cajaNegra).toString(CryptoJS.enc.Utf8);
+          let nombreDesencriptado = CryptoJS.AES.decrypt(paciente.nombre, cajaNegra).toString(CryptoJS.enc.Utf8);
 
           return {
             nombre: nombreDesencriptado,
@@ -218,8 +230,8 @@ let crearVisita = async (cedulaPaciente) => {
   let ultCita=await ultimaCita(cedulaPaciente)
   let idCita=ultCita.idCita;
   console.log(idCita);
-  var checkboxes = document.querySelectorAll("input[name='visita']:checked");
-  var visitaEspecialistaDto = {
+  let checkboxes = document.querySelectorAll("input[name='visita']:checked");
+  let visitaEspecialistaDto = {
     cita: idCita
   };
 
@@ -256,22 +268,49 @@ let crearVisita = async (cedulaPaciente) => {
   }
 };
 
+
+let encriptarDatosChequeo=(chequeo)=>{
+  let colesterolTotal=CryptoJS.AES.encrypt(chequeo.colesterolTotal, cajaNegra).toString();
+  let fosforo=CryptoJS.AES.encrypt(chequeo.fosforo, cajaNegra).toString();
+  let glicemia=CryptoJS.AES.encrypt(chequeo.glicemia, cajaNegra).toString();
+  let hdl=CryptoJS.AES.encrypt(chequeo.hdl, cajaNegra).toString();
+  let hemoglobina=CryptoJS.AES.encrypt(chequeo.hemoglobina, cajaNegra).toString();
+  let ldh=CryptoJS.AES.encrypt(chequeo.ldh, cajaNegra).toString();
+  let nitrogenoUreico=CryptoJS.AES.encrypt(chequeo.nitrogenoUreico, cajaNegra).toString();
+  let potasio=CryptoJS.AES.encrypt(chequeo.potasio, cajaNegra).toString();
+  let tensionArterial=CryptoJS.AES.encrypt(chequeo.tensionArterial, cajaNegra).toString();
+  let trigliceridos=CryptoJS.AES.encrypt(chequeo.trigliceridos, cajaNegra).toString();
+  let peso=CryptoJS.AES.encrypt(chequeo.peso, cajaNegra).toString();
+  let pesoSeco=CryptoJS.AES.encrypt(chequeo.pesoSeco, cajaNegra).toString();
+  let glucosa=CryptoJS.AES.encrypt(chequeo.glucosa, cajaNegra).toString();
+  let creatinina=CryptoJS.AES.encrypt(chequeo.creatinina, cajaNegra).toString();
+  let ktv=CryptoJS.AES.encrypt(chequeo.ktv, cajaNegra).toString();
+  let cita=chequeo.cita;
+
+  let chequeoMensualInDto={
+    colesterolTotal:colesterolTotal, fosforo:fosforo, glicemia:glicemia, hdl:hdl, hemoglobina:hemoglobina, ldh:ldh, nitrogenoUreico:nitrogenoUreico, potasio:potasio, tensionArterial:tensionArterial, trigliceridos:trigliceridos, peso:peso, pesoSeco:
+    pesoSeco, glucosa:glucosa, creatinina, creatinina, ktv:ktv, cita:cita
+  }
+  return chequeoMensualInDto;
+}
 let crearChequeoMensual = async (cedulaPaciente) => {
 
   let ultCita=await ultimaCita(cedulaPaciente)
   console.log(ultCita);
   let idCita=ultCita.idCita;
-  var inputs = document.querySelectorAll("input[name='chequeo']");
-  var chequeoMensualInDto = {
+  let inputs = document.querySelectorAll("input[name='chequeo']");
+  let chequeoMensual = {
     cita: idCita 
   };
 
   Array.from(inputs).forEach(function (input) {
     if (input.value.trim() !== "") {
-      chequeoMensualInDto[input.id] = input.value;
+      chequeoMensual[input.id] = input.value;
     }
   });
 
+  let chequeoMensualInDto= encriptarDatosChequeo(chequeoMensual);
+  console.log(chequeoMensual);
   console.log(chequeoMensualInDto);
 
   if (Object.keys(chequeoMensualInDto).length > 1) { 
@@ -342,7 +381,7 @@ let obtenerCedEncriptada=async(cedula)=>{
       const pacientes=await peticion.json();
       console.log(pacientes);
       pacientes.forEach(paciente=>{
-        let decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+        let decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, cajaNegra).toString(CryptoJS.enc.Utf8);
         const cedulaCodificado = encodeURIComponent(decryptedCedula);
         console.log(cedula===cedulaCodificado);
         if(cedula===cedulaCodificado)

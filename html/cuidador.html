@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>Cuidador</title>
-
+          <link rel="icon" type="image/png" href="../img/logo3.png">
 <link href="https://fonts.googleapis.com/css2?family=Jost&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -15,29 +15,29 @@
 </head>
 <body>
     
-        <div class="navbar" name="navbar" id="navbar">
+        <nav class="navbar" name="navbar" id="navbar">
             <div class="col-2"><a href="perfil.html" class="devolverse"><img src="../img/devolverseColor.png" alt="Ir atrás" id="icono"></a></div>
             <div class="col-8"><h1 class="title">Cuidador</h1></div>
             <div class="col-2 imagen-crecible-iconos" id="edit"><div id="img-editar"></div>
         </div>
-        </div>
-        <div class="container">
-<div class="agregarCuidador" id="agregarCuidador">
+      </nav>
+        <main class="container">
+<section class="agregarCuidador" id="agregarCuidador">
 
     
             
 
 
-</div>
+</section>
 
 
 
-    <div class="cuidadoresAntiguos" id="cuidadoresAntiguos">
-    </div>
+    <section class="cuidadoresAntiguos" id="cuidadoresAntiguos">
+    </section>
 
     
     
-    </div>
+  </main>
 
 
     <div class="modal fade" id="successModal" data-backdrop="static" data-keyboard="false" >
@@ -83,14 +83,14 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
-    <script src="../js/bd/cuidador.js"></script>
-    <script src="../js/bd/login.js"></script>
+    <script src="../js/bd/cuidador-obfuscated.js"></script>
+    <script src="../js/bd/login-obfuscated.js"></script>
    <script>
    cuidadorActivo();
 cuidadorPorPaciente();   
  
     </script>
-    <script src="../js/functions/cuidadorActivo.js"></script>
+    <script src="../js/functions/cuidadorActivo-obfuscated.js"></script>
     <script>
         cuidadorPrincipal(cuidadorActivo(), cuidAntiguos());
         onload();
