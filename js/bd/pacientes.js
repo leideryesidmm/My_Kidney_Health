@@ -1,36 +1,6 @@
 
 var cedulaEncriptada = "";
-var contraseniaEncriptada;
 let dat= localStorage.getItem("datos");
-
-let obtenerCedulasUsuarios=async(id, cedula)=>{
-  let result = "";
-  console.log(cedula);
-  const peticion= await fetch(localStorage.getItem("servidorAPI")+'Usuario/findAllUsuarios',{
-    method:'GET',
-    headers:{
-      "Accept":"application/json",
-      "Content-Type": "application/json"
-    }
-      });
-      const pacientes=await peticion.json();
-      console.log(pacientes);
-      pacientes.forEach(paciente=>{
-        let decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, cajaNegra).toString(CryptoJS.enc.Utf8);
-        console.log(decryptedCedula);
-        if(cedula===decryptedCedula){   
-        console.log("ENTRO");
-      if(id == 0){
-        result = paciente.cedula;
-      }
-      if(id == 1){
-        result = paciente.contrasenia;
-      }
-    }
-    })
-    console.log(result)
-  return result;
-}
 
 function passwordVisibilityActual(inputId, iconClass) {
   var passwordInput = document.getElementById(inputId);
@@ -52,36 +22,23 @@ function passwordVisibilityActual(inputId, iconClass) {
 let cambioContrasenia = async (event) => {
   event.preventDefault();
 
-let data = localStorage.getItem("datos");
-let dato=JSON.parse(data);
-console.log(data);
-    let cedul= decodeURIComponent(dato.cedula);
-    console.log(cedul);
-
-    let cedulaEncriptada="";
-    let contraseniaEncriptadaBD="";
-    let decryptedCedula = CryptoJS.AES.decrypt(cedul, cajaNegra).toString(CryptoJS.enc.Utf8);
-     cedulaEncriptada = await obtenerCedulasUsuarios(0,decryptedCedula);
-    console.log(decryptedCedula);
-
-      contraseniaEncriptadaBD = await obtenerCedulasUsuarios(1,decryptedCedula);
-    console.log(contraseniaEncriptadaBD);
-
-
-let contraseniaBD = CryptoJS.AES.decrypt(contraseniaEncriptadaBD, cajaNegra).toString(CryptoJS.enc.Utf8);
-console.log(contraseniaBD);
+  let data = localStorage.getItem("datos");
+  let dato=JSON.parse(data);
+  console.log(data);
+      let cedula= decodeURIComponent(dato.cedula);
+      let contrasenia=decodeURIComponent(dato.contrasenia);
+      console.log("contrasenia de data");
+      console.log(contrasenia);
+      let contraseniaBD=CryptoJS.AES.decrypt(contrasenia, CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8);
 
 const contraseniaAnterior = document.getElementById("contraseniaanterior").value;
 const nuevaContrasenia = document.getElementById("newcontrasenia").value;
-console.log(nuevaContrasenia)
+let contraseniaNueva=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(nuevaContrasenia), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
 
 if (contraseniaAnterior === contraseniaBD) {
-  const contraseniaEncriptada = CryptoJS.AES.encrypt(nuevaContrasenia, cajaNegra).toString();
+  let usuarioInDto = { cedula: cedula, contrasenia: contraseniaNueva };
 
-  let usuarioInDto = { cedula: cedulaEncriptada, contrasenia: contraseniaEncriptada };
-  console.log(usuarioInDto);
-
-  const peticion= await fetch(localStorage.getItem("servidorAPI")+"Usuario/cambiarContrasenia", {
+  await fetch(localStorage.getItem("servidorAPI")+"Usuario/cambiarContrasenia", {
     method:"PATCH",
     headers:{
       "Accept":"application/json",
@@ -91,6 +48,9 @@ if (contraseniaAnterior === contraseniaBD) {
   })
   .then(response => {
     if (response.ok) {
+      dato.contrasenia=contraseniaNueva;
+      const nuevaData = JSON.stringify(dato);
+      localStorage.setItem("datos", nuevaData);
       $('#contraseniacambiada').modal('show');
 
       document.getElementById("contraseniaanterior").value = "";
@@ -118,7 +78,7 @@ $('#btnAceptar').click(function() {
 
 let restaurarContrasenia=async(ced, cont)=>{
   let cedula = ced.toString();
-  let cedulaEncriptada = await obtenerCedulasUsuarios(0, cedula);
+  let cedulaEncriptada=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(cedula), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
   try {
     const usuarioInDto = { cedula: cedulaEncriptada };
 
@@ -144,8 +104,11 @@ catch (error) {
 
 let inhabilitarPaciente = async (ced) => {
   let cedula = ced.toString();
-  let cedulaEncriptada = await obtenerCedulasUsuarios(0, cedula);
+  
+  let  cedulaEncriptada = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(cedula),CryptoJS.enc.Utf8.parse(cajaNegra2),
+    {iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
   console.log(cedulaEncriptada);
+
   try {
     const pacienteInDto = { cedula: cedulaEncriptada };
 
@@ -174,7 +137,8 @@ let inhabilitarPaciente = async (ced) => {
 
 let habilitarPaciente = async (ced) => {
   let cedula = ced.toString();
-  let cedulaEncriptada = await obtenerCedulasUsuarios(0, cedula);
+  let  cedulaEncriptada = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(cedula),CryptoJS.enc.Utf8.parse(cajaNegra2),
+    {iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
 
   try {
     const pacienteInDto = { cedula: cedulaEncriptada };
@@ -192,10 +156,10 @@ let habilitarPaciente = async (ced) => {
       location.reload();
     }
     else {
-      console.error("Error al inhabilitar paciente:", response.status);
+      console.error("Error al habilitar paciente:", response.status);
     }
   }
   catch (error) {
-    console.error("Error al inhabilitar paciente:", error);
+    console.error("Error al habilitar paciente:", error);
   }
 };

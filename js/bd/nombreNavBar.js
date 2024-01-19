@@ -11,7 +11,7 @@ let nombreNavBar = async () => {
     let usuarioInDto = { cedula: cedulaDecrypt, contrasenia: contrasenia }
     console.log(usuarioInDto)
     try {
-        const response = await fetch(localStorage.getItem("servidorAPI") + "Usuario/findAdmin", {
+        const response = await fetch(localStorage.getItem("servidorAPI") + "Usuario/cedula", {
             method: "POST",
             body: JSON.stringify(usuarioInDto),
             headers: {
