@@ -273,7 +273,7 @@ let mostrarInfoMedico=async()=>{
             '<div class="form-column">'+
             '<label for="documento" id="data">Documento de Identidad:<label id="asq">*</label></label>'+
             '<br>'+
-            '<input type="text" enterkeyhint="next"  class="documento" id="documento" name="documento" required>'+
+            '<input type="text" enterkeyhint="next"  class="documento" id="documento" name="documento" required disabled>'+
             '</div>'+
             '<div class="form-column">'+
                 '<label for="telefono" id="data">Teléfono:<label id="asq">*</label></label>'+
@@ -292,7 +292,7 @@ let mostrarInfoMedico=async()=>{
                       '</select>'+
                   '</div>'+
             '<div class="form-column">'+
-                    '<label for="selectEspecialidad" id="data">Especialidad:<label id="asq">*</label></label>'+
+                    '<label for="selectedEspecialidad" id="data">Especialidad:<label id="asq">*</label></label>'+
                       '<br>'+
                      '<select name="selectedEspecialidad" id="selectedEspecialidad" required>'+
                                                

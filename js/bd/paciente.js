@@ -3,35 +3,7 @@ var cedulaEncriptada = "";
 var contraseniaEncriptada;
 let dat= localStorage.getItem("datos");
 
-let obtenerCedulasUsuarios=async(id, cedula)=>{
-  let result = "";
-  console.log(cedula);
-  const peticion= await fetch(localStorage.getItem("servidorAPI")+'Usuario/findAllUsuarios',{
-    method:'GET',
-    headers:{
-      "Accept":"application/json",
-      "Content-Type": "application/json"
-    }
-      });
-      const pacientes=await peticion.json();
-      console.log(pacientes);
-      pacientes.forEach(paciente=>{
-        let decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, cajaNegra).toString(CryptoJS.enc.Utf8);
-        console.log(decryptedCedula);
-        if(cedula===decryptedCedula){   
-        console.log("ENTRO");
-      if(id == 0){
-        result = paciente.cedula;
-      }
-      if(id == 1){
-        result = paciente.contrasenia;
-      }
-    }
-    })
-    console.log(result)
-  return result;
-}
-
+//ya
 let cambioContraseniaAlIniciar=async(event)=>{
   event.preventDefault();
   let data = localStorage.getItem("datos");
@@ -44,7 +16,7 @@ let cambioContraseniaAlIniciar=async(event)=>{
       document.getElementById("errorMensaje").innerText = "Por favor ingrese una nueva contraseña.";
   }
 
-  let nuevaContrasenia=CryptoJS.AES.encrypt(newcontrasenia, cajaNegra).toString();
+  let nuevaContrasenia=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(newcontrasenia), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
   let  usuarioInDto={
     cedula:cedul, contrasenia:nuevaContrasenia
   }
@@ -70,7 +42,7 @@ let cambioContraseniaAlIniciar=async(event)=>{
 }
 
 }
-
+//ya
 function passwordVisibilityActual(inputId, iconClass) {
   var passwordInput = document.getElementById(inputId);
   var icon = document.querySelector("." + iconClass);
@@ -86,39 +58,26 @@ function passwordVisibilityActual(inputId, iconClass) {
   }
 }
 
-
+//ya
 let cambioContrasenia = async (event) => {
   event.preventDefault();
-let data = localStorage.getItem("datos");
-let dato=JSON.parse(data);
-console.log(data);
-    let cedul= decodeURIComponent(dato.cedula);
-    console.log(cedul);
 
-    let cedulaEncriptada="";
-    let contraseniaEncriptadaBD="";
-    let decryptedCedula = CryptoJS.AES.decrypt(cedul, cajaNegra).toString(CryptoJS.enc.Utf8);
-     cedulaEncriptada = await obtenerCedulasUsuarios(0,decryptedCedula);
-    console.log(decryptedCedula);
-
-      contraseniaEncriptadaBD = await obtenerCedulasUsuarios(1,decryptedCedula);
-    console.log(contraseniaEncriptadaBD);
-
-
-let contraseniaBD = CryptoJS.AES.decrypt(contraseniaEncriptadaBD, cajaNegra).toString(CryptoJS.enc.Utf8);
-console.log(contraseniaBD);
+  let data = localStorage.getItem("datos");
+  let dato=JSON.parse(data);
+  console.log(data);
+      let cedula= decodeURIComponent(dato.cedula);
+      let contrasenia=decodeURIComponent(dato.contrasenia);
+      let contraseniaBD=CryptoJS.AES.decrypt(contrasenia, CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8);
 
 const contraseniaAnterior = document.getElementById("contraseniaanterior").value;
 const nuevaContrasenia = document.getElementById("newcontrasenia").value;
-console.log(nuevaContrasenia)
+let contraseniaNueva=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(nuevaContrasenia), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
 
 if (contraseniaAnterior === contraseniaBD) {
-  const contraseniaEncriptada = CryptoJS.AES.encrypt(nuevaContrasenia, cajaNegra).toString();
+  let usuarioInDto = { cedula: cedula, contrasenia: contraseniaNueva };
 
-  let usuarioInDto = { cedula: cedulaEncriptada, contrasenia: contraseniaEncriptada };
-  console.log(usuarioInDto);
 
-  const peticion= await fetch(localStorage.getItem("servidorAPI")+"Usuario/cambiarContrasenia", {
+  await fetch(localStorage.getItem("servidorAPI")+"Usuario/cambiarContrasenia", {
     method:"PATCH",
     headers:{
       "Accept":"application/json",
@@ -128,6 +87,9 @@ if (contraseniaAnterior === contraseniaBD) {
   })
   .then(response => {
     if (response.ok) {
+      dato.contrasenia=contraseniaNueva;
+      const nuevaData = JSON.stringify(dato);
+      localStorage.setItem("datos", nuevaData);
       $('#contraseniacambiada').modal('show');
 
       document.getElementById("contraseniaanterior").value = "";
@@ -151,10 +113,7 @@ $('#btnAceptar').click(function() {
 });
 }
 };
-
-
-
-
+//ya
 let listaPacientes = async () => {
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
@@ -219,7 +178,7 @@ console.log(paciente)
   }
   return pacienteAct;
 }
-
+//Aún no
 let cuidadorActivo = async () => {
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
@@ -265,7 +224,7 @@ let cuidadorActivo = async () => {
   }
 
 }
-
+//aún no
 let alergias = async () => {
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
@@ -312,8 +271,7 @@ let alergias = async () => {
 }
 
 
-
-
+//aun no
 let encontrarPaciente = async () => {
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
@@ -325,11 +283,13 @@ let encontrarPaciente = async () => {
 
       let cedulaEncriptada="";
       if(usuario=="medico"){
-       cedulaEncriptada = await obtenerCedulasUsuarios(0,CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
+       cedulaEncriptada = localStorage.getItem("cedulaPaciente");
       console.log(cedulaEncriptada);}
       else{
         cedulaEncriptada=cedul;
       }
+      console.log("cedula en econtrar paciente");
+      console.log(cedulaEncriptada);
   const peticion = await fetch(localStorage.getItem("servidorAPI") + "paciente/findPacienteByCedula", {
     method: "POST",
     headers: {
@@ -349,22 +309,27 @@ console.log(paciente);
   }
   console.log(paciente);
   if(usuario=="paciente"){
-  var decryptedNombre = CryptoJS.AES.decrypt(paciente.nombre, cajaNegra).toString(CryptoJS.enc.Utf8);
+  var decryptedNombre = CryptoJS.AES.decrypt(paciente.nombre,CryptoJS.enc.Utf8.parse(cajaNegra2),
+  {iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8);
   document.getElementById("nombre").value = decryptedNombre;
   var fechaNacimiento = paciente.fechaNacimiento.split("T")[0];
   document.getElementById("fecha").value = fechaNacimiento;
-  var decryptedDireccion = CryptoJS.AES.decrypt(paciente.direccion, cajaNegra).toString(CryptoJS.enc.Utf8);
+  var decryptedDireccion = CryptoJS.AES.decrypt(paciente.direccion,CryptoJS.enc.Utf8.parse(cajaNegra2),
+  {iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8);
   document.getElementById("direccion").value = decryptedDireccion;
   console.log(decryptedDireccion);
-  var decryptedTelefono = CryptoJS.AES.decrypt(paciente.celular, cajaNegra).toString(CryptoJS.enc.Utf8);
+  var decryptedTelefono = CryptoJS.AES.decrypt(paciente.telefono,CryptoJS.enc.Utf8.parse(cajaNegra2),
+  {iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8);;
   console.log(decryptedTelefono);
   document.getElementById("telefono").value = decryptedTelefono;
   if(paciente.ocupacion!=""){
-    var decryptedOcupacion = CryptoJS.AES.decrypt(paciente.ocupacion, cajaNegra).toString(CryptoJS.enc.Utf8);
+    var decryptedOcupacion = CryptoJS.AES.decrypt(paciente.ocupacion,CryptoJS.enc.Utf8.parse(cajaNegra2),
+    {iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8);
     document.getElementById("ocupacion").value = decryptedOcupacion;
     }
     if(paciente.correo!=""){
-      var decryptedCorreo = CryptoJS.AES.decrypt(paciente.correo, cajaNegra).toString(CryptoJS.enc.Utf8);
+      var decryptedCorreo = CryptoJS.AES.decrypt(paciente.correo,CryptoJS.enc.Utf8.parse(cajaNegra2),
+      {iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8);
       document.getElementById("correo").value = decryptedCorreo;
     }
     const selectEps = document.getElementById('selectedEps');
@@ -388,10 +353,12 @@ console.log(paciente);
   
   }
   else{
-    var decryptedNombre = CryptoJS.AES.decrypt(paciente.nombre, cajaNegra).toString(CryptoJS.enc.Utf8);
+    var decryptedNombre = CryptoJS.AES.decrypt(paciente.nombre,CryptoJS.enc.Utf8.parse(cajaNegra2),
+    {iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8);
   document.getElementById("nombre").value = decryptedNombre;
 
-  var decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, cajaNegra).toString(CryptoJS.enc.Utf8);
+  var decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula,CryptoJS.enc.Utf8.parse(cajaNegra2),
+  {iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8);
   document.getElementById("documento").value = decryptedCedula;
 
 
@@ -402,11 +369,14 @@ console.log(paciente);
   if(paciente.diabetes==true){
   document.getElementById("diabetes").checked=true;
   }
-  var peso = CryptoJS.AES.decrypt(paciente.peso, cajaNegra).toString(CryptoJS.enc.Utf8);
+  var peso = CryptoJS.AES.decrypt(paciente.peso,CryptoJS.enc.Utf8.parse(cajaNegra2),
+  {iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8);
   document.getElementById("peso").value = peso;
-  var pesoseco=CryptoJS.AES.decrypt(paciente.pesoSeco, cajaNegra).toString(CryptoJS.enc.Utf8);
+  var pesoseco=CryptoJS.AES.decrypt(paciente.pesoSeco,CryptoJS.enc.Utf8.parse(cajaNegra2),
+  {iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8);
   document.getElementById("pesoseco").value = pesoseco;
-  var decryptedEstatura = CryptoJS.AES.decrypt(paciente.altura, cajaNegra).toString(CryptoJS.enc.Utf8);
+  var decryptedEstatura = CryptoJS.AES.decrypt(paciente.altura,CryptoJS.enc.Utf8.parse(cajaNegra2),
+  {iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8);
   document.getElementById("estatura").value=decryptedEstatura;
 }
 console.log(pacienteActual);
@@ -414,6 +384,7 @@ console.log(pacienteActual);
   
 }
 
+//ya
 let listaEps = async () => {
   const peticion = await fetch(localStorage.getItem("servidorAPI") + "paciente/ListEps", {
     method: "GET",
@@ -446,7 +417,7 @@ function cancelar(){
 }
 
 
-
+//aún no
 let actualizarPaciente = async (event) => {  
   event.preventDefault();
   var botonActualizar = document.getElementById("actualizarPerfil");
@@ -599,7 +570,7 @@ else{
 function cerrarModal() {
   modal.style.display = 'none';
 }
-
+//aún no
 let subirFoto = async () => {
   let dato = JSON.parse(dat);
   let cedul = decodeURIComponent(dato.cedula);
@@ -620,7 +591,7 @@ console.log(formData);
     }
   });
 }
-
+//aún no
 let eventoPerfil=async()=>{
 document.addEventListener("DOMContentLoaded", async () => {
   try {
