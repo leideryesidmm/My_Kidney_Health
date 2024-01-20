@@ -133,7 +133,6 @@ let login = async (event) => {
   }
   let decryptedCedula = null;
   let contrasenia = null;
-  console.log(servidorAPI + 'Medico/findAllPacientes');
   const peticion = await fetch(servidorAPI + 'Medico/findAllPacientes', {
     method: 'GET',
     headers: {
