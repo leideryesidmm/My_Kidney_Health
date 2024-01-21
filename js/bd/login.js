@@ -101,7 +101,6 @@ let login = async (event) => {
     cedula:userEncrypt,
     contrasenia:passEncrypt
   }
-  document.getElementById("log-in").disabled=true;
   const peticion3 = await fetch(servidorAPI + 'Usuario/findAdmin', {
     method: 'POST',
     body:JSON.stringify(usuario),
@@ -131,41 +130,23 @@ let login = async (event) => {
   if(esAdmin==true){
     return;
   }
-  let decryptedCedula = null;
-  let contrasenia = null;
-  const peticion = await fetch(servidorAPI + 'Medico/findAllPacientes', {
-    method: 'GET',
-    headers: {
-      "Accept": "application/json",
-      "Content-Type": "application/json"
-    }
-  });
-
-  const pacientes = await peticion.json();
-  console.log(pacientes);
-
-  const peticion2 = await fetch(servidorAPI + 'Usuario/findMedicoByCedula', {
+  const peticion = await fetch(servidorAPI + 'paciente/findPacienteByCedula', {
     method: 'POST',
     body:JSON.stringify(usuario),
     headers: {
       "Accept": "application/json",
       "Content-Type": "application/json"
     }
-  })
-  const medico = await peticion2.json();
-  console.log("medico:");
-  console.log(medico);
+  });
+
+  
+  
 let pacienteEncontrado=false;
 let medicoEncontrado=false;
-  pacientes.forEach(async paciente => {
+console.log(peticion.status);
+    if(peticion.status!==204){
+    const paciente = await peticion.json();
     if(paciente.activo==true){
-    decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, cajaNegra).toString(CryptoJS.enc.Utf8);
-    console.log(decryptedCedula);
-    contrasenia = CryptoJS.AES.decrypt(paciente.contrasenia, cajaNegra).toString(CryptoJS.enc.Utf8);
-    console.log(contrasenia);
-    console.log(username === decryptedCedula && password === contrasenia);
-    if (username === decryptedCedula && password === contrasenia) {
-      
       localStorage.setItem("authenticated", "true");
       const cedula = encodeURIComponent(paciente.cedula)
       let usuario="paciente"
@@ -189,17 +170,22 @@ let medicoEncontrado=false;
       pacienteEncontrado=true;
       return cambiado;
       }
-    }}
-  });
+    }
+  };
+  
     if(!pacienteEncontrado){
+      const peticion2 = await fetch(servidorAPI + 'Usuario/findMedicoByCedula', {
+        method: 'POST',
+        body:JSON.stringify(usuario),
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        }
+      })
+      console.log(peticion2.status);
+      if(peticion2.status!=204){
+        const medico = await peticion2.json();
         if(medico.activo==true){
-      decryptedCedula = CryptoJS.AES.decrypt(medico.cedula,CryptoJS.enc.Utf8.parse(cajaNegra2),
-      {iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8);
-      contrasenia = CryptoJS.AES.decrypt(medico.contrasenia,CryptoJS.enc.Utf8.parse(cajaNegra2),
-      {iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8);
-      console.log("contrasenia"+contrasenia);
-      if (username === decryptedCedula && password === contrasenia) {
-        console.log("paso la comparación de login");
         localStorage.setItem("authenticated", "true");
         const cedulaMedico = encodeURIComponent(medico.cedula);
         const contraseniaMedico = encodeURIComponent(medico.contrasenia);
@@ -215,8 +201,9 @@ let medicoEncontrado=false;
         medicoEncontrado=true;
         
         return username;
-      }
+      
     }
+  }
     }
     if(!pacienteEncontrado && !medicoEncontrado && !esAdmin){
       $('#errorDatosModal').modal('show');

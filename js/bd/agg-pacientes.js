@@ -148,41 +148,6 @@ console.log(decryptedNombre);
       }
  }
 //ya
- let listarPacientes = async () => {
-  try {
-    const peticion = await fetch(servidorAPI + 'Medico/findAllPacientes', {
-      method: 'GET',
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      }
-    });
-
-    if (peticion.ok) {
-      if (peticion.status === 200 || peticion.status === 204) {
-        const pacientes = await peticion.json();
-
-        const pacientesDesencriptados = pacientes
-        .filter(paciente => paciente.activo)
-        .map(paciente => {
-          let cedulaDesencriptada = CryptoJS.AES.decrypt(paciente.cedula,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8);
-          let nombreDesencriptado = CryptoJS.AES.decrypt(paciente.nombre,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8);
-
-          return {
-            nombre: nombreDesencriptado,
-            cedula: cedulaDesencriptada
-          };
-        });
-
-        return pacientesDesencriptados;
-      }
-    } else {
-      console.error("Error fetching patients:", peticion.status);
-    }
-  } catch (error) {
-    console.error("Error fetching patients:", error);
-  }
-};
 
 //ya
 let listarPacientesInactivos = async () => {
