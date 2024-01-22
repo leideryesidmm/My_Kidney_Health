@@ -283,7 +283,7 @@ let mostrarInfoMedico=async()=>{
             '</div>'+
             '<div class="form-row">'+
             '<div class="form-column">'+
-                    '<label for="selectProfesion" id="data">Profesión:<label id="asq">*</label></label>'+
+                    '<label for="selectedProfesion" id="data">Profesión:<label id="asq">*</label></label>'+
                       '<br>'+
                      '<select name="selectedProfesion" id="selectedProfesion" required>'+
                      '<option value="">Seleccione...</option>'+

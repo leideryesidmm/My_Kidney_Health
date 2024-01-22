@@ -32,7 +32,7 @@ let crearCuidador = async () => {
           botonActualizar.disabled = true;
     let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
-      let cedul= decodeURIComponent(dato.cedula);
+      let cedul= dato.cedula;
     let cuidadores = await cuidadorPorPaciente();
     console.log(cuidadores);
     var cedula_cuidador = document.getElementById('cedula_cuidador').value;
@@ -101,7 +101,7 @@ let cuidadorPorPaciente=async()=>{
   let dato=JSON.parse(data);
   console.log(data);
       let usuario = dato.usuario;
-      let cedul= decodeURIComponent(dato.cedula);
+      let cedul= dato.cedula;
       console.log(cedul);
       console.log(usuario);
 
@@ -142,7 +142,7 @@ let cuidadorPorPaciente=async()=>{
   let dato=JSON.parse(data);
   console.log(data);
       let usuario = dato.usuario;
-      let cedul= decodeURIComponent(dato.cedula);
+      let cedul= dato.cedula;
       console.log(cedul);
       console.log(usuario);
 
@@ -295,7 +295,7 @@ let cuidadorActivo= async()=>{
   let dato=JSON.parse(data);
   console.log(data);
       let usuario = dato.usuario;
-      let cedul= decodeURIComponent(dato.cedula);
+      let cedul= dato.cedula;
       console.log(cedul);
       console.log(usuario);
 
@@ -348,7 +348,7 @@ let cuidadorActivo= async()=>{
       let dato=JSON.parse(data);
       console.log(data);
           let usuario = dato.usuario;
-          let cedul= decodeURIComponent(dato.cedula);
+          let cedul= dato.cedula;
           console.log(cedul);
           console.log(usuario);
     
@@ -483,7 +483,7 @@ let actualizarCuidador = async () => {
   let dato=JSON.parse(data);
   console.log(data);
       let usuario = dato.usuario;
-      let cedul= decodeURIComponent(dato.cedula);
+      let cedul= dato.cedula;
       console.log(cedul);
       console.log(usuario);
 
@@ -550,7 +550,7 @@ let cuidAntiguos = async () => {
   let dato=JSON.parse(data);
   console.log(data);
       let usuario = dato.usuario;
-      let cedul= decodeURIComponent(dato.cedula);
+      let cedul= dato.cedula;
       console.log(cedul);
       console.log(usuario);
 
@@ -611,7 +611,7 @@ let reactivarCuidador = async (cedulaCuidador, cont) => {
   let dato=JSON.parse(data);
   console.log(data);
       let usuario = dato.usuario;
-      let cedul= decodeURIComponent(dato.cedula);
+      let cedul= dato.cedula;
       console.log(cedul);
       console.log(usuario);
 
@@ -690,7 +690,7 @@ let inhabilitarCuidador=async()=>{
   let dato=JSON.parse(data);
   console.log(data);
       let usuario = dato.usuario;
-      let cedul= decodeURIComponent(dato.cedula);
+      let cedul= dato.cedula;
       console.log(cedul);
       console.log(usuario);
 

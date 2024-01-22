@@ -81,7 +81,7 @@ let login = async (event) => {
   const password = document.getElementById("password").value;
 
   let userEncrypt=CryptoJS.AES.encrypt(
-    CryptoJS.enc.Utf8.parse(username),
+    CryptoJS.enc.Utf8.parse(encodeURIComponent(username)),
   CryptoJS.enc.Utf8.parse(cajaNegra2),
   {
     iv: CryptoJS.enc.Utf8.parse(iv),
@@ -90,7 +90,7 @@ let login = async (event) => {
   }).toString();
 
   let passEncrypt=CryptoJS.AES.encrypt(
-    CryptoJS.enc.Utf8.parse(password),
+    CryptoJS.enc.Utf8.parse(encodeURIComponent(password)),
   CryptoJS.enc.Utf8.parse(cajaNegra2),
   {
     iv: CryptoJS.enc.Utf8.parse(iv),
@@ -112,20 +112,20 @@ let login = async (event) => {
  
   if(peticion3.status!=204){
   const administrador = await peticion3.json();
-  console.log(administrador);
-
+  let cedulaDesencriptada=decodeURIComponent(CryptoJS.AES.decrypt(administrador.cedula,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+  let contraseniaDesencriptada=decodeURIComponent(CryptoJS.AES.decrypt(administrador.contrasenia,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+if(cedulaDesencriptada===username && contraseniaDesencriptada===password){
       localStorage.setItem("authenticated", "true");
-      const cedula = encodeURIComponent(administrador.cedula);
       let usuario="administrador";
       datos={
-      cedula:cedula, usuario:usuario, contrasenia:administrador.contrasenia
-      }
+      cedula:administrador.cedula, usuario:usuario}
       const data = JSON.stringify(datos);
       localStorage.setItem("datos", data);
       localStorage.setItem("servidorAPI", servidorAPI);
       location.href="administrador.html";
       esAdmin=true;
       return;
+    }
     }
   if(esAdmin==true){
     return;
@@ -147,11 +147,14 @@ console.log(peticion.status);
     if(peticion.status!==204){
     const paciente = await peticion.json();
     if(paciente.activo==true){
+      let cedulaDesencriptada=decodeURIComponent(CryptoJS.AES.decrypt(paciente.cedula,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+      let contraseniaDesencriptada=decodeURIComponent(CryptoJS.AES.decrypt(paciente.contrasenia,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+    if(cedulaDesencriptada===username && contraseniaDesencriptada===password){
       localStorage.setItem("authenticated", "true");
-      const cedula = encodeURIComponent(paciente.cedula)
-      let usuario="paciente"
+      let usuario="paciente";
+      
       datos={
-      cedula:cedula, usuario:usuario
+      cedula:paciente.cedula, usuario:usuario
       }
       const data = JSON.stringify(datos);
       localStorage.setItem("datos", data);
@@ -171,6 +174,7 @@ console.log(peticion.status);
       return cambiado;
       }
     }
+  }
   };
   
     if(!pacienteEncontrado){
@@ -186,13 +190,13 @@ console.log(peticion.status);
       if(peticion2.status!=204){
         const medico = await peticion2.json();
         if(medico.activo==true){
+          let cedulaDesencriptada=decodeURIComponent(CryptoJS.AES.decrypt(medico.cedula,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+  let contraseniaDesencriptada=decodeURIComponent(CryptoJS.AES.decrypt(medico.contrasenia,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+if(cedulaDesencriptada===username && contraseniaDesencriptada===password){
         localStorage.setItem("authenticated", "true");
-        const cedulaMedico = encodeURIComponent(medico.cedula);
-        const contraseniaMedico = encodeURIComponent(medico.contrasenia);
         let usuario="medico"
         datos={
-        cedula:cedulaMedico, usuario:usuario, contrasenia:contraseniaMedico
-        }
+        cedula:medico.cedula, usuario:usuario}
         const data = JSON.stringify(datos);
         localStorage.setItem("datos", data);
         console.log(data)
@@ -203,6 +207,7 @@ console.log(peticion.status);
         return username;
       
     }
+  }
   }
     }
     if(!pacienteEncontrado && !medicoEncontrado && !esAdmin){
