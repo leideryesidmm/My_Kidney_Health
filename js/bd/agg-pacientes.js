@@ -148,8 +148,8 @@ console.log(decryptedNombre);
       }
  }
 //ya
-let listarPacientes = async () => {
-  try {
+let listarPacientes = async () => {let pac;
+  try {    
     const peticion = await fetch(servidorAPI + 'Medico/findAllPacientes', {
       method: 'GET',
       headers: {
@@ -164,9 +164,9 @@ let listarPacientes = async () => {
 
         const pacientesDesencriptados = pacientes
         .filter(paciente => paciente.activo)
-        .map(paciente => {
+        .map(paciente => {pac=paciente;
           let cedulaDesencriptada = CryptoJS.AES.decrypt(paciente.cedula,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8);
-          //let nombreDesencriptado = CryptoJS.AES.decrypt(paciente.nombre,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8);
+          let nombreDesencriptado = decodeURIComponent(CryptoJS.AES.decrypt(paciente.nombre,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
 
           return {
             nombre: nombreDesencriptado,
@@ -180,6 +180,7 @@ let listarPacientes = async () => {
       console.error("Error fetching patients:", peticion.status);
     }
   } catch (error) {
+    console.log(pac);
     console.error("Error fetching patients:", error);
   }
 };
@@ -203,6 +204,7 @@ let listarPacientesInactivos = async () => {
         const pacientesDesencriptados = pacientes
         .filter(paciente => !paciente.activo)
         .map(paciente => {
+          pac=paciente;
           let cedulaDesencriptada = CryptoJS.AES.decrypt(paciente.cedula,CryptoJS.enc.Utf8.parse(cajaNegra2),
           {iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8);
           let nombreDesencriptado = CryptoJS.AES.decrypt(paciente.nombre,CryptoJS.enc.Utf8.parse(cajaNegra2),

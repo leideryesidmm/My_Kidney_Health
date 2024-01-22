@@ -53,7 +53,7 @@ let alergias = async () => {
       let pacientes2 = new Array();
       pacientes.forEach(paciente => {
         try {
-          paciente.nombre = CryptoJS.AES.decrypt(paciente.nombre, "clave_secreta").toString(CryptoJS.enc.Utf8);
+          paciente.nombre = decodeURIComponent(CryptoJS.AES.decrypt(paciente.nombre, "clave_secreta").toString(CryptoJS.enc.Utf8));
           //paciente.altura = CryptoJS.AES.decrypt(paciente.altura, "clave_secreta").toString(CryptoJS.enc.Utf8);
           paciente.direccion=CryptoJS.AES.decrypt(paciente.direccion, "clave_secreta").toString(CryptoJS.enc.Utf8);
           paciente.ocupacion=CryptoJS.AES.decrypt(paciente.ocupacion, "clave_secreta").toString(CryptoJS.enc.Utf8);
@@ -77,7 +77,7 @@ let alergias = async () => {
       console.log("Datos después de desencriptar:", pacientes2);
       let pacientes3 = new Array();
       pacientes2.forEach(paciente => {
-        paciente.nombre= CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(paciente.nombre), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
+        paciente.nombre= CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(paciente.nombre)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
           paciente.altura = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(paciente.altura), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
           paciente.direccion=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(paciente.direccion), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
           paciente.ocupacion=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(paciente.ocupacion), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
@@ -395,6 +395,7 @@ let alergias = async () => {
 
     const formulasMedicamentos = await peticion.json();
     console.log(formulasMedicamentos);
+
     let formulasMedicamentos2=new Array();
     formulasMedicamentos.forEach(formulaMedicamento => {
         //formulaMedicamento.tomas=CryptoJS.AES.decrypt(formulaMedicamento.tomas, "clave_secreta").toString(CryptoJS.enc.Utf8);
@@ -440,6 +441,9 @@ let alergias = async () => {
     console.log(pacienteAlergias);
     let pacienteAlergias2=new Array();
     pacienteAlergias.forEach(pacienteAlergia => {
+        let id=pacienteAlergia.alergia.idAlergia;
+        pacienteAlergia.alergia={};
+        pacienteAlergia.alergia.idAlergia=id;
         pacienteAlergia.paciente.cedula=CryptoJS.AES.decrypt(pacienteAlergia.paciente.cedula, "clave_secreta").toString(CryptoJS.enc.Utf8);
         let cedula=pacienteAlergia.paciente.cedula;
         pacienteAlergia.paciente={};
@@ -524,11 +528,11 @@ try{
   //console.log("listo");
   //await chequeosMensuales();
   //console.log("listo");
-  ///await formulasMedicamentos();
+  //await formulasMedicamentos();
   //console.log("listo");
-  await pacienteAlergias();
+  //await pacienteAlergias();
   //console.log("listo");
-  //await admins();
+  await admins();
 }catch(error){
     console.log(error)
 }

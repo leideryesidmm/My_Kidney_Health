@@ -58,6 +58,27 @@ integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLAS
       </div>
     </div>
 
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="errorModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="successModalLabel">Aviso</h5>
+              <a href="editarPaciente.html"><button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <span>&times;</span></button></a>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Los datos del paciente no han sido modificados.</p>
+          </div>
+          <div class="modal-footer">
+            <a href="editarPaciente.html"><button type="button" data-bs-dismiss="modal"  class="btn btn-primary">Aceptar</button></a>
+          </div>
+          
+          
+          </div>
+        </div>
+      </div>
+
     <script>
       let url = localStorage.getItem("url");
       function redireccionar() {

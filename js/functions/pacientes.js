@@ -19,7 +19,7 @@ let pacientesTratados = async () => {
         '</thead>';
 
       pacientes.forEach((paciente) => {
-        let clave = encodeURIComponent(CryptoJS.AES.encrypt(paciente.cedula, "clave_secreta").toString())
+        let clave = paciente.cedula;
         console.log(clave);
         msg +=
           '<tr>' +

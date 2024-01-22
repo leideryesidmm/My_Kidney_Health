@@ -106,4 +106,5 @@ let cuidadoresInactivos = async (cuidadores) => {
   let cerrarCuidAnt=async()=>{
     location.reload();
   }
+  
 
