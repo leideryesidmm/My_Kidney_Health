@@ -1,4 +1,3 @@
-//Ya
 let listarEps = async () => {
   const peticion = await fetch(localStorage.getItem("servidorAPI") + "DatosMedicos/ListEps", {
     method: "GET",
@@ -27,7 +26,7 @@ let listarEps = async () => {
   }
 
 }
-//ya
+
 let validarPaciente = async () => {
   let documento = document.getElementById('documento').value;
   console.log(documento);
@@ -54,7 +53,7 @@ let validarPaciente = async () => {
 
 }
 
-//ya
+
 let crearPaciente=async(event)=> {
   event.preventDefault();
   const btnGuardar=document.getElementById("guardarPaciente");
@@ -120,11 +119,9 @@ let crearPaciente=async(event)=> {
       }
 
 if(existe==false){
-      let decryptedCedula = decodeURIComponent(CryptoJS.AES.decrypt(pacienteInDto.cedula,CryptoJS.enc.Utf8.parse(cajaNegra2),
-      {iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+      let decryptedCedula = decodeURIComponent(CryptoJS.AES.decrypt(pacienteInDto.cedula,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
 console.log(decryptedCedula);
-let decryptedNombre = decodeURIComponent(CryptoJS.AES.decrypt(pacienteInDto.nombre,CryptoJS.enc.Utf8.parse(cajaNegra2),
-{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+let decryptedNombre = decodeURIComponent(CryptoJS.AES.decrypt(pacienteInDto.nombre,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
 
       fetch(servidorAPI+"paciente/crearPaciente", {
         method: 'POST',
@@ -146,7 +143,7 @@ let decryptedNombre = decodeURIComponent(CryptoJS.AES.decrypt(pacienteInDto.nomb
         $('#modal3').modal('show');
       }
  }
-//ya
+
 let listarPacientes = async () => {
   try {
     const peticion = await fetch(servidorAPI + 'Medico/findAllPacientes', {
@@ -184,7 +181,7 @@ let listarPacientes = async () => {
   }
 };
 
-//ya
+
 let listarPacientesInactivos = async () => {
   try {
     const peticion = await fetch(servidorAPI + 'Medico/findAllPacientes', {
@@ -224,125 +221,8 @@ let listarPacientesInactivos = async () => {
   }
 };
 
-//aún no
-let crearVisita = async (cedulaPaciente) => {
-           
-  console.log(cedulaPaciente);
-  let ultCita=await ultimaCita(cedulaPaciente)
-  let idCita=ultCita.idCita;
-  console.log(idCita);
-  let checkboxes = document.querySelectorAll("input[name='visita']:checked");
-  let visitaEspecialistaDto = {
-    cita: idCita
-  };
 
-  Array.from(checkboxes).forEach(function (checkbox) {
-    visitaEspecialistaDto[checkbox.value] = true;
-  });
 
-  console.log(visitaEspecialistaDto);
-
-  if (Object.keys(visitaEspecialistaDto).length > 0) {
-    await fetch(localStorage.getItem("servidorAPI") + 'Medico/visitaEspecialista', {
-      method: "POST",
-      body: JSON.stringify(visitaEspecialistaDto),
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      }
-    })
-      .then(response => {
-        console.log(response);
-        if (response.ok) {
-          $('#visita').modal('hide');
-          $('#successModalVisitaAgg').modal('show');
-          
-        } else {
-          $('#errorModal').modal('show');
-        }
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  } else {
-    alert("Selecciona al menos un checkbox para guardar.");
-  }
-};
-
-//aún no
-let encriptarDatosChequeo=(chequeo)=>{
-  let colesterolTotal=CryptoJS.AES.encrypt(chequeo.colesterolTotal, cajaNegra).toString();
-  let fosforo=CryptoJS.AES.encrypt(chequeo.fosforo, cajaNegra).toString();
-  let glicemia=CryptoJS.AES.encrypt(chequeo.glicemia, cajaNegra).toString();
-  let hdl=CryptoJS.AES.encrypt(chequeo.hdl, cajaNegra).toString();
-  let hemoglobina=CryptoJS.AES.encrypt(chequeo.hemoglobina, cajaNegra).toString();
-  let ldh=CryptoJS.AES.encrypt(chequeo.ldh, cajaNegra).toString();
-  let nitrogenoUreico=CryptoJS.AES.encrypt(chequeo.nitrogenoUreico, cajaNegra).toString();
-  let potasio=CryptoJS.AES.encrypt(chequeo.potasio, cajaNegra).toString();
-  let tensionArterial=CryptoJS.AES.encrypt(chequeo.tensionArterial, cajaNegra).toString();
-  let trigliceridos=CryptoJS.AES.encrypt(chequeo.trigliceridos, cajaNegra).toString();
-  let peso=CryptoJS.AES.encrypt(chequeo.peso, cajaNegra).toString();
-  let pesoSeco=CryptoJS.AES.encrypt(chequeo.pesoSeco, cajaNegra).toString();
-  let glucosa=CryptoJS.AES.encrypt(chequeo.glucosa, cajaNegra).toString();
-  let creatinina=CryptoJS.AES.encrypt(chequeo.creatinina, cajaNegra).toString();
-  let ktv=CryptoJS.AES.encrypt(chequeo.ktv, cajaNegra).toString();
-  let cita=chequeo.cita;
-
-  let chequeoMensualInDto={
-    colesterolTotal:colesterolTotal, fosforo:fosforo, glicemia:glicemia, hdl:hdl, hemoglobina:hemoglobina, ldh:ldh, nitrogenoUreico:nitrogenoUreico, potasio:potasio, tensionArterial:tensionArterial, trigliceridos:trigliceridos, peso:peso, pesoSeco:
-    pesoSeco, glucosa:glucosa, creatinina, creatinina, ktv:ktv, cita:cita
-  }
-  return chequeoMensualInDto;
-}
-
-//aún no
-let crearChequeoMensual = async (cedulaPaciente) => {
-
-  let ultCita=await ultimaCita(cedulaPaciente)
-  console.log(ultCita);
-  let idCita=ultCita.idCita;
-  let inputs = document.querySelectorAll("input[name='chequeo']");
-  let chequeoMensual = {
-    cita: idCita 
-  };
-
-  Array.from(inputs).forEach(function (input) {
-    if (input.value.trim() !== "") {
-      chequeoMensual[input.id] = input.value;
-    }
-  });
-
-  let chequeoMensualInDto= encriptarDatosChequeo(chequeoMensual);
-  console.log(chequeoMensual);
-  console.log(chequeoMensualInDto);
-
-  if (Object.keys(chequeoMensualInDto).length > 1) { 
-    const response = await fetch(localStorage.getItem("servidorAPI") + 'Medico/chequeoMensual', {
-      method: "POST",
-      body: JSON.stringify(chequeoMensualInDto),
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      }
-    });
-
-    try {
-      if (response.ok) {
-        $('#agregarChequeo').modal('hide');
-        $('#successModalChequeoAgg').modal('show');
-        
-      } else {
-        $('#errorModal').modal('show');
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  } else {
-    alert("Completa al menos un campo de entrada para guardar.");
-  }
-};
-
-//aún no
 let ultimaCita = async (cedulaPaciente) => {
   try {
     cedulaPac = await obtenerCedEncriptada(cedulaPaciente);

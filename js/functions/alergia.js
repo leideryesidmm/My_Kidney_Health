@@ -1,6 +1,5 @@
 let listAlergias = async (alergias) => {
     alergias = await alergias;
-    let ms="";
     let msg = "";
     let cont = 1;
     console.log(alergias)

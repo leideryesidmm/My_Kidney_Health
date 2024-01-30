@@ -82,7 +82,8 @@ let cuidadoresInactivos = async (cuidadores) => {
         let cont=0;
     cuidadores.forEach((cuidador) => {
         console.log(activo);
-      if (cuidador.activo === false&&parseInt(activo.cedula)!=parseInt(cuidador.cedulaCuidador)) {
+      if(activo!=null){
+        if (cuidador.activo === false&&parseInt(activo.cedula)!=parseInt(cuidador.cedulaCuidador)) {
         msg +=
           '<tr>' +
           '<td>' + cuidador.cedulaCuidador + '</td>' +
@@ -95,6 +96,21 @@ let cuidadoresInactivos = async (cuidadores) => {
           '</tr>';
           cont++;
       }
+    }else{
+        if (cuidador.activo === false) {
+            msg +=
+              '<tr>' +
+              '<td>' + cuidador.cedulaCuidador + '</td>' +
+              '<td>' + cuidador.nombre + '</td>' +
+              '<td>' +
+              '<button onclick="reactivarCuidador(\'' + cuidador.cedulaCuidador + '\', \''+cont+'\')" type="button" id="reactivarCuidador'+cont+'" class="reactivarCuidador" data-toggle="modal" data-target="#successModalReactivar">' +
+              '<img src="../img/actualizar.png" class="actualizar imagen-crecible-iconos" alt="actualizar Cuidador"/>' +
+              '</button>' +
+              '</td>' +
+              '</tr>';
+              cont++;
+          }
+    }
       
     });}
     msg += '</table>';

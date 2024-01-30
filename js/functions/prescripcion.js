@@ -334,8 +334,8 @@ let mostrarPrescripcion2= async (prescripcion) => {
   +'<label for="concentracion">Concentraciones: ';
   let msg2=""
   prescripcion.unionPrescripcionDiasRecambios[0].recambios.forEach(recambio => {
-  msg+=recambio.concentracion+' - ';
-  msg2+=recambio.intervaloTiempo+' - ';selectConcentracion
+  msg+=decodeURIComponent(CryptoJS.AES.decrypt(recambio.concentracion,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8))+' - ';
+  msg2+=decodeURIComponent(CryptoJS.AES.decrypt(recambio.intervaloTiempo,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8))+' - ';selectConcentracion
   });
   msg=msg.substring(0, msg.length - 3);
   msg2=msg2.substring(0, msg2.length - 3);
@@ -371,8 +371,8 @@ let mostrarPrescripcion2= async (prescripcion) => {
       dias.recambios.forEach(recambio => {
       msg+='  <tr>'
       +'    <td>'+cont+'</th>'
-      +'    <td>'+CryptoJS.AES.decrypt(recambio.concentracion, cajaNegra).toString(CryptoJS.enc.Utf8)+'</th>'
-      +'    <td>'+CryptoJS.AES.decrypt(recambio.intervaloTiempo, cajaNegra).toString(CryptoJS.enc.Utf8)+'</th>'
+      +'    <td>'+decodeURIComponent(CryptoJS.AES.decrypt(recambio.concentracion,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8))+'</th>'
+      +'    <td>'+decodeURIComponent(CryptoJS.AES.decrypt(recambio.intervaloTiempo,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8))+'</th>'
       +'  </tr>'
       });
       msg+='</tbody>'
@@ -444,11 +444,9 @@ let mostrarPrescripcion= async (prescripcion, fecha, recambios) => {
       +'<div class="row">'
       +`    <div class="col-2 estado" style="`;
       if(recambios[cont]!=null){
-        console.log(decodeURIComponent(CryptoJS.AES.decrypt(recambios[cont].caracteristicaLiquido, cajaNegra).toString(CryptoJS.enc.Utf8))!="Turbio")
-        console.log(decodeURIComponent(CryptoJS.AES.decrypt(recambios[cont].caracteristicaLiquido, cajaNegra).toString(CryptoJS.enc.Utf8)))
-        console.log(recambios[cont])
         estado="H";
-          msg+=`${parseInt(CryptoJS.AES.decrypt(recambios[cont].drenajeDialisis, cajaNegra).toString(CryptoJS.enc.Utf8))>=parseInt(CryptoJS.AES.decrypt(recambios[cont].liquidoEntrante, cajaNegra).toString(CryptoJS.enc.Utf8))&&decodeURIComponent(CryptoJS.AES.decrypt(recambios[cont].caracteristicaLiquido, cajaNegra).toString(CryptoJS.enc.Utf8))!="Turbio"?'background-color:rgb(11, 158, 11);">':'background-color:#f73c3c;">'}`;
+        
+          msg+=`${parseInt(decodeURIComponent(CryptoJS.AES.decrypt(recambios[cont].drenajeDialisis,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8)))>=parseInt(decodeURIComponent(CryptoJS.AES.decrypt(recambios[cont].liquidoEntrante,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8)))&&decodeURIComponent(CryptoJS.AES.decrypt(recambios[cont].caracteristicaLiquido,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8))!="Turbio"?'background-color:rgb(11, 158, 11);">':'background-color:#f73c3c;">'}`;
           if(fecha.getFullYear() === hoy.getFullYear() &&
           fecha.getMonth() === hoy.getMonth() &&
           (fecha.getDate() === hoy.getDate()||fecha.getDate() === hoy.getDate()-1)){
@@ -527,8 +525,8 @@ let mostrarPrescripcion= async (prescripcion, fecha, recambios) => {
       +'                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>'
       +'                <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>'
       +'              </svg></span></a></div>'
-      +'        </div>'   
-      +'    </div>'
+      +'        </div>'  
+      +'        </div>'  
       msg+=datos1[cont];
 
       msg+= '   <div id="acciones" class="col-2  acciones">';
@@ -551,11 +549,11 @@ let recambio=JSON.parse(localStorage.getItem("recambios"))[idRecambio];
   console.log(recambio)
 document.getElementById("inicio").innerText=recambio.horaIni.replace("T", " ");
 document.getElementById("final").innerText=recambio.horaFin.replace("T", " ");
-document.getElementById("liquidoEntrante").innerText=decodeURIComponent(CryptoJS.AES.decrypt(recambio.liquidoEntrante, cajaNegra).toString(CryptoJS.enc.Utf8))+" ml";
-document.getElementById("drenaje").innerText=decodeURIComponent(CryptoJS.AES.decrypt(recambio.drenajeDialisis, cajaNegra).toString(CryptoJS.enc.Utf8))+" ml";
-document.getElementById("concentracion").innerText=CryptoJS.AES.decrypt(recambio.recambio.concentracion, cajaNegra).toString(CryptoJS.enc.Utf8)+" %";
-document.getElementById("estadoOrificio").innerText=decodeURIComponent(CryptoJS.AES.decrypt(recambio.orificioSalida, cajaNegra).toString(CryptoJS.enc.Utf8));
-document.getElementById("caracteristicaliquido").innerText=decodeURIComponent(CryptoJS.AES.decrypt(recambio.caracteristicaLiquido, cajaNegra).toString(CryptoJS.enc.Utf8));
+document.getElementById("liquidoEntrante").innerText=decodeURIComponent(CryptoJS.AES.decrypt(recambio.liquidoEntrante,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8))+" ml";
+document.getElementById("drenaje").innerText=decodeURIComponent(CryptoJS.AES.decrypt(recambio.drenajeDialisis,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8))+" ml";
+document.getElementById("concentracion").innerText=decodeURIComponent(CryptoJS.AES.decrypt(recambio.recambio.concentracion,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8))+" %";
+document.getElementById("estadoOrificio").innerText=decodeURIComponent(CryptoJS.AES.decrypt(recambio.orificioSalida,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+document.getElementById("caracteristicaliquido").innerText=decodeURIComponent(CryptoJS.AES.decrypt(recambio.caracteristicaLiquido,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
 console.log("hasta aqui")
 let fecha=formatearFecha(new Date(localStorage.getItem("fecha_real")))
 console.log(fecha)
@@ -597,9 +595,9 @@ recambios.forEach(recambio => {
   msg+='  <tr>'
 +`    <td style="font-size:70%">${formatearFecha(new Date(recambio.horaIni))} \n ${formatearFechaHora(new Date(recambio.horaIni))}</th>`
 +`    <td style="font-size:70%">${formatearFecha(new Date(recambio.horaFin))} \n ${formatearFechaHora(new Date(recambio.horaFin))}</th>`
-+'    <td style="font-size:90%">'+CryptoJS.AES.decrypt(recambio.recambio.concentracion, cajaNegra).toString(CryptoJS.enc.Utf8)+' %</th>'
-+'    <td style="font-size:90%">'+CryptoJS.AES.decrypt(recambio.liquidoEntrante, cajaNegra).toString(CryptoJS.enc.Utf8)+' ml</th>'
-+'    <td style="font-size:90%">'+CryptoJS.AES.decrypt(recambio.drenajeDialisis, cajaNegra).toString(CryptoJS.enc.Utf8)+' ml</th>'
++'    <td style="font-size:90%">'+decodeURIComponent(CryptoJS.AES.decrypt(recambio.recambio.concentracion,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8))+' %</th>'
++'    <td style="font-size:90%">'+decodeURIComponent(CryptoJS.AES.decrypt(recambio.liquidoEntrante,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8))+' ml</th>'
++'    <td style="font-size:90%">'+decodeURIComponent(CryptoJS.AES.decrypt(recambio.drenajeDialisis,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8))+' ml</th>'
 +'  </tr>';
 });
 
@@ -618,7 +616,8 @@ let tablaVisitas=async(visitas)=>{
 document.getElementById("visitas").classList.add("active");
 document.getElementById("chequeos").classList.remove("active");
   visitas=await visitas;
-  
+  console.log("visitas");
+  console.log(visitas);
 let msg="";
 
   msg='<div class="container scroll"><table class="table table-bordered" id="visitasTabla">'
@@ -745,8 +744,8 @@ let datos= async () => {
       msg='<div class="col-8">'
       +'        <div class="datos">'
       +'<h5>'+cardinalidad[cont]+'</h5>'
-      +'        <h6>Concentración: '+CryptoJS.AES.decrypt(recambio.concentracion, cajaNegra).toString(CryptoJS.enc.Utf8)+'%</h6>'
-      +'        <h6>Tiempo: '+CryptoJS.AES.decrypt(recambio.intervaloTiempo, cajaNegra).toString(CryptoJS.enc.Utf8)+'h</h6>'
+      +'        <h6>Concentración: '+decodeURIComponent(CryptoJS.AES.decrypt(recambio.concentracion,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8))+'%</h6>'
+      +'        <h6>Tiempo: '+decodeURIComponent(CryptoJS.AES.decrypt(recambio.intervaloTiempo,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8))+'h</h6>'
       +'    </div>'
       +'</div>';
       data.push(msg);
@@ -760,9 +759,6 @@ let mostrarPrecripcionMedico=async (prescripcion) => {
 document.getElementById("actual").classList.add("active");
 document.getElementById("historico").classList.remove("active");
 prescripcion=await prescripcion;
-console.log(prescripcion)
-console.log(new Date(prescripcion.cita.fechaFin))
-console.log(new Date())
 if(prescripcion===undefined||prescripcion.cita.finalizado===true){
   console.log("no hay prescripcion");
   let msg='<h3>No hay prescripción activa a la fecha</h3><br>'+
@@ -823,11 +819,13 @@ msg+=`
                             </thead>
                             <tbody>`
                             let cont=0;
+                            console.log(prescripcionDia.recambios);
                   prescripcionDia.recambios.forEach(recambio => {
                     msg+=`<tr>
                     <td>${ordinal[cont]+" recambio"}</td>
-                    <td>${CryptoJS.AES.decrypt(recambio.concentracion,cajaNegra).toString(CryptoJS.enc.Utf8)} %</td>
-                    <td>${CryptoJS.AES.decrypt(recambio.intervaloTiempo, cajaNegra).toString(CryptoJS.enc.Utf8)} horas</td>
+                    <td>${decodeURIComponent(CryptoJS.AES.decrypt(recambio.concentracion,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8))} %</td>
+                    <td>${decodeURIComponent(CryptoJS.AES.decrypt(recambio.intervaloTiempo,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8))} horas</td>
+                    
                   </tr>`
                   cont++;
                   });
@@ -882,7 +880,8 @@ prescripciones.forEach(prescripcion => {
       <td>${cont}</td>
       <td>${prescripcion.cita.fecha==undefined||prescripcion.cita.fecha==null?"Sin fecha de Inicio":formatDate(new Date(prescripcion.cita.fecha))}</td>
       <td>${prescripcion.cita.fechaFin==undefined||prescripcion.cita.fechaFin==null?"Sin fecha de fin":formatDate(new Date(prescripcion.cita.fechaFin))}</td>
-      <td>${CryptoJS.AES.decrypt(prescripcion.cita.orificioSalida,"clave_secreta").toString(CryptoJS.enc.Utf8)}</td>
+      <td>${decodeURIComponent(CryptoJS.AES.decrypt(prescripcion.cita.orificioSalida,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8))}</td>
+      
       <td>
       <a class="icon-link" onclick="antigua(${prescripcion.cita.idCita})"> 
       <img src="../img/ver.png" class="ver" alt="Ver recambios"/>
@@ -956,8 +955,8 @@ let msg=`<div class="row" style="display:flex">
                   prescripcionDia.recambios.forEach(recambio => {
                     msg+=`<tr>
                     <td>${ordinal[cont]+" recambio"}</td>
-                    <td>${CryptoJS.AES.decrypt(recambio.concentracion, cajaNegra).toString(CryptoJS.enc.Utf8)} %</td>
-                    <td>${CryptoJS.AES.decrypt(recambio.intervaloTiempo, cajaNegra).toString(CryptoJS.enc.Utf8)} horas</td>
+                    <td>${decodeURIComponent(CryptoJS.AES.decrypt(recambio.concentracion,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8))} %</td>
+                    <td>${decodeURIComponent(CryptoJS.AES.decrypt(recambio.intervaloTiempo,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8))} horas</td>
                   </tr>`
                   cont++;
                   });
@@ -1059,6 +1058,7 @@ let mostrarRecambiosHechosMedico=async()=>{
 let editarPrescripcion = async () => {
 let datos = await datosEditarPrescripcion();
 console.log(datos);
+console.log("estos son los datos");
 let prescripcionesHechas = datos.prescipcionDia.length;
 let ms = "";
 
@@ -1102,7 +1102,7 @@ let checkboxsSeleccionados = {};
 let rec=[];
 let generarPrescripcionesLlenados=async()=>{
 let datos = await datosEditarPrescripcion();
-let orificio=CryptoJS.AES.decrypt(datos.cita.orificioSalida, "clave_secreta").toString(CryptoJS.enc.Utf8);
+let orificio=decodeURIComponent(CryptoJS.AES.decrypt(datos.cita.orificioSalida,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
 let fechaFin=datos.cita.fechaFin.split("T")[0];
 let prescripcionesDia=datos.prescipcionDia;
 let recambios=datos.recambios;
@@ -1352,8 +1352,8 @@ for(var i=0;i<recambios.length;i++){
   let recambio=recambios[i];
   let prescipcionDia=prescipcionesDia[i];
   for(var j=0;j<recambio.length;j++){
-    document.getElementById("concentracion"+(j+1)+idCantidad).value=CryptoJS.AES.decrypt(recambio[j].concentracion,cajaNegra).toString(CryptoJS.enc.Utf8)+"%";
-    document.getElementById("rangoconcentracion"+(j+1)+idCantidad).value=CryptoJS.AES.decrypt(recambio[j].intervaloTiempo,cajaNegra).toString(CryptoJS.enc.Utf8);
+    document.getElementById("concentracion"+(j+1)+idCantidad).value=decodeURIComponent(CryptoJS.AES.decrypt(recambio[j].concentracion,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8))+"%";
+    document.getElementById("rangoconcentracion"+(j+1)+idCantidad).value=decodeURIComponent(CryptoJS.AES.decrypt(recambio[j].intervaloTiempo,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
   }
   const diasSemana = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'];
   diasSemana.forEach(dia => {
@@ -1419,21 +1419,23 @@ checkboxes.forEach((checkbox, index) => {
 }
 
 let desencriptarDatosChequeo=(chequeo)=>{
-  let colesterolTotal=CryptoJS.AES.decrypt(chequeo.colesterolTotal, cajaNegra).toString(CryptoJS.enc.Utf8);
-  let fosforo=CryptoJS.AES.decrypt(chequeo.fosforo, cajaNegra).toString(CryptoJS.enc.Utf8);
-  let glicemia=CryptoJS.AES.decrypt(chequeo.glicemia, cajaNegra).toString(CryptoJS.enc.Utf8);
-  let hdl=CryptoJS.AES.decrypt(chequeo.hdl, cajaNegra).toString(CryptoJS.enc.Utf8);
-  let hemoglobina=CryptoJS.AES.decrypt(chequeo.hemoglobina, cajaNegra).toString(CryptoJS.enc.Utf8);
-  let ldh=CryptoJS.AES.decrypt(chequeo.ldh, cajaNegra).toString(CryptoJS.enc.Utf8);
-  let nitrogenoUreico=CryptoJS.AES.decrypt(chequeo.nitrogenoUreico, cajaNegra).toString(CryptoJS.enc.Utf8);
-  let potasio=CryptoJS.AES.decrypt(chequeo.potasio, cajaNegra).toString(CryptoJS.enc.Utf8);
-  let tensionArterial=CryptoJS.AES.decrypt(chequeo.tensionArterial, cajaNegra).toString(CryptoJS.enc.Utf8);
-  let trigliceridos=CryptoJS.AES.decrypt(chequeo.trigliceridos, cajaNegra).toString(CryptoJS.enc.Utf8);
-  let peso=CryptoJS.AES.decrypt(chequeo.peso, cajaNegra).toString(CryptoJS.enc.Utf8);
-  let pesoSeco=CryptoJS.AES.decrypt(chequeo.pesoSeco, cajaNegra).toString(CryptoJS.enc.Utf8);
-  let glucosa=CryptoJS.AES.decrypt(chequeo.glucosa, cajaNegra).toString(CryptoJS.enc.Utf8);
-  let creatinina=CryptoJS.AES.decrypt(chequeo.creatinina, cajaNegra).toString(CryptoJS.enc.Utf8);
-  let ktv=CryptoJS.AES.decrypt(chequeo.ktv, cajaNegra).toString(CryptoJS.enc.Utf8);
+  console.log("chequeo del backend revisar");
+  console.log(chequeo);
+  let colesterolTotal=decodeURIComponent(CryptoJS.AES.decrypt(chequeo.colesterolTotal,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+  let fosforo=decodeURIComponent(CryptoJS.AES.decrypt(chequeo.fosforo,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+  let glicemia=decodeURIComponent(CryptoJS.AES.decrypt(chequeo.glicemia,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+  let hdl=decodeURIComponent(CryptoJS.AES.decrypt(chequeo.hdl,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+  let hemoglobina=decodeURIComponent(CryptoJS.AES.decrypt(chequeo.hemoglobina,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+  let ldh=decodeURIComponent(CryptoJS.AES.decrypt(chequeo.ldh,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+  let nitrogenoUreico=decodeURIComponent(CryptoJS.AES.decrypt(chequeo.nitrogenoUreico,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+  let potasio=decodeURIComponent(CryptoJS.AES.decrypt(chequeo.potasio,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+  let tensionArterial=decodeURIComponent(CryptoJS.AES.decrypt(chequeo.tensionArterial,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+  let trigliceridos=decodeURIComponent(CryptoJS.AES.decrypt(chequeo.trigliceridos,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+  let peso=decodeURIComponent(CryptoJS.AES.decrypt(chequeo.peso,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+  let pesoSeco=decodeURIComponent(CryptoJS.AES.decrypt(chequeo.pesoSeco,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+  let glucosa=decodeURIComponent(CryptoJS.AES.decrypt(chequeo.glucosa,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+  let creatinina=decodeURIComponent(CryptoJS.AES.decrypt(chequeo.creatinina,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+  let ktv=decodeURIComponent(CryptoJS.AES.decrypt(chequeo.ktv,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
   let cita=chequeo.cita;
   let idChequeoMensual=chequeo.idChequeoMensual;
 
@@ -1454,11 +1456,14 @@ if(chequeo==null){
 else{
 let msg="";
 let ultimoChequeo=await obtenerUltimoChequeo();
+console.log("ultimo chequeo");
+console.log(ultimoChequeo);
 let chequeo=desencriptarDatosChequeo(ultimoChequeo);
 console.log(chequeo);
 if(chequeo!=null){
-let nombrePaciente=CryptoJS.AES.decrypt(chequeo.cita.paciente.nombre,"clave_secreta").toString(CryptoJS.enc.Utf8);
-let cedulaPaciente=CryptoJS.AES.decrypt(chequeo.cita.paciente.cedula,"clave_secreta").toString(CryptoJS.enc.Utf8);
+let nombrePaciente=decodeURIComponent(CryptoJS.AES.decrypt(chequeo.cita.paciente.nombre,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+let cedulaPaciente=decodeURIComponent(CryptoJS.AES.decrypt(chequeo.cita.paciente.cedula,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+
 msg +=
         `<div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -1559,9 +1564,10 @@ if(visita==null){
   $('#errorModalVisita').modal('show');
 }
 else{
+  console.log("esta es la visita");
 console.log(visita);
-let nombrePaciente=CryptoJS.AES.decrypt(visita.cita.paciente.nombre,"clave_secreta").toString(CryptoJS.enc.Utf8);
-let cedulaPaciente=CryptoJS.AES.decrypt(visita.cita.paciente.cedula,"clave_secreta").toString(CryptoJS.enc.Utf8);
+let nombrePaciente=decodeURIComponent(CryptoJS.AES.decrypt(visita.cita.paciente.nombre,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+let cedulaPaciente=decodeURIComponent(CryptoJS.AES.decrypt(visita.cita.paciente.cedula,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
 let nefrologia=visita.nefrologia;
 let enfermeria=visita.enfermeria;
 let nutricion=visita.nutricion;
@@ -1687,8 +1693,11 @@ $("#errorModalVisitaExistente").modal("show");
 else{
 let msg="";
 let paciente= await encontrarPaciente();
-let cedula=CryptoJS.AES.decrypt(paciente.cedula, "clave_secreta").toString(CryptoJS.enc.Utf8);
-let nombre=CryptoJS.AES.decrypt(paciente.nombre, "clave_secreta").toString(CryptoJS.enc.Utf8);
+console.log("este es el paciente");
+console.log(paciente);
+if(paciente!=null){
+let cedula=decodeURIComponent(CryptoJS.AES.decrypt(paciente.cedula,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+let nombre=decodeURIComponent(CryptoJS.AES.decrypt(paciente.nombre,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
 
 msg+='<div class="modal-dialog">' +
         '<div class="modal-content">' +
@@ -1777,6 +1786,7 @@ msg+='<div class="modal-dialog">' +
         $("#visita").modal("show");
 }
 }
+}
 
 let agregarChequeo=async()=>{
 let chequeo= await obtenerUltimoChequeo();
@@ -1786,8 +1796,8 @@ $("#errorModalChequeoExistente").modal("show");
 else{
 let msg="";
 let paciente= await encontrarPaciente();
-let cedula=CryptoJS.AES.decrypt(paciente.cedula, "clave_secreta").toString(CryptoJS.enc.Utf8);
-let nombre=CryptoJS.AES.decrypt(paciente.nombre, "clave_secreta").toString(CryptoJS.enc.Utf8);
+let cedula=decodeURIComponent(CryptoJS.AES.decrypt(paciente.cedula,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+let nombre=decodeURIComponent(CryptoJS.AES.decrypt(paciente.nombre,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
 msg +=
 '<div class="modal-dialog modal-lg">' +
 '<div class="modal-content">' +
@@ -1804,7 +1814,7 @@ msg +=
 '<div class="col-6 p-3">' +
 '<div class="row mt-2  border p-2">' +
 '<div class="centrar-label col-6"><label class="form-label" for="Peso">Peso:</label></div>' +
-'<div class="col-6"><input class="form-control" placeholder="peso en Kgs." type="number" name="chequeo" id="peso" /></div>' +
+'<div class="col-6"><input class="form-control" min="0" placeholder="peso en Kgs." type="number" name="chequeo" id="peso" /></div>' +
 '</div>' +
 '<div class="row mt-2 border p-2">' +
 '<div class="centrar-label col-6"><label class="form-label" for="tensionArterial">Tensión Arterial:</label></div>' +
@@ -1812,57 +1822,57 @@ msg +=
 '</div>' +
 '<div class="row mt-2 border p-2">' +
 '<div class="centrar-label col-6"><label class="form-label" for="colesterolTotal">Colesterol Total:</label></div>' +
-'<div class="col-6"><input class="form-control" type="number" name="chequeo" id="colesterolTotal" /></div>' +
+'<div class="col-6"><input class="form-control" min="0" type="number" name="chequeo" id="colesterolTotal" /></div>' +
 '</div>' +
 '<div class="row mt-2 border p-2">' +
 '<div class="centrar-label col-6"><label class="form-label" for="glicemia"> Glicemia:</label></div>' +
-'<div class="col-6"><input class="form-control" type="number" name="chequeo" id="glicemia" /></div>' +
+'<div class="col-6"><input class="form-control" min="0" type="number" name="chequeo" id="glicemia" /></div>' +
 '</div>' +
 '<div class="row mt-2 border p-2">' +
 '<div class="centrar-label col-6"><label class="form-label" for="trigliceridos">Trigliceridos:</label></div>' +
-'<div class="col-6"><input class="form-control" placeholder="Trigliceridos en mg/dL" type="number" name="chequeo" id="trigliceridos" /></div>' +
+'<div class="col-6"><input class="form-control" min="0" placeholder="Trigliceridos en mg/dL" type="number" name="chequeo" id="trigliceridos" /></div>' +
 '</div>' +
 '<div class="row mt-2 border p-2">' +
 '<div class="centrar-label col-6"><label class="form-label" for="ldh">LDH:</label></div>' +
-'<div class="col-6"><input class="form-control" type="number" name="chequeo" id="ldh" /></div>' +
+'<div class="col-6"><input class="form-control" min="0" type="number" name="chequeo" id="ldh" /></div>' +
 '</div>' +
 '<div class="row mt-2 border p-2">' +
 '<div class="centrar-label col-6"><label class="form-label" for="ldh">Glucosa:</label></div>' +
-'<div class="col-6"><input class="form-control" type="number" name="chequeo" id="glucosa" /></div>' +
+'<div class="col-6"><input class="form-control" min="0" type="number" name="chequeo" id="glucosa" /></div>' +
 '</div>' +
 '<div class="row mt-2 border p-2">' +
 '<div class="centrar-label col-6"><label class="form-label" for="ktv">KT/V:</label></div>' +
-'<div class="col-6"><input class="form-control" type="number" name="chequeo" id="ktv" /></div>' +
+'<div class="col-6"><input class="form-control" min="0" type="number" name="chequeo" id="ktv" /></div>' +
 '</div>' +
 '</div>' +
 '<div class="col-6 p-3">' +
 '<div class="row mt-2 border p-2">' +
 '<div class="centrar-label col-6"><label class="form-label" for="pesoSeco">Peso seco:</label></div>' +
-'<div class="col-6"><input class="form-control" type="number" name="chequeo" id="pesoSeco" /></div>' +
+'<div class="col-6"><input class="form-control" min="0" type="number" name="chequeo" id="pesoSeco" /></div>' +
 '</div>' +
 '<div class="row mt-2 border p-2">' +
 '<div class="centrar-label col-6"><label class="form-label" for="hemoglobina"> Hemoglobina:</label></div>' +
-'<div class="col-6"><input class="form-control" type="number" name="chequeo" id="hemoglobina" /></div>' +
+'<div class="col-6"><input class="form-control" min="0" type="number" name="chequeo" id="hemoglobina" /></div>' +
 '</div>' +
 '<div class="row mt-2 border p-2">' +
 '<div class="centrar-label col-6"><label class="form-label" for="fosforo">Fósforo:</label></div>' +
-'<div class="col-6"><input class="form-control" type="number" name="chequeo" id="fosforo" /></div>' +
+'<div class="col-6"><input class="form-control" min="0" type="number" name="chequeo" id="fosforo" /></div>' +
 '</div>' +
 '<div class="row mt-2 border p-2">' +
 '<div class="centrar-label col-6"><label class="form-label" for="potasio">Potasio:</label></div>' +
-'<div class="col-6"><input class="form-control" type="number" name="chequeo" id="potasio" /></div>' +
+'<div class="col-6"><input class="form-control" min="0" type="number" name="chequeo" id="potasio" /></div>' +
 '</div>' +
 '<div class="row mt-2 border p-2">' +
 '<div class="centrar-label col-6"><label class="form-label" for="nitrogenoUreico">Nitrógeno Uréico:</label></div>' +
-'<div class="col-6"><input class="form-control" type="number" name="chequeo" id="nitrogenoUreico" /></div>' +
+'<div class="col-6"><input class="form-control" min="0" type="number" name="chequeo" id="nitrogenoUreico" /></div>' +
 '</div>' +
 '<div class="row mt-2 border p-2">' +
 '<div class="centrar-label col-6"><label class="form-label" for="hdl">HDL:</label></div>' +
-'<div class="col-6"><input class="form-control" type="number" name="chequeo" id="hdl" /></div>' +
+'<div class="col-6"><input class="form-control" min="0" type="number" name="chequeo" id="hdl" /></div>' +
 '</div>' +
 '<div class="row mt-2 border p-2">' +
 '<div class="centrar-label col-6"><label class="form-label" for="hdl">Creatinina:</label></div>' +
-'<div class="col-6"><input class="form-control" type="number" name="chequeo" id="creatinina" /></div>' +
+'<div class="col-6"><input class="form-control" min="0" type="number" name="chequeo" id="creatinina" /></div>' +
 '</div>' +
 
 '</div>' +
@@ -1889,8 +1899,9 @@ let msg="";
 let ultimoChequeo=await obtenerUltimoChequeo();
 let chequeo=desencriptarDatosChequeo(ultimoChequeo);
 console.log(ultimoChequeo);
-let nombrePaciente=CryptoJS.AES.decrypt(chequeo.cita.paciente.nombre,"clave_secreta").toString(CryptoJS.enc.Utf8);
-let cedulaPaciente=CryptoJS.AES.decrypt(chequeo.cita.paciente.cedula,"clave_secreta").toString(CryptoJS.enc.Utf8);
+
+let nombrePaciente=decodeURIComponent(CryptoJS.AES.decrypt(chequeo.cita.paciente.nombre,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+let cedulaPaciente=decodeURIComponent(CryptoJS.AES.decrypt(chequeo.cita.paciente.cedula,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
 msg +=
         `
         <div class="modal-dialog modal-lg">
@@ -1910,7 +1921,7 @@ msg +=
         <div class="col-6 p-3">
         <div class="row border p-2">
         <div class="centrar-label col-6"><label class="form-label" for="peso">Peso:</label></div>
-        <div class="col-6"><input class="form-control" type="number" name="chequeo" id="editarPeso" value="`+chequeo.peso+`"></input></div>
+        <div class="col-6"><input class="form-control" min="0" type="number" name="chequeo" id="editarPeso" value="`+chequeo.peso+`"></input></div>
         </div>
         <div class="row border p-2">
         <div class="centrar-label col-6"><label class="form-label" for="tensionArterial">Tensión Arterial:</label></div>
@@ -1918,57 +1929,57 @@ msg +=
         </div>
         <div class="row mt-2 border p-2">
         <div class="centrar-label col-6"><label class="form-label" for="colesterolTotal">Colesterol Total</label></div>
-        <div class="col-6"><input class="form-control" type="number" name="chequeo" id="editarColesterolTotal" value="`+chequeo.colesterolTotal+`"></input></div>
+        <div class="col-6"><input class="form-control" min="0" type="number" name="chequeo" id="editarColesterolTotal" value="`+chequeo.colesterolTotal+`"></input></div>
         </div>
         <div class="row mt-2 border p-2">
         <div class="centrar-label col-6"><label class="form-label" for="glicemia"> Glicemia</label></div>
-        <div class="col-6"><input class="form-control" type="number" name="chequeo" id="editarGlicemia" value="`+chequeo.glicemia+`"></input></div>
+        <div class="col-6"><input class="form-control" min="0" type="number" name="chequeo" id="editarGlicemia" value="`+chequeo.glicemia+`"></input></div>
         </div>
         <div class="row mt-2 border p-2">
         <div class="centrar-label col-6"><label class="form-label" for="triglicerios">Triglicerios:</label></div>
-        <div class="col-6"><input class="form-control" type="number" name="chequeo" id="editarTrigliceridos" value="`+chequeo.trigliceridos+`"></input></div>
+        <div class="col-6"><input class="form-control" min="0" type="number" name="chequeo" id="editarTrigliceridos" value="`+chequeo.trigliceridos+`"></input></div>
         </div>
         <div class="row mt-2 border p-2">
         <div class="centrar-label col-6"><label class="form-label" for="ldh">LDH:</label></div>
-        <div class="col-6"><input class="form-control" type="number" name="chequeo" id="editarLdh" value="`+chequeo.ldh+`"></input></div>
+        <div class="col-6"><input class="form-control" min="0" type="number" name="chequeo" id="editarLdh" value="`+chequeo.ldh+`"></input></div>
         </div>
         <div class="row mt-2 border p-2">
         <div class="centrar-label col-6"><label class="form-label" for="glucosa">Glucosa:</label></div>
-        <div class="col-6"><input class="form-control" type="number" name="chequeo" id="editarGlucosa" value="`+chequeo.glucosa+`"></input></div>
+        <div class="col-6"><input class="form-control" min="0" type="number" name="chequeo" id="editarGlucosa" value="`+chequeo.glucosa+`"></input></div>
         </div>
         <div class="row mt-2 border p-2">
         <div class="centrar-label col-6"><label class="form-label" for="ktv">KT/V:</label></div>
-        <div class="col-6"><input class="form-control" type="number" name="chequeo" id="editarKtv" value="`+chequeo.ktv+`"></input></div>
+        <div class="col-6"><input class="form-control" min="0" type="number" name="chequeo" id="editarKtv" value="`+chequeo.ktv+`"></input></div>
         </div>
         </div>
         <div class="col-6 p-3">
         <div class="row border p-2">
         <div class="centrar-label col-6"><label class="form-label" for="peso_seco"> Peso seco:</label></div>
-        <div class="col-6"><input class="form-control" type="number" name="chequeo" id="editarPesoSeco" value="`+chequeo.pesoSeco+`"></input></div>
+        <div class="col-6"><input class="form-control" min="0" type="number" name="chequeo" id="editarPesoSeco" value="`+chequeo.pesoSeco+`"></input></div>
         </div>
         <div class="row border p-2">
         <div class="centrar-label col-6"><label class="form-label" for="hemoglobina"> Hemoglobina</label></div>
-        <div class="col-6"><input class="form-control" type="number" name="chequeo" id="editarHemoglobina" value="`+chequeo.hemoglobina+`"></input></div>
+        <div class="col-6"><input class="form-control" min="0" type="number" name="chequeo" id="editarHemoglobina" value="`+chequeo.hemoglobina+`"></input></div>
         </div>
         <div class="row mt-2 border p-2">
         <div class="centrar-label col-6"><label class="form-label" for="fosforo">Fósforo:</label></div>
-        <div class="col-6"><input class="form-control" type="number" name="chequeo" id="editarFosforo" value="`+chequeo.fosforo+`"></input></div>
+        <div class="col-6"><input class="form-control" min="0" type="number" name="chequeo" id="editarFosforo" value="`+chequeo.fosforo+`"></input></div>
         </div>
         <div class="row mt-2 border p-2">
         <div class="centrar-label col-6"><label class="form-label" for="potasio">Potasio:</label></div>
-        <div class="col-6"><input class="form-control" type="number" name="chequeo" id="editarPotasio" value="`+chequeo.potasio+`"></input></div>
+        <div class="col-6"><input class="form-control" min="0" type="number" name="chequeo" id="editarPotasio" value="`+chequeo.potasio+`"></input></div>
         </div>
         <div class="row mt-2 border p-2">
         <div class="centrar-label col-6"><label class="form-label" for="nitrogenoUreico">Nitrógeno Uréico:</label></div>
-        <div class="col-6"><input class="form-control" type="number" name="chequeo" id="editarNitrogenoUreico" value="`+chequeo.nitrogenoUreico+`"></input></div>
+        <div class="col-6"><input class="form-control" min="0" type="number" name="chequeo" id="editarNitrogenoUreico" value="`+chequeo.nitrogenoUreico+`"></input></div>
         </div>
         <div class="row mt-2 border p-2">
         <div class="centrar-label col-6"><label class="form-label" for="hdl">HDL:</label></div>
-        <div class="col-6"><input class="form-control" type="number" name="chequeo" id="editarHdl" value="`+chequeo.hdl+`"></input></div>
+        <div class="col-6"><input class="form-control" min="0" type="number" name="chequeo" id="editarHdl" value="`+chequeo.hdl+`"></input></div>
         </div>
         <div class="row mt-2 border p-2">
         <div class="centrar-label col-6"><label class="form-label" for="creatinina">Creatinina:</label></div>
-        <div class="col-6"><input class="form-control" type="number" name="chequeo" id="editarCreatinina" value="`+chequeo.creatinina+`"></input></div>
+        <div class="col-6"><input class="form-control" min="0" type="number" name="chequeo" id="editarCreatinina" value="`+chequeo.creatinina+`"></input></div>
         </div>
         </div>
          </div>
@@ -1989,8 +2000,9 @@ msg +=
 let editarVisita=async()=>{
 let msg="";
 let visita=await obtenerUltimaVisita();
-let nombrePaciente=CryptoJS.AES.decrypt(visita.cita.paciente.nombre,"clave_secreta").toString(CryptoJS.enc.Utf8);
-let cedulaPaciente=CryptoJS.AES.decrypt(visita.cita.paciente.cedula,"clave_secreta").toString(CryptoJS.enc.Utf8);
+decodeURIComponent(CryptoJS.AES.decrypt(visita.cita.paciente.cedula,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8))
+let nombrePaciente=decodeURIComponent(CryptoJS.AES.decrypt(visita.cita.paciente.nombre,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+let cedulaPaciente=decodeURIComponent(CryptoJS.AES.decrypt(visita.cita.paciente.cedula,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
 let nefrologia=visita.nefrologia;
 let enfermeria=visita.enfermeria;
 let nutricion=visita.nutricion;

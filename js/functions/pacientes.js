@@ -29,7 +29,7 @@ let pacientesTratados = async () => {
           '<a class="icon-link" onclick="irPaciente(\'' + clave + '\', \'' + paciente.nombre + '\')">' +
           '<img src="../img/ver.png" title="Ver Paciente" class="ver imagen-crecible-iconos" alt="Ver paciente"/>' +
           '</a>';
-          if(usuario!="administrador"){
+          if(usuario=="medico"||usuario=="administrador"){
           msg+='<a class="icon-link" onclick="editarPaciente(\'' + clave + '\')">' +
           '<img src="../img/lapiz.png" title="Editar Paciente" alt="Editar paciente" class="actualizar imagen-crecible-iconos"/>' +
           '</a>';

@@ -15,9 +15,7 @@ let medicosRegistrados = async (medicos) => {
         '</thead>';
 
       medicos.forEach((medico) => {
-        let clave = encodeURIComponent(CryptoJS.AES.encrypt(medico.cedula, "clave_secreta").toString())
-      
-        msg +=
+                msg +=
           '<tr>' +
           '<td>' + medico.nombre + '</td>' +
           '<td>' + medico.cedula + '</td>' +
@@ -295,7 +293,10 @@ let mostrarInfoMedico=async()=>{
                     '<label for="selectedEspecialidad" id="data">Especialidad:<label id="asq">*</label></label>'+
                       '<br>'+
                      '<select name="selectedEspecialidad" id="selectedEspecialidad" required>'+
-                                               
+                     '<option value="Nefrólogo">Nefrólogo</option>'+
+                     '<option value="Médico general">Médico general</option>'+ 
+                     '<option value="Enfermera de diálisis">Enfermera de diálisis</option>'+
+                     '<option value="Otro">Otro</option>'+ 
                       '</select>'+
                     '</div>'+
                     

@@ -101,7 +101,6 @@ if(paciente!=null){
               '<label for="correo"><b>Correo:</b></label>'+
               '<label for="" id="correo">'+paciente.correo+'</label>'+
             '</div>';}
-            msg+='<img alt="Editar perfil" id="imagen">';
           let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
           var urlActual = window.location.href;
           console.log(paciente.tipoDocumento);
@@ -157,7 +156,7 @@ if(paciente!=null){
           '</div>';
           var urlActual = window.location.href;
           localStorage.setItem("url", urlActual);
-        if(usuario=="medico"){
+        if(usuario=="medico"||usuario=="administrador"){
         msg+='<div class="botonEditarPerfil">'+
         '<a href="editarPaciente.html"class="editarPerfil" >Editar Perfil</a>'+
         '</div>';
@@ -317,10 +316,6 @@ let editarPaciente=async()=>{
               '<br>'+
               '<select id="selectedEps" required></select>'+
             '</div>'+ 
-            '</div>'+
-            '<div class="container">'+
-            '<label for="correo" id="prueba">Foto de Perfil: &nbsp&nbsp</label>'+
-            '<input type="file" value="Subir Foto" name="imageFile" id="imageFile">'+
             '</div>'+
             '<div class="buttons">'+
             '<div class="btn-save">'+

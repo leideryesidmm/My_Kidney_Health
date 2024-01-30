@@ -38,7 +38,7 @@ let paciente=async(cedula)=>{
     }
 }
 
-//ya
+
 let cambioContrasenia = async (event) => {
   event.preventDefault();
 
