@@ -17,20 +17,49 @@ function passwordVisibilityActual(inputId, iconClass) {
   }
 }
 
+let paciente=async(cedula)=>{
+  usuario={
+    cedula:cedula
+  }
+  let peticion=await fetch(localStorage.getItem("servidorAPI")+"Usuario/cedula", {
+    method:"POST",
+    headers:{
+      "Accept":"application/json",
+      "Content-Type":"application/json"
+    },
+    body:JSON.stringify(usuario)
+  })
+    if (peticion.status===200) {
+      const usuario=await peticion.json();
+      return usuario;
+    }
+    else{
+      return null;
+    }
+}
+
+//ya
 let cambioContrasenia = async (event) => {
   event.preventDefault();
 
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
   console.log(data);
-      let cedula= decodeURIComponent(dato.cedula);
-      let contrasenia=decodeURIComponent(dato.contrasenia);
-      let contraseniaBD=CryptoJS.AES.decrypt(contrasenia, CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8);
-
+      let cedula= (dato.cedula);
+      console.log(cedula);
+      const usuario=await paciente(cedula);
+      console.log("usuario de backend");
+      console.log(usuario);
+      let contraseniaBD="";
+      if(usuario!=null){
+      contraseniaBD=decodeURIComponent(CryptoJS.AES.decrypt(usuario.contrasenia, CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+      }
+      console.log("contraseniaBD");
+      console.log(contraseniaBD);
 const contraseniaAnterior = document.getElementById("contraseniaanterior").value;
 const nuevaContrasenia = document.getElementById("newcontrasenia").value;
-let contraseniaNueva=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(nuevaContrasenia), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
-
+let contraseniaNueva=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(nuevaContrasenia)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
+      
 if (contraseniaAnterior === contraseniaBD) {
   let usuarioInDto = { cedula: cedula, contrasenia: contraseniaNueva };
 

@@ -3,9 +3,9 @@ let nombreNavBar = async () => {
     let dato=JSON.parse(data);
     console.log(dato);
         let usu = dato.usuario;
-        let usuario= decodeURIComponent(dato.cedula);
-        let contrasenia=decodeURIComponent(dato.contrasenia);
-    const cedulaDecrypt = decodeURIComponent(usuario);
+        let usuario= dato.cedula;
+        let contrasenia=dato.contrasenia;
+    const cedulaDecrypt = usuario;
     console.log(cedulaDecrypt)
     if(usu=="medico" || usu=="administrador"){
     let usuarioInDto = { cedula: cedulaDecrypt, contrasenia: contrasenia }
@@ -24,7 +24,7 @@ let nombreNavBar = async () => {
             console.log("todo ok");
             console.log(usuarioData)
 
-            let nombreDecrypt = CryptoJS.AES.decrypt(
+            let nombreDecrypt = decodeURIComponent(CryptoJS.AES.decrypt(
                 usuarioData.nombre,
                 CryptoJS.enc.Utf8.parse(cajaNegra2),
                 {
@@ -32,7 +32,7 @@ let nombreNavBar = async () => {
                     mode: CryptoJS.mode.CBC,
                     padding: CryptoJS.pad.Pkcs7
                 }
-            ).toString(CryptoJS.enc.Utf8);
+            ).toString(CryptoJS.enc.Utf8));
             console.log(nombreDecrypt);
             actualizarNombreEnNavbar(nombreDecrypt);
         }

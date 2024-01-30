@@ -32,6 +32,7 @@ let perfil=async()=>{
           const paciente = await listaPacientes();
           console.log(paciente);
           const alergia = await alergias();
+          console.log("ENTRARA A CUIDADOR ACTIVO");
           const cuidador = await cuidadorActivo();
           console.log(cuidador);
     let msg="";
@@ -176,7 +177,7 @@ if(alergia!=null && alergia !== ""){
             '</p>'+ 
     '</div>';
     let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
-    if(usuario=="medico"){
+    if(usuario=="medico"||usuario=="administrador"){
     msg+='<div class="botonAgregarAlergia">'+
     '<a href="alergias.html"class="alerg-nueva" id="addAlergia">Agregar Alergia</a>'+
     '</div>'+
@@ -185,13 +186,15 @@ if(alergia!=null && alergia !== ""){
 }
 else{
   let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
-  if(usuario=="medico"){
+  if(usuario=="medico"||usuario=="administrador"){
   msg+='<div class="botonAgregarAlergia">'+
   '<br><a href="alergias.html"class="alerg-nueva" >Agregar Alergia</a>'+
   '<br>'+
   '</div>';
   }
 }
+console.log("sfdv")
+console.log(cuidador)
 if(cuidador!=null && cuidador !== ""){
    msg+=
    '<br>'+

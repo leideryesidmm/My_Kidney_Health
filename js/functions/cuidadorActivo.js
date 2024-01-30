@@ -1,6 +1,5 @@
 let cuidadorPrincipal=async(cuidadores, cuidAntiguos)=>{
     cuidadores = await cuidadores;
-    console.log(cuidadores);
     cuidAntiguos=await cuidAntiguos;
     let msg="";
     if(cuidadores==null){
@@ -67,6 +66,7 @@ let cuidadorPrincipal=async(cuidadores, cuidAntiguos)=>{
 
 let cuidadoresInactivos = async (cuidadores) => {
     cuidadores = await cuidadores;
+    let activo=await cuidadorActivo();
     let msg = "";
     document.getElementById("cambiar").style.display = "none";
     document.getElementById("nuevo").style.marginLeft = "200px";
@@ -81,9 +81,8 @@ let cuidadoresInactivos = async (cuidadores) => {
       if(cuidadores!=null){
         let cont=0;
     cuidadores.forEach((cuidador) => {
-        
-      if (cuidador.activo === false) {
-        
+        console.log(activo);
+      if (cuidador.activo === false&&parseInt(activo.cedula)!=parseInt(cuidador.cedulaCuidador)) {
         msg +=
           '<tr>' +
           '<td>' + cuidador.cedulaCuidador + '</td>' +
