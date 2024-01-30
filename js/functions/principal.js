@@ -21,7 +21,7 @@ let principal = () => {
             </div>
             <div class="col-6">
                 <div class="title">
-                  <h1>Mi salud renal</h1>
+                  <h1>Mi Salud Renal</h1>
                 </div>
             </div>
             <div class="col-3" style="padding: 0,0,0,0; text-align: right;">
@@ -75,7 +75,7 @@ let principal = () => {
             '<br>' +
             '<div class="dataPaciente">' +
             '<h2 id="paciente">Paciente: ' + localStorage.getItem("nombrePaciente") + '<h2>' +
-            '<h4 id="documento">Documento: ' + CryptoJS.AES.decrypt((decodeURIComponent(localStorage.getItem("cedulaPaciente"))), "clave_secreta").toString(CryptoJS.enc.Utf8) + '<h4>' +
+            '<h4 id="documento">Documento: ' + localStorage.getItem("cedulaPaciente") + '<h4>' +
             '</div>';
         }
     

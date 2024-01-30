@@ -14,7 +14,7 @@ function passwordVisibilityActual(inputId, iconClass) {
     icon.classList.add("fa-eye");
   }
 }
-//ya
+
 let paciente=async(cedula)=>{
   usuario={
     cedula:cedula
@@ -36,7 +36,7 @@ let paciente=async(cedula)=>{
     }
 }
 
-//ya
+
 let cambioContrasenia = async (event) => {
   event.preventDefault();
 
@@ -110,7 +110,7 @@ let listarMedicamentos= async()=>{
       console.log(cedul);
       console.log(usuario);
       let cedEncriptada="";
-      if(usuario=="medico"){
+      if(usuario=="medico" || usuario=="administrador"){
         let cedulaDesencriptada = localStorage.getItem("cedulaPaciente");
         cedEncriptada=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(cedulaDesencriptada)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();}
       else{
@@ -270,7 +270,7 @@ let encontrarMedicamento=async()=>{
 
 
 }
-//formulaMedicamento/actualizar/{id_formula_medicamento}
+
 let actualizarMedicamento=async (event)=> {
   event.preventDefault();
   let data = localStorage.getItem("datos");
@@ -281,7 +281,7 @@ let actualizarMedicamento=async (event)=> {
       console.log(cedul);
       console.log(usuario);
       let cedEncriptada="";
-      if(usuario=="medico"){
+      if(usuario=="medico" || usuario=="administrador"){
         let cedulaDesencriptada = localStorage.getItem("cedulaPaciente");
         cedEncriptada=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(cedulaDesencriptada)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();}
       else{
@@ -378,8 +378,7 @@ let crearMedicamento=async (event)=> {
       console.log(cedul);
       console.log(usuario);
       let cedEncriptada="";
-      let cedulaEncriptada="";
-      if(usuario=="medico"){
+      if(usuario=="medico" || usuario=="administrador"){
         let cedulaDesencriptada = localStorage.getItem("cedulaPaciente");
         cedEncriptada=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(cedulaDesencriptada)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();}
       else{

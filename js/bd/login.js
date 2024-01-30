@@ -217,7 +217,7 @@ if(cedulaDesencriptada===username && contraseniaDesencriptada===password){
     }
 }
       
-// Función para manejar el cierre de sesión
+
 let logout = () => {
   localStorage.removeItem("authenticated")
   localStorage.removeItem("servidorAPI");

@@ -114,14 +114,11 @@ let crearAlergia = async () => {
       let usuario = dato.usuario;
       console.log(usuario);
       let cedul= dato.cedula;
-
+      nombreInput = document.getElementById('nombreCrear').value;
       let cedulaDesencriptada = localStorage.getItem("cedulaPaciente");
-      console.log("cedula paciente alergia");
-      console.log(cedulaDesencriptada);
       let cedulaEncriptada = usuario="medico"?CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(cedulaDesencriptada)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString():cedul;
-
-    let nombreInput = document.getElementById('nombreCrear').value;
-    let encryptedNombre = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(nombreInput)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
+      let encryptedNombre = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(nombreInput)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
+    
     let alergia = { nombre: encryptedNombre };
     let paciente = { cedula: cedulaEncriptada };
     let unionPacienteAlergiaInDto = { alergiaInDto: alergia, pacienteInDto: paciente }
@@ -148,7 +145,6 @@ let crearAlergia = async () => {
       })
   });
 }
-//ya
 let listarAlergias = async () => {
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
@@ -159,7 +155,7 @@ let listarAlergias = async () => {
       console.log(usuario);
 
       let cedulaEncriptada="";
-      if(usuario=="medico"){
+      if(usuario=="medico" || usuario=="administrador"){
         let cedulaDesencriptada = localStorage.getItem("cedulaPaciente");
         cedulaEncriptada=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(cedulaDesencriptada)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();}
       else{
@@ -200,7 +196,7 @@ let editarAlergia = async (id_alergia) => {
   const btnAlergia=document.getElementById("editarAlergia");
     btnAlergia.style.background="gray";
     btnAlergia.disabeld="true";
-  let encryptedNombre = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(nombreInput)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString()
+  let encryptedNombre = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(nombreInput)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
 
   fetch(localStorage.getItem("servidorAPI") + "DatosMedicos/alergia/editar/" + id_alergia, {
     method: "PATCH",
@@ -238,9 +234,9 @@ let inhabilitarAlergia = async (id_alergia) => {
       console.log(usuario);
 
       let cedulaEncriptada="";
-      if(usuario=="medico"){
+      if(usuario=="medico" || usuario=="administrador"){
         let cedulaDesencriptada = localStorage.getItem("cedulaPaciente");
-        cedEncriptada=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(cedulaDesencriptada)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();}
+        cedulaEncriptada=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(cedulaDesencriptada)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();}
       else{
         cedulaEncriptada=cedul;
       }
