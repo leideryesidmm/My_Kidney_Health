@@ -44,10 +44,11 @@ let perfil=async()=>{
     ms+='Mi perfil';
     }
     else{
-      ms+="Información del Paciente";
+      ms+="Perfil del Paciente";
     }
 
     document.getElementById("title").innerHTML=ms;
+    document.getElementById("titleResponsive").innerHTML = ms;
 if(paciente!=null){
     let fecha_registro=new Date(paciente.fecha_registro).toLocaleDateString();
     msg+=
