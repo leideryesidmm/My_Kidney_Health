@@ -11,10 +11,10 @@ let NavBarPrescripcion = () => {
     ms += `<nav id="nav" class=" navbar-expand-lg navbar-light">
         <div class="row">
             <div class="col-1 sinlogomovil" style="padding: 0,0,0,0;">
-                <a href="pacientes.html" class="devolverse"><img src="../img/devolverseColor.png" alt="Ir atrás" id="icono"></a>
+                <a href="principal.html" class="devolverse"><img src="../img/devolverseColor.png" alt="Ir atrás" id="icono"></a>
             </div>
             <div class="col-2 sinlogomovil2" style="padding: 0,0,0,0;">
-                <a href="pacientes.html" class="devolverse"><img src="../img/devolverseColor.png" alt="Ir atrás" id="icono"></a>
+                <a href="principal.html" class="devolverse"><img src="../img/devolverseColor.png" alt="Ir atrás" id="icono"></a>
             </div> 
             <div class="col-1 sinlogomovil">
                 <div class="logo"><img src="../img/logo3.png" alt="Logo app"></div>
