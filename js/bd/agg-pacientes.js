@@ -34,7 +34,7 @@ let validarPaciente = async () => {
     cedula:documento
   }
 
-  const peticion = await fetch(servidorAPI + 'paciente/findPacienteByCedula', {
+  const peticion = await fetch(servidorAPI + 'paciente/findPacienteByCedula/false', {
     method: 'POST',
     body:JSON.stringify(paciente),
     headers: {

@@ -1134,7 +1134,7 @@ let encontrarPaciente = async () => {
     cedula:cedulaEncriptada
   }
     
-  const peticion = await fetch(localStorage.getItem("servidorAPI") + "paciente/findPacienteByCedula", {
+  const peticion = await fetch(localStorage.getItem("servidorAPI") + "paciente/findPacienteByCedula/false", {
     method: "POST",
     headers: {
       "Accept": "application/json",
