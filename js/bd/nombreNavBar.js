@@ -16,7 +16,8 @@ let nombreNavBar = async () => {
             body: JSON.stringify(usuarioInDto),
             headers: {
                 "Accept": "application/json",
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": dato.token
             }
         });
         if (response.ok) {

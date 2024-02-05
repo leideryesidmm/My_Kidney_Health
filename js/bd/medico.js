@@ -1,6 +1,5 @@
 var cedulaEncriptada = "";
 var contraseniaEncriptada;
-let dat= localStorage.getItem("datos");
 
 function passwordVisibilityActual(inputId, iconClass) {
   var passwordInput = document.getElementById(inputId);
@@ -21,11 +20,14 @@ let paciente=async(cedula)=>{
   usuario={
     cedula:cedula
   }
+  let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
   let peticion=await fetch(localStorage.getItem("servidorAPI")+"Usuario/cedula", {
     method:"POST",
     headers:{
       "Accept":"application/json",
-      "Content-Type":"application/json"
+      "Content-Type":"application/json",
+      "Authorization": dato.token
     },
     body:JSON.stringify(usuario)
   })
@@ -68,7 +70,8 @@ if (contraseniaAnterior === contraseniaBD) {
     method:"PATCH",
     headers:{
       "Accept":"application/json",
-      "Content-Type":"application/json"
+      "Content-Type":"application/json",
+      "Authorization": dato.token
     },
     body:JSON.stringify(usuarioInDto)
   })
@@ -103,11 +106,14 @@ $('#btnAceptar').click(function() {
 
 let listarMedicos = async () => {
   try {
+    let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
     const peticion = await fetch(servidorAPI + 'Medico/findAll', {
       method: 'GET',
       headers: {
         "Accept": "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": dato.token
       }
     });
 
@@ -153,11 +159,14 @@ let listarMedicos = async () => {
 
 let listarMedicosInactivos = async () => {
   try {
+    let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
     const peticion = await fetch(servidorAPI + 'Medico/findAll', {
       method: 'GET',
       headers: {
         "Accept": "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": dato.token
       }
     });
 
@@ -191,11 +200,14 @@ let listarMedicosInactivos = async () => {
 };
 
 let listarEspecialidad = async () => {
+  let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
   const peticion = await fetch(localStorage.getItem("servidorAPI") + "Medico/findAllEspecialidad", {
     method: "GET",
     headers: {
       "Accept": "application/json",
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": dato.token
     }
   });
   
@@ -221,7 +233,8 @@ let listarEspecialidad = async () => {
   let validarMedico = async () => {
     let cedulaMedico = document.getElementById('documento').value;
     console.log(cedulaMedico);
-
+    let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
     let  cedula = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(cedulaMedico)),CryptoJS.enc.Utf8.parse(cajaNegra2),
     {iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
     console.log(cedula);
@@ -229,7 +242,8 @@ let listarEspecialidad = async () => {
       method: 'POST',
       headers: {
         "Accept": "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": dato.token
       },
       body: JSON.stringify(
         {cedula:cedula}
@@ -291,13 +305,15 @@ let listarEspecialidad = async () => {
         }
         console.log(medicoInDto);
   
- 
+        let data = localStorage.getItem("datos");
+        let dato=JSON.parse(data);
   
         let peticion=fetch(servidorAPI+"Usuario/crearMedico", {
           method: 'POST',
           headers: {
             "Accept":"application/json",
-        "Content-Type":"application/json"
+        "Content-Type":"application/json",
+        "Authorization": dato.token
           },
           body: JSON.stringify(
             medicoInDto
@@ -313,12 +329,14 @@ let inhabilitarMedico = async (ced) => {
   console.log(cedulaEncriptada);
   try {
     const medicoInDto = { cedula: cedulaEncriptada };
-
+    let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
     const response = await fetch(servidorAPI + 'Usuario/inhabilitarMedico', {
       method: "PATCH",
       headers: {
         "Accept": "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": dato.token
       },
       body: JSON.stringify(medicoInDto)
     });
@@ -343,12 +361,14 @@ let habilitarMedico = async (ced) => {
       
   try {
     const medicoInDto = { cedula: cedulaEncriptada };
-
+    let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
     const response = await fetch(servidorAPI + 'Usuario/reactivarMedico', {
       method: "PATCH",
       headers: {
         "Accept": "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": dato.token
       },
       body: JSON.stringify(medicoInDto)
     });
@@ -371,11 +391,14 @@ let encontrarMedico = async () => {
       let medicoInDto={
         cedula:cedulaEncriptada
       }
+      let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
   const peticion = await fetch(localStorage.getItem("servidorAPI") + "Usuario/findMedicoByCedula/false", {
     method: "POST",
     headers: {
       "Accept": "application/json",
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": dato.token
     },
     body:JSON.stringify(medicoInDto)
   });
@@ -461,12 +484,14 @@ let restaurarContrasenia=async(ced, cont)=>{
  let cedulaEncriptada=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(cedula)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
   try {
     const usuarioInDto = { cedula: cedulaEncriptada };
-
+    let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
     const response = await fetch(servidorAPI + 'Usuario/restaurarContrasenia', {
       method: "PATCH",
       headers: {
         "Accept": "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": dato.token
       },
       body: JSON.stringify(usuarioInDto)
     });
@@ -488,11 +513,14 @@ let actualizarMedico = async(event) => {
   let medicoInDto = {
     cedula: cedulaEncriptada
   }
+  let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
   const peticion = await fetch(localStorage.getItem("servidorAPI") + "Usuario/findMedicoByCedula/false", {
     method: "POST",
     headers: {
       "Accept": "application/json",
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": dato.token
     },
     body: JSON.stringify(medicoInDto)
   });
@@ -562,7 +590,8 @@ let actualizarMedico = async(event) => {
     body: JSON.stringify(medicoInDto),
     headers: {
       "Accept": "application/json",
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": dato.token
     }
   })
     .then(response => {

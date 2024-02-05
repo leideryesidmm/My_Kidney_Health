@@ -21,11 +21,14 @@ let paciente=async(cedula)=>{
   usuario={
     cedula:cedula
   }
+  let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
   let peticion=await fetch(localStorage.getItem("servidorAPI")+"Usuario/cedula", {
     method:"POST",
     headers:{
       "Accept":"application/json",
-      "Content-Type":"application/json"
+      "Content-Type":"application/json",
+      "Authorization": dato.token
     },
     body:JSON.stringify(usuario)
   })
@@ -68,7 +71,8 @@ if (contraseniaAnterior === contraseniaBD) {
     method:"PATCH",
     headers:{
       "Accept":"application/json",
-      "Content-Type":"application/json"
+      "Content-Type":"application/json",
+      "Authorization": dato.token
     },
     body:JSON.stringify(usuarioInDto)
   })
@@ -106,12 +110,14 @@ let restaurarContrasenia=async(ced, cont)=>{
   let cedulaEncriptada=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(cedula)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
   try {
     const usuarioInDto = { cedula: cedulaEncriptada };
-
+    let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
     const response = await fetch(servidorAPI + 'Usuario/restaurarContrasenia', {
       method: "PATCH",
       headers: {
         "Accept": "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": dato.token
       },
       body: JSON.stringify(usuarioInDto)
     });
@@ -136,12 +142,14 @@ let inhabilitarPaciente = async (ced) => {
 
   try {
     const pacienteInDto = { cedula: cedulaEncriptada };
-
+    let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
     const response = await fetch(servidorAPI + 'Medico/inhabilitarPaciente', {
       method: "PATCH",
       headers: {
         "Accept": "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": dato.token
       },
       body: JSON.stringify(pacienteInDto)
     });
@@ -167,12 +175,14 @@ let habilitarPaciente = async (ced) => {
 
   try {
     const pacienteInDto = { cedula: cedulaEncriptada };
-
+    let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
     const response = await fetch(servidorAPI + 'Medico/reactivarPaciente', {
       method: "PATCH",
       headers: {
         "Accept": "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": dato.token
       },
       body: JSON.stringify(pacienteInDto)
     });

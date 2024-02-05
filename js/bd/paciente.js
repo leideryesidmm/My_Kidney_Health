@@ -24,7 +24,8 @@ let cambioContraseniaAlIniciar=async(event)=>{
       body: JSON.stringify(usuarioInDto),
       headers: {
         "Accept": "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": dato.token
       }
     })
       .then(response => {
@@ -60,11 +61,14 @@ let paciente=async(cedula)=>{
   usuario={
     cedula:cedula
   }
+  let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
   let peticion=await fetch(localStorage.getItem("servidorAPI")+"Usuario/cedula", {
     method:"POST",
     headers:{
       "Accept":"application/json",
-      "Content-Type":"application/json"
+      "Content-Type":"application/json",
+      "Authorization": dato.token
     },
     body:JSON.stringify(usuario)
   })
@@ -106,7 +110,8 @@ if (contraseniaAnterior === contraseniaBD) {
     method:"PATCH",
     headers:{
       "Accept":"application/json",
-      "Content-Type":"application/json"
+      "Content-Type":"application/json",
+      "Authorization": dato.token
     },
     body:JSON.stringify(usuarioInDto)
   })
@@ -163,7 +168,8 @@ let listaPacientes = async () => {
       method:"POST",
       headers: {
         "Accept":"application/json",
-    "Content-Type":"application/json"
+    "Content-Type":"application/json",
+    "Authorization": dato.token
       },
       body: JSON.stringify(pacienteInDto)
 });
@@ -228,7 +234,8 @@ let cuidadorActivo = async () => {
     method: "POST",
     headers: {
       "Accept": "application/json",
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": dato.token
     },
     body: JSON.stringify(pacienteInDto)
   });
@@ -276,7 +283,8 @@ let alergias = async () => {
       method:"POST",
       headers:{
         "Accept":"application/json",
-        "Content-Type":"application/json"
+        "Content-Type":"application/json",
+        "Authorization": dato.token
       },
       body:JSON.stringify(pacienteInDto)
     });
@@ -310,7 +318,8 @@ let encontrarPaciente = async () => {
     method: "POST",
     headers: {
       "Accept": "application/json",
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": dato.token
     },
     body:JSON.stringify({
       cedula:cedulaEncriptada
@@ -387,11 +396,14 @@ console.log(pacienteActual);
 }
 
 let listaEps = async () => {
+  let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
   const peticion = await fetch(localStorage.getItem("servidorAPI") + "DatosMedicos/ListEps", {
     method: "GET",
     headers: {
       "Accept": "application/json",
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": dato.token
     }
   });
 
@@ -443,7 +455,8 @@ let actualizarPaciente = async (event) => {
       method:"POST",
       headers: {
         "Accept":"application/json",
-    "Content-Type":"application/json"
+    "Content-Type":"application/json",
+    "Authorization": dato.token
       },
       body: JSON.stringify(pacienteInDto)
 });
@@ -541,7 +554,8 @@ else{
     body: JSON.stringify(pacienteInDto),
     headers: {
       "Accept": "application/json",
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": dato.token
     }
   })
     .then(response => {

@@ -19,11 +19,14 @@ let paciente=async(cedula)=>{
   usuario={
     cedula:cedula
   }
+  let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
   let peticion=await fetch(localStorage.getItem("servidorAPI")+"Usuario/cedula", {
     method:"POST",
     headers:{
       "Accept":"application/json",
-      "Content-Type":"application/json"
+      "Content-Type":"application/json",
+      "Authorization": dato.token
     },
     body:JSON.stringify(usuario)
   })
@@ -35,7 +38,6 @@ let paciente=async(cedula)=>{
       return null;
     }
 }
-
 
 let cambioContrasenia = async (event) => {
   event.preventDefault();
@@ -66,7 +68,8 @@ if (contraseniaAnterior === contraseniaBD) {
     method:"PATCH",
     headers:{
       "Accept":"application/json",
-      "Content-Type":"application/json"
+      "Content-Type":"application/json",
+      "Authorization": dato.token
     },
     body:JSON.stringify(usuarioInDto)
   })
@@ -125,7 +128,8 @@ let listarMedicamentos= async()=>{
       method:"POST",
       headers:{
         "Accept":"application/json",
-        "Content-Type":"application/json"
+        "Content-Type":"application/json",
+        "Authorization": dato.token
       },
       body:JSON.stringify(pacienteInDto)
 });
@@ -172,11 +176,14 @@ return medicamentosArreglo;
 }
 
 let alergias= async()=>{
+  let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
     const peticion= await fetch(localStorage.getItem("servidorAPI")+"DatosMedicos/alergia/listByPaciente/"+cedula,{
       method:"GET",
       headers:{
         "Accept":"application/json",
-        "Content-Type":"application/json"
+        "Content-Type":"application/json",
+        "Authorization": dato.token
       }
     });
 
@@ -194,11 +201,14 @@ let alergias= async()=>{
 }
 
 let listarVias= async()=>{
+  let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
   const peticion= await fetch(localStorage.getItem("servidorAPI")+"DatosMedicos/medicamento/viaAdministracion",{
     method:"GET",
     headers:{
       "Accept":"application/json",
-      "Content-Type":"application/json"
+      "Content-Type":"application/json",
+      "Authorization": dato.token
     }
   });
   const selectVias = document.getElementById('selectVias');
@@ -219,12 +229,14 @@ let encontrarMedicamento=async()=>{
   const params = new URLSearchParams(window.location.search.slice(1));
   const idFormulaMedicamento = params.get('idFormulaMedicamento');
   console.log(idFormulaMedicamento);
-
+  let data = localStorage.getItem("datos");
+  let dato=JSON.parse(data);
   const peticion= await fetch(localStorage.getItem("servidorAPI")+"DatosMedicos/medicamento/findById/"+idFormulaMedicamento,{
     method:"GET",
     headers:{
       "Accept":"application/json",
-      "Content-Type":"application/json"
+      "Content-Type":"application/json",
+      "Authorization": dato.token
     }
   });
   const medicamento=await peticion.json();
@@ -301,7 +313,8 @@ let actualizarMedicamento=async (event)=> {
     body: JSON.stringify(formulamedicamento),
     headers:{
       "Accept":"application/json",
-      "Content-Type":"application/json"
+      "Content-Type":"application/json",
+      "Authorization": dato.token
     }
   })
   
@@ -323,11 +336,14 @@ let actualizarMedicamento=async (event)=> {
 }
 
 let eliminarMedicamento=async (idMedicamento)=> {
+  let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
   fetch(localStorage.getItem("servidorAPI")+"DatosMedicos/medicamento/eliminar/"+idMedicamento,{
     method:"DELETE",
     headers:{
       "Accept":"application/json",
-      "Content-Type":"application/json"
+      "Content-Type":"application/json",
+      "Authorization": dato.token
     }
   })
    
@@ -402,7 +418,8 @@ console.log(concentracion);
     body: JSON.stringify(formulamedicamento),
     headers:{
       "Accept":"application/json",
-      "Content-Type":"application/json"
+      "Content-Type":"application/json",
+      "Authorization": dato.token
     }
   })
   .then(response => {

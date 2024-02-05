@@ -20,11 +20,14 @@ let paciente=async(cedula)=>{
   usuario={
     cedula:cedula
   }
+  let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
   let peticion=await fetch(localStorage.getItem("servidorAPI")+"Usuario/cedula", {
     method:"POST",
     headers:{
       "Accept":"application/json",
-      "Content-Type":"application/json"
+      "Content-Type":"application/json",
+      "Authorization": dato.token
     },
     body:JSON.stringify(usuario)
   })
@@ -66,7 +69,8 @@ if (contraseniaAnterior === contraseniaBD) {
     method:"PATCH",
     headers:{
       "Accept":"application/json",
-      "Content-Type":"application/json"
+      "Content-Type":"application/json",
+      "Authorization": dato.token
     },
     body:JSON.stringify(usuarioInDto)
   })
@@ -118,7 +122,8 @@ let prescripciones= async()=>{
       body:JSON.stringify({cedula:cedulaEncriptada}),
       headers:{
         "Accept":"application/json",
-        "Content-Type":"application/json"
+        "Content-Type":"application/json",
+        "Authorization": dato.token
       }
 });
 if(peticion.status===200){
@@ -127,6 +132,8 @@ return prescripcion;}
 }
 
 let visitas= async()=>{
+  let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
   let cedulaDesencriptada = localStorage.getItem("cedulaPaciente");
   let cedulaEncriptada=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(cedulaDesencriptada)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
       const pacienteInDto={
@@ -137,7 +144,8 @@ let visitas= async()=>{
       body:JSON.stringify(pacienteInDto),
       headers:{
         "Accept":"application/json",
-        "Content-Type":"application/json"
+        "Content-Type":"application/json",
+        "Authorization": dato.token
       }
 });
 if(peticion.status===200){
@@ -150,6 +158,8 @@ if(peticion.status===204){
 }
 
 let chequeos= async()=>{
+  let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
   let cedulaDesencriptada = localStorage.getItem("cedulaPaciente");
   cedulaEncriptada=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(cedulaDesencriptada)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
  const pacienteInDto={
@@ -160,7 +170,8 @@ const peticion= await fetch(localStorage.getItem("servidorAPI")+"Prescripcion/pr
  body:JSON.stringify(pacienteInDto),
  headers:{
    "Accept":"application/json",
-   "Content-Type":"application/json"
+   "Content-Type":"application/json",
+   "Authorization": dato.token
  }
 });
 if(peticion.status===200){
@@ -210,7 +221,6 @@ let crearRecambio = async () => {
       estadoLiquido:liquidoEncriptado,
       orificioSalida:imagenEncriptada
     }
-
     let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
       let usuario = dato.usuario;
@@ -223,21 +233,19 @@ let crearRecambio = async () => {
       else{
         cedEncriptada=cedul;
       }
-
     let paciente={
       cedula:cedEncriptada
     }
-
     let pacienteRecambio={
       recambioInDto:recambioUnitario,
       pacienteInDto:paciente
     }
-
     fetch (localStorage.getItem("servidorAPI")+"Recambio/prescripcion/crearRecambio",{
       method: 'POST',
       headers: {
         "Accept":"application/json",
-    "Content-Type":"application/json"
+        "Content-Type":"application/json",
+        "Authorization": dato.token
       }
     });
     body: JSON.stringify(pacienteRecambio)
@@ -301,12 +309,15 @@ let guardarRecambio=async(event)=>{
     };
     console.log("este es el recambio que se hizo:")
     console.log(recambioHechoInDto)
+    let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
     fetch (localStorage.getItem("servidorAPI")+"Recambio/recambio/crearRecambioHecho",{
       method: 'POST',
       body: JSON.stringify(recambioHechoInDto),
       headers: {
         "Accept":"application/json",
-        "Content-Type":"application/json"
+        "Content-Type":"application/json",
+        "Authorization": dato.token
       }
     })
     .then(response => {
@@ -346,12 +357,14 @@ let guardarRecambio=async(event)=>{
 let llenarFormEditarRecambio=async()=>{
     const urlParams = new URLSearchParams(window.location.search);
     const idRecambioHecho = urlParams.get('idRecambioHecho');
-    
+    let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
     const peticion= await fetch (localStorage.getItem("servidorAPI")+"Recambio/prescripcion/findRecambioHechoById/"+idRecambioHecho,{
       method: 'POST',
       headers: {
         "Accept":"application/json",
-        "Content-Type":"application/json"
+        "Content-Type":"application/json",
+        "Authorization": dato.token
       }
     })
     if(peticion.status===200){
@@ -415,12 +428,15 @@ let editarRecambio=async(event)=>{
       "horaIni":fechayhoraIni,
       "horaFin":fechayhoraFin
     };
+    let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
     fetch (localStorage.getItem("servidorAPI")+"Recambio/recambio/editarRecambioHecho/"+idRecambioHecho,{
       method: 'POST',
       body: JSON.stringify(recambioHechoInDto),
       headers: {
         "Accept":"application/json",
-        "Content-Type":"application/json"
+        "Content-Type":"application/json",
+        "Authorization": dato.token
       }
     })
     .then(response => {
@@ -474,7 +490,8 @@ let recambiosHechos=async()=>{
       body: JSON.stringify(pacienteInDto),
       headers: {
         "Accept":"application/json",
-        "Content-Type":"application/json"
+        "Content-Type":"application/json",
+        "Authorization": dato.token
       }
     })
     if(peticion.status===200){
@@ -490,12 +507,15 @@ let recambiosPorFecha=async(recambios,fecha)=>{
       return null
     }
     recambios=recambios.recambios;
+    let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
     const peticion= await fetch (localStorage.getItem("servidorAPI")+"Recambio/recambio/findRecambioHechosByPrescripcionDiaAndFecha/"+fecha,{
       method: 'POST',
       body: JSON.stringify(recambios),
       headers: {
         "Accept":"application/json",
-        "Content-Type":"application/json"
+        "Content-Type":"application/json",
+        "Authorization": dato.token
       }
     });
     if(peticion.status===200){
@@ -512,11 +532,14 @@ let cedEncriptada=async(cedula)=>{
   usuario={
     cedula:cedula
   }
+  let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
   let peticion=await fetch(localStorage.getItem("servidorAPI")+"Usuario/cedula", {
     method:"POST",
     headers:{
       "Accept":"application/json",
-      "Content-Type":"application/json"
+      "Content-Type":"application/json",
+      "Authorization": dato.token
     },
     body:JSON.stringify(usuario)
   })
@@ -649,11 +672,14 @@ let validacirChecks=validarCeckbox();
 let crearCita=async(event)=>{
     event.preventDefault();
     let citaInDto=await obtenerDatosCita(event);
+    let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
       await fetch(localStorage.getItem("servidorAPI") + 'Prescripcion/Cita', {
         method: 'POST',
         headers: {
           "Accept": "application/json",
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Authorization": dato.token
         },
         body: JSON.stringify(citaInDto)
       });
@@ -686,12 +712,14 @@ let crearPrescripcionDia=async(event)=>{
         sabado:dias.sabado,
         domingo:dias.domingo
       }
-    
+      let data = localStorage.getItem("datos");
+      let dato=JSON.parse(data);
       await fetch(localStorage.getItem("servidorAPI") + 'Prescripcion/crear/prescripcionDia', {
         method: 'POST',
         headers: {
           "Accept":"application/json",
-      "Content-Type":"application/json"
+          "Content-Type":"application/json",
+          "Authorization": dato.token
         },
         body: JSON.stringify(prescripcionDiaInDto)
       })
@@ -711,11 +739,14 @@ let encontrarUltimaCita=async(event)=>{
     paciente={
       cedula:cedulaPaciente
     }
+    let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
     let peticion= await fetch(localStorage.getItem("servidorAPI") + 'Prescripcion/ultimaCita', {
       method: 'POST',
       headers: {
         "Accept":"application/json",
-    "Content-Type":"application/json"
+        "Content-Type":"application/json",
+        "Authorization": dato.token
       },
       body: JSON.stringify(paciente)
     })
@@ -747,12 +778,15 @@ let crearVisita = async (cedulaPaciente) => {
   console.log(visitaEspecialistaDto);
 
   if (Object.keys(visitaEspecialistaDto).length > 0) {
+    let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
     await fetch(localStorage.getItem("servidorAPI") + 'Medico/visitaEspecialista', {
       method: "POST",
       body: JSON.stringify(visitaEspecialistaDto),
       headers: {
         "Accept": "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": dato.token
       }
     })
       .then(response => {
@@ -794,12 +828,15 @@ let crearChequeoMensual = async (cedulaPaciente) => {
   console.log(chequeoMensualInDto);
 
   if (Object.keys(chequeoMensualInDto).length > 1) { 
+    let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
     const response = await fetch(localStorage.getItem("servidorAPI") + 'Medico/chequeoMensual', {
       method: "POST",
       body: JSON.stringify(chequeoMensualInDto),
       headers: {
         "Accept": "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": dato.token
       }
     });
 
@@ -870,11 +907,14 @@ let crearRecambios=async(event)=>{
         console.log(recambioInDto);
        
         cont=cont+2;
+        let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
         await fetch(localStorage.getItem("servidorAPI") + 'Recambio/prescripcion/crearRecambio', {
           method: 'POST',
           headers: {
             "Accept":"application/json",
-        "Content-Type":"application/json"
+            "Content-Type":"application/json",
+            "Authorization": dato.token
           },
           body: JSON.stringify(recambioInDto)
         })
@@ -887,11 +927,14 @@ let prescripcionesDia=async(event)=>{
     let cita=await encontrarUltimaCita(event);
     if(cita!=null){
     let idCita=cita.idCita;
+    let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
         let peticion=await fetch(localStorage.getItem("servidorAPI") + 'Prescripcion/prescripcionDia/findByCita/'+ idCita, {
           method: 'POST',
           headers: {
             "Accept":"application/json",
-        "Content-Type":"application/json"
+            "Content-Type":"application/json",
+            "Authorization": dato.token
           }
         })
         let prescipcionDia=await peticion.json();
@@ -961,11 +1004,14 @@ let encontrarPrescripcionDiaPorCita=async(event,cita)=>{
             if(event!=undefined){
               event.preventDefault();
             }
+            let data = localStorage.getItem("datos");
+            let dato=JSON.parse(data);
                   let peticion=await fetch(localStorage.getItem("servidorAPI") + 'Prescripcion/prescripcionDia/findByCita/'+ cita, {
                     method: 'POST',
                     headers: {
                       "Accept":"application/json",
-                  "Content-Type":"application/json"
+                      "Content-Type":"application/json",
+                      "Authorization": dato.token
                     }
                   })
                   if(peticion.status===200){
@@ -981,11 +1027,14 @@ let  encontrarRecambioPorPrescripcionDia=async(event, prescripcionDia)=>{
             if(event!=undefined){
               event.preventDefault();
             }
+            let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
             let peticion= await fetch(localStorage.getItem("servidorAPI") + 'Recambio/recambio/findRecambioByPrescripcion/'+prescripcionDia,{
               method: 'POST',
                     headers: {
                       "Accept":"application/json",
-                  "Content-Type":"application/json"
+                      "Content-Type":"application/json",
+                      "Authorization": dato.token
                     }
             })
             if(peticion.status===200){
@@ -1019,6 +1068,8 @@ let cambiarCitaEnVisitaYchequeo=async(event)=>{
     let visitaEspecialistaDto=await obtenerUltimaVisita();
     let chequeoMensualInDto=await obtenerUltimoChequeo();
     console.log(visitaEspecialistaDto);
+    let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
     if(visitaEspecialistaDto!=null){
     delete visitaEspecialistaDto.cita;}
     if(chequeoMensualInDto!=null){
@@ -1029,11 +1080,13 @@ let cambiarCitaEnVisitaYchequeo=async(event)=>{
     let idCita=ultimaCita.idCita;
     if(visitaEspecialistaDto!=null || visitaEspecialistaDto!=undefined){
       visitaEspecialistaDto.cita=idCita;
+      
     await fetch(localStorage.getItem("servidorAPI") + 'Medico/visitaEspecialista',{
       method: 'POST',
           headers: {
             "Accept":"application/json",
-        "Content-Type":"application/json"
+            "Content-Type":"application/json",
+            "Authorization": dato.token
           },
           body: JSON.stringify(visitaEspecialistaDto)
     })
@@ -1044,7 +1097,8 @@ let cambiarCitaEnVisitaYchequeo=async(event)=>{
       method: 'POST',
           headers: {
             "Accept":"application/json",
-        "Content-Type":"application/json"
+        "Content-Type":"application/json",
+        "Authorization": dato.token
           },
           body: JSON.stringify(chequeoMensualInDto)
     })
@@ -1060,11 +1114,14 @@ let eliminarCita=async()=>{
     let cita=await encontrarUltimaCita()
     let id_cita=cita.idCita
     console.log(id_cita);
+    let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
     fetch(localStorage.getItem("servidorAPI")+"Prescripcion/EliminarCita/"+id_cita,{
       method:"DELETE",
       headers:{
         "Accept":"application/json",
-        "Content-Type":"application/json"
+        "Content-Type":"application/json",
+        "Authorization": dato.token
       }
 });
 }
@@ -1074,11 +1131,14 @@ let obtenerUltimaVisita=async()=>{
     let cita=await encontrarUltimaCita();
     if(cita!=null){
     let id_cita=cita.idCita;
+    let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
     let peticion=await fetch(localStorage.getItem("servidorAPI")+"Medico/encontrarVisita/"+id_cita,{
       method:"POST",
       headers:{
         "Accept":"application/json",
-        "Content-Type":"application/json"
+        "Content-Type":"application/json",
+        "Authorization": dato.token
       }
     })
       if (peticion.status===200) {
@@ -1101,12 +1161,14 @@ let obtenerUltimoChequeo = async () => {
       let cita = await encontrarUltimaCita();
       if(cita!=null){
       let id_cita = cita.idCita;
-  
+      let data = localStorage.getItem("datos");
+      let dato=JSON.parse(data);
       let peticion = await fetch(localStorage.getItem("servidorAPI") + "Medico/encontrarChequeo/" + id_cita, {
         method: "POST",
         headers: {
           "Accept": "application/json",
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Authorization": dato.token
         }
       });
   
@@ -1133,12 +1195,14 @@ let encontrarPaciente = async () => {
   let pacienteInDto={
     cedula:cedulaEncriptada
   }
-    
+  let data = localStorage.getItem("datos");
+  let dato=JSON.parse(data);
   const peticion = await fetch(localStorage.getItem("servidorAPI") + "paciente/findPacienteByCedula/false", {
     method: "POST",
     headers: {
       "Accept": "application/json",
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": dato.token
     },
     body:JSON.stringify(pacienteInDto)
   });
@@ -1222,12 +1286,14 @@ let actualizarChequeo=async()=>{
     glicemia:glicemia, trigliceridos:trigliceridos, ldh:ldh, hemoglobina:hemoglobina, fosforo:fosforo, potasio:potasio, nitrogenoUreico:nitrogenoUreico, hdl:hdl, glucosa:glucosa, creatinina:creatinina, ktv:ktv, peso:peso, pesoSeco:pesoSeco
   }
   console.log(chequeoInDto);
-
+  let data = localStorage.getItem("datos");
+  let dato=JSON.parse(data);
   await fetch(localStorage.getItem("servidorAPI")+"Prescripcion/ActualizarChequeo/"+idChequeo,{
     method:"PATCH",
     headers:{
       "Accept":"application/json",
-      "Content-Type":"application/json"
+      "Content-Type":"application/json",
+      "Authorization": dato.token
     },
     body: JSON.stringify(chequeoInDto)
   })
@@ -1257,12 +1323,14 @@ let actualizarVisita=async()=>{
   let visitaEspecialistaInDto={ cita:idCita, farmacia:farmacia, nefrologia:nefrologia, psicologia:psicologia, enfermeria:enfermeria, nutricion:nutricion, trabajoSocial:trabajoSocial, auxiliarAdmisiones:auxiliarAdmisiones, entrenamiento:entrenamiento, reentrenamiento:reentrenamiento, visitaDomiciliaria:visitadomiciliaria
   }
   
-
+  let data = localStorage.getItem("datos");
+  let dato=JSON.parse(data);
   await fetch(localStorage.getItem("servidorAPI")+"Prescripcion/ActualizarVisita/"+idVisita,{
     method:"PATCH",
     headers:{
       "Accept":"application/json",
-      "Content-Type":"application/json"
+      "Content-Type":"application/json",
+      "Authorization": dato.token
     },
     body: JSON.stringify(visitaEspecialistaInDto)
   })
@@ -1280,12 +1348,15 @@ let findUsuario= async () => {
   let usuarioInDto = {cedula : cedula}
   console.log(usuarioInDto)
   try {
+    let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
       const response = await fetch(localStorage.getItem("servidorAPI") + "Usuario/cedula", {
         method: "POST",
         body: JSON.stringify(usuarioInDto),
         headers: {
           "Accept": "application/json",
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Authorization": dato.token
         }
       });    
       if (response.ok) {
@@ -1301,11 +1372,14 @@ let findUsuario= async () => {
 }
 
 let finAllRecambiosHechos= async(idCita)=>{
+  let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
     const response = await fetch(localStorage.getItem("servidorAPI") + "Recambio/findAllRecambiosHechos/"+idCita, {
       method: "GET",
       headers: {
         "Accept": "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": dato.token
       }
     });
     if (response.ok) {
@@ -1324,12 +1398,15 @@ let findAllPrescripciones=async()=>{
     paciente={
       cedula:cedula
     }
+    let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
     const response = await fetch(localStorage.getItem("servidorAPI") + "Prescripcion/prescripcionesByPaciente", {
       method: "POST",
       body:JSON.stringify(paciente),
       headers: {
         "Accept": "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": dato.token
       }
     });
     if (response.ok) {
@@ -1342,11 +1419,14 @@ let findAllPrescripciones=async()=>{
 }
 
 let finalizar=async(idCita)=>{
+  let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
     fetch(localStorage.getItem("servidorAPI") + "Prescripcion/finalizarPrescripcion/"+idCita, {
       method: "PATCH",
       headers: {
         "Accept": "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": dato.token
       }
     })
     .then(response=>{
