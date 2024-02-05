@@ -173,12 +173,15 @@ let onload = async () => {
   let pathname = window.location.pathname
   
   if (isAuthenticated()) {
-    const peticion = await fetch(servidorAPI + 'Usuario/findAllPacientes', {
+    let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
+    console.log(data);
+    const peticion = await fetch(servidorAPI + 'Usuario/tokenValido', {
       method: 'GET',
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json",
-        'Authorization': "Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJlc3Bpbm96YWpnZUpXVCIsInN1YiI6IkYrMWJkdGM5L01sUUtpakRVdGNmOEE9PSIsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdLCJpYXQiOjE3MDY5NzY3MzEsImV4cCI6MTcwNzg0MDczMX0.CjLjedyrCCBaO7eVetXtyZ1BLPPnxuR2IMCXpwqitIzf8jd8OQYmBIYbL3Jel0mpVcZC_LhfiOsFnUdYKwgmQA"
+        "Authorization": dato.token
       }
     })
     console.log(peticion.status)
@@ -186,9 +189,7 @@ let onload = async () => {
       console.log("token expirado")
       logout();
     }
-    let data = localStorage.getItem("datos");
-  let dato=JSON.parse(data);
-  console.log(data);
+   
       let usuario = dato.usuario;
     if (pathname.includes("login.html") || pathname.includes("index.html") ) {
       if(usuario=="medico"){

@@ -2,11 +2,14 @@
 var cedulaEncriptada= "";
 
 let obtenerCedulaEncriptada=async(cedula)=>{
+  let data = localStorage.getItem("datos");
+  let dato=JSON.parse(data);
   const peticion= await fetch(localStorage.getItem("servidorAPI")+'Medico/findAllPacientes',{
     method:'GET',
     headers:{
       "Accept":"application/json",
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": dato.token
     }
     });
       const pacientes=await peticion.json();
@@ -74,7 +77,8 @@ let crearCuidador = async () => {
         method: 'POST',
         headers: {
           "Accept":"application/json",
-      "Content-Type":"application/json"
+      "Content-Type":"application/json",
+      "Authorization": dato.token
         },
         body: JSON.stringify(
           unionCuidadorPacienteInDto
@@ -117,7 +121,8 @@ let cuidadorPorPaciente=async()=>{
     method:'POST',
     headers:{
       "Accept":"application/json",
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": dato.token
     },
     body:JSON.stringify({
       cedula:cedulaEncriptada
@@ -196,7 +201,8 @@ let cuidadorPorPaciente=async()=>{
         method:'POST',
         headers:{
           "Accept":"application/json",
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Authorization": dato.token
         },
         body:JSON.stringify({
           cedula:cedulaEncriptada
@@ -212,7 +218,8 @@ let cuidadorPorPaciente=async()=>{
           method: "POST",
           headers: {
             "Accept": "application/json",
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": dato.token
           },
           body:JSON.stringify({
             cedula:cedulaEncriptada
@@ -304,11 +311,14 @@ let cuidadorPorPaciente=async()=>{
       return objeto.activo;
   }
     let listaParentesco = async () => {
+      let data = localStorage.getItem("datos");
+      let dato=JSON.parse(data);
       const peticion = await fetch(localStorage.getItem("servidorAPI") + "paciente/ListParentesco", {
         method: "GET",
         headers: {
           "Accept": "application/json",
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Authorization": dato.token
         }
       });
       
@@ -331,11 +341,14 @@ let cuidadorPorPaciente=async()=>{
     
 
     let listarParentesco = async () => {
+      let data = localStorage.getItem("datos");
+      let dato=JSON.parse(data);
       const peticion = await fetch(localStorage.getItem("servidorAPI") + "paciente/ListParentesco", {
         method: "GET",
         headers: {
           "Accept": "application/json",
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Authorization": dato.token
         }
       });
       
@@ -380,7 +393,8 @@ let cuidadorActivo= async()=>{
     method: "POST",
     headers: {
       "Accept": "application/json",
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": dato.token
     },
     body:JSON.stringify({
       cedula:cedulaEncriptada
@@ -434,7 +448,8 @@ let cuidadorActivo= async()=>{
         method: "POST",
         headers: {
           "Accept": "application/json",
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Authorization": dato.token
         },
         body:JSON.stringify({
           cedula:cedulaEncriptada
@@ -569,7 +584,8 @@ let actualizarCuidador = async () => {
         method: "POST",
         headers: {
           "Accept": "application/json",
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Authorization": dato.token
         },
         body:JSON.stringify({
           cedula:cedulaEncriptada
@@ -600,7 +616,8 @@ let actualizarCuidador = async () => {
     body: JSON.stringify(cuidador),
     headers: {
       "Accept": "application/json",
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": dato.token
     }
   })
     .then(response => {
@@ -636,7 +653,8 @@ let cuidAntiguos = async () => {
     method:'POST',
     headers:{
       "Accept":"application/json",
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": dato.token
     },
     body:JSON.stringify({
       cedula:cedulaEncriptada
@@ -719,7 +737,8 @@ let reactivarCuidador = async (cedulaCuidador, cont) => {
         ),
         headers: {
           "Accept": "application/json",
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Authorization": dato.token
         }
       })
         .then(response => {
@@ -735,7 +754,8 @@ let reactivarCuidador = async (cedulaCuidador, cont) => {
               ),
               headers: {
                 "Accept": "application/json",
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": dato.token
               }
             })
           }
@@ -777,7 +797,8 @@ let inhabilitarCuidador=async()=>{
         method: "POST",
         headers: {
           "Accept": "application/json",
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Authorization": dato.token
         },
         body:JSON.stringify({
           cedula:cedulaEncriptada
@@ -806,7 +827,8 @@ let inhabilitarCuidador=async()=>{
               ),
               headers: {
                 "Accept": "application/json",
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": dato.token
               }
   })
   .then(response => {

@@ -18,6 +18,8 @@ function passwordVisibilityActual(inputId, iconClass) {
 }
 
 let paciente=async(cedula)=>{
+  let data = localStorage.getItem("datos");
+  let dato=JSON.parse(data);
   usuario={
     cedula:cedula
   }
@@ -25,7 +27,8 @@ let paciente=async(cedula)=>{
     method:"POST",
     headers:{
       "Accept":"application/json",
-      "Content-Type":"application/json"
+      "Content-Type":"application/json",
+      "Authorization": dato.token
     },
     body:JSON.stringify(usuario)
   })
@@ -68,7 +71,8 @@ if (contraseniaAnterior === contraseniaBD) {
     method:"PATCH",
     headers:{
       "Accept":"application/json",
-      "Content-Type":"application/json"
+      "Content-Type":"application/json",
+      "Authorization": dato.token
     },
     body:JSON.stringify(usuarioInDto)
   })
