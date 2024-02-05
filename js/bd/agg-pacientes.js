@@ -1,9 +1,12 @@
 let listarEps = async () => {
+  let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
   const peticion = await fetch(localStorage.getItem("servidorAPI") + "DatosMedicos/ListEps", {
     method: "GET",
     headers: {
       "Accept": "application/json",
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": dato.token
     }
   });
 
@@ -28,18 +31,21 @@ let listarEps = async () => {
 }
 
 let validarPaciente = async () => {
+  let data = localStorage.getItem("datos");
+  let dato=JSON.parse(data);
   let documento = document.getElementById('documento').value;
   console.log(documento);
   let paciente={
     cedula:documento
   }
-
+  
   const peticion = await fetch(servidorAPI + 'paciente/findPacienteByCedula/false', {
     method: 'POST',
     body:JSON.stringify(paciente),
     headers: {
       "Accept": "application/json",
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": dato.token
     }
   });
 
@@ -55,6 +61,8 @@ let validarPaciente = async () => {
 
 
 let crearPaciente=async(event)=> {
+  let data = localStorage.getItem("datos");
+  let dato=JSON.parse(data);
   event.preventDefault();
   const btnGuardar=document.getElementById("guardarPaciente");
   btnGuardar.style.background="gray";
@@ -127,7 +135,8 @@ let decryptedNombre = decodeURIComponent(CryptoJS.AES.decrypt(pacienteInDto.nomb
         method: 'POST',
         headers: {
           "Accept":"application/json",
-      "Content-Type":"application/json"
+      "Content-Type":"application/json",
+      "Authorization": dato.token
         },
         body: JSON.stringify(
           pacienteInDto
@@ -146,11 +155,14 @@ let decryptedNombre = decodeURIComponent(CryptoJS.AES.decrypt(pacienteInDto.nomb
 
 let listarPacientes = async () => {
   try {
+    let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
     const peticion = await fetch(servidorAPI + 'Medico/findAllPacientes', {
       method: 'GET',
       headers: {
         "Accept": "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": dato.token
       }
     });
 
@@ -184,11 +196,14 @@ let listarPacientes = async () => {
 
 let listarPacientesInactivos = async () => {
   try {
+    let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
     const peticion = await fetch(servidorAPI + 'Medico/findAllPacientes', {
       method: 'GET',
       headers: {
         "Accept": "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": dato.token
       }
     });
 
@@ -225,6 +240,8 @@ let listarPacientesInactivos = async () => {
 
 let ultimaCita = async (cedulaPaciente) => {
   try {
+    let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
     cedulaPac = await obtenerCedEncriptada(cedulaPaciente);
     console.log(cedulaPac);
     
@@ -236,7 +253,8 @@ let ultimaCita = async (cedulaPaciente) => {
       method: 'POST',
       headers: {
         "Accept": "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": dato.token
       },
       body: JSON.stringify(paciente)
     });

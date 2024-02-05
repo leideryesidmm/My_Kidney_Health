@@ -16,6 +16,8 @@ function passwordVisibilityActual(inputId, iconClass) {
 }
 
 let paciente=async(cedula)=>{
+  let data = localStorage.getItem("datos");
+  let dato=JSON.parse(data);
   usuario={
     cedula:cedula
   }
@@ -23,7 +25,8 @@ let paciente=async(cedula)=>{
     method:"POST",
     headers:{
       "Accept":"application/json",
-      "Content-Type":"application/json"
+      "Content-Type":"application/json",
+      "Authorization": dato.token
     },
     body:JSON.stringify(usuario)
   })
@@ -66,7 +69,8 @@ if (contraseniaAnterior === contraseniaBD) {
     method:"PATCH",
     headers:{
       "Accept":"application/json",
-      "Content-Type":"application/json"
+      "Content-Type":"application/json",
+      "Authorization": dato.token
     },
     body:JSON.stringify(usuarioInDto)
   })
@@ -128,7 +132,8 @@ let crearAlergia = async () => {
       body: JSON.stringify(unionPacienteAlergiaInDto),
       headers: {
         "Accept": "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": dato.token
       }
     })
       .then(response => {
@@ -171,7 +176,8 @@ let listarAlergias = async () => {
     method: "POST",
     headers: {
       "Accept": "application/json",
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": dato.token
     },
     body: JSON.stringify(pacienteInDto)
   });
@@ -190,7 +196,8 @@ let listarAlergias = async () => {
 }
 
 let editarAlergia = async (id_alergia) => {
- 
+  let data = localStorage.getItem("datos");
+  let dato=JSON.parse(data);
   nombreInput = document.getElementById('nombreEditar' + id_alergia).value;
   console.log(nombreInput)
   const btnAlergia=document.getElementById("editarAlergia");
@@ -203,7 +210,8 @@ let editarAlergia = async (id_alergia) => {
     body: JSON.stringify({ nombre: encryptedNombre }),
     headers: {
       "Accept": "application/json",
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": dato.token
     }
   })
     .then(response => {
@@ -247,7 +255,8 @@ let inhabilitarAlergia = async (id_alergia) => {
     method: "PATCH",
     headers: {
       "Accept": "application/json",
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": dato.token
     },
     body: JSON.stringify(unionPacienteAlergiaInDto)
   })
