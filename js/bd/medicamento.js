@@ -262,6 +262,7 @@ let encontrarMedicamento=async()=>{
   document.getElementById("recetado").value=medicamento.recetado;
   console.log(medicamento.viaAdministracion.idViaAdministracion);
   const selectVias = document.getElementById("selectVias");
+  console.log(selectVias);
   selectVias.value = medicamento.viaAdministracion.idViaAdministracion;
 
 

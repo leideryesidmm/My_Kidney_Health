@@ -176,27 +176,27 @@ let listaPacientes = async () => {
 let pacienteAct={}
     const paciente=await peticion.json();
 console.log(paciente)
-    let nombreDesencriptado= decodeURIComponent(CryptoJS.AES.decrypt(paciente.nombre,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
-    let cedulaDesencriptado= decodeURIComponent(CryptoJS.AES.decrypt(paciente.cedula,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
-    let celularDesencriptado= decodeURIComponent(CryptoJS.AES.decrypt(paciente.celular,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
-    let direccionDesencriptada= decodeURIComponent(CryptoJS.AES.decrypt(paciente.direccion,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
-    let ocupacionDesencriptada= decodeURIComponent(CryptoJS.AES.decrypt(paciente.ocupacion,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
-    let correoDesencriptada= decodeURIComponent(CryptoJS.AES.decrypt(paciente.correo,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
-    let tipoDocumentoDesencriptada= decodeURIComponent(CryptoJS.AES.decrypt(paciente.tipoDocumento,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
-    let epsDesencriptada= paciente.eps.nombre;
-    let peso= decodeURIComponent(CryptoJS.AES.decrypt(paciente.peso,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
-    let pesoSeco=decodeURIComponent(CryptoJS.AES.decrypt(paciente.pesoSeco,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
-    let tiposangre=decodeURIComponent(CryptoJS.AES.decrypt(paciente.tipoSangre,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
-    let rh=decodeURIComponent(CryptoJS.AES.decrypt(paciente.rh,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
-    let altura=decodeURIComponent(CryptoJS.AES.decrypt(paciente.altura,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
-    let nacimiento=paciente.fechaNacimiento.split('T');
+    let nombreDesencriptado= decodeURIComponent(CryptoJS.AES.decrypt(paciente[0].nombre,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+    let cedulaDesencriptado= decodeURIComponent(CryptoJS.AES.decrypt(paciente[0].cedula,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+    let celularDesencriptado= decodeURIComponent(CryptoJS.AES.decrypt(paciente[0].celular,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+    let direccionDesencriptada= decodeURIComponent(CryptoJS.AES.decrypt(paciente[0].direccion,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+    let ocupacionDesencriptada= decodeURIComponent(CryptoJS.AES.decrypt(paciente[0].ocupacion,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+    let correoDesencriptada= decodeURIComponent(CryptoJS.AES.decrypt(paciente[0].correo,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+    let tipoDocumentoDesencriptada= decodeURIComponent(CryptoJS.AES.decrypt(paciente[0].tipoDocumento,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+    let epsDesencriptada= paciente[0].eps.nombre;
+    let peso= decodeURIComponent(CryptoJS.AES.decrypt(paciente[0].peso,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+    let pesoSeco=decodeURIComponent(CryptoJS.AES.decrypt(paciente[0].pesoSeco,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+    let tiposangre=decodeURIComponent(CryptoJS.AES.decrypt(paciente[0].tipoSangre,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+    let rh=decodeURIComponent(CryptoJS.AES.decrypt(paciente[0].rh,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+    let altura=decodeURIComponent(CryptoJS.AES.decrypt(paciente[0].altura,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+    let nacimiento=paciente[0].fechaNacimiento.split('T');
     let fechaNacimiento=nacimiento[0];
     let fecha=new Date(fechaNacimiento);
-    let fechaRegistro=paciente.fechaRegistro.split('T');
+    let fechaRegistro=paciente[0].fechaRegistro.split('T');
     let fecha_registro=fechaRegistro[0];
     let fecha_registrado=new Date(fecha_registro);
-    let diabetes=paciente.diabetes;
-    let hipertension=paciente.hipertension;
+    let diabetes=paciente[0].diabetes;
+    let hipertension=paciente[0].hipertension;
     let cedula=cedulaDesencriptado;
     let ocupacion=ocupacionDesencriptada;
     let correo=correoDesencriptada;
@@ -329,32 +329,32 @@ let encontrarPaciente = async () => {
   const paciente = await peticion.json();
 console.log(paciente);
   let pacienteActual={
-    cedula:paciente.cedula, contrasenia:paciente.contrasenia, rh:paciente.rh,
-    tipoSangre:paciente.tipoSangre
+    cedula:paciente[0].cedula, contrasenia:paciente[0].contrasenia, rh:paciente[0].rh,
+    tipoSangre:paciente[0].tipoSangre
   }
   console.log(paciente);
   if(usuario=="paciente"){
-  var decryptedNombre = decodeURIComponent(CryptoJS.AES.decrypt(paciente.nombre,CryptoJS.enc.Utf8.parse(cajaNegra2),
+  var decryptedNombre = decodeURIComponent(CryptoJS.AES.decrypt(paciente[0].nombre,CryptoJS.enc.Utf8.parse(cajaNegra2),
   {iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
   document.getElementById("nombre").value = decryptedNombre;
-  var fechaNacimiento = paciente.fechaNacimiento.split("T")[0];
+  var fechaNacimiento = paciente[0].fechaNacimiento.split("T")[0];
   document.getElementById("fecha").value = fechaNacimiento;
-  var decryptedDireccion = decodeURIComponent(CryptoJS.AES.decrypt(paciente.direccion,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+  var decryptedDireccion = decodeURIComponent(CryptoJS.AES.decrypt(paciente[0].direccion,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
   document.getElementById("direccion").value = decryptedDireccion;
   console.log(decryptedDireccion);
-  var decryptedTelefono = decodeURIComponent(CryptoJS.AES.decrypt(paciente.celular,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+  var decryptedTelefono = decodeURIComponent(CryptoJS.AES.decrypt(paciente[0].celular,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
   console.log(decryptedTelefono);
   document.getElementById("telefono").value = decryptedTelefono;
   if(paciente.ocupacion!=""){
-    var decryptedOcupacion = decodeURIComponent(CryptoJS.AES.decrypt(paciente.ocupacion,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+    var decryptedOcupacion = decodeURIComponent(CryptoJS.AES.decrypt(paciente[0].ocupacion,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
     document.getElementById("ocupacion").value = decryptedOcupacion;
     }
     if(paciente.correo!=""){
-      var decryptedCorreo = decodeURIComponent(CryptoJS.AES.decrypt(paciente.correo,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+      var decryptedCorreo = decodeURIComponent(CryptoJS.AES.decrypt(paciente[0].correo,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
       document.getElementById("correo").value = decryptedCorreo;
     }
     const selectEps = document.getElementById('selectedEps');
-  const descripcionEps= paciente.eps.nombre;
+  const descripcionEps= paciente[0].eps.nombre;
   console.log(descripcionEps);
   
   Array.from(selectEps.options).forEach((option, index) => {
@@ -366,27 +366,27 @@ console.log(paciente);
   
   }
   else{
-    var decryptedNombre = decodeURIComponent(CryptoJS.AES.decrypt(paciente.nombre,CryptoJS.enc.Utf8.parse(cajaNegra2),
+    var decryptedNombre = decodeURIComponent(CryptoJS.AES.decrypt(paciente[0].nombre,CryptoJS.enc.Utf8.parse(cajaNegra2),
     {iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
   document.getElementById("nombre").value = decryptedNombre;
 
-  var decryptedCedula = decodeURIComponent(CryptoJS.AES.decrypt(paciente.cedula,CryptoJS.enc.Utf8.parse(cajaNegra2),
+  var decryptedCedula = decodeURIComponent(CryptoJS.AES.decrypt(paciente[0].cedula,CryptoJS.enc.Utf8.parse(cajaNegra2),
   {iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
   document.getElementById("documento").value = decryptedCedula;
-  if(paciente.hipertension==true){
+  if(paciente[0].hipertension==true){
     console.log(paciente.hipertension);
   document.getElementById("hipertension").checked=true;
   }
-  if(paciente.diabetes==true){
+  if(paciente[0].diabetes==true){
   document.getElementById("diabetes").checked=true;
   }
-  var peso = decodeURIComponent(CryptoJS.AES.decrypt(paciente.peso,CryptoJS.enc.Utf8.parse(cajaNegra2),
+  var peso = decodeURIComponent(CryptoJS.AES.decrypt(paciente[0].peso,CryptoJS.enc.Utf8.parse(cajaNegra2),
   {iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
   document.getElementById("peso").value = peso;
-  var pesoseco=decodeURIComponent(CryptoJS.AES.decrypt(paciente.pesoSeco,CryptoJS.enc.Utf8.parse(cajaNegra2),
+  var pesoseco=decodeURIComponent(CryptoJS.AES.decrypt(paciente[0].pesoSeco,CryptoJS.enc.Utf8.parse(cajaNegra2),
   {iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
   document.getElementById("pesoseco").value = pesoseco;
-  var decryptedEstatura = decodeURIComponent(CryptoJS.AES.decrypt(paciente.altura,CryptoJS.enc.Utf8.parse(cajaNegra2),
+  var decryptedEstatura = decodeURIComponent(CryptoJS.AES.decrypt(paciente[0].altura,CryptoJS.enc.Utf8.parse(cajaNegra2),
   {iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
   document.getElementById("estatura").value=decryptedEstatura;
 }
@@ -471,14 +471,14 @@ let actualizarPaciente = async (event) => {
   let direccion = document.getElementById("direccion").value;
   let selectTipoDocumento = selectedDocumento.options[selectedDocumento.selectedIndex];
   let tipo_documento = selectTipoDocumento.value;
-  let peso = paciente.peso;
-  let pesoseco=paciente.pesoSeco;
+  let peso = paciente[0].peso;
+  let pesoseco=paciente[0].pesoSeco;
   let ocupacion=document.getElementById("ocupacion").value;
   let correo=document.getElementById("correo").value;
-  let estatura=paciente.altura;
-  var diabetes = paciente.diabetes;
-  var fecha_registro=paciente.fechaRegistro;
-     var hipertension = paciente.hipertension;
+  let estatura=paciente[0].altura;
+  var diabetes = paciente[0].diabetes;
+  var fecha_registro=paciente[0].fechaRegistro;
+     var hipertension = paciente[0].hipertension;
      let selectedOption = selectedEps.options[selectedEps.selectedIndex];
   let eps = selectedOption.value;
       
@@ -495,31 +495,31 @@ let actualizarPaciente = async (event) => {
     correo: CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(correo)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString(),
     activo:true,
     cedula:cedulaEncriptada,
-    tipoSangre:paciente.tipoSangre,
+    tipoSangre:paciente[0].tipoSangre,
     tipoDocumento:CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(tipo_documento)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString(),
-    rh:paciente.rh,
-    contrasenia:paciente.contrasenia,
+    rh:paciente[0].rh,
+    contrasenia:paciente[0].contrasenia,
     altura:estatura,
-    cambioContrasenia:paciente.cambioContrasenia,
+    cambioContrasenia:paciente[0].cambioContrasenia,
     diabetes:diabetes,
     fechaRegistro:fecha_registro,
     hipertension:hipertension,
   };
 }
 else{
-  let nombre = paciente.nombre;
-  let fechaNacimiento=paciente.fechaNacimiento;
-  let telefono = paciente.celular;
-  let direccion = paciente.direccion;
-  let tipo_documento= paciente.tipoDocumento;
+  let nombre = paciente[0].nombre;
+  let fechaNacimiento=paciente[0].fechaNacimiento;
+  let telefono = paciente[0].celular;
+  let direccion = paciente[0].direccion;
+  let tipo_documento= paciente[0].tipoDocumento;
   let peso = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(document.getElementById("peso").value)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
   let pesoseco=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(document.getElementById("pesoseco").value)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
-  let ocupacion=paciente.ocupacion;
-  let correo=paciente.correo;
-  let fecha_registro=paciente.fechaRegistro;
-  let cambiocontrasenia=paciente.cambioContrasenia;
+  let ocupacion=paciente[0].ocupacion;
+  let correo=paciente[0].correo;
+  let fecha_registro=paciente[0].fechaRegistro;
+  let cambiocontrasenia=paciente[0].cambioContrasenia;
   let estatura=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(document.getElementById("estatura").value)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
-  let eps = paciente.eps.idEps;
+  let eps = paciente[0].eps.idEps;
   let diabetes = document.getElementById('diabetes').checked;
   let hipertension = document.getElementById('hipertension').checked;
 
@@ -537,10 +537,10 @@ else{
     fechaRegistro:fecha_registro,
     activo:true,
     cedula:cedulaEncriptada,
-    tipoSangre:paciente.tipoSangre,
+    tipoSangre:paciente[0].tipoSangre,
     tipoDocumento:tipo_documento,
-    rh:paciente.rh,
-    contrasenia:paciente.contrasenia,
+    rh:paciente[0].rh,
+    contrasenia:paciente[0].contrasenia,
     altura:estatura,
     diabetes:diabetes,
     hipertension:hipertension, 
@@ -548,7 +548,8 @@ else{
   
 }
 
-
+console.log("pacienteInDto");
+console.log(pacienteInDto);
   fetch(localStorage.getItem("servidorAPI") + "paciente/actualizar", {
     method: "PATCH",
     body: JSON.stringify(pacienteInDto),

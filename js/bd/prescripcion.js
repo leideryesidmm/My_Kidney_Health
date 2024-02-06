@@ -570,7 +570,8 @@ let obtenerDatosCita=async(event)=>{
       medico:cedulaMedico,
       paciente: pacienteEncriptado
     }
-    
+    console.log("cita");
+    console.log(cita);
     return cita;
 }
 
@@ -672,6 +673,7 @@ let validacirChecks=validarCeckbox();
 let crearCita=async(event)=>{
     event.preventDefault();
     let citaInDto=await obtenerDatosCita(event);
+    console.log(citaInDto);
     let data = localStorage.getItem("datos");
     let dato=JSON.parse(data);
       await fetch(localStorage.getItem("servidorAPI") + 'Prescripcion/Cita', {
@@ -886,6 +888,8 @@ let crearRecambios=async(event)=>{
     let datosRecambio= await obtenerDatosRecambio(event);
     let prescipcionesDia=await prescripcionesDia(event);
     let cantidad=datosRecambio[datosRecambio.length-1];
+    console.log("prescripcionDia");
+    console.log(prescipcionesDia);
    
     for(let i=0; i<cantidad;i++){
       let prescrionDia= prescipcionesDia[i].idPrescripcionDia;

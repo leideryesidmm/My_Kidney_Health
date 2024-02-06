@@ -266,7 +266,7 @@ let editarPaciente=async()=>{
             '<div class="form-column">'+
               '<label for="nombre" id="data">Nombre del paciente:<label id="asq">*</label></label>'+
               '<br>'+
-              '<input type="text" enterkeyhint="next"  class="nombre" id="nombre" name="nombre" required>'+
+              '<input type="text" enterkeyhint="next" placeholder="Nombre del paciente" class="nombre" id="nombre" name="nombre" required>'+
             '</div>'+
             '<div class="form-column">'+
               '<label for="fecha" id="data">Fecha de nacimiento:<label id="asq">*</label></label>'+
@@ -291,19 +291,19 @@ let editarPaciente=async()=>{
           '<div class="form-column">'+
               '<label for="telefono" id="data">Teléfono:<label id="asq">*</label></label>'+
               '<br>'+
-              '<input type="text" enterkeyhint="next"  class="telefono" id="telefono" name="telefono" required>'+
+              '<input type="text" enterkeyhint="next" placeholder="Teléfono de contacto" class="telefono" id="telefono" name="telefono" required>'+
             '</div>'+
           '</div>'+
           '<div class="form-row">'+
           '<div class="form-column">'+
           '<label for="direccion" id="data">Dirección:<label id="asq">*</label></label>'+
           '<br>'+
-          '<input type="text" enterkeyhint="next" enterkeyhint="previous"  class="direccion" id="direccion" name="direccion" required>'+
+          '<input type="text" enterkeyhint="next" enterkeyhint="previous" placeholder="Dirección de la residencia" class="direccion" id="direccion" name="direccion" required>'+
         '</div>'+
             '<div class="form-column">'+
             '<label for="correo" id="data">Correo electrónico:<label id="asq">*</label></label>'+
           '<br>'+
-          '<input type="text" enterkeyhint="next" enterkeyhint="previous"  class="correo" id="correo" name="correo" placeholder="@" required>'+
+          '<input type="text" enterkeyhint="next" enterkeyhint="previous" placeholder="ejemplo@gmail.com" class="correo" id="correo" name="correo" required>'+
             '</div>'+            
           '</div>'+
           '<div class="form-row">'+
@@ -323,7 +323,7 @@ let editarPaciente=async()=>{
               '<a href="perfil.html" class="cancelar" id="cancelar">Cancelar</a>'+
             '</div>'+
             '<div class="btn-save">'+
-              '<button id="actualizarPerfil" type="submit" class="btn btn-primary" data-toggle="modal" data-target="#succesModal" >Actualizar</button>'+
+              '<button id="actualizarPerfil" type="submit" data-toggle="tooltip" data-placement="bottom" title="Actualizar Paciente" class="btn btn-primary" data-toggle="modal" data-target="#succesModal" >Actualizar</button>'+
             '</div>'+
             '</div>'+
             '</div>'+
@@ -358,12 +358,12 @@ else{
           '<div class="form-column">'+
               '<label for="peso" id="data">Peso:<label id="asq">*</label></label>'+
               '<br>'+
-              '<input type="number" step="any" class="peso" id="peso" name="peso" required>'+
+              '<input type="number" step="any" class="peso" id="peso" placeholder="Peso en Kgs." name="peso" required>'+
             '</div>'+
             '<div class="form-column">'+
               '<label for="pesoseco" id="data">Peso Seco:<label id="asq">*</label></label>'+
               '<br>'+
-              '<input type="number" step="any" class="pesoseco" id="pesoseco" name="pesoseco" required>'+
+              '<input type="number" step="any" class="pesoseco" id="pesoseco" placeholder="Peso en Kgs." name="pesoseco" required>'+
             '</div>'+
             
           '</div>'+
@@ -385,7 +385,7 @@ else{
               '<button onclick="cancelar()" class="cancelar">Cancelar</button>'+
             '</div>'+
             '<div class="btn-save">'+
-              '<button type="submit" data-toggle="modal" data-target="#successModal" id="actualizarPerfil">Actualizar</button>'+
+              '<button type="submit" data-toggle="modal" data-toggle="tooltip" data-placement="bottom" title="Actualizar Datos" data-target="#successModal" id="actualizarPerfil">Actualizar</button>'+
             '</div>'+
             '</div>'+
             '</form>';

@@ -15,8 +15,8 @@ let listAlergias = async (alergias) => {
                 '<tr>' +
                 '<td>' + alergia.nombre + '</td>' +
                 '<td>' +
-                '<a href="" data-bs-toggle="modal" data-bs-target="#editaralergia' + cont + '"><img src="../img/editaraler.png" class="imagen-crecible-iconos"  alt="Editar Alergia" id="inhabilitar"></a>' +
-                '<a href="" data-bs-toggle="modal" data-bs-target="#eliminaralergia' + cont + '"><img src="../img/inhabilitar.png" class="imagen-crecible-iconos" alt="Inhabilitar Alergía" id="inhabilitar"></a>' +
+                '<a href="" data-bs-toggle="modal" data-bs-target="#editaralergia' + cont + '" data-toggle="tooltip" data-placement="bottom" title="Editar Alergia"><img src="../img/editaraler.png" class="imagen-crecible-iconos"  alt="Editar Alergia" id="inhabilitar"></a>' +
+                '<a href="" data-bs-toggle="modal" data-bs-target="#eliminaralergia' + cont + '" data-toggle="tooltip" data-placement="bottom" title="Eliminar Alergia"><img src="../img/inhabilitar.png" class="imagen-crecible-iconos" alt="Inhabilitar Alergía" id="inhabilitar"></a>' +
   
                 '</td>' +
                 '</tr>' +
@@ -36,7 +36,7 @@ let listAlergias = async (alergias) => {
                 '<div class="modal-footer">' +
                 '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>' +
   
-                '<button type="submit"  onclick="inhabilitarAlergia(' + alergia.idAlergia + ')" class="btn btn-danger">Eliminar</button>' +
+                '<button type="submit"   onclick="inhabilitarAlergia(' + alergia.idAlergia + ')" data-toggle="tooltip" data-placement="bottom" title="Eliminar Alergia" class="btn btn-danger">Eliminar</button>' +
                 '</div>' +
                 '</div>' +
                 '</div>' +
@@ -52,11 +52,11 @@ let listAlergias = async (alergias) => {
                 '</div>' +
                 '<div class="modal-body">' +
                 '<p>Nombre Actual: ' + alergia.nombre + '</p>' +
-                '<input type="text" id="nombreEditar' + alergia.idAlergia + '"  placeholder="Inserte nuevo nombre de alergia">' +
+                '<input type="text" id="nombreEditar' + alergia.idAlergia + '"  placeholder="Inserte nuevo nombre de alergia" required">' +
                 '</div>' +
                 '<div class="modal-footer">' +
                 '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>' +
-                '<button type="submit" id="editarAlergia" onclick="editarAlergia(' + alergia.idAlergia + ')" class="btn btn-primary">Actualizar</button>' +
+                '<button type="submit" id="editarAlergia"  onclick="editarAlergia(' + alergia.idAlergia + ')" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Actualizar Alergia">Actualizar</button>' +
                 '</div>' +
                 '</div>' +
                 '</div>' +
@@ -64,6 +64,7 @@ let listAlergias = async (alergias) => {
                 '</div>';
             cont++;
         })
+        
     };
     document.getElementById("tablaAlergias").innerHTML = msg;
   };

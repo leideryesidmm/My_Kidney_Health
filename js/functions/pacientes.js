@@ -60,7 +60,7 @@ let pacientesTratados = async () => {
           '</div>' +
           '<div class="modal-footer">' +
           '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>' +
-          '<button type="submit" onclick="inhabilitarPaciente(' + paciente.cedula + ')"" class="btn btn-danger">Inhabilitar</button>' +
+          '<button type="submit" onclick="inhabilitarPaciente(' + paciente.cedula + ')"" data-toggle="tooltip" data-placement="bottom" title="Inhabilitar Paciente" class="btn btn-danger">Inhabilitar</button>' +
           '</div>' +
           '</div>' +
           '</div>' +
@@ -184,7 +184,7 @@ let pacientesInhabilitados = async () => {
           '</div>' +
           '<div class="modal-footer">' +
           '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>' +
-          '<button type="button" onclick="habilitarPaciente(' + paciente.cedula + ')"" class="btn" id="btn-green">Habilitar</button>' +
+          '<button type="button" onclick="habilitarPaciente(' + paciente.cedula + ')"" data-toggle="tooltip" data-placement="bottom" title="Habilitar Paciente" class="btn" id="btn-green">Habilitar</button>' +
           '</div>' +
           '</div>' +
           '</div>' +

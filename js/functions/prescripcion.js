@@ -139,7 +139,7 @@ function generarPrescripciones(){
       '<div class="form-row" >' +
       '<div class="form-column" id="">' +
       '<div class="nocheSeca">' +
-      '<label for="nocheSeca" id="data2">Noche seca: &nbsp</label>' +
+      '<label for="nocheSeca" id="data2" data-toggle="tooltip" data-placement="bottom" title="El paciente no se introduce líquido durante la noche">Noche seca: &nbsp</label>' +
       '<input type="checkbox" id="nocheSeca'+idCantidad+'" name="nocheSeca">' +
       '</div>' +    
       '</div>' +             
@@ -196,7 +196,7 @@ function generarPrescripciones(){
   '<a type="button" href="prescripcionesM.html" class="cancelar">Cancelar</a>' +
   '</div>' +
   '<div class="btn-save">' +
-  '<button type="submit" data-toggle="modal" id="agregarPrescripcion" class="guardarPac">Guardar</button>' +
+  '<button type="submit" data-toggle="modal" id="agregarPrescripcion" data-toggle="tooltip" data-placement="bottom" title="Agregar Prescripcion" class="guardarPac">Guardar</button>' +
   '</div>' +
   '</div>'+
   '</form>';
@@ -774,10 +774,15 @@ let mostrarPrecripcionMedico=async (prescripcion) => {
 document.getElementById("actual").classList.add("active");
 document.getElementById("historico").classList.remove("active");
 prescripcion=await prescripcion;
+let data=localStorage.getItem("datos");
+let dato=JSON.parse(data);
 if(prescripcion===undefined||prescripcion.cita.finalizado===true){
   console.log("no hay prescripcion");
-  let msg='<h3>No hay prescripción activa a la fecha</h3><br>'+
-  '<a href="agregarPrescripcion.html" class="btn btn-primary">Nueva</a>';
+  let msg='<h3>No hay prescripción activa a la fecha</h3><br>';
+  if(dato.usuario==="medico"){
+  msg+=
+  '<a href="agregarPrescripcion.html" data-toggle="tooltip" data-placement="bottom" title="Agregar Prescripción" class="btn btn-primary">Nueva</a>';
+  }
   document.getElementById("cardBody").innerHTML=msg;
   return;
 }
@@ -1082,6 +1087,7 @@ ms += '<div class="form-container">' +
     '<p id="campos">Selecciona la cantidad de prescripciones mensuales</p>' +
     '<form id="paciente-form" onsubmit="obtenerDatosParaEditar(event)">';
 ms +=
+    '<p id="campos"><b>*</b> Campos requeridos</p>'+
     '<div class="form-row">' +
     '<div class="form-column">' +
     '<select  id="selectCantidad">' +
@@ -1164,7 +1170,7 @@ for(var i=0;i<cantidad;i++){
     '<div class="form-row" >' +
     '<div class="form-column" id="">' +
     '<div class="nocheSeca">' +
-    '<label for="nocheSeca" id="data2">Noche seca: &nbsp</label>' +
+    '<label for="nocheSeca" id="data2" data-toggle="tooltip" data-placement="bottom" title="El paciente no se introduce líquido durante la noche">Noche seca: &nbsp</label>' +
     '<input type="checkbox" id="nocheSeca'+idCantidad+'" name="nocheSeca">' +
     '</div>' +    
     '</div>' +             
@@ -1233,7 +1239,7 @@ ms+=
 '<a type="button" href="prescripcionesM.html" class="cancelar">Cancelar</a>' +
 '</div>' +
 '<div class="btn-save">' +
-'<button type="submit" data-toggle="modal" id="editarPrescripcion" class="guardarPac">Actualizar</button>' +
+'<button type="submit" data-toggle="modal" id="editarPrescripcion" data-toggle="tooltip" data-placement="bottom" title="Actualizar Prescripción" class="guardarPac">Actualizar</button>' +
 '</div>' +
 '</div>'+
 '</form>';
@@ -1559,7 +1565,7 @@ msg +=
         </div>
         </div>
         <div class="modal-footer">
-        <button type="button" class="btn btn-warning" onclick="editarChequeo()"data-bs-dismiss="modal">Editar</button>
+        <button type="button" class="btn btn-warning" onclick="editarChequeo()" data-toggle="tooltip" data-placement="bottom" title="Actualizar Chequeos Médicos"data-bs-dismiss="modal">Editar</button>
         <button type="submit" onclick="cerrarChequeo()" class="btn btn-secondary">Cerrar</button>
         </div>
         </div>
@@ -1688,7 +1694,7 @@ msg +=
         </div>
         </div>
         <div class="modal-footer">
-        <button type="button" class="btn btn-warning" onclick="editarVisita()" data-bs-dismiss="modal">Editar</button>
+        <button type="button" class="btn btn-warning" onclick="editarVisita()" data-toggle="tooltip" data-placement="bottom" title="Actualizar Visita a Especialistas" data-bs-dismiss="modal">Editar</button>
         <button type="button" onclick="cerrarModalMostrarVisita()" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
         
         </div>
@@ -1711,8 +1717,8 @@ let paciente= await encontrarPaciente();
 console.log("este es el paciente");
 console.log(paciente);
 if(paciente!=null){
-let cedula=decodeURIComponent(CryptoJS.AES.decrypt(paciente.cedula,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
-let nombre=decodeURIComponent(CryptoJS.AES.decrypt(paciente.nombre,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+let cedula=decodeURIComponent(CryptoJS.AES.decrypt(paciente[0].cedula,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+let nombre=decodeURIComponent(CryptoJS.AES.decrypt(paciente[0].nombre,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
 
 msg+='<div class="modal-dialog">' +
         '<div class="modal-content">' +
@@ -1792,7 +1798,7 @@ msg+='<div class="modal-dialog">' +
         '</div>' +
         '<div class="modal-footer">' +
         '<button type="button" class="btn btn-secondary" href="prescripcionesM.html" data-bs-dismiss="modal">Cancelar</button>' +
-        '<button type="submit"  id="guardarVisita" onclick="crearVisita('+cedula+')" class="btn btn-primary">Guardar</button>' +
+        '<button type="submit" data-toggle="tooltip" data-placement="bottom" title="Agregar Visita Médica" id="guardarVisita" onclick="crearVisita('+cedula+')" class="btn btn-primary">Guardar</button>' +
         '</div>' +
         '</div>' +
         '</div>' +
@@ -1811,8 +1817,8 @@ $("#errorModalChequeoExistente").modal("show");
 else{
 let msg="";
 let paciente= await encontrarPaciente();
-let cedula=decodeURIComponent(CryptoJS.AES.decrypt(paciente.cedula,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
-let nombre=decodeURIComponent(CryptoJS.AES.decrypt(paciente.nombre,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+let cedula=decodeURIComponent(CryptoJS.AES.decrypt(paciente[0].cedula,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+let nombre=decodeURIComponent(CryptoJS.AES.decrypt(paciente[0].nombre,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
 msg +=
 '<div class="modal-dialog modal-lg">' +
 '<div class="modal-content">' +
@@ -1823,7 +1829,10 @@ msg +=
 '</div>' +
 '<div class="modal-body">' +
 '<label class="cedulaPaciente" id="cedulaPaciente"><b>Cédula: </b>' + cedula + '</label>&nbsp&nbsp&nbsp&nbsp&nbsp' +
-'<label class="cedulaPaciente" id="cedulaPaciente"><b>Nombre: </b>' + nombre + '</label>' +
+'<label class="cedulaPaciente" id="cedulaPaciente"><b>Nombre: </b>' + nombre + '</label><br>' +
+'<div id="aviso" style="text-align:center">'+
+'<label id="campos">Los campos no requieren de unidades de medida</label>'+
+'</div>'+
 '<div class="">' +
 '<div class="row">' +
 '<div class="col-6 p-3">' +
@@ -1899,7 +1908,7 @@ msg +=
 '<br>'+
 '<div class="modal-footer">' +
 '<button type="button" class="btn btn-secondary" href="prescripcionesM.html" data-bs-dismiss="modal">Cancelar</button>' +
-'<button type="submit" onclick="crearChequeoMensual(' + cedula + ')"" class="btn btn-primary">Guardar</button>' +
+'<button type="submit" data-toggle="tooltip" data-placement="bottom" title="Agregar Chequeo Médico" onclick="crearChequeoMensual(' + cedula + ')"" class="btn btn-primary">Guardar</button>' +
 '</div>' +
 '</div>' +
 '</div>';
@@ -1928,7 +1937,10 @@ msg +=
         </div>
         <div class="modal-body">
         <label class="cedulaPaciente" id="cedulaPaciente"><b>Cédula: </b>`+cedulaPaciente+`</label>&nbsp&nbsp&nbsp&nbsp&nbsp
-        <label class="cedulaPaciente" id="cedulaPaciente"><b>Nombre: </b>`+nombrePaciente+`</label>
+        <label class="cedulaPaciente" id="cedulaPaciente"><b>Nombre: </b>`+nombrePaciente+`</label><br>
+        <div id="aviso" style="text-align:center">
+        '<label id="campos">Los campos no requieren de unidades de medida</label>
+        </div>
         <input class="form-control" type="number" name="idChequeo" id="editarIdChequeo" value="`+chequeo.idChequeoMensual+ `" hidden>
         <input class="form-control" type="number" name="idCita" id="idCita" value="`+chequeo.cita.idCita+`" hidden>          
         <div class="">
@@ -2002,7 +2014,7 @@ msg +=
         </div>
         <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="cerrarEditarChequeo()">Cancelar</button>
-        <button type="submit" onclick="actualizarChequeo()" class="btn btn-primary">Guardar</button>
+        <button type="submit" data-toggle="tooltip" data-placement="bottom" title="Actualizar Chequeo" onclick="actualizarChequeo()" class="btn btn-primary">Guardar</button>
         </div>
         </div>
         </div>`;
@@ -2126,7 +2138,7 @@ msg +=
         </div>
         <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="submit"  id="guardarVisita" onclick="actualizarVisita()" class="btn btn-primary">Guardar</button>
+        <button type="submit"  id="guardarVisita" onclick="actualizarVisita()" data-toggle="tooltip" data-placement="bottom" title="Actualizar Visita" class="btn btn-primary">Guardar</button>
         </div>
         </div>
         </div>`;

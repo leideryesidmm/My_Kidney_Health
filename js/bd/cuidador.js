@@ -117,7 +117,7 @@ let cuidadorPorPaciente=async()=>{
         cedulaEncriptada=cedul;
       }
   console.log(cedulaEncriptada);
-  const peticion= await fetch(localStorage.getItem("servidorAPI")+'/paciente/cuidador/listCuidadorPacienteByPaciente',{
+  const peticion= await fetch(localStorage.getItem("servidorAPI")+'paciente/cuidador/listCuidadorPacienteByPaciente',{
     method:'POST',
     headers:{
       "Accept":"application/json",
@@ -197,7 +197,7 @@ let cuidadorPorPaciente=async()=>{
       else{
         cedulaEncriptada=cedul;
       }
-      const peticion= await fetch(localStorage.getItem("servidorAPI")+'/paciente/cuidador/listCuidadorPacienteByPaciente',{
+      const peticion= await fetch(localStorage.getItem("servidorAPI")+'paciente/cuidador/listCuidadorPacienteByPaciente',{
         method:'POST',
         headers:{
           "Accept":"application/json",
@@ -649,7 +649,7 @@ let cuidAntiguos = async () => {
       else{
         cedulaEncriptada=cedul;
       }
-  const peticion= await fetch(localStorage.getItem("servidorAPI")+'/paciente/cuidador/listCuidadorPacienteByPaciente',{
+  const peticion= await fetch(localStorage.getItem("servidorAPI")+'paciente/cuidador/listCuidadorPacienteByPaciente',{
     method:'POST',
     headers:{
       "Accept":"application/json",
@@ -807,7 +807,7 @@ let inhabilitarCuidador=async()=>{
 
   const cuidadorActivo = await peticion.json();
   console.log(cuidadorActivo);
-  let cedCuidador = CryptoJS.AES.decrypt(cuidadorActivo.cuidador.cedulaCuidador, cajaNegra).toString(CryptoJS.enc.Utf8);
+  let cedCuidador = decodeURIComponent(CryptoJS.AES.decrypt(cuidadorActivo.cuidador.cedulaCuidador, CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
   let cuidador={
     cedulaCuidador:cedCuidador,
     idCuidadorPaciente:cuidadorActivo.idCuidadorPaciente

@@ -215,7 +215,7 @@ let medicosInhabilitados = async (medicos) => {
           '</div>' +
           '<div class="modal-footer">' +
           '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>' +
-          '<button type="button" onclick="habilitarMedico(' + medico.cedula + ')"" class="btn" id="btn-green">Habilitar</button>' +
+          '<button type="button" onclick="habilitarMedico(' + medico.cedula + ')"" "data-toggle="tooltip" data-placement="bottom" title="Habilitar Profesional" class="btn" id="btn-green">Habilitar</button>' +
           '</div>' +
           '</div>' +
           '</div>' +
@@ -249,7 +249,8 @@ let mostrarInfoMedico=async()=>{
           '<h2>Editar Médico</h2>'+
           '<p id="campos"><b>*</b> Campos requeridos</p>'+
           '<form id="paciente-form" onsubmit="actualizarMedico(event)">';
-          msg+='<div class="form-row">'+
+          msg+='<p id="campos"><b>*</b> Campos requeridos</p>'+
+          '<div class="form-row">'+
               '<div class="form-column">'+
                 '<label for="nombre" id="data">Nombre del médico:<label id="asq">*</label></label>'+
                 '<br>'+
@@ -271,12 +272,12 @@ let mostrarInfoMedico=async()=>{
             '<div class="form-column">'+
             '<label for="documento" id="data">Documento de Identidad:<label id="asq">*</label></label>'+
             '<br>'+
-            '<input type="text" enterkeyhint="next"  class="documento" id="documento" name="documento" required disabled>'+
+            '<input type="text" enterkeyhint="next" placeholder="Número de documento del profesional" class="documento" id="documento" name="documento" required disabled>'+
             '</div>'+
             '<div class="form-column">'+
                 '<label for="telefono" id="data">Teléfono:<label id="asq">*</label></label>'+
                 '<br>'+
-                '<input type="text" enterkeyhint="next"  class="telefono" id="telefono" name="telefono" required>'+
+                '<input type="text" enterkeyhint="next" placeholder="Teléfono de contacto" class="telefono" id="telefono" name="telefono" required>'+
               '</div>'+
             '</div>'+
             '<div class="form-row">'+
@@ -305,7 +306,7 @@ let mostrarInfoMedico=async()=>{
                               '<div class="form-column" id="colcorreo">'+
                     '<label for="correo" id="data">Correo:<label id="asq">*</label></label>'+
                     '<br>'+
-                    '<input type="text" class="correo" id="correo" name="correo" required>'+
+                    '<input type="text" class="correo" placeholder="ejemplo@gmail.com" id="correo" name="correo" required>'+
                   '</div>'+
                   '</div>'+
                   '<div class="buttons">'+
@@ -313,7 +314,7 @@ let mostrarInfoMedico=async()=>{
                     '<a href="administrador.html" class="cancelar">Cancelar</a>'+
                   '</div>'+
                   '<div class="btn-save">'+
-                    '<button type="submit" class="guardarMed">Actualizar</button>'+
+                    '<button type="submit" data-toggle="tooltip" data-placement="bottom" title="Actualizar Profesional" class="guardarMed">Actualizar</button>'+
                   '</div>'+
                   '</div>'
                   '</div>'

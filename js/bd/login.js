@@ -1,9 +1,41 @@
+// Ruta en la que se encuentran los secretos en Vault
+const vaultSecretsPath = 'secret/data/my-app';
+
+// Endpoint de Vault (puedes ajustarlo según sea necesario)
+const vaultUrl = 'http://localhost:8200';
+
+// Token de acceso a Vault
+const vaultToken = '06210776-2730-2903-3721-546203818393';
+
+// URL completa para obtener los secretos
+const apiUrl = `${vaultUrl}/v1/${vaultSecretsPath}`;
+// Configuración de la solicitud HTTP
+const requestOptions = {
+  method: 'GET',
+  headers: {
+    'X-Vault-Token': vaultToken,
+    'Origin': 'http://localhost:8103', 
+  },
+  mode: 'cors',
+  cache: 'no-cache',
+};
+console.log(apiUrl);
+// Realizar la solicitud a Vault
+fetch(apiUrl, requestOptions)
+  .then(response => response.json())
+  .then(data => {
+    console.log('Secretos de Vault:', data.data);
+  })
+  .catch(error => {
+    console.error('Error al obtener secretos de Vault:', error);
+  });
+
+
+
+
 let servidorAPI = "http://localhost:8104/";
 let iv = "vuens_soha=6jh36";
-let iv2= "bs72/=a12dx=o=pl";
 let cajaNegra2="vfjdnjefh37/ps=3";
-let cajaNegra="clave_secreta";
-let backend="y362_02j=27w/=42";
 function isAuthenticated() {
   return localStorage.getItem("authenticated") === "true";
 }
@@ -54,7 +86,7 @@ if(cedulaDesencriptada===username && contraseniaDesencriptada===password){
       localStorage.setItem("authenticated", "true");
       let usuario="administrador";
       datos={
-      cedula:administrador[0].cedula, usuario:usuario, token:administrador[1]}
+      cedula:administrador[0].cedula, contrasenia:administrador[0].contrasenia, usuario:usuario, token:administrador[1]}
       const data = JSON.stringify(datos);
       localStorage.setItem("datos", data);
       localStorage.setItem("servidorAPI", servidorAPI);
@@ -91,7 +123,7 @@ console.log(peticion.status);
       let usuario="paciente";
       
       datos={
-      cedula:paciente[0].cedula, usuario:usuario,token:paciente[1]
+      cedula:paciente[0].cedula, contrasenia:paciente[0].contrasenia, usuario:usuario,token:paciente[1]
       }
       const data = JSON.stringify(datos);
       localStorage.setItem("datos", data);
@@ -134,7 +166,7 @@ if(cedulaDesencriptada===username && contraseniaDesencriptada===password){
         localStorage.setItem("authenticated", "true");
         let usuario="medico"
         datos={
-        cedula:medico[0].cedula, usuario:usuario, token:medico[1]}
+        cedula:medico[0].cedula, contrasenia:medico[0].contrasenia, usuario:usuario, token:medico[1]}
         const data = JSON.stringify(datos);
         localStorage.setItem("datos", data);
         console.log(data)

@@ -408,22 +408,22 @@ let encontrarMedico = async () => {
   console.log(medico);
 
   
-    var decryptedNombre = decodeURIComponent(CryptoJS.AES.decrypt(medico.nombre,CryptoJS.enc.Utf8.parse(cajaNegra2),
+    var decryptedNombre = decodeURIComponent(CryptoJS.AES.decrypt(medico[0].nombre,CryptoJS.enc.Utf8.parse(cajaNegra2),
     {iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
   document.getElementById("nombre").value = decryptedNombre;
 
-  var decryptedCedula = decodeURIComponent(CryptoJS.AES.decrypt(medico.cedula,CryptoJS.enc.Utf8.parse(cajaNegra2),
+  var decryptedCedula = decodeURIComponent(CryptoJS.AES.decrypt(medico[0].cedula,CryptoJS.enc.Utf8.parse(cajaNegra2),
     {iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
   document.getElementById("documento").value = decryptedCedula;
 
-  var telefono = decodeURIComponent(CryptoJS.AES.decrypt(medico.celular,CryptoJS.enc.Utf8.parse(cajaNegra2),
+  var telefono = decodeURIComponent(CryptoJS.AES.decrypt(medico[0].celular,CryptoJS.enc.Utf8.parse(cajaNegra2),
     {iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
   document.getElementById("telefono").value = telefono;
   
 
 
   const selectDocumento = document.getElementById('selectedDocumento');
-  const descripcionDocumento= decodeURIComponent(CryptoJS.AES.decrypt(medico.tipoDocumento,CryptoJS.enc.Utf8.parse(cajaNegra2),
+  const descripcionDocumento= decodeURIComponent(CryptoJS.AES.decrypt(medico[0].tipoDocumento,CryptoJS.enc.Utf8.parse(cajaNegra2),
     {iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
   console.log(descripcionDocumento);
   
@@ -434,9 +434,9 @@ let encontrarMedico = async () => {
   })
   
   const selectEspecialidad = document.getElementById('selectedEspecialidad');
-  console.log(medico.especialidad.descripcion);
+  console.log(medico[0].especialidad.descripcion);
 
-  especialidad=medico.especialidad.descripcion;
+  especialidad=medico[0].especialidad.descripcion;
   console.log(selectEspecialidad.options);
   console.log("especialidad 1");
     console.log(Array.from(selectEspecialidad.options));
@@ -454,7 +454,7 @@ let encontrarMedico = async () => {
 
   const selectProfesion = document.getElementById('selectedProfesion');
   const profesion= decodeURIComponent(CryptoJS.AES.decrypt(
-    medico.profesion,
+    medico[0].profesion,
     CryptoJS.enc.Utf8.parse(cajaNegra2),
     {
         iv: CryptoJS.enc.Utf8.parse(iv),
@@ -470,7 +470,7 @@ console.log(Array.from(selectProfesion.options));
     }
   })
 
-  var correo = decodeURIComponent(CryptoJS.AES.decrypt(medico.correo,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
+  var correo = decodeURIComponent(CryptoJS.AES.decrypt(medico[0].correo,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
   document.getElementById("correo").value=correo;
  
 }
@@ -560,9 +560,9 @@ let actualizarMedico = async(event) => {
             break;
         }
   
-  let documento = medico.cedula;
-  let activo = medico.activo;
-  let contrasenia = medico.contrasenia;
+  let documento = medico[0].cedula;
+  let activo = medico[0].activo;
+  let contrasenia = medico[0].contrasenia;
 
   
   let profesionEncriptada=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(profesion)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
@@ -607,6 +607,37 @@ let actualizarMedico = async(event) => {
     .catch(error => {
       console.error(error);
     });
+}
+
+let listaEspecialidad = async () => {
+  let data = localStorage.getItem("datos");
+    let dato=JSON.parse(data);
+  const peticion = await fetch(localStorage.getItem("servidorAPI") + "Medico/findAllEspecialidad", {
+    method: "GET",
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "Authorization": dato.token
+    }
+  });
+  
+  const selectEspecialidad = document.getElementById('selectEspecialidad');
+  console.log(selectEspecialidad);
+  const especialidades = await peticion.json();
+    console.log(especialidades);
+  
+  if (selectEspecialidad.length === 0) {
+    
+    const optionSeleccionar = document.createElement('option');
+    optionSeleccionar.textContent = "Seleccione...";
+    selectEspecialidad.appendChild(optionSeleccionar);
+    especialidades.forEach(especialidad => {
+      const option = document.createElement('option');
+      option.value = especialidad.idEspecialidad;
+      option.textContent = especialidad.descripcion;
+      selectEspecialidad.appendChild(option);
+    });
+  }
 }
 
 
