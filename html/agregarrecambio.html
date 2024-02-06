@@ -30,29 +30,29 @@
         <main class="form-container">
           <h5>Agregar Recambio</h5>
       <form id="editarMedicamento" onsubmit="guardarRecambio(event)">
-
+        <p id="campos"><b>*</b> Campos requeridos</p>
         <div class="liquidoEntrante">
-          <label for="liquid">Líquido entrante:</label>
-          <input type="number" enterkeyhint="next"  name="liquidoEntrante" id="liquidoEntrante" class="liquidoEntrante" required>
+          <label for="liquid">Líquido entrante:<label id="asq">*</label></label>
+          <input type="number" enterkeyhint="next" placeholder="Cantidad de líquido entrante en ml" name="liquidoEntrante" id="liquidoEntrante" class="liquidoEntrante" required>
         </div>
 
         <div class="drenaje">
-          <label for="dren">Drenaje:</label>
-          <input type="number" enterkeyhint="next"  min="0" name="drenaje" id="drenaje" class="drenaje" required>
+          <label for="dren">Drenaje:<label id="asq">*</label></label>
+          <input type="number" enterkeyhint="next"  min="0" placeholder="Cantidad de líquido drenado" name="drenaje" id="drenaje" class="drenaje" required>
         </div>
   
         <div class="fechaInicio">
-          <label for="fechaHoraIni">Fecha y hora inicial: </label>
-          <input type="datetime-local" enterkeyhint="next" enterkeyhint="previous"  id="fechaHoraIni" name="fechaHora" class="form-control" required>
+          <label for="fechaHoraIni">Fecha y hora inicial:<label id="asq">*</label></label>
+          <input type="datetime-local" enterkeyhint="next" placeholder="DD/MM/AAAA HH:MM:SS" enterkeyhint="previous"  id="fechaHoraIni" name="fechaHora" class="form-control" required>
         </div>
       
         <div class="fechaFinal">
-          <label for="fechaHoraFin">Fecha y hora Final: </label>
-          <input type="datetime-local" id="fechaHoraFin" name="fechaHora" class="form-control" required>
+          <label for="fechaHoraFin">Fecha y hora Final:<label id="asq">*</label></label>
+          <input type="datetime-local" id="fechaHoraFin" placeholder="DD/MM/AAAA HH:MM:SS" name="fechaHora" class="form-control" required>
         </div>
         
         <div class="caracteristica">
-          <label for="caracLiq">Características del líquido:</label>
+          <label for="caracLiq">Características del líquido:<label id="asq">*</label></label>
           <select class="form-select form-select-sm" id="selectLiquido" aria-label=".form-select-lg example" class="custom-select" required>
               <option selected>Seleccione...</option>
               <option value="Transparente">Transparente</option>
@@ -61,7 +61,7 @@
           </select>
         </div>
     
-        <label id="msg-orificio">¡Por favor, seleccionar la imagen, a la cual es más parecido su orificio de salida! </label>
+        <label id="msg-orificio">¡Por favor, seleccionar la imagen, a la cual es más parecido su orificio de salida! </label><label id="asq">*</label>
         <br>
         <div id="contenedorImagenes" >
           <div class="opcion">

@@ -31,34 +31,35 @@
         <section class="form-container">
             <h5>Agregar Cuidador</h5>
             <form onsubmit="crearCuidador()">
+              <p id="campos"><b>*</b> Campos requeridos</p>
                 <div class="cedCuidador">
-                    <label for="cedula_cuidador">Cédula:</label>
-                    <input type="text" enterkeyhint="next" name="cedula_cuidador" id="cedula_cuidador" class="cedula_cuidador" required>
+                    <label for="cedula_cuidador">Cédula:<label id="asq">*</label></label>
+                    <input type="text" enterkeyhint="next" name="cedula_cuidador" id="cedula_cuidador" class="cedula_cuidador" placeholder="Número de documento" required>
                 </div>
 
                 <div class="name">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" name="nombre" id="nombre" class="nombre" required>
+                    <label for="nombre">Nombre:<label id="asq">*</label></label>
+                    <input type="text" name="nombre" placeholder="Nombre del cuidador" id="nombre" class="nombre" required>
                 </div>
 
                 <div class="parents">
-                    <label for="selectedParentesco">Parentesco:</label>
+                    <label for="selectedParentesco">Parentesco:<label id="asq">*</label></label>
                     <select id="selectedParentesco" class="custom-select" required></select>
                 </div>
 
                 <div class="address">
-                    <label for="direccion">Dirección:</label>
-                    <input type="text" enterkeyhint="next" enterkeyhint="previous" name="direccion" id="direccion" class="direccion" required>
+                    <label for="direccion">Dirección:<label id="asq">*</label></label>
+                    <input type="text" enterkeyhint="next" placeholder="Dirección del cuidador" enterkeyhint="previous" name="direccion" id="direccion" class="direccion" required>
                 </div>
 
                 <div class="tlf">
-                    <label for="tel">Teléfono:</label>
-                    <input type="text" enterkeyhint="send" name="telefono" id="telefono" class="telefono" required>
+                    <label for="tel">Teléfono:<label id="asq">*</label></label>
+                    <input type="text" enterkeyhint="send" placeholder="Teléfono de contacto del cuidador" name="telefono" id="telefono" class="telefono" required>
                 </div>
 
     <section class="btn-container">
         <a href="cuidador.html" class="btn-cancelar">Cancelar</a>
-        <button class="btn-nuevo" data-toggle="modal" data-target="#succesModal" id="guardarCuidador" >Guardar</button>
+        <button class="btn-nuevo" data-toggle="modal" data-target="#succesModal" data-toggle="tooltip" data-placement="bottom" title="Agregar Cuidador" id="guardarCuidador" >Guardar</button>
     </section>
 </form>
 </section>

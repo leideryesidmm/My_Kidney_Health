@@ -137,6 +137,18 @@ height: 35px;
     content: "";
   }
 
+  #campos{
+    color:red;
+    margin-left: 5%;
+    margin-bottom: 0;
+  }
+  
+  #asq{
+    color: red;
+    font-weight: bold;
+        font-size: 14px;
+  }
+
 
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */

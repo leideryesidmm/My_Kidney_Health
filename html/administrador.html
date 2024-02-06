@@ -75,7 +75,7 @@
     <h2>Profesionales de la salud activos</h2>
     <aside class="row text-end">
     <div class="btn-nuevo-container">
-      <a href="agregarMedico.html"><button type="button" id="nuevo" class="btn btn-primary">Nuevo</button></a>
+      <a href="agregarMedico.html"><button type="button" data-toggle="tooltip" data-placement="bottom" title="Agregar Profesional" id="nuevo" class="btn btn-primary">Nuevo</button></a>
 </div></aside>
 
     <div class="medicos" id="medicos">
@@ -100,6 +100,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+              <p id="campos"><b>*</b> Campos requeridos</p>
               <div class="contrasenia">
                 <p>Contraseña actual: <label id="asq">*</label></p>
                 <div class="input-container">

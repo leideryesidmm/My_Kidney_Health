@@ -84,7 +84,7 @@
     <h2>Pacientes activos</h2>
     <section class="row text-end">
     <div class="btn-nuevo-container">
-      <a href="../html/agg-pacientes.html"><button type="button" id="nuevo" class="btn btn-primary">Nuevo</button></a>
+      <a href="../html/agg-pacientes.html"><button type="button" id="nuevo" data-toggle="tooltip" data-placement="bottom" title="Agregar Paciente" class="btn btn-primary">Nuevo</button></a>
 </div></section>
 
     <section class="pacientes" id="pacientes">
@@ -109,6 +109,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+              <p id="campos"><b>*</b> Campos requeridos</p>
               <div class="contrasenia">
                 <p>Contraseña actual: <label id="asq">*</label></p>
                 <div class="input-container">

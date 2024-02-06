@@ -25,9 +25,10 @@
     <h5>Cambiar Contraseña</h5>
     <label class="security">Por seguridad se le recomienda cambiar la contraseña por defecto que tiene</label>
 <form id="cambioContrasenia" onsubmit="cambioContraseniaAlIniciar(event)">
+  <p id="campos"><b>*</b> Campos requeridos</p>
     <div class="contrasenia">
-        <label for="contrasenia">Nueva Contraseña:</label>
-        <input type="text" name="newcontrasenia" id="newcontrasenia" class="newcontrasenia">
+        <label for="contrasenia">Nueva Contraseña:<label id="asq">*</label></label>
+        <input type="text" name="newcontrasenia" placeholder="Nueva contraseña" id="newcontrasenia" class="newcontrasenia" required>
     </div>
 <div class="errorMensaje" id="errorMensaje"></div>
 <br>

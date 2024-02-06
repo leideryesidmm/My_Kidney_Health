@@ -123,6 +123,16 @@ input, select{
 height: 35px;
 }
 
+#campos{
+  color:rgb(253, 50, 50);
+  margin-bottom: 0;
+}
+
+#asq{
+  color: rgb(253, 50, 50);
+  font-weight: bold;
+      font-size: 14px;
+}
 
 .btn-cancelar{
     

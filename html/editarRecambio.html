@@ -28,30 +28,31 @@
 
         <main class="form-container">
           <h5>Editar Recambio</h5>
+          
       <form id="editarMedicamento" onsubmit="editarRecambio(event)">
-
+        <p id="campos"><b>*</b> Campos requeridos</p>
         <div class="liquidoEntrante">
-          <label for="liquid">Líquido entrante:</label>
-          <input type="number" enterkeyhint="next"  name="liquidoEntrante" id="liquidoEntrante" class="liquidoEntrante" required>
+          <label for="liquid">Líquido entrante:<label id="asq">*</label></label>
+          <input type="number" enterkeyhint="next"  name="liquidoEntrante" id="liquidoEntrante" class="liquidoEntrante" placeholder="Cantidad liquido entrante" required>
         </div>
 
         <div class="drenaje">
-          <label for="dren">Drenaje:</label>
-          <input type="number" name="drenaje" min="0" max="4000" id="drenaje" class="drenaje" required>
+          <label for="dren">Drenaje:<label id="asq">*</label></label>
+          <input type="number" name="drenaje" placeholder="Cantidad líquido drenado" min="0" max="4000" id="drenaje" class="drenaje" required>
         </div>
   
         <div class="concentracion">
-          <label for="fechaHoraIni">Fecha y hora inicial: </label>
+          <label for="fechaHoraIni">Fecha y hora inicial:<label id="asq">*</label></label>
           <input type="datetime-local"  id="fechaHoraIni" name="fechaHora" class="form-control" required>
         </div>
       
         <div class="concentracion">
-          <label for="fechaHoraFin">Fecha y hora Final: </label>
+          <label for="fechaHoraFin">Fecha y hora Final:<label id="asq">*</label></label>
           <input type="datetime-local"   id="fechaHoraFin" name="fechaHora" class="form-control" required>
         </div>
         
         <div class="caracteristica">
-          <label for="caracLiq">Características del líquido:</label>
+          <label for="caracLiq">Características del líquido:<label id="asq">*</label></label>
           <select class="form-select form-select-sm" id="selectLiquido" aria-label=".form-select-lg example" class="custom-select" required>
               <option selected>Seleccione...</option>
               <option value="Transparente">Transparente</option>
@@ -120,7 +121,7 @@
         </div>
         <div class="btn-container">
           <a href="prescripciones.html" class="btn-cancelar">Cancelar</a>
-          <button type="submit" class="btn-nuevo">Actualizar</button>
+          <button type="submit" data-toggle="tooltip" data-placement="bottom" title="Actualizar Recambio" class="btn-nuevo">Actualizar</button>
       </div>
           </form>
         </main>

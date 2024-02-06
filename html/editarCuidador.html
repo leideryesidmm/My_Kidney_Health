@@ -28,35 +28,36 @@
 <main class="form-container">
     <h5>Editar Cuidador</h5>
 <form id="editarCuidador">
+  <p id="campos"><b>*</b> Campos requeridos</p>
     <div class="cc" hidden>
         <label for="cedulaCuidador">Cuidador:</label>
         <input type="text" name="cedula_cuidador" enterkeyhint="next" id="cedulaCuidador" class="cedula_cuidador">
     </div>
 
     <div class="name">
-        <label for="nombre">Nombre:</label>
-        <input type="text" name="nombre"   id="name" class="nombre" required>
+        <label for="nombre">Nombre:<label id="asq">*</label></label>
+        <input type="text" name="nombre"   id="name" class="nombre" placeholder="Nombre del cuidador" required>
     </div>
 
     <div class="parents">
-        <label for="selectedParentesco">Parentesco:</label>
+        <label for="selectedParentesco">Parentesco:<label id="asq">*</label></label>
         <select id="selectedParentesco" class="custom-select" required></select>
     </div>
 
     <div class="address">
-        <label for="add">Dirección:</label>
-        <input type="text" enterkeyhint="next" enterkeyhint="previous"  name="direccion" id="address" class="direccion"required>
+        <label for="add">Dirección:<label id="asq">*</label></label>
+        <input type="text" enterkeyhint="next" enterkeyhint="previous" placeholder="Dirección del cuidador" name="direccion" id="address" class="direccion"required>
     </div>
 
     <div class="tlf">
-        <label for="tel">Teléfono:</label>
-        <input type="text" enterkeyhint="send"  name="telefono" id="telf" class="telefono" required>
+        <label for="tel">Teléfono:<label id="asq">*</label></label>
+        <input type="text" enterkeyhint="send"  name="telefono" id="telf" placeholder="Teléfoco del cuidador" class="telefono" required>
     </div>
 
     </form>
     <section class="btn-container">
         <a href="cuidador.html" class="btn-cancelar">Cancelar</a>
-        <button onclick="actualizarCuidador()" data-toggle="modal" data-target="#succesModal" type="submit" class="btn-nuevo" id="actCuid">Actualizar</button>
+        <button onclick="actualizarCuidador()" data-toggle="modal" data-target="#succesModal" type="submit" class="btn-nuevo" data-toggle="tooltip" data-placement="bottom" title="Actualizar Cuidador" id="actCuid">Actualizar</button>
         
     </section>
   </main>
