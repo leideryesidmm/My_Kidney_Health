@@ -15,11 +15,9 @@ let obtenerCedulaEncriptada=async(cedula)=>{
     }
     });
       const pacientes=await peticion.json();
-      console.log(pacientes);
       pacientes.forEach(paciente=>{
         let decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, cajaNegra).toString(CryptoJS.enc.Utf8);
         const cedulaCodificado = encodeURIComponent(decryptedCedula);
-        console.log(decryptedCedula);
         if(cedula===cedulaCodificado)
         cedulaEncriptada=paciente.cedula;
         
@@ -41,7 +39,6 @@ let crearCuidador = async () => {
   let dato=JSON.parse(data);
       let cedul= dato.cedula;
     let cuidadores = await cuidadorPorPaciente();
-    console.log(cuidadores);
     var cedula_cuidador = document.getElementById('cedula_cuidador').value;
     var nombre = document.getElementById('nombre').value;
     var selectedOption = selectedParentesco.options[selectedParentesco.selectedIndex];
@@ -75,8 +72,6 @@ let crearCuidador = async () => {
         cuidadorInDto:cuidador,
         pacienteInDto:paciente
       }
-      console.log(cuidador);
-      console.log(paciente);
       fetch(localStorage.getItem("servidorAPI") + 'paciente/cuidador/crear', {
         method: 'POST',
         headers: {
@@ -109,20 +104,16 @@ let cuidadorPorPaciente=async()=>{
   await obtenerIv();
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
-  console.log(data);
       let usuario = dato.usuario;
       let cedul= dato.cedula;
-      console.log(cedul);
-      console.log(usuario);
 
       let cedulaEncriptada="";
       if(usuario=="medico"){
        cedulaEncriptada = await obtenerCedulaEncriptada(0,CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
-      console.log(cedulaEncriptada);}
+      }
       else{
         cedulaEncriptada=cedul;
       }
-  console.log(cedulaEncriptada);
   const peticion= await fetch(localStorage.getItem("servidorAPI")+'paciente/cuidador/listCuidadorPacienteByPaciente',{
     method:'POST',
     headers:{
@@ -136,7 +127,6 @@ let cuidadorPorPaciente=async()=>{
       });
       
       const cuidadores=await peticion.json();
-      console.log(cuidadores);
       let decryptedCedulas = [];
       cuidadores.forEach(cuidador=>{
         let decryptedCedula = decodeURIComponent(CryptoJS.AES.decrypt(cuidador.cuidador.cedulaCuidador, CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
@@ -146,45 +136,6 @@ let cuidadorPorPaciente=async()=>{
       return decryptedCedulas;
     }
 
-    /*let cuidadorPorPaciente=async()=>{
-      let data = localStorage.getItem("datos");
-      let dato=JSON.parse(data);
-      console.log(data);
-          let usuario = dato.usuario;
-          let cedul= dato.cedula;
-          console.log(cedul);
-          console.log(usuario);
-    
-          let cedulaEncriptada="";
-          if(usuario=="medico"){
-           cedulaEncriptada = await obtenerCedulaEncriptada(0,CryptoJS.AES.decrypt(decodeURIComponent(localStorage.getItem("cedulaPaciente")), "clave_secreta").toString(CryptoJS.enc.Utf8));
-          console.log(cedulaEncriptada);}
-          else{
-            cedulaEncriptada=cedul;
-          }
-      console.log(cedulaEncriptada);
-      const peticion= await fetch(localStorage.getItem("servidorAPI")+'/paciente/cuidador/listCuidadorPacienteByPaciente',{
-        method:'POST',
-        headers:{
-          "Accept":"application/json",
-          "Content-Type": "application/json"
-        },
-        body:JSON.stringify({
-          cedula:cedulaEncriptada
-        })
-          });
-          
-          const cuidadores=await peticion.json();
-          console.log(cuidadores);
-          let decryptedCedulas = [];
-          cuidadores.forEach(cuidador=>{
-            let decryptedCedula = CryptoJS.AES.decrypt(cuidador.cuidador.cedulaCuidador, cajaNegra).toString(CryptoJS.enc.Utf8);
-            decryptedCedulas.push(decryptedCedula);
-            
-          })
-          return decryptedCedulas;
-        }*/
-
 
   let cuidadoresAntiguos = async () => {
   await obtenerClave();
@@ -192,16 +143,13 @@ let cuidadorPorPaciente=async()=>{
       const cuidadoresDesencriptados = new Set();
       let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
-  console.log(data);
       let usuario = dato.usuario;
       let cedul= dato.cedula;
-      console.log(cedul);
-      console.log(usuario);
 
       let cedulaEncriptada="";
       if(usuario=="medico"){
         cedulaEncriptada = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(localStorage.getItem("cedulaPaciente"))), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
-      console.log(cedulaEncriptada);}
+      }
       else{
         cedulaEncriptada=cedul;
       }
@@ -221,7 +169,6 @@ let cuidadorPorPaciente=async()=>{
         return null;
       } else {
         const cuidadores = await peticion.json();
-    console.log(cuidadores)
         const peticion2 = await fetch(localStorage.getItem("servidorAPI") + "paciente/cuidador/findCuidadorActivo", {
           method: "POST",
           headers: {
@@ -245,7 +192,6 @@ let cuidadorPorPaciente=async()=>{
             var telefono = decodeURIComponent(CryptoJS.AES.decrypt(cuidador.cuidador.telefono, CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
 
             var activo=cuidador.activo;
-            console.log("esta:" + activo)
             const cuidadorDesencriptado = {
               cedulaCuidador: cedulaCuidador,
               nombre: nombre,
@@ -264,7 +210,6 @@ let cuidadorPorPaciente=async()=>{
     
           cuidadores.forEach(cuidador => {
             let cedAntiguo = cuidador.cuidador.cedulaCuidador;
-            console.log(cuidador);
             // Compara la cédula del cuidador actual con la cédula del cuidador activo
             if (cedAntiguo !== cedCuidadorActivo) {
               // Si no son iguales, añade el cuidador a la lista de desencriptados
@@ -277,7 +222,6 @@ let cuidadorPorPaciente=async()=>{
               let telefono = decodeURIComponent(CryptoJS.AES.decrypt(cuidador.cuidador.telefono, CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
 
               let activo = cuidador.activo;
-              console.log("esta:" + activo)
 
               const cuidadorDesencriptado = {
                 cedulaCuidador: cedulaCuidador,
@@ -292,32 +236,25 @@ let cuidadorPorPaciente=async()=>{
           });
         }        
   
-  // Aplicar el filtro a la lista
   const listaFiltrada = Array.from(cuidadoresDesencriptados).filter(filtrarLista);
 
-  // Mostrar el resultado
-  console.log(listaFiltrada);
         const CuidadoresDesencriptadosSinRepetir = Array.from(cuidadoresDesencriptados).map(cuidador => JSON.parse(cuidador));
-        console.log(CuidadoresDesencriptadosSinRepetir)
         return CuidadoresDesencriptadosSinRepetir;
       }
     };
 
     function filtrarLista(objeto, index, self) {
-      // Buscar el índice de la primera aparición del objeto con la misma cedulaCuidador
       const primeraAparicionIndex = self.findIndex((obj) => obj.cedulaCuidador === objeto.cedulaCuidador);
   
-      // Verificar si la cedulaCuidador no está repetida
       const cedulaCuidadorNoRepetida = index === primeraAparicionIndex;
   
-      // Si la cedulaCuidador está repetida, comparar el activo para seleccionar el objeto correcto
       if (!cedulaCuidadorNoRepetida) {
-          return objeto.activo; // Solo mantener el objeto si activo es true
+          return objeto.activo; 
       }
   
-      // Si la cedulaCuidador no está repetida, mantener el objeto si activo es true
       return objeto.activo;
   }
+
     let listaParentesco = async () => {
       let data = localStorage.getItem("datos");
       let dato=JSON.parse(data);
@@ -383,19 +320,15 @@ let cuidadorPorPaciente=async()=>{
 let cuidadorActivo= async()=>{
   await obtenerClave();
   await obtenerIv();
-  console.log("SI ENTRO A CUIDADORACTIVO")
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
-  console.log("AES");
       let usuario = dato.usuario;
       let cedul= dato.cedula;
-      console.log(cedul);
-      console.log(usuario);
   
       let cedulaEncriptada="";
       if(usuario=="medico"||usuario=="administrador"){
         cedulaEncriptada = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(localStorage.getItem("cedulaPaciente"))), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
-        console.log(cedulaEncriptada);}
+        }
       else{
         cedulaEncriptada=cedul;
       }
@@ -412,12 +345,10 @@ let cuidadorActivo= async()=>{
   });
   let cuidadorDesencriptado={}
   if(peticion.status===204){
-    console.log("no")
     return null;
   }
     else{
     const cuidador=await peticion.json();
-    console.log(cuidador);
   var decryptedCedula = decodeURIComponent(CryptoJS.AES.decrypt(cuidador.cuidador.cedulaCuidador, CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
   var decryptedNombre = decodeURIComponent(CryptoJS.AES.decrypt(cuidador.cuidador.nombre, CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
   var decryptedDireccion = decodeURIComponent(CryptoJS.AES.decrypt(cuidador.cuidador.direccion, CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
@@ -430,11 +361,6 @@ let cuidadorActivo= async()=>{
   cuidadorDesencriptado.telefono=decryptedTelefono;
   cuidadorDesencriptado.parentesco=parentesco;
   }
-  /*document.getElementById("cedula_cuidador").innerText = decryptedCedula;
-  document.getElementById("nombre").innerText = decryptedNombre;
-  document.getElementById("telefono").innerText = decryptedTelefono;
-  document.getElementById("direccion").innerText = decryptedDireccion;
-  document.getElementById("parentesco").innerText = cuidador.cuidador.parentesco.descripcion;*/
   return cuidadorDesencriptado;
 }
 
@@ -443,16 +369,13 @@ let cuidadorActivo= async()=>{
   await obtenerIv();
       let data = localStorage.getItem("datos");
       let dato=JSON.parse(data);
-      console.log(data);
           let usuario = dato.usuario;
           let cedul= dato.cedula;
-          console.log(cedul);
-          console.log(usuario);
     
           let cedulaEncriptada="";
           if(usuario=="medico"||usuario=="administrador"){
             cedulaEncriptada = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(localStorage.getItem("cedulaPaciente"))), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
-            console.log(cedulaEncriptada);}
+            }
           else{
             cedulaEncriptada=cedul;
           }
@@ -493,86 +416,6 @@ let cuidadorActivo= async()=>{
     }
     
 
-/*let encontrarCuidador = async () => {
-  const peticion = await fetch(servidorAPI + "paciente/cuidador/findCuidadorActivo/" + cedula, {
-    method: "GET",
-    headers: {
-      "Accept": "application/json",
-      "Content-Type": "application/json"
-    }
-  });
-
-  const cuidador = await peticion.json();
-
-  var decryptedCedula = CryptoJS.AES.decrypt(cuidador.cuidador.cedulaCuidador, cajaNegra).toString(CryptoJS.enc.Utf8);
-  var decryptedNombre = CryptoJS.AES.decrypt(cuidador.cuidador.nombre, cajaNegra).toString(CryptoJS.enc.Utf8);
-  var decryptedDireccion = CryptoJS.AES.decrypt(cuidador.cuidador.direccion, cajaNegra).toString(CryptoJS.enc.Utf8);
-  var decryptedTelefono = CryptoJS.AES.decrypt(cuidador.cuidador.telefono, cajaNegra).toString(CryptoJS.enc.Utf8);
-
-  document.getElementById("cedula_cuidador").value = decryptedCedula;
-  document.getElementById("nombre").value = decryptedNombre;
-  document.getElementById("telefono").value = decryptedTelefono;
-  document.getElementById("direccion").value = decryptedDireccion;
-  
-  document.getElementById("selectParentesco").selectedIndex=cuidador.cuidador.parentesco.idParentesco;
-}
-  /*const selectParentesco = document.getElementById('selectParentesco');
-  const valorParentesco = cuidador.cuidador.parentesco.idParentesco;
-
-  // Verificar si ya existe una opción con el mismo valor antes de agregarla nuevamente
-  const existingOption = selectParentesco.querySelector(`option[value="${valorParentesco}"]`);
-  if (existingOption) {
-    selectParentesco.removeChild(existingOption);
-  }
-
-  // Crear un nuevo elemento option con el parentesco obtenido y colocarlo como el primer hijo del select
-  const option = document.createElement('option');
-  option.value = valorParentesco;
-  option.textContent = valorParentesco;
-  selectParentesco.insertBefore(option, selectParentesco.firstChild);
-}*/
-  
-/*
-    var cedulaCuidador = document.getElementById('cedula_cuidador').value;
-    var nombre = document.getElementById('nombre').value;
-    var parentesco = document.getElementById('parentesco').value;
-    var direccion = document.getElementById('direccion').value;
-    var telefono = document.getElementById('telefono').value;
-
-    var encryptedCedulaC = CryptoJS.AES.encrypt(cedulaCuidador, cajaNegra).toString();
-    var encryptedNombre = CryptoJS.AES.encrypt(nombre, cajaNegra).toString();
-    var encryptedDireccion = CryptoJS.AES.encrypt(direccion, cajaNegra).toString();
-    var encryptedTelefono = CryptoJS.AES.encrypt(telefono, cajaNegra).toString();
-
-    fetch(servidorAPI + 'paciente/cuidador/actualizar/' + cedula, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        cedulaCuidador: encryptedCedulaC,
-        nombre: encryptedNombre,
-        parentesco: parentesco,
-        direccion: encryptedDireccion,
-        telefono: encryptedTelefono
-      })
-    })
-    .then(response => response.json())
-    .then(data => {
-      // Manejar la respuesta de la API después de la edición
-      console.log(data);
-      // Redireccionar a la página de cuidador o realizar otras acciones necesarias
-      location.href = 'cuidador.html';
-    })
-    .catch(error => {
-      // Manejar el error de la petición
-      console.error(error);
-    });
-  });
-}
-}
-*/
-
 let actualizarCuidador = async () => {
   await obtenerClave();
   await obtenerIv();
@@ -581,16 +424,13 @@ let actualizarCuidador = async () => {
   botonActualizar.disabled = true;
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
-  console.log(data);
       let usuario = dato.usuario;
       let cedul= dato.cedula;
-      console.log(cedul);
-      console.log(usuario);
 
       let cedulaEncriptada="";
       if(usuario=="medico"||usuario=="administrador"){
         cedulaEncriptada = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(localStorage.getItem("cedulaPaciente"))), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
-        console.log(cedulaEncriptada);}
+        }
       else{
         cedulaEncriptada=cedul;
       }
@@ -615,8 +455,6 @@ let actualizarCuidador = async () => {
   let nombre = document.getElementById("name").value;
   let parentesco = document.getElementById("selectedParentesco").value;
   let telefono = document.getElementById("telf").value;
-  console.log(direccion, nombre, parentesco,telefono);
-  //cedula: decryptedCedula;
  let cuidador = {
     direccion:  CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(direccion)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString(),
     nombre: CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(nombre)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString(),
@@ -652,16 +490,13 @@ let cuidAntiguos = async () => {
   await obtenerIv();
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
-  console.log(data);
       let usuario = dato.usuario;
       let cedul= dato.cedula;
-      console.log(cedul);
-      console.log(usuario);
 
       let cedulaEncriptada="";
       if(usuario=="medico"){
         cedulaEncriptada = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(localStorage.getItem("cedulaPaciente"))), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
-      console.log(cedulaEncriptada);}
+      }
       else{
         cedulaEncriptada=cedul;
       }
@@ -716,16 +551,13 @@ let reactivarCuidador = async (cedulaCuidador, cont) => {
   btnreactivar.disabled = true;
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
-  console.log(data);
       let usuario = dato.usuario;
       let cedul= dato.cedula;
-      console.log(cedul);
-      console.log(usuario);
 
       let cedulaEncriptada="";
       if(usuario=="medico"){
         cedulaEncriptada = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(localStorage.getItem("cedulaPaciente"))), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
-      console.log(cedulaEncriptada);}
+      }
       else{
         cedulaEncriptada=cedul;
       }
@@ -746,8 +578,6 @@ let reactivarCuidador = async (cedulaCuidador, cont) => {
       pacienteInDto:paciente,
       cuidadorInDto:cuidAntiguo
     }
-    console.log("cuidador que quiero reactivar:");
-    console.log(cuidadorPaciente);
       fetch(localStorage.getItem("servidorAPI") + "paciente/cuidador/reactivarCuidador", {
         method: "PATCH",
         body: JSON.stringify(
@@ -800,11 +630,8 @@ let inhabilitarCuidador=async()=>{
             botonNuevo.disabled = true;
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
-  console.log(data);
       let usuario = dato.usuario;
       let cedul= dato.cedula;
-      console.log(cedul);
-      console.log(usuario);
 
       let cedulaEncriptada="";
       if(usuario=="medico"){
@@ -825,7 +652,6 @@ let inhabilitarCuidador=async()=>{
       });
 
   const cuidadorActivo = await peticion.json();
-  console.log(cuidadorActivo);
   let cedCuidador = decodeURIComponent(CryptoJS.AES.decrypt(cuidadorActivo.cuidador.cedulaCuidador, CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
   let cuidador={
     cedulaCuidador:cedCuidador,
