@@ -68,7 +68,6 @@ class Calendar {
     showCells() {
         this.cells = this.generateDates(this.currentMonth);
         if (this.cells === null) {
-            console.error('No fue posible generar las fechas del calendario.');
             return;
         }
 
@@ -80,7 +79,7 @@ class Calendar {
             if (!this.cells[i].isInCurrentMonth) {
                 disabledClass = 'grid__cell--disabled';
             }
-            // <span class="grid__cell grid__cell--gd grid__cell--selected">1</span>
+           
             templateCells += `
                 <span class="grid__cell grid__cell--gd ${disabledClass}" data-cell-id="${i}">
                     ${this.cells[i].date.date()}
@@ -100,17 +99,14 @@ class Calendar {
         let dateEnd = moment(monthToShow).endOf('month');
         let cells = [];
 
-        // Encontrar la primer fecha que se va a mostrar en el calendario
         while (dateStart.day() !== 1) {
             dateStart.subtract(1, 'days');
         }
 
-        // Encontrar la última fecha que se va a mostrar en el calendario
         while (dateEnd.day() !== 0) {
             dateEnd.add(1, 'days');
         }
 
-        // Genera las fechas del grid
         do {
             cells.push({
                 date: moment(dateStart),
@@ -127,7 +123,6 @@ class Calendar {
         let hoy=moment();
         let cont=0;
         elCells.forEach(elCell => {
-            console.log(hoy.isSame(this.cells[cont].date, 'day'))
             if(hoy.isSame(this.cells[cont].date, 'day')){
                 elCell.classList.add('grid__cell--selected');
             }cont++;
@@ -136,15 +131,12 @@ class Calendar {
                 if (elTarget.classList.contains('grid__cell--disabled') || elTarget.classList.contains('grid__cell--selected')) {
                     return;
                 }
-                // Deselecionar la celda anterior
                 let selectedCell = this.elGridBody.querySelector('.grid__cell--selected');
                 if (selectedCell) {
                     selectedCell.classList.remove('grid__cell--selected');
                 }
-                // Selecionar la nueva celda
                 elTarget.classList.add('grid__cell--selected');
                 this.selectedDate = this.cells[parseInt(elTarget.dataset.cellId)].date;
-                // Lanzar evento change
                 this.elCalendar.dispatchEvent(new Event('change'));
                 this.modal();
             });
@@ -155,10 +147,9 @@ class Calendar {
       
         $('#modal').modal('show');
       
-        // Obtener la posición del clic
+       
         var x = event.clientX;
         var y = event.clientY;
-        console.log(x+"--"+y)
       
       }
 
@@ -167,8 +158,6 @@ class Calendar {
     }
 
     value() {
-        console.log("esta es la fecha")
-        console.log(this.selectedDate)
         return this.selectedDate;
     }
 

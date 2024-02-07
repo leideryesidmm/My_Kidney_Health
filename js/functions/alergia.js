@@ -2,7 +2,6 @@ let listAlergias = async (alergias) => {
     alergias = await alergias;
     let msg = "";
     let cont = 1;
-    console.log(alergias)
   
     
     if (alergias.length == 0) {

@@ -81,7 +81,6 @@ let cuidadoresInactivos = async (cuidadores) => {
       if(cuidadores!=null){
         let cont=0;
     cuidadores.forEach((cuidador) => {
-        console.log(activo);
       if(activo!=null){
         if (cuidador.activo === false&&parseInt(activo.cedula)!=parseInt(cuidador.cedulaCuidador)) {
         msg +=

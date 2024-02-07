@@ -46,18 +46,12 @@ let cambioContrasenia = async (event) => {
   await obtenerIv();
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
-  console.log(data);
       let cedula= (dato.cedula);
-      console.log(cedula);
       const usuario=await paciente(cedula);
-      console.log("usuario de backend");
-      console.log(usuario);
       let contraseniaBD="";
       if(usuario!=null){
       contraseniaBD=decodeURIComponent(CryptoJS.AES.decrypt(usuario.contrasenia, CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
       }
-      console.log("contraseniaBD");
-      console.log(contraseniaBD);
 const contraseniaAnterior = document.getElementById("contraseniaanterior").value;
 const nuevaContrasenia = document.getElementById("newcontrasenia").value;
 let contraseniaNueva=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(nuevaContrasenia)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
@@ -90,7 +84,6 @@ if (contraseniaAnterior === contraseniaBD) {
     }
   })
   .catch(error => {
-    console.error("Error:", error);
     alert("Error al cambiar la contraseña");
   });
 }
@@ -109,11 +102,8 @@ let listarMedicamentos= async()=>{
   await obtenerIv();
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
-  console.log(data);
       let usuario = dato.usuario;
       let cedul= dato.cedula;
-      console.log(cedul);
-      console.log(usuario);
       let cedEncriptada="";
       if(usuario=="medico" || usuario=="administrador"){
         let cedulaDesencriptada = localStorage.getItem("cedulaPaciente");
@@ -173,7 +163,6 @@ let listarMedicamentos= async()=>{
       let medicamentosArreglo=Array.from(medDesencriptados).map(medicamento => JSON.parse(medicamento));
 
   
-console.log(medicamentosArreglo);
 return medicamentosArreglo;
 }
 
@@ -192,11 +181,9 @@ let alergias= async()=>{
     });
 
     const alergias=await peticion.json();
-    console.log(alergias);
     let msgalergias="";
     
     alergias.forEach(alergia => {
-        console.log(msgalergias)
         msgalergias=msgalergias+alergia.alergia.nombre+", "
     });
     msgalergias = msgalergias.substring(0, msgalergias.length - 2);
@@ -234,7 +221,6 @@ let encontrarMedicamento=async()=>{
   await obtenerIv();
   const params = new URLSearchParams(window.location.search.slice(1));
   const idFormulaMedicamento = params.get('idFormulaMedicamento');
-  console.log(idFormulaMedicamento);
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
   const peticion= await fetch(localStorage.getItem("servidorAPI")+"DatosMedicos/medicamento/findById/"+idFormulaMedicamento,{
@@ -246,7 +232,6 @@ let encontrarMedicamento=async()=>{
     }
   });
   const medicamento=await peticion.json();
-  console.log(medicamento);
 
   let concentracionDesencriptada=decodeURIComponent(CryptoJS.AES.decrypt(medicamento.concentracion,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
   let descripcionDesencriptada=decodeURIComponent(CryptoJS.AES.decrypt(medicamento.descripcion,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
@@ -266,9 +251,7 @@ let encontrarMedicamento=async()=>{
   document.getElementById("fecha_fin").value=fechaFormateada;
   document.getElementById("tomas").value=tomasDesencriptadas;
   document.getElementById("recetado").value=medicamento.recetado;
-  console.log(medicamento.viaAdministracion.idViaAdministracion);
   const selectVias = document.getElementById("selectVias");
-  console.log(selectVias);
   selectVias.value = medicamento.viaAdministracion.idViaAdministracion;
 
 
@@ -281,11 +264,8 @@ let actualizarMedicamento=async (event)=> {
   await obtenerIv();
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
-  console.log(data);
       let usuario = dato.usuario;
       let cedul= dato.cedula;
-      console.log(cedul);
-      console.log(usuario);
       let cedEncriptada="";
       if(usuario=="medico" || usuario=="administrador"){
         let cedulaDesencriptada = localStorage.getItem("cedulaPaciente");
@@ -293,8 +273,7 @@ let actualizarMedicamento=async (event)=> {
       else{
         cedEncriptada=cedul;
       }
-  let idFormulaMedicamento=document.getElementById("idMedicamento").value
-  console.log(idFormulaMedicamento);
+  let idFormulaMedicamento=document.getElementById("idMedicamento").value;
 
   let concentracion=document.getElementById("concentracion").value;
   let descripcion=document.getElementById("descripcion").value;
@@ -316,7 +295,6 @@ let actualizarMedicamento=async (event)=> {
       "viaAdministracion": document.getElementById("selectVias").value,
       "recetado":document.getElementById("recetado").value
   }
-  console.log(formulamedicamento)
 
   fetch(localStorage.getItem("servidorAPI")+"DatosMedicos/formulaMedicamento/actualizar/"+idFormulaMedicamento,{
     method:"PATCH",
@@ -330,18 +308,13 @@ let actualizarMedicamento=async (event)=> {
   
 .then(response => {
   if (response.ok) {
-    // La solicitud fue exitosa (código de estado 2xx)
     if (response.status === 200 || response.status === 204 ) {
       $('#successModal').modal('show');
     }
-  } else {
-    // La solicitud no fue exitosa (código de estado no 2xx)
-    // Realiza acciones para manejar la respuesta no exitosa
-  }
+  } 
 })
 .catch(error => {
   console.error(error);
-  // Mostrar mensaje de error en la consola o en la interfaz de usuario
 })
 }
 
@@ -358,20 +331,16 @@ let eliminarMedicamento=async (idMedicamento)=> {
   })
    
 .then(response => {
-  console.log(response)
   if (response.ok) {
-    // La solicitud fue exitosa (código de estado 2xx)
+   
       $('#inhabilitarMedicamento'+idMedicamento).modal('hide');
       $('#modal2').modal('show');
   } else {
-    // La solicitud no fue exitosa (código de estado no 2xx)
-    // Realiza acciones para manejar la respuesta no exitosa
     $('#modal3').modal('show');
   }
 })
 .catch(error => {
   console.error(error);
-  // Mostrar mensaje de error en la consola o en la interfaz de usuario
 })
 }
 
@@ -385,11 +354,8 @@ let crearMedicamento=async (event)=> {
   btnMedicamento.disabled="true";
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
-  console.log(data);
       let usuario = dato.usuario;
       let cedul= dato.cedula;
-      console.log(cedul);
-      console.log(usuario);
       let cedEncriptada="";
       if(usuario=="medico" || usuario=="administrador"){
         let cedulaDesencriptada = localStorage.getItem("cedulaPaciente");
@@ -407,13 +373,10 @@ let crearMedicamento=async (event)=> {
    recetado=true;
   }
  
-console.log(concentracion);
   let concentracionEncriptada=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(concentracion)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
   let descripcionEncriptada=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(descripcion)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
   let nombreEncriptado=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(nombre)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
   let tomasEncriptada=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(tomas)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
-  console.log("tomas");
-  console.log(tomasEncriptada);
   let formulamedicamento={
       "concentracion": concentracionEncriptada,
       "descripcion": descripcionEncriptada,
@@ -425,7 +388,6 @@ console.log(concentracion);
       "viaAdministracion": parseInt(document.getElementById("selectVias").value),
       "recetado": recetado
   }
-  console.log(formulamedicamento)
   fetch(localStorage.getItem("servidorAPI")+"DatosMedicos/Medicamento/crear",{
     method:"POST",
     body: JSON.stringify(formulamedicamento),
@@ -436,18 +398,13 @@ console.log(concentracion);
     }
   })
   .then(response => {
-    console.log(response)
     if (response.ok) {
-      // La solicitud fue exitosa (código de estado 2xx)
         $('#successModal').modal('show');
     } else {
-      // La solicitud no fue exitosa (código de estado no 2xx)
-      // Realiza acciones para manejar la respuesta no exitosa
       $('#errorModal').modal('show');
     }
   })
   .catch(error => {
     console.error(error);
-    // Mostrar mensaje de error en la consola o en la interfaz de usuario
   })
 }

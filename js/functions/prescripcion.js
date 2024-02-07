@@ -430,12 +430,9 @@ let mostrarPrescripcion= async (prescripcion, fecha, recambios) => {
   let prescripcionDiaHoy1=await prescripcionDiaFecha(prescripcion, fecha)
   localStorage.setItem('prescripcionActual', JSON.stringify(prescripcionDiaHoy1));
   prescripcion=await prescripcion;
-  console.log(prescripcion)
-  console.log(fecha)
   let fech=fecha.setHours(0,0,0,0)
   let fIni=new Date(prescripcion.cita.fecha).setHours(0,0,0,0);
   let fFin=new Date(prescripcion.cita.fechaFin).setHours(0,0,0,0);
-  console.log(fIni)
   if(fIni>fecha||fecha>fFin){
     let msg="";
       msg+='<h3>La fecha seleccionada no está en la prescripción actual.</h3>';
@@ -568,7 +565,6 @@ try {
   await obtenerClave();
   await obtenerIv();
 let recambio=JSON.parse(localStorage.getItem("recambios"))[idRecambio];
-  console.log(recambio)
 document.getElementById("inicio").innerText=recambio.horaIni.replace("T", " ");
 document.getElementById("final").innerText=recambio.horaFin.replace("T", " ");
 document.getElementById("liquidoEntrante").innerText=decodeURIComponent(CryptoJS.AES.decrypt(recambio.liquidoEntrante,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8))+" ml";
@@ -576,9 +572,7 @@ document.getElementById("drenaje").innerText=decodeURIComponent(CryptoJS.AES.dec
 document.getElementById("concentracion").innerText=decodeURIComponent(CryptoJS.AES.decrypt(recambio.recambio.concentracion,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8))+" %";
 document.getElementById("estadoOrificio").innerText=decodeURIComponent(CryptoJS.AES.decrypt(recambio.orificioSalida,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
 document.getElementById("caracteristicaliquido").innerText=decodeURIComponent(CryptoJS.AES.decrypt(recambio.caracteristicaLiquido,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
-console.log("hasta aqui")
 let fecha=formatearFecha(new Date(localStorage.getItem("fecha_real")))
-console.log(fecha)
 document.getElementById("successModalLabel").innerText="Recambio de la fecha: "+fecha;
 $('#verRecambio').modal('show');
 } catch (error) {
@@ -594,7 +588,6 @@ let prescripcionDiaFecha= async (prescripcion,fecha) =>{
           prescripcionDiaHoy1= prescripcionDia;
       }
   });
-  console.log(prescripcionDiaHoy1)
   return prescripcionDiaHoy1
 
 }
@@ -603,7 +596,6 @@ let tablaRecambios=async(recambios)=>{
   await obtenerClave();
   await obtenerIv();
 recambios=await recambios;
-console.log(recambios)
 let msg='<table class="table table-bordered" id="recambioTable">'
 +'<thead>'
 +'  <tr>'
@@ -628,7 +620,6 @@ recambios.forEach(recambio => {
 msg+='</tbody>'
 +'</table>';
 document.getElementById("recamTable").innerHTML=msg;
-console.log("llego aqui")
 new DataTable('#recambioTable', {
     language: {
         url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json',
@@ -640,8 +631,6 @@ let tablaVisitas=async(visitas)=>{
 document.getElementById("visitas").classList.add("active");
 document.getElementById("chequeos").classList.remove("active");
   visitas=await visitas;
-  console.log("visitas");
-  console.log(visitas);
 let msg="";
 
   msg='<div class="container scroll"><table class="table table-bordered" id="visitasTabla">'
@@ -721,7 +710,6 @@ let tablaChequeos = async (chequeos) => {
 
   for (let chequeo of chequeos) {
       let cheq = await desencriptarDatosChequeo(chequeo);
-      console.log(cheq);
 
       msg += ` <tr>
   <td style="font-size:90%">${cheq.cita.fecha.split("T")[0]}</td>
@@ -743,7 +731,6 @@ let tablaChequeos = async (chequeos) => {
   </tr>`;
   }
 
-  console.log(msg);
   msg += '</tbody>' +
       '</table></div>';
   document.getElementById("chequeos").classList.add("active");
@@ -790,7 +777,6 @@ prescripcion=await prescripcion;
 let data=localStorage.getItem("datos");
 let dato=JSON.parse(data);
 if(prescripcion===undefined||prescripcion.cita.finalizado===true){
-  console.log("no hay prescripcion");
   let msg='<h3>No hay prescripción activa a la fecha</h3><br>';
   if(dato.usuario==="medico"){
   msg+=
@@ -800,10 +786,7 @@ if(prescripcion===undefined||prescripcion.cita.finalizado===true){
   return;
 }
 let recambiosHechos=await finAllRecambiosHechos(prescripcion.cita.idCita);
-console.log("DSc")
-console.log(prescripcion)
 localStorage.setItem("selectPrescripcion", JSON.stringify(prescripcion))
-console.log(await prescripcion)
 let msg="";
 let ordinal=["Primer","Segundo", "Tercer", "Cuarto", "Quinto"];
 
@@ -838,7 +821,6 @@ msg+=`
 
 
                   prescripcion.unionPrescripcionDiasRecambios.forEach(prescripcionDia => {
-                    console.log(prescripcionDia)
                     msg+=`<br><div class="row" style="margin:0 auto;">
                     <div class="col"><h6><b>Días:</b> ${obtenerDias(prescripcionDia.prescripcionDia)}</h6></div>
                     <div class="col-12 table-responsive">
@@ -852,7 +834,6 @@ msg+=`
                             </thead>
                             <tbody>`
                             let cont=0;
-                            console.log(prescripcionDia.recambios);
                   prescripcionDia.recambios.forEach(recambio => {
                     msg+=`<tr>
                     <td>${ordinal[cont]+" recambio"}</td>
@@ -884,7 +865,6 @@ msg+=`
                 </div>
                 </div>
 `;
-console.log(recambiosHechos);
 document.getElementById("cardBody").innerHTML=msg;
 }
 
@@ -892,9 +872,6 @@ let mostrarHistoricoMedico=async (prescripciones) => {
   await obtenerClave();
   await obtenerIv();
 prescripciones=await prescripciones;
-console.log(prescripciones);
-console.log(localStorage.length);
-let totalSize = 0;
 
 localStorage.setItem("prescripcionesT",JSON.stringify(prescripciones));
 let msg=`<div class='row' style="margin: 0 auto">
@@ -911,7 +888,6 @@ let msg=`<div class='row' style="margin: 0 auto">
   let cont=1;
   msg+="<tbody>"
 prescripciones.forEach(prescripcion => {
-  console.log(prescripcion.unionPrescripcionDiasRecambios[0].prescripcionDia)
     msg+=`<tr>
       <td>${cont}</td>
       <td>${prescripcion.cita.fecha==undefined||prescripcion.cita.fecha==null?"Sin fecha de Inicio":formatDate(new Date(prescripcion.cita.fecha))}</td>
@@ -930,7 +906,6 @@ msg+=`</tbody>
 </div>
 `;
 
-console.log(await prescripciones)
 document.getElementById("historico").classList.add("active");
 document.getElementById("actual").classList.remove("active");
 document.getElementById("cardBody").innerHTML=msg;
@@ -991,7 +966,6 @@ let msg=`<div class="row" style="display:flex">
                             <tbody>`
                             let cont=0;
                   prescripcionDia.recambios.forEach(recambio => {
-                    console.log(recambio)
                     msg+=`<tr>
                     <td>${ordinal[cont]+" recambio"}</td>
                     <td>${decodeURIComponent(CryptoJS.AES.decrypt(recambio.concentracion,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8))} %</td>
@@ -1076,7 +1050,6 @@ var day = date.getDate();
 var month = date.getMonth() + 1;
 var year = date.getFullYear() % 100;
 
-// Asegurarse de que el día y el mes tengan dos dígitos
 if (day < 10) {
   day = '0' + day;
 }
@@ -1096,8 +1069,6 @@ let mostrarRecambiosHechosMedico=async()=>{
 
 let editarPrescripcion = async () => {
 let datos = await datosEditarPrescripcion();
-console.log(datos);
-console.log("estos son los datos");
 let prescripcionesHechas = datos.prescipcionDia.length;
 let ms = "";
 
@@ -1420,7 +1391,6 @@ for(var i=0;i<recambios.length;i++){
 function habilitarDeshabilitarDias(dia, cantidad) {
 const checkboxes = [];
 
-// Obtener todos los checkboxes para el día
 for (let i = 1; i <= cantidad; i++) {
   const checkbox = document.getElementById(`${dia}${i}`);
   if (checkbox) {
@@ -1432,9 +1402,9 @@ const anyCheckboxChecked = checkboxes.some((checkbox) => checkbox.checked);
 
 checkboxes.forEach((checkbox) => {
   if (checkbox.checked) {
-    checkbox.disabled = false; // Habilitar los checkboxes marcados
+    checkbox.disabled = false;
   } else {
-    checkbox.disabled = anyCheckboxChecked; // Deshabilitar los demás si hay alguno marcado
+    checkbox.disabled = anyCheckboxChecked; 
   }
 });
 }
@@ -1442,7 +1412,6 @@ checkboxes.forEach((checkbox) => {
 function habilitaDeshabilitDias(dia, cantidad) {
 const checkboxes = [];
 
-// Obtener todos los checkboxes para el día
 for (let i = 1; i <= cantidad; i++) {
   const checkbox = document.getElementById(`${dia}${i}`);
   if (checkbox) {
@@ -1464,8 +1433,6 @@ checkboxes.forEach((checkbox, index) => {
 let desencriptarDatosChequeo=async(chequeo)=>{
   await obtenerClave();
   await obtenerIv();
-  console.log("chequeo del backend revisar");
-  console.log(chequeo);
   let colesterolTotal=decodeURIComponent(CryptoJS.AES.decrypt(chequeo.colesterolTotal,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
   let fosforo=decodeURIComponent(CryptoJS.AES.decrypt(chequeo.fosforo,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
   let glicemia=decodeURIComponent(CryptoJS.AES.decrypt(chequeo.glicemia,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
@@ -1488,7 +1455,6 @@ let desencriptarDatosChequeo=async(chequeo)=>{
     colesterolTotal:colesterolTotal, fosforo:fosforo, glicemia:glicemia, hdl:hdl, hemoglobina:hemoglobina, ldh:ldh, nitrogenoUreico:nitrogenoUreico, potasio:potasio, tensionArterial:tensionArterial, trigliceridos:trigliceridos, peso:peso, pesoSeco:
     pesoSeco, glucosa:glucosa, creatinina, creatinina, ktv:ktv, cita:cita, idChequeoMensual:idChequeoMensual
   }
-  console.log(chequeoMensualInDto);
 
   return chequeoMensualInDto;
 }
@@ -1502,11 +1468,7 @@ if(chequeo==null){
 }
 else{
 let msg="";
-//let ultimoChequeo=await obtenerUltimoChequeo();
-//console.log("ultimo chequeo");
-//console.log(ultimoChequeo);
 chequeo=await desencriptarDatosChequeo(chequeo);
-console.log(chequeo);
 if(chequeo!=null){
 let nombrePaciente=decodeURIComponent(CryptoJS.AES.decrypt(chequeo.cita.paciente.nombre,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
 let cedulaPaciente=decodeURIComponent(CryptoJS.AES.decrypt(chequeo.cita.paciente.cedula,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
@@ -1613,8 +1575,6 @@ if(visita==null){
   $('#errorModalVisita').modal('show');
 }
 else{
-  console.log("esta es la visita");
-console.log(visita);
 let nombrePaciente=decodeURIComponent(CryptoJS.AES.decrypt(visita.cita.paciente.nombre,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
 let cedulaPaciente=decodeURIComponent(CryptoJS.AES.decrypt(visita.cita.paciente.cedula,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
 let nefrologia=visita.nefrologia;
@@ -1744,8 +1704,6 @@ $("#errorModalVisitaExistente").modal("show");
 else{
 let msg="";
 let paciente= await encontrarPaciente();
-console.log("este es el paciente");
-console.log(paciente);
 if(paciente!=null){
 let cedula=decodeURIComponent(CryptoJS.AES.decrypt(paciente[0].cedula,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
 let nombre=decodeURIComponent(CryptoJS.AES.decrypt(paciente[0].nombre,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
@@ -1955,7 +1913,6 @@ let editarChequeo=async()=>{
 let msg="";
 let ultimoChequeo=await obtenerUltimoChequeo();
 let chequeo=desencriptarDatosChequeo(ultimoChequeo);
-console.log(ultimoChequeo);
 
 let nombrePaciente=decodeURIComponent(CryptoJS.AES.decrypt(chequeo.cita.paciente.nombre,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
 let cedulaPaciente=decodeURIComponent(CryptoJS.AES.decrypt(chequeo.cita.paciente.cedula,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));

@@ -44,8 +44,6 @@ let login = async (event) => {
   await obtenerIv();
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
-console.log(iv);
-console.log(cajaNegra2);
   let userEncrypt=CryptoJS.AES.encrypt(
     CryptoJS.enc.Utf8.parse(encodeURIComponent(username)),
   CryptoJS.enc.Utf8.parse(cajaNegra2),
@@ -67,7 +65,6 @@ console.log(cajaNegra2);
     cedula:userEncrypt,
     contrasenia:passEncrypt
   }
-  console.log(usuario)
   const peticion3 = await fetch(servidorAPI + 'Usuario/findAdmin', {
     method: 'POST',
     body:JSON.stringify(usuario),
@@ -79,7 +76,6 @@ console.log(cajaNegra2);
  
   if(peticion3.status!=204){
   const administrador = await peticion3.json();
-  console.log(administrador)
   let cedulaDesencriptada=decodeURIComponent(CryptoJS.AES.decrypt(administrador[0].cedula,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
   let contraseniaDesencriptada=decodeURIComponent(CryptoJS.AES.decrypt(administrador[0].contrasenia,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
 if(cedulaDesencriptada===username && contraseniaDesencriptada===password){
@@ -111,10 +107,8 @@ if(cedulaDesencriptada===username && contraseniaDesencriptada===password){
   
 let pacienteEncontrado=false;
 let medicoEncontrado=false;
-console.log(peticion.status);
     if(peticion.status!==204){
     const paciente = await peticion.json();
-    console.log(paciente)
     if(paciente[0].activo==true){
       let cedulaDesencriptada=decodeURIComponent(CryptoJS.AES.decrypt(paciente[0].cedula,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
       let contraseniaDesencriptada=decodeURIComponent(CryptoJS.AES.decrypt(paciente[0].contrasenia,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
@@ -128,10 +122,8 @@ console.log(peticion.status);
       const data = JSON.stringify(datos);
       localStorage.setItem("datos", data);
       localStorage.setItem("servidorAPI", servidorAPI);
-      console.log(localStorage.setItem("datos", data))
       let cambiado=paciente[0].cambioContrasenia;
       localStorage.setItem("cambiado", cambiado);
-      console.log(cambiado);
       if(!cambiado){
         location.href="cambiarContrasenia.html"
         pacienteEncontrado=true;
@@ -155,10 +147,8 @@ console.log(peticion.status);
           "Content-Type": "application/json"
         }
       })
-      console.log(peticion2.status);
       if(peticion2.status!=204){
         const medico = await peticion2.json();
-        console.log(medico)
         if(medico[0].activo==true){
           let cedulaDesencriptada=decodeURIComponent(CryptoJS.AES.decrypt(medico[0].cedula,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
   let contraseniaDesencriptada=decodeURIComponent(CryptoJS.AES.decrypt(medico[0].contrasenia,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
@@ -169,7 +159,6 @@ if(cedulaDesencriptada===username && contraseniaDesencriptada===password){
         cedula:medico[0].cedula, contrasenia:medico[0].contrasenia, usuario:usuario, token:medico[1]}
         const data = JSON.stringify(datos);
         localStorage.setItem("datos", data);
-        console.log(data)
         localStorage.setItem("servidorAPI", servidorAPI);
         location.href = "pacientes.html";
         medicoEncontrado=true;
@@ -210,7 +199,6 @@ let onload = async () => {
     
     let data = localStorage.getItem("datos");
     let dato=JSON.parse(data);
-    console.log(data);
     const peticion = await fetch(servidorAPI + 'Usuario/tokenValido', {
       method: 'GET',
       headers: {
@@ -219,9 +207,7 @@ let onload = async () => {
         "Authorization": dato.token
       }
     })
-    console.log(peticion.status)
     if(peticion.status===401||peticion.status===403){
-      console.log("token expirado")
       logout();
     }
    
@@ -244,7 +230,6 @@ let onload = async () => {
       }
     }
   } else {
-    console.log("noAuthenticated")
     if (!pathname.includes("login.html")) {
       location.href = "login.html";
     }

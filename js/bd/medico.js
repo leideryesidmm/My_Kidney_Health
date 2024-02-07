@@ -47,18 +47,12 @@ let cambioContrasenia = async (event) => {
   await obtenerIv();
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
-  console.log(data);
       let cedula= (dato.cedula);
-      console.log(cedula);
       const usuario=await paciente(cedula);
-      console.log("usuario de backend");
-      console.log(usuario);
       let contraseniaBD="";
       if(usuario!=null){
       contraseniaBD=decodeURIComponent(CryptoJS.AES.decrypt(usuario.contrasenia, CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
       }
-      console.log("contraseniaBD");
-      console.log(contraseniaBD);
 const contraseniaAnterior = document.getElementById("contraseniaanterior").value;
 const nuevaContrasenia = document.getElementById("newcontrasenia").value;
 let contraseniaNueva=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(nuevaContrasenia)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
@@ -91,7 +85,6 @@ if (contraseniaAnterior === contraseniaBD) {
     }
   })
   .catch(error => {
-    console.error("Error:", error);
     alert("Error al cambiar la contraseña");
   });
 }
@@ -123,10 +116,8 @@ let listarMedicos = async () => {
     if (peticion.ok) {
       if (peticion.status === 200) {
         const medicos = await peticion.json();
-        console.log(medicos)
 
         const medicosDesencriptados = medicos.filter(medico => medico.activo).map(medico => {
-          console.log(medico)
           let cedulaDesencriptada = decodeURIComponent(CryptoJS.AES.decrypt(medico.cedula,CryptoJS.enc.Utf8.parse(cajaNegra2),
             {iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
           let nombreDesencriptado = decodeURIComponent(CryptoJS.AES.decrypt(medico.nombre,CryptoJS.enc.Utf8.parse(cajaNegra2),
@@ -179,7 +170,6 @@ let listarMedicosInactivos = async () => {
       if (peticion.status === 200) {
         const medicosInactivos = await peticion.json();
 
-        // Map the patients array to decrypt each patient's cedula and nombre
         const medicosDesencriptados = medicosInactivos
         .filter(medico => !medico.activo)
         .map(medico => {
@@ -194,7 +184,7 @@ let listarMedicosInactivos = async () => {
           };
         });
 
-        return medicosDesencriptados; // Return the array of patients
+        return medicosDesencriptados; 
       }
     } else {
       console.error("Error fetching doctors:", peticion.status);
@@ -217,9 +207,7 @@ let listarEspecialidad = async () => {
   });
   
   const selectEspecialidad = document.getElementById('selectedEspecialidad');
-  console.log(selectEspecialidad);
   const especialidades = await peticion.json();
-    console.log(especialidades);
   
   if (selectEspecialidad.length === 0) {
     
@@ -239,12 +227,10 @@ let listarEspecialidad = async () => {
     await obtenerClave();
   await obtenerIv();
     let cedulaMedico = document.getElementById('documento').value;
-    console.log(cedulaMedico);
     let data = localStorage.getItem("datos");
     let dato=JSON.parse(data);
     let  cedula = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(cedulaMedico)),CryptoJS.enc.Utf8.parse(cajaNegra2),
     {iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
-    console.log(cedula);
     const peticion = await fetch(localStorage.getItem("servidorAPI") + 'Medico/findByCedula/'+cedula, {
       method: 'POST',
       headers: {
@@ -312,7 +298,6 @@ let listarEspecialidad = async () => {
         activo:true
   
         }
-        console.log(medicoInDto);
   
         let data = localStorage.getItem("datos");
         let dato=JSON.parse(data);
@@ -337,7 +322,6 @@ let inhabilitarMedico = async (ced) => {
   await obtenerIv();
   let cedula = ced.toString();
      let cedulaEncriptada=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(cedula)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
-  console.log(cedulaEncriptada);
   try {
     const medicoInDto = { cedula: cedulaEncriptada };
     let data = localStorage.getItem("datos");
@@ -419,8 +403,6 @@ let encontrarMedico = async () => {
   });
 
   const medico = await peticion.json();
-  console.log("medico del backend");
-  console.log(medico);
 
   
     var decryptedNombre = decodeURIComponent(CryptoJS.AES.decrypt(medico[0].nombre,CryptoJS.enc.Utf8.parse(cajaNegra2),
@@ -440,29 +422,18 @@ let encontrarMedico = async () => {
   const selectDocumento = document.getElementById('selectedDocumento');
   const descripcionDocumento= decodeURIComponent(CryptoJS.AES.decrypt(medico[0].tipoDocumento,CryptoJS.enc.Utf8.parse(cajaNegra2),
     {iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
-  console.log(descripcionDocumento);
   
   Array.from(selectDocumento.options).forEach((option, index) => {
     if (option.textContent === descripcionDocumento) {
       selectDocumento.selectedIndex = index;
     }
   })
-  
   const selectEspecialidad = document.getElementById('selectedEspecialidad');
-  console.log(medico[0].especialidad.descripcion);
 
   especialidad=medico[0].especialidad.descripcion;
-  console.log(selectEspecialidad.options);
-  console.log("especialidad 1");
-    console.log(Array.from(selectEspecialidad.options));
 
   Array.from(selectEspecialidad.options).forEach((option, index) => {
-    console.log("especialidad");
-    console.log(especialidad);
-    console.log("option text");
-    console.log(option.text);
     if (option.text === especialidad) {
-      console.log("entro al if de especialidad");
       selectEspecialidad.selectedIndex = index;
     }
   })
@@ -478,7 +449,6 @@ let encontrarMedico = async () => {
     }
 ).toString(CryptoJS.enc.Utf8));
   
-console.log(Array.from(selectProfesion.options));
   Array.from(selectProfesion.options).forEach((option, index) => {
     if (option.textContent === profesion) {
       selectProfesion.selectedIndex = index;
@@ -545,8 +515,6 @@ let actualizarMedico = async(event) => {
   });
 
   const medico = await peticion.json();
-  console.log("medico de findMedico");
-  console.log(medico);
   let selectDocumento = document.getElementById("selectedDocumento");
   let selectEspecialidad = document.getElementById("selectedEspecialidad"); 
   let selectProfesion = document.getElementById("selectedProfesion");
@@ -602,7 +570,6 @@ let actualizarMedico = async(event) => {
      activo:activo
   }
 
-  console.log(medicoInDto)
 
   fetch(localStorage.getItem("servidorAPI") + "Usuario/actualizarMedico", {
     method: "PATCH",
@@ -614,7 +581,6 @@ let actualizarMedico = async(event) => {
     }
   })
     .then(response => {
-      console.log(response)
       if (response.ok) {
         if (response.status === 200 || response.status === 204) {
           $('#successModal').modal('show');
@@ -641,9 +607,7 @@ let listaEspecialidad = async () => {
   });
   
   const selectEspecialidad = document.getElementById('selectEspecialidad');
-  console.log(selectEspecialidad);
   const especialidades = await peticion.json();
-    console.log(especialidades);
   
   if (selectEspecialidad.length === 0) {
     

@@ -20,7 +20,6 @@ let pacientesTratados = async () => {
 
       pacientes.forEach((paciente) => {
         let clave = paciente.cedula;
-        console.log(clave);
         msg +=
           '<tr>' +
           '<td>' + paciente.nombre + '</td>' +

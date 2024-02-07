@@ -173,8 +173,6 @@ if(usuario=="paciente"){
       }
       cont++;
     });
-    console.log(medicamentosRecetadosHTML);
-    console.log(medicamentosNoRecetadosHTML);
     if (medicamentosRecetadosHTML !== "") {
       msg += '<h2>Medicamentos Recetados</h2><br>' + medicamentosRecetadosHTML;
     }
@@ -195,15 +193,12 @@ if(usuario=="paciente"){
 
 let formatearFechas= function(fechaOriginal){
 
-// Convertir la fecha a un objeto Date
 const fecha = new Date(fechaOriginal);
 
-// Obtener los componentes de la fecha
 const year = fecha.getFullYear();
 const month = ('0' + (fecha.getMonth() + 1)).slice(-2);
 const day = ('0' + fecha.getDate()).slice(-2);
 
-// Crear la fecha formateada
 const fechaFormateada = `${year}-${month}-${day}`;
 return fechaFormateada;
 }

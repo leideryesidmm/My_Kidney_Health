@@ -2,7 +2,6 @@
 const data = localStorage.getItem("datos");
 const dato=JSON.parse(data);
     var usuario = dato.usuario;
-    console.log(usuario);
 if(usuario=="paciente"){
      ced = decodeURIComponent(dato.cedula);
     
@@ -13,15 +12,10 @@ else{
 }
 
 function calcularEdad(nacimiento) {
-  console.log(nacimiento);
   const fechaNacimiento = new Date(nacimiento);
-  console.log(fechaNacimiento);
   const fechaActual = new Date();
-  console.log(fechaActual);
   const edadMilisegundos = fechaActual - fechaNacimiento;
-  console.log(edadMilisegundos);
   const edad = new Date(edadMilisegundos).getFullYear() - 1970;
-  console.log(edad);
 return edad;
 }
 
@@ -30,11 +24,8 @@ return edad;
 let perfil=async()=>{
         try {
           const paciente = await listaPacientes();
-          console.log(paciente);
           const alergia = await alergias();
-          console.log("ENTRARA A CUIDADOR ACTIVO");
           const cuidador = await cuidadorActivo();
-          console.log(cuidador);
     let msg="";
 
     let ms="";
@@ -104,7 +95,6 @@ if(paciente!=null){
             '</div>';}
           let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
           var urlActual = window.location.href;
-          console.log(paciente.tipoDocumento);
             localStorage.setItem("url", urlActual);
             localStorage.setItem("documento", paciente.tipoDocumento);
           if(usuario=="paciente"){
@@ -193,8 +183,6 @@ else{
   '</div>';
   }
 }
-console.log("sfdv")
-console.log(cuidador)
 if(cuidador!=null && cuidador !== ""){
    msg+=
    '<br>'+
