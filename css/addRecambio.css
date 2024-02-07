@@ -70,7 +70,11 @@ margin-left: 20px;
   margin: 0 auto;
 }
 
-
+#asq{
+  color: red;
+  font-weight: bold;
+      font-size: 14px;
+}
 
 input[type="text"], input[type="number"]{
   width: 100%;

@@ -13,73 +13,13 @@ body {
 
 }
 
+
+
 .logo {
   font-size: 20px;
 }
 
-nav ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
 
-nav ul li {
-  display: inline-block;
-  margin-right: 40px;
-  position: relative;
-}
-
-nav ul li a {
-  color: #fff;
-  display: block;
-  text-decoration: none;
-}
-
-nav ul li:hover > ul {
-  display: block;
-  background-color: #63d0ff;
-}
-
-nav ul ul {
-  width: 120px;
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: #63d0ff;
-  padding: 0;
-}
-
- nav ul ul li {
-  width: 120px;
-  float: none;
-  display: list-item;
-  position: relative;
-}
-
-nav ul ul li a {
-  padding: 10px 15px;
-  color: #fff;
-}
-
-nav ul ul li a:hover {
-  background-color: #bedfec;
-}
-
-nav ul ul ul {
-  top: 0;
-  left: 100%;
-}
-
-nav ul:before,
-nav ul:after {
-  content: " ";
-  display: table;
-}
-
-nav ul:after {
-  clear: both;
-}
 
 .close{
   border: none;
@@ -164,6 +104,20 @@ label {
   border: 1px solid #ccc;
   border-radius: 5px;
 }
+
+.devolverse {
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
+  width: 5%;
+  vertical-align: middle;
+}
+.devolverse {
+  width: 30px;
+  height: 50px;
+  margin-left: 20px;
+}
+
 
 .rango:focus{
   border-top-color: transparent;
@@ -407,10 +361,3 @@ margin-left: 1%;
     width: 100px;
   }
 }
-
-
-
-
-
-
- 

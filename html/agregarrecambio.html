@@ -30,7 +30,10 @@
         <main class="form-container">
           <h5>Agregar Recambio</h5>
       <form id="editarMedicamento" onsubmit="guardarRecambio(event)">
+        <div style="text-align: center; color: red;">
         <p id="campos"><b>*</b> Campos requeridos</p>
+        <p id="campos">Los campos númericos NO requieren unidades de medición</p>
+        </div>
         <div class="liquidoEntrante">
           <label for="liquid">Líquido entrante:<label id="asq">*</label></label>
           <input type="number" enterkeyhint="next" placeholder="Cantidad de líquido entrante en ml" name="liquidoEntrante" id="liquidoEntrante" class="liquidoEntrante" required>
@@ -61,7 +64,7 @@
           </select>
         </div>
     
-        <label id="msg-orificio">¡Por favor, seleccionar la imagen, a la cual es más parecido su orificio de salida! </label><label id="asq">*</label>
+        <label id="msg-orificio">¡Por favor, seleccionar la imagen, a la cual es más parecido su orificio de salida!
         <br>
         <div id="contenedorImagenes" >
           <div class="opcion">
