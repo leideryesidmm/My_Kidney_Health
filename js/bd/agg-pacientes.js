@@ -38,7 +38,6 @@ let validarPaciente = async () => {
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
   let documento = document.getElementById('documento').value;
-  console.log(documento);
   let paciente={
     cedula:documento
   }
@@ -75,7 +74,6 @@ let crearPaciente=async(event)=> {
   btnGuardar.style.background="gray";
   btnGuardar.disabled=true;
   let  existe= await validarPaciente();
-  console.log(existe);
       let nombre = document.getElementById('nombre').value;
       let documento = document.getElementById('documento').value;
       let tipoSangre = document.getElementById('tiposangre').value;
@@ -86,7 +84,6 @@ let crearPaciente=async(event)=> {
       let eps = selectedOption.value;
       let selectOptionDoc = selectTipo.options[selectTipo.selectedIndex];
       let tipoDocumento=selectOptionDoc.value;
-      console.log(tipoDocumento);
       let estatura = document.getElementById('estatura').value;
       let rh = document.getElementById('selectRh').value;
       let direccion = document.getElementById('direccion').value;
@@ -110,7 +107,6 @@ let crearPaciente=async(event)=> {
      let pesoSecoEncriptado=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(pesoSeco)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
      let rhEncriptado=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(rh)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
      let fecha_registro = new Date();
-//fecha_registro.setHours(fecha_registro.getHours() - 10);
       const pacienteInDto = {
 
        altura : estaturaEncriptada,
@@ -136,10 +132,6 @@ let crearPaciente=async(event)=> {
       }
 
 if(existe==false){
-      let decryptedCedula = decodeURIComponent(CryptoJS.AES.decrypt(pacienteInDto.cedula,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
-console.log(decryptedCedula);
-let decryptedNombre = decodeURIComponent(CryptoJS.AES.decrypt(pacienteInDto.nombre,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
-
       fetch(servidorAPI+"paciente/crearPaciente", {
         method: 'POST',
         headers: {
@@ -188,8 +180,6 @@ let listarPacientes = async () => {
     if (peticion.ok) {
       if (peticion.status === 200 || peticion.status === 204) {
         const pacientes = await peticion.json();
-        console.log("he aqui los pacientes")
-        console.log(pacientes);
         const pacientesDesencriptados = pacientes
         .filter(paciente => paciente.activo)
         .map(paciente => {
@@ -232,7 +222,6 @@ let listarPacientesInactivos = async () => {
       if (peticion.status === 200 || peticion.status === 204) {
         const pacientes = await peticion.json();
 
-        // Map the patients array to decrypt each patient's cedula and nombre
         const pacientesDesencriptados = pacientes
         .filter(paciente => !paciente.activo)
         .map(paciente => {
@@ -265,9 +254,7 @@ let ultimaCita = async (cedulaPaciente) => {
     await obtenerIv();
     let data = localStorage.getItem("datos");
     let dato=JSON.parse(data);
-    cedulaPac = await obtenerCedEncriptada(cedulaPaciente);
-    console.log(cedulaPac);
-    
+    cedulaPac = await obtenerCedEncriptada(cedulaPaciente);    
     let paciente = {
       cedula: cedulaPac
     };
