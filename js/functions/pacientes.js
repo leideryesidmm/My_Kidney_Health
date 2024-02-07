@@ -161,7 +161,7 @@ let pacientesInhabilitados = async () => {
           '<td>' + paciente.nombre + '</td>' +
           '<td>' + paciente.cedula + '</td>' +
           '<td>' +
-          '<a  href="" data-bs-toggle="modal" data-bs-target="#habilitarpaciente' + cont + '" type="button">' +
+          '<a  href="" data-bs-toggle="modal" data-toggle="tooltip" data-placement="bottom" title="Reactivar Paciente" data-bs-target="#habilitarpaciente' + cont + '" type="button">' +
           '<img src="../img/actualizar.png" class="actualizar imagen-crecible-iconos"/>' +
           '</a >' +
           '</td>' +

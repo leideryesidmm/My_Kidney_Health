@@ -128,6 +128,8 @@ let prescripciones= async()=>{
 });
 if(peticion.status===200){
     const prescripcion=await peticion.json();
+    console.log("Prescripcion Actual");
+    console.log(prescripcion);
 return prescripcion;}
 }
 
@@ -1416,6 +1418,8 @@ let findAllPrescripciones=async()=>{
     if (response.ok) {
       const recambios = await response.json();
       return recambios;
+      
+
     }else{
       console.log("no paso respuesta ok");
       console.log(response);

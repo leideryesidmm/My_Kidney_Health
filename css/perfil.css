@@ -336,6 +336,8 @@ input[type="password"]:focus{
   text-decoration: none;
   color: #fff;
 }
+
+
 .botonEditarPerfil a, .botonAgregarAlergia a{
   background-color: #00DBA1;
     color: #fff;
@@ -350,6 +352,10 @@ input[type="password"]:focus{
     width: fit-content;
 }
 
+.botonAgregarAlergia{
+  text-decoration: none;
+  color:#fff;
+}
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */
   [class*="col-"]:not(.no-effect) {

@@ -192,7 +192,7 @@ let medicosInhabilitados = async (medicos) => {
           '<td>' + medico.nombre + '</td>' +
           '<td>' + medico.cedula + '</td>' +
           '<td>' +
-          '<a  href="" data-bs-toggle="modal" data-bs-target="#habilitarmedico' + cont + '" type="button">' +
+          '<a  href="" data-bs-toggle="modal" data-toggle="tooltip" data-placement="bottom" title="Reactivar Profesional" data-bs-target="#habilitarmedico' + cont + '" type="button">' +
           '<img src="../img/actualizar.png" class="actualizar imagen-crecible-iconos" alt="actualizar"/>' +
           '</a >' +
           '</td>' +
@@ -247,9 +247,8 @@ let mostrarInfoMedico=async()=>{
   
       msg+='<div class="form-container">'+
           '<h2>Editar Médico</h2>'+
-          '<p id="campos"><b>*</b> Campos requeridos</p>'+
           '<form id="paciente-form" onsubmit="actualizarMedico(event)">';
-          msg+='<p id="campos"><b>*</b> Campos requeridos</p>'+
+          msg+='<p id="campos"><b>*</b>Campos requeridos</p>'+
           '<div class="form-row">'+
               '<div class="form-column">'+
                 '<label for="nombre" id="data">Nombre del médico:<label id="asq">*</label></label>'+

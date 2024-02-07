@@ -69,7 +69,9 @@ integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLAS
       <article class="form-container">
         <h1>Agregar Paciente</h1>
         <form id="paciente-form" onsubmit="crearPaciente(event)" >
+          <div id="aviso" style="text-align: center;">
           <p id="campos"><b>*</b> Campos requeridos</p>
+        </div>
           <div class="form-row">
             <div class="form-column">
               <label for="nombre" id="data">Nombre del paciente:<label id="asq">*</label></label>
@@ -234,6 +236,29 @@ integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLAS
       </div>
     </div>
   </div>
+
+
+  <div class="modal fade" id="datosErroneos" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="successModalLabel">Aviso</h5>
+          <a><button onclick="cerrarDatosErroneos()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button></a>
+        </div>
+        <div class="modal-body" style="text-align: center;">
+          <p>¡Lo sentimos no se ha podido registrar el paciente porque el documento y/o tipo de sangre son datos incorrectos, revíselos nuevamente!</p>
+        </div>
+        <div class="modal-footer">
+          <a><button onclick="cerrarDatosErroneos()" type="button" class="btn btn-primary" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">Aceptar</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">

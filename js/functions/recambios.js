@@ -122,7 +122,7 @@ let listRecambios = async (recambios) => {
       +'        </div>';
           if(usuario=="paciente"){
               msg+='<div class="btn-editar-container">'
-      +'            <a href="editarRecambio.html" class="btn-editar"><img src="../img/editaraler.png" alt="Editar recambio"></a>'
+      +'            <a href="editarRecambio.html" data-toggle="tooltip" data-placement="bottom" title="Editar Recambio" class="btn-editar"><img src="../img/editaraler.png" alt="Editar recambio"></a>'
       +'            <div>'
       +'                <a href="" class="btn-inhabilitar" data-bs-toggle="modal"'
       +'                    data-bs-target="#eliminarrecambio"><img src="../img/inhabilitar.png" alt="Eliminar recambio"'

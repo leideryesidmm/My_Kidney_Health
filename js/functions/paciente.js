@@ -110,7 +110,7 @@ if(paciente!=null){
           if(usuario=="paciente"){
             msg+=
             '<div class="botonEditarPerfil">'+
-          '<a href="editarPaciente.html"class="editarPerfil" >Editar Perfil</a>'+
+          '<a href="editarPaciente.html" data-toggle="tooltip" data-placement="bottom" title="Editar Información" class="editarPerfil" >Editar Perfil</a>'+
           '</div>';
           }
           
@@ -159,7 +159,7 @@ if(paciente!=null){
           localStorage.setItem("url", urlActual);
         if(usuario=="medico"||usuario=="administrador"){
         msg+='<div class="botonEditarPerfil">'+
-        '<a href="editarPaciente.html"class="editarPerfil" >Editar Perfil</a>'+
+        '<a href="editarPaciente.html"class="editarPerfil" data-toggle="tooltip" data-placement="bottom" title="Editar Información del Paciente" >Editar Perfil</a>'+
         '</div>';
         }
         msg+='</div>'+
@@ -179,7 +179,7 @@ if(alergia!=null && alergia !== ""){
     let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
     if(usuario=="medico"||usuario=="administrador"){
     msg+='<div class="botonAgregarAlergia">'+
-    '<a href="alergias.html"class="alerg-nueva" id="addAlergia">Agregar Alergia</a>'+
+    '<a href="alergias.html"class="alerg-nueva" data-toggle="tooltip" data-placement="bottom" title="Agregar Alergia" id="addAlergia">Agregar Alergia</a>'+
     '</div>'+
     '<br>';
     }
@@ -188,7 +188,7 @@ else{
   let usuario = JSON.parse(localStorage.getItem("datos")).usuario;
   if(usuario=="medico"||usuario=="administrador"){
   msg+='<div class="botonAgregarAlergia">'+
-  '<br><a href="alergias.html"class="alerg-nueva" >Agregar Alergia</a>'+
+  '<br><a href="alergias.html"class="alerg-nueva" data-toggle="tooltip" data-placement="bottom" title="Agregar Alergia">Agregar Alergia</a>'+
   '<br>'+
   '</div>';
   }
@@ -207,7 +207,7 @@ if(cuidador!=null && cuidador !== ""){
         '<div class="img-cuidador">';
         let usuario2 = JSON.parse(localStorage.getItem("datos")).usuario;
   if(usuario2=="paciente"){
-        msg+='<a href="cuidador.html" class="ver-cuidador">Ver Cuidador</a>';
+        msg+='<a href="cuidador.html" data-toggle="tooltip" data-placement="bottom" title="Ver o editar cuidadores" class="ver-cuidador">Ver Cuidador</a>';
   }
         msg+='</div>'+
     '</div>'+

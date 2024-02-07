@@ -1,51 +1,53 @@
-// Ruta en la que se encuentran los secretos en Vault
-const vaultSecretsPath = 'secret/data/my-app';
+let servidorAPI = "http://localhost:8104/";
+let iv;
+let cajaNegra2;
 
-// Endpoint de Vault (puedes ajustarlo según sea necesario)
-const vaultUrl = 'http://localhost:8200';
-
-// Token de acceso a Vault
-const vaultToken = '06210776-2730-2903-3721-546203818393';
-
-// URL completa para obtener los secretos
-const apiUrl = `${vaultUrl}/v1/${vaultSecretsPath}`;
-// Configuración de la solicitud HTTP
-const requestOptions = {
+var requestOptions = {
   method: 'GET',
   headers: {
-    'X-Vault-Token': vaultToken,
-    'Origin': 'http://localhost:8103', 
+    "Accept": "application/json",
+    "Content-Type": "application/json"
   },
-  mode: 'cors',
-  cache: 'no-cache',
+  redirect: 'follow'
 };
-console.log(apiUrl);
-// Realizar la solicitud a Vault
-fetch(apiUrl, requestOptions)
-  .then(response => response.json())
-  .then(data => {
-    console.log('Secretos de Vault:', data.data);
-  })
-  .catch(error => {
-    console.error('Error al obtener secretos de Vault:', error);
-  });
+
+let obtenerClave = async () => {
+  try {
+    const response = await fetch(servidorAPI + "Usuario/claveFrontend", requestOptions);
+    const result = await response.text();
+    cajaNegra2= result; 
+  } catch (error) {
+    console.log('error', error);
+    return null; 
+  }
+}
+
+let obtenerIv = async () => {
+  try {
+    const response = await fetch(servidorAPI + "Usuario/ivFrontend", requestOptions);
+    const result = await response.text();
+    iv= result; 
+  } catch (error) {
+    console.log('error', error);
+    return null; 
+  }
+}
 
 
-
-
-let servidorAPI = "http://localhost:8104/";
-let iv = "vuens_soha=6jh36";
-let cajaNegra2="vfjdnjefh37/ps=3";
+  
 function isAuthenticated() {
   return localStorage.getItem("authenticated") === "true";
 }
 
+
 let login = async (event) => {
+  
   let esAdmin=false;
   event.preventDefault();
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
-
+console.log(iv);
+console.log(cajaNegra2);
   let userEncrypt=CryptoJS.AES.encrypt(
     CryptoJS.enc.Utf8.parse(encodeURIComponent(username)),
   CryptoJS.enc.Utf8.parse(cajaNegra2),
@@ -205,6 +207,8 @@ let onload = async () => {
   let pathname = window.location.pathname
   
   if (isAuthenticated()) {
+    
+    
     let data = localStorage.getItem("datos");
     let dato=JSON.parse(data);
     console.log(data);

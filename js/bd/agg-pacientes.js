@@ -71,6 +71,9 @@ let crearPaciente=async(event)=> {
   console.log(existe);
       let nombre = document.getElementById('nombre').value;
       let documento = document.getElementById('documento').value;
+      let tipoSangre = document.getElementById('tiposangre').value;
+      let tp=tipoSangre.toLowerCase();
+      if(typeof documento==="number" && (tp==="a" || tp==="o", tp==="b", tp==="ab")){
       let fechaNacimiento = document.getElementById('fecha').value+'T02:45:05.101Z';
       let selectedOption = selectEps.options[selectEps.selectedIndex];
       let eps = selectedOption.value;
@@ -78,7 +81,6 @@ let crearPaciente=async(event)=> {
       let tipoDocumento=selectOptionDoc.value;
       console.log(tipoDocumento);
       let estatura = document.getElementById('estatura').value;
-      let tipoSangre = document.getElementById('tiposangre').value;
       let rh = document.getElementById('selectRh').value;
       let direccion = document.getElementById('direccion').value;
       let telefono = document.getElementById('telefono').value;
@@ -151,6 +153,13 @@ let decryptedNombre = decodeURIComponent(CryptoJS.AES.decrypt(pacienteInDto.nomb
       else{
         $('#modal3').modal('show');
       }
+    }
+    else{
+      $('#datosErroneos').modal('show');
+      const btnGuardar=document.getElementById("guardarPaciente");
+  btnGuardar.style.background="#04BAFC";
+  btnGuardar.disabled=false;
+    }
  }
 
 let listarPacientes = async () => {
@@ -270,6 +279,10 @@ let ultimaCita = async (cedulaPaciente) => {
     return null; 
   }
 }; 
+
+function cerrarModalDatosErroneos(){
+  $("#datosErroneos").modal("hide");
+}
       
       
 
