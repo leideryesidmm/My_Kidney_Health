@@ -10,11 +10,11 @@ let cuidadorPrincipal=async(cuidadores, cuidAntiguos)=>{
                 msg+=
             '<button class="cambiarCuidador" data-toggle="tooltip" data-placement="bottom" title="Reestablecer Cuidador Antiguo" type="submit" id="cambiar" onclick="cuidadoresInactivos'+ '(cuidadoresAntiguos())" "class="cambiarCuidador">Cambiar</button>';
         }
-            msg+='<a href="agregarCuidador.html" type="submit" class="btn-nuevo" id="nuevo">Nuevo</a>' +
+            msg+='<a href="agregarCuidador.html" data-toggle="tooltip" data-placement="top" title="Agregar Nuevo Cuidador" type="submit" class="btn-nuevo" id="nuevo">Nuevo</a>' +
         '</div>';   
     }
     else{
-        document.getElementById("img-editar").innerHTML='<a href="editarCuidador.html"><img src="../img/'+'editarPerfil.png" alt="editar Cuidador"></a>';
+        document.getElementById("img-editar").innerHTML='<a href="editarCuidador.html" data-toggle="tooltip" data-placement="top" title="Editar Cuidador Activo"><img src="../img/'+'editarPerfil.png" alt="editar Cuidador"></a>';
     msg+=
 
     '<br><div class="container">' +
@@ -57,7 +57,7 @@ let cuidadorPrincipal=async(cuidadores, cuidAntiguos)=>{
     '<div class="btn-container">';
     if(cuidAntiguos.length>=1){
        msg+= '<button class="cambiarCuidador" data-toggle="tooltip" data-placement="bottom" title="Reestablecer Cuidador" type="submit" id="cambiar" onclick="cuidadoresInactivos(cuidadoresAntiguos())" "class="cambiarCuidador">Cambiar</button>'};
-        msg+= '<a href="agregarCuidador.html" class="btn-nuevo" id="nuevo">Nuevo</a>' +
+        msg+= '<a href="agregarCuidador.html" data-toggle="tooltip" data-placement="top" title="Agregar Nuevo Cuidador" class="btn-nuevo" id="nuevo">Nuevo</a>' +
         '<button class="inhabilitarCuidador" data-toggle="tooltip" data-placement="bottom" title="Inhabilitar Cuidador" data-toggle="modal" data-target="#successModal" type="submit" id="inhabilitar"' + 'onclick="inhabilitarCuidador()" "class="inhabilitarCuidador">Inhabilitar</button>'
     '</div>';
 }

@@ -42,7 +42,8 @@ let paciente=async(cedula)=>{
 
 let cambioContrasenia = async (event) => {
   event.preventDefault();
-
+  await obtenerClave();
+  await obtenerIv();
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
   console.log(data);
@@ -104,7 +105,8 @@ $('#btnAceptar').click(function() {
 };
 
 let prescripciones= async()=>{
-
+  await obtenerClave();
+  await obtenerIv();
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
       let usuario = dato.usuario;
@@ -134,6 +136,8 @@ return prescripcion;}
 }
 
 let visitas= async()=>{
+  await obtenerClave();
+  await obtenerIv();
   let data = localStorage.getItem("datos");
     let dato=JSON.parse(data);
   let cedulaDesencriptada = localStorage.getItem("cedulaPaciente");
@@ -160,6 +164,8 @@ if(peticion.status===204){
 }
 
 let chequeos= async()=>{
+  await obtenerClave();
+  await obtenerIv();
   let data = localStorage.getItem("datos");
     let dato=JSON.parse(data);
   let cedulaDesencriptada = localStorage.getItem("cedulaPaciente");
@@ -187,6 +193,8 @@ if(peticion.status===204){
 }
 
 let crearRecambio = async () => {
+  await obtenerClave();
+  await obtenerIv();
     let imagenGuardada = "";
     var liquidoEntrante = document.getElementById('liquidoEntrante').value;
     var drenaje = document.getElementById('drenaje').value;
@@ -275,6 +283,8 @@ else{
 
 let guardarRecambio=async(event)=>{
     event.preventDefault();
+    await obtenerClave();
+  await obtenerIv();
     const btnRecambio=document.getElementById("agregRecam");
     btnRecambio.style.background="gray";
     btnRecambio.disabled="true";
@@ -357,6 +367,8 @@ let guardarRecambio=async(event)=>{
 }
 
 let llenarFormEditarRecambio=async()=>{
+  await obtenerClave();
+  await obtenerIv();
     const urlParams = new URLSearchParams(window.location.search);
     const idRecambioHecho = urlParams.get('idRecambioHecho');
     let data = localStorage.getItem("datos");
@@ -399,6 +411,8 @@ for (let i = 0; i < inputRadios.length; i++) {
 
 let editarRecambio=async(event)=>{
     event.preventDefault();
+    await obtenerClave();
+  await obtenerIv();
     let orificio;
 
     document.getElementsByName("opcion").forEach(opcion => {
@@ -472,6 +486,8 @@ let editarRecambio=async(event)=>{
 }
 
 let recambiosHechos=async()=>{
+  await obtenerClave();
+  await obtenerIv();
     let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
       let usuario = dato.usuario;
@@ -556,6 +572,8 @@ let cedEncriptada=async(cedula)=>{
 
 let obtenerDatosCita=async(event)=>{
     event.preventDefault();
+    await obtenerClave();
+  await obtenerIv();
     let data = localStorage.getItem("datos");
     let dato=JSON.parse(data);
       let cedulaMedico= dato.cedula;
@@ -607,6 +625,8 @@ function validarCeckbox(){
 
 let obtenerDatosPrescripcionDia=async(event)=>{
     event.preventDefault();
+    await obtenerClave();
+  await obtenerIv();
     let cantidad = parseInt(document.getElementById("selectCantidad").value);
     let nochesSecas=[];
     const daysForCycle=[];
@@ -735,6 +755,8 @@ let crearPrescripcionDia=async(event)=>{
 let encontrarUltimaCita=async(event)=>{
     if(event!=undefined){
     event.preventDefault();
+    await obtenerClave();
+  await obtenerIv();
     }
     var pac=decodeURIComponent(localStorage.getItem("cedulaPaciente"));
     let paciente=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(pac)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
@@ -860,7 +882,9 @@ let crearChequeoMensual = async (cedulaPaciente) => {
   }
 };
 
-let encriptarDatosChequeo=(chequeo)=>{
+let encriptarDatosChequeo=async(chequeo)=>{
+  await obtenerClave();
+  await obtenerIv();
   let colesterolTotal=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(chequeo.colesterolTotal)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
   let fosforo=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(chequeo.fosforo)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
   let glicemia=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(chequeo.glicemia)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
@@ -887,6 +911,8 @@ let encriptarDatosChequeo=(chequeo)=>{
 
 let crearRecambios=async(event)=>{
     event.preventDefault();
+    await obtenerClave();
+  await obtenerIv();
     let datosRecambio= await obtenerDatosRecambio(event);
     let prescipcionesDia=await prescripcionesDia(event);
     let cantidad=datosRecambio[datosRecambio.length-1];
@@ -1195,6 +1221,8 @@ let obtenerUltimoChequeo = async () => {
 }
 
 let encontrarPaciente = async () => {
+  await obtenerClave();
+  await obtenerIv();
   let cedulaDesencriptada = localStorage.getItem("cedulaPaciente");
   let cedulaEncriptada=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(cedulaDesencriptada)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
  
@@ -1254,6 +1282,8 @@ function cerrarVisitaVacia(){
 }
 
 let actualizarChequeo=async()=>{
+  await obtenerClave();
+  await obtenerIv();
   let idChequeo=parseInt(document.getElementById("editarIdChequeo").value);
   let idCita=parseInt(document.getElementById("idCita").value);
 
@@ -1349,6 +1379,8 @@ let actualizarVisita=async()=>{
 }
 
 let findUsuario= async () => {
+  await obtenerClave();
+  await obtenerIv();
   let cedulaDesencriptada = localStorage.getItem("cedulaPaciente");
         cedula=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(cedulaDesencriptada)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
   let usuarioInDto = {cedula : cedula}
@@ -1399,6 +1431,8 @@ let finAllRecambiosHechos= async(idCita)=>{
 }
 
 let findAllPrescripciones=async()=>{
+  await obtenerClave();
+  await obtenerIv();
   let cedulaDesencriptada = localStorage.getItem("cedulaPaciente");
   cedula=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(cedulaDesencriptada)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
     paciente={

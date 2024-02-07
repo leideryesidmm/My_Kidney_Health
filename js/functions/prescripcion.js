@@ -332,10 +332,13 @@ if (select.value !== "") {
 }
 
 let cargar=async (prescripcion)=>{
+  
   prescripcion=await prescripcion;
   document.getElementById("fechaP").innerText=prescripcion.cita.fecha.split("T")[0]
 }
 let mostrarPrescripcion2= async (prescripcion) => {
+  await obtenerClave();
+  await obtenerIv();
   localStorage.setItem('prescripcionActual', JSON.stringify(prescripcionDiaHoy(prescripcion)));
   prescripcion=await prescripcion;
   let msg="";
@@ -414,6 +417,8 @@ function formatearFechaHora(fecha) {
 }
 
 let mostrarPrescripcion= async (prescripcion, fecha, recambios) => {
+  await obtenerClave();
+  await obtenerIv();
   recambios=await recambios;
   if(recambios==null){
       let msg="";
@@ -495,7 +500,7 @@ let mostrarPrescripcion= async (prescripcion, fecha, recambios) => {
           fecha.getDate() === hoy.getDate()){
             estado="P";
               msg+='background-color:#e6b216;">';
-              accion='<a style="color:black" href="agregarrecambio.html?idRecambio='+recambio.idRecambio+'">'
+              accion='<a style="color:black" data-toggle="tooltip" data-placement="bottom" title="Registrar Recambio Hecho" href="agregarrecambio.html?idRecambio='+recambio.idRecambio+'">'
                   +'<svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">'
                   +'<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>'
                   +'<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>'
@@ -560,6 +565,8 @@ let mostrarPrescripcion= async (prescripcion, fecha, recambios) => {
 
 let verRecambio=async(idRecambio)=>{
 try {
+  await obtenerClave();
+  await obtenerIv();
 let recambio=JSON.parse(localStorage.getItem("recambios"))[idRecambio];
   console.log(recambio)
 document.getElementById("inicio").innerText=recambio.horaIni.replace("T", " ");
@@ -593,6 +600,8 @@ let prescripcionDiaFecha= async (prescripcion,fecha) =>{
 }
 
 let tablaRecambios=async(recambios)=>{
+  await obtenerClave();
+  await obtenerIv();
 recambios=await recambios;
 console.log(recambios)
 let msg='<table class="table table-bordered" id="recambioTable">'
@@ -682,75 +691,77 @@ let msg="";
 }
 
 
-let tablaChequeos=async(chequeos)=>{
-  chequeos=await chequeos;
-  
-let msg="";
+let tablaChequeos = async (chequeos) => {
+  chequeos = await chequeos;
 
-  msg='<div class="container scroll"><table class="table table-bordered" id="chequeosTabla">'
-  +'<thead>'
-  +'  <tr>'
-  +'    <th>Fecha</th>'
-  +'    <th>Peso</th>'
-  +'    <th>Peso seco</th>'
-  +'    <th>Tensión arterial</th>'
-  +'    <th>Hemoglobina</th>'
-  +'    <th>Colesterol Total</th>'
-  +'    <th>Fósforo</th>'
-  +'    <th>Glicemia</th>'
-  +'    <th>Potasio</th>'
-  +'    <th>Triglicéridos</th>'
-  +'    <th>Nitrógeno Uréico</th>'
-  +'    <th>LDH</th>'
-  +'    <th>HDL</th>'
-  +'    <th>Glucosa</th>'
-  +'    <th>Creatinina</th>'
-  +'    <th>KT/V</th>'
-  +'  </tr>'
-  +'</thead>'
-  +'<tbody>';
-  
-  chequeos.forEach(chequeo => {
-    let cheq=desencriptarDatosChequeo(chequeo);
+  let msg = "";
 
+  msg = '<div class="container scroll"><table class="table table-bordered" id="chequeosTabla">' +
+      '<thead>' +
+      '  <tr>' +
+      '    <th>Fecha</th>' +
+      '    <th>Peso</th>' +
+      '    <th>Peso seco</th>' +
+      '    <th>Tensión arterial</th>' +
+      '    <th>Hemoglobina</th>' +
+      '    <th>Colesterol Total</th>' +
+      '    <th>Fósforo</th>' +
+      '    <th>Glicemia</th>' +
+      '    <th>Potasio</th>' +
+      '    <th>Triglicéridos</th>' +
+      '    <th>Nitrógeno Uréico</th>' +
+      '    <th>LDH</th>' +
+      '    <th>HDL</th>' +
+      '    <th>Glucosa</th>' +
+      '    <th>Creatinina</th>' +
+      '    <th>KT/V</th>' +
+      '  </tr>' +
+      '</thead>' +
+      '<tbody>';
 
-  msg+=` <tr>
-    <td style="font-size:90%">${cheq.cita.fecha.split("T")[0]}</td>
-     <td style="font-size:90%">${cheq.peso} Kgs.</td>
-     <td style="font-size:90%">${cheq.pesoSeco} Kgs.</td>
-     <td style="font-size:90%">${cheq.tensionArterial} mmHg</td>
-     <td style="font-size:90%">${cheq.hemoglobina} g/L</td>
-     <td style="font-size:90%">${cheq.colesterolTotal} mg/dL</td>
-     <td style="font-size:90%">${cheq.fosforo} mg/dL</td>
-     <td style="font-size:90%">${cheq.glicemia} mg/dL</td>
-     <td style="font-size:90%">${cheq.potasio} mmol/L</td>
-     <td style="font-size:90%">${cheq.trigliceridos} mg/dL</td>
-     <td style="font-size:90%">${cheq.nitrogenoUreico} mg/dL</td>
-     <td style="font-size:90%">${cheq.ldh} U/L</td>
-     <td style="font-size:90%">${cheq.hdl} mg/dL</td>
-     <td style="font-size:90%">${cheq.glucosa} mg/dL</td>
-     <td style="font-size:90%">${cheq.creatinina} mg/dL</td>
-     <td style="font-size:90%">${cheq.ktv}</td>
-    </tr>`;
-  
-  
-  });
+  for (let chequeo of chequeos) {
+      let cheq = await desencriptarDatosChequeo(chequeo);
+      console.log(cheq);
+
+      msg += ` <tr>
+  <td style="font-size:90%">${cheq.cita.fecha.split("T")[0]}</td>
+   <td style="font-size:90%">${cheq.peso} Kgs.</td>
+   <td style="font-size:90%">${cheq.pesoSeco} Kgs.</td>
+   <td style="font-size:90%">${cheq.tensionArterial} mmHg</td>
+   <td style="font-size:90%">${cheq.hemoglobina} g/L</td>
+   <td style="font-size:90%">${cheq.colesterolTotal} mg/dL</td>
+   <td style="font-size:90%">${cheq.fosforo} mg/dL</td>
+   <td style="font-size:90%">${cheq.glicemia} mg/dL</td>
+   <td style="font-size:90%">${cheq.potasio} mmol/L</td>
+   <td style="font-size:90%">${cheq.trigliceridos} mg/dL</td>
+   <td style="font-size:90%">${cheq.nitrogenoUreico} mg/dL</td>
+   <td style="font-size:90%">${cheq.ldh} U/L</td>
+   <td style="font-size:90%">${cheq.hdl} mg/dL</td>
+   <td style="font-size:90%">${cheq.glucosa} mg/dL</td>
+   <td style="font-size:90%">${cheq.creatinina} mg/dL</td>
+   <td style="font-size:90%">${cheq.ktv}</td>
+  </tr>`;
+  }
+
   console.log(msg);
-  msg+='</tbody>'
-  +'</table></div>';
+  msg += '</tbody>' +
+      '</table></div>';
   document.getElementById("chequeos").classList.add("active");
   document.getElementById("visitas").classList.remove("active");
-  document.getElementById("visitaTable").innerHTML=msg;
+  document.getElementById("visitaTable").innerHTML = msg;
   new DataTable('#chequeosTabla', {
       language: {
           url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json',
       },
-  })
-}
+  });
+};
+
 
 
 let datos= async () => {
   let data=new Array();
+  await obtenerClave();
+  await obtenerIv();
   let cardinalidad=["Primer Recambio","Segundo Recambio", "Tercer Recambio", "Cuarto Recambio", "Quinto Recambio", "Sexto Recambio"];
   let cont=0;
   prescripcionDia=JSON.parse(localStorage.getItem('prescripcionActual'));
@@ -771,6 +782,8 @@ let datos= async () => {
 
 
 let mostrarPrecripcionMedico=async (prescripcion) => {
+  await obtenerClave();
+  await obtenerIv();
 document.getElementById("actual").classList.add("active");
 document.getElementById("historico").classList.remove("active");
 prescripcion=await prescripcion;
@@ -876,6 +889,8 @@ document.getElementById("cardBody").innerHTML=msg;
 }
 
 let mostrarHistoricoMedico=async (prescripciones) => {
+  await obtenerClave();
+  await obtenerIv();
 prescripciones=await prescripciones;
 console.log(prescripciones);
 console.log(localStorage.length);
@@ -941,6 +956,8 @@ let prescripciones=JSON.parse(localStorage.getItem("prescripcionesT"))
 mostrarHistoricoMedico(prescripciones)
 }
 let mostrarPrescripcionAntiguaMedico=async(prescripcion)=>{
+  await obtenerClave();
+  await obtenerIv();
 localStorage.setItem("selectPrescripcion", JSON.stringify(prescripcion));
 let ordinal=["Primer","Segundo", "Tercer", "Cuarto", "Quinto"];
 let msg=`<div class="row" style="display:flex">
@@ -974,6 +991,7 @@ let msg=`<div class="row" style="display:flex">
                             <tbody>`
                             let cont=0;
                   prescripcionDia.recambios.forEach(recambio => {
+                    console.log(recambio)
                     msg+=`<tr>
                     <td>${ordinal[cont]+" recambio"}</td>
                     <td>${decodeURIComponent(CryptoJS.AES.decrypt(recambio.concentracion,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8))} %</td>
@@ -1123,6 +1141,8 @@ selectCantidad.addEventListener("change", function() {
 let checkboxsSeleccionados = {};
 let rec=[];
 let generarPrescripcionesLlenados=async()=>{
+  await obtenerClave();
+  await obtenerIv();
 let datos = await datosEditarPrescripcion();
 let orificio=decodeURIComponent(CryptoJS.AES.decrypt(datos.cita.orificioSalida,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
 let fechaFin=datos.cita.fechaFin.split("T")[0];
@@ -1281,7 +1301,8 @@ selCantidad.addEventListener("change", function() {
 
 
 let generarSelectsLlenados = async (idCantidad, cantidadSeleccionada) => {
-
+  await obtenerClave();
+  await obtenerIv();
 var container = document.getElementById("selectContainer" + idCantidad);
 container.innerHTML = "";
 
@@ -1440,7 +1461,9 @@ checkboxes.forEach((checkbox, index) => {
 });
 }
 
-let desencriptarDatosChequeo=(chequeo)=>{
+let desencriptarDatosChequeo=async(chequeo)=>{
+  await obtenerClave();
+  await obtenerIv();
   console.log("chequeo del backend revisar");
   console.log(chequeo);
   let colesterolTotal=decodeURIComponent(CryptoJS.AES.decrypt(chequeo.colesterolTotal,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
@@ -1471,16 +1494,18 @@ let desencriptarDatosChequeo=(chequeo)=>{
 }
 
 let mostrarChequeo=async()=>{
+  await obtenerClave();
+  await obtenerIv();
 let chequeo=await obtenerUltimoChequeo();
 if(chequeo==null){
   $('#errorModalChequeo').modal('show');
 }
 else{
 let msg="";
-let ultimoChequeo=await obtenerUltimoChequeo();
-console.log("ultimo chequeo");
-console.log(ultimoChequeo);
-let chequeo=desencriptarDatosChequeo(ultimoChequeo);
+//let ultimoChequeo=await obtenerUltimoChequeo();
+//console.log("ultimo chequeo");
+//console.log(ultimoChequeo);
+chequeo=await desencriptarDatosChequeo(chequeo);
 console.log(chequeo);
 if(chequeo!=null){
 let nombrePaciente=decodeURIComponent(CryptoJS.AES.decrypt(chequeo.cita.paciente.nombre,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
@@ -1581,6 +1606,8 @@ msg +=
 
 let mostrarVisita=async()=>{
 let msg="";
+await obtenerClave();
+  await obtenerIv();
 let visita=await obtenerUltimaVisita();
 if(visita==null){
   $('#errorModalVisita').modal('show');
@@ -1709,6 +1736,8 @@ msg +=
 
 let agregarVisita=async()=>{
 let visita= await obtenerUltimaVisita();
+await obtenerClave();
+  await obtenerIv();
 if(visita!=null){
 $("#errorModalVisitaExistente").modal("show");
 }
@@ -1812,6 +1841,8 @@ msg+='<div class="modal-dialog">' +
 
 let agregarChequeo=async()=>{
 let chequeo= await obtenerUltimoChequeo();
+await obtenerClave();
+  await obtenerIv();
 if(chequeo!=null){
 $("#errorModalChequeoExistente").modal("show");
 }
@@ -1919,7 +1950,8 @@ msg +=
 }
 
 let editarChequeo=async()=>{
-
+  await obtenerClave();
+  await obtenerIv();
 let msg="";
 let ultimoChequeo=await obtenerUltimoChequeo();
 let chequeo=desencriptarDatosChequeo(ultimoChequeo);
@@ -2027,6 +2059,8 @@ msg +=
 
 let editarVisita=async()=>{
 let msg="";
+await obtenerClave();
+  await obtenerIv();
 let visita=await obtenerUltimaVisita();
 decodeURIComponent(CryptoJS.AES.decrypt(visita.cita.paciente.cedula,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8))
 let nombrePaciente=decodeURIComponent(CryptoJS.AES.decrypt(visita.cita.paciente.nombre,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));

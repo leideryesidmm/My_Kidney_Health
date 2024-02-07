@@ -57,6 +57,8 @@ let NavBarRecambios = () => {
 
 let listRecambios = async (recambios) => {
     recambios = await recambios;
+    await obtenerClave();
+  await obtenerIv();
     let msg = "";
     let cont = 1;
 
@@ -154,6 +156,8 @@ let listRecambios = async (recambios) => {
   }
 
   let mostrarRecambios=async(recambiosHechos)=>{
+    await obtenerClave();
+  await obtenerIv();
     recambiosHechos=await recambiosHechos;
     let promedio=0;
     prescripcion=JSON.parse(localStorage.getItem("selectPrescripcion"));
