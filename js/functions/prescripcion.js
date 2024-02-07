@@ -332,10 +332,13 @@ if (select.value !== "") {
 }
 
 let cargar=async (prescripcion)=>{
+  
   prescripcion=await prescripcion;
   document.getElementById("fechaP").innerText=prescripcion.cita.fecha.split("T")[0]
 }
 let mostrarPrescripcion2= async (prescripcion) => {
+  await obtenerClave();
+  await obtenerIv();
   localStorage.setItem('prescripcionActual', JSON.stringify(prescripcionDiaHoy(prescripcion)));
   prescripcion=await prescripcion;
   let msg="";
@@ -414,6 +417,8 @@ function formatearFechaHora(fecha) {
 }
 
 let mostrarPrescripcion= async (prescripcion, fecha, recambios) => {
+  await obtenerClave();
+  await obtenerIv();
   recambios=await recambios;
   if(recambios==null){
       let msg="";
@@ -560,6 +565,8 @@ let mostrarPrescripcion= async (prescripcion, fecha, recambios) => {
 
 let verRecambio=async(idRecambio)=>{
 try {
+  await obtenerClave();
+  await obtenerIv();
 let recambio=JSON.parse(localStorage.getItem("recambios"))[idRecambio];
   console.log(recambio)
 document.getElementById("inicio").innerText=recambio.horaIni.replace("T", " ");
@@ -593,6 +600,8 @@ let prescripcionDiaFecha= async (prescripcion,fecha) =>{
 }
 
 let tablaRecambios=async(recambios)=>{
+  await obtenerClave();
+  await obtenerIv();
 recambios=await recambios;
 console.log(recambios)
 let msg='<table class="table table-bordered" id="recambioTable">'
@@ -751,6 +760,8 @@ let msg="";
 
 let datos= async () => {
   let data=new Array();
+  await obtenerClave();
+  await obtenerIv();
   let cardinalidad=["Primer Recambio","Segundo Recambio", "Tercer Recambio", "Cuarto Recambio", "Quinto Recambio", "Sexto Recambio"];
   let cont=0;
   prescripcionDia=JSON.parse(localStorage.getItem('prescripcionActual'));
@@ -771,6 +782,8 @@ let datos= async () => {
 
 
 let mostrarPrecripcionMedico=async (prescripcion) => {
+  await obtenerClave();
+  await obtenerIv();
 document.getElementById("actual").classList.add("active");
 document.getElementById("historico").classList.remove("active");
 prescripcion=await prescripcion;
@@ -876,6 +889,8 @@ document.getElementById("cardBody").innerHTML=msg;
 }
 
 let mostrarHistoricoMedico=async (prescripciones) => {
+  await obtenerClave();
+  await obtenerIv();
 prescripciones=await prescripciones;
 console.log(prescripciones);
 console.log(localStorage.length);
@@ -941,6 +956,8 @@ let prescripciones=JSON.parse(localStorage.getItem("prescripcionesT"))
 mostrarHistoricoMedico(prescripciones)
 }
 let mostrarPrescripcionAntiguaMedico=async(prescripcion)=>{
+  await obtenerClave();
+  await obtenerIv();
 localStorage.setItem("selectPrescripcion", JSON.stringify(prescripcion));
 let ordinal=["Primer","Segundo", "Tercer", "Cuarto", "Quinto"];
 let msg=`<div class="row" style="display:flex">
@@ -1123,6 +1140,8 @@ selectCantidad.addEventListener("change", function() {
 let checkboxsSeleccionados = {};
 let rec=[];
 let generarPrescripcionesLlenados=async()=>{
+  await obtenerClave();
+  await obtenerIv();
 let datos = await datosEditarPrescripcion();
 let orificio=decodeURIComponent(CryptoJS.AES.decrypt(datos.cita.orificioSalida,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
 let fechaFin=datos.cita.fechaFin.split("T")[0];
@@ -1281,7 +1300,8 @@ selCantidad.addEventListener("change", function() {
 
 
 let generarSelectsLlenados = async (idCantidad, cantidadSeleccionada) => {
-
+  await obtenerClave();
+  await obtenerIv();
 var container = document.getElementById("selectContainer" + idCantidad);
 container.innerHTML = "";
 
@@ -1440,7 +1460,9 @@ checkboxes.forEach((checkbox, index) => {
 });
 }
 
-let desencriptarDatosChequeo=(chequeo)=>{
+let desencriptarDatosChequeo=async(chequeo)=>{
+  await obtenerClave();
+  await obtenerIv();
   console.log("chequeo del backend revisar");
   console.log(chequeo);
   let colesterolTotal=decodeURIComponent(CryptoJS.AES.decrypt(chequeo.colesterolTotal,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
@@ -1471,6 +1493,8 @@ let desencriptarDatosChequeo=(chequeo)=>{
 }
 
 let mostrarChequeo=async()=>{
+  await obtenerClave();
+  await obtenerIv();
 let chequeo=await obtenerUltimoChequeo();
 if(chequeo==null){
   $('#errorModalChequeo').modal('show');
@@ -1581,6 +1605,8 @@ msg +=
 
 let mostrarVisita=async()=>{
 let msg="";
+await obtenerClave();
+  await obtenerIv();
 let visita=await obtenerUltimaVisita();
 if(visita==null){
   $('#errorModalVisita').modal('show');
@@ -1709,6 +1735,8 @@ msg +=
 
 let agregarVisita=async()=>{
 let visita= await obtenerUltimaVisita();
+await obtenerClave();
+  await obtenerIv();
 if(visita!=null){
 $("#errorModalVisitaExistente").modal("show");
 }
@@ -1812,6 +1840,8 @@ msg+='<div class="modal-dialog">' +
 
 let agregarChequeo=async()=>{
 let chequeo= await obtenerUltimoChequeo();
+await obtenerClave();
+  await obtenerIv();
 if(chequeo!=null){
 $("#errorModalChequeoExistente").modal("show");
 }
@@ -1919,7 +1949,8 @@ msg +=
 }
 
 let editarChequeo=async()=>{
-
+  await obtenerClave();
+  await obtenerIv();
 let msg="";
 let ultimoChequeo=await obtenerUltimoChequeo();
 let chequeo=desencriptarDatosChequeo(ultimoChequeo);
@@ -2027,6 +2058,8 @@ msg +=
 
 let editarVisita=async()=>{
 let msg="";
+await obtenerClave();
+  await obtenerIv();
 let visita=await obtenerUltimaVisita();
 decodeURIComponent(CryptoJS.AES.decrypt(visita.cita.paciente.cedula,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8))
 let nombrePaciente=decodeURIComponent(CryptoJS.AES.decrypt(visita.cita.paciente.nombre,CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));

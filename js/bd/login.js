@@ -33,17 +33,15 @@ let obtenerIv = async () => {
   }
 }
 
-
-  
 function isAuthenticated() {
   return localStorage.getItem("authenticated") === "true";
 }
 
-
 let login = async (event) => {
-  
   let esAdmin=false;
   event.preventDefault();
+  await obtenerClave();
+  await obtenerIv();
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
 console.log(iv);
@@ -189,7 +187,6 @@ if(cedulaDesencriptada===username && contraseniaDesencriptada===password){
     }
 }
       
-
 let logout = () => {
   localStorage.removeItem("authenticated")
   localStorage.removeItem("servidorAPI");
@@ -205,6 +202,8 @@ let logout = () => {
 
 let onload = async () => {
   let pathname = window.location.pathname
+  await obtenerClave();
+  await obtenerIv();
   
   if (isAuthenticated()) {
     
