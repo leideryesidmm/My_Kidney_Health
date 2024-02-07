@@ -43,8 +43,10 @@ let paciente=async(cedula)=>{
 
 
 let cambioContrasenia = async (event) => {
-  event.preventDefault();
 
+  event.preventDefault();
+  await obtenerClave();
+  await obtenerIv();
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
   console.log(data);

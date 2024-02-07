@@ -41,8 +41,10 @@ let paciente=async(cedula)=>{
 
 //ya
 let cambioContrasenia = async (event) => {
-  event.preventDefault();
 
+  event.preventDefault();
+  await obtenerClave();
+  await obtenerIv();
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
   console.log(data);
@@ -105,8 +107,8 @@ $('#btnAceptar').click(function() {
 
 
 let crearAlergia = async () => {
-
-  
+  await obtenerClave();
+  await obtenerIv();
   document.getElementById('guardarAlergia').addEventListener('click', async function (event) {
     event.preventDefault();
     const btnAlergia=document.getElementById("guardarAlergia");
@@ -151,6 +153,8 @@ let crearAlergia = async () => {
   });
 }
 let listarAlergias = async () => {
+  await obtenerClave();
+  await obtenerIv();
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
   console.log(data);
@@ -196,6 +200,8 @@ let listarAlergias = async () => {
 }
 
 let editarAlergia = async (id_alergia) => {
+  await obtenerClave();
+  await obtenerIv();
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
   nombreInput = document.getElementById('nombreEditar' + id_alergia).value;
@@ -232,7 +238,8 @@ let editarAlergia = async (id_alergia) => {
 
 
 let inhabilitarAlergia = async (id_alergia) => {
-
+  await obtenerClave();
+  await obtenerIv();
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
   console.log(data);

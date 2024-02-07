@@ -1,4 +1,6 @@
 let nombreNavBar = async () => {
+    await obtenerClave();
+    await obtenerIv();
     let data = localStorage.getItem("datos");
     let dato=JSON.parse(data);
     console.log(dato);

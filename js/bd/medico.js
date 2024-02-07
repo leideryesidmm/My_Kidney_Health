@@ -40,10 +40,11 @@ let paciente=async(cedula)=>{
     }
 }
 
-
 let cambioContrasenia = async (event) => {
-  event.preventDefault();
 
+  event.preventDefault();
+  await obtenerClave();
+  await obtenerIv();
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
   console.log(data);
@@ -106,6 +107,8 @@ $('#btnAceptar').click(function() {
 
 let listarMedicos = async () => {
   try {
+    await obtenerClave();
+  await obtenerIv();
     let data = localStorage.getItem("datos");
     let dato=JSON.parse(data);
     const peticion = await fetch(servidorAPI + 'Medico/findAll', {
@@ -159,6 +162,8 @@ let listarMedicos = async () => {
 
 let listarMedicosInactivos = async () => {
   try {
+    await obtenerClave();
+  await obtenerIv();
     let data = localStorage.getItem("datos");
     let dato=JSON.parse(data);
     const peticion = await fetch(servidorAPI + 'Medico/findAll', {
@@ -231,6 +236,8 @@ let listarEspecialidad = async () => {
 }
 
   let validarMedico = async () => {
+    await obtenerClave();
+  await obtenerIv();
     let cedulaMedico = document.getElementById('documento').value;
     console.log(cedulaMedico);
     let data = localStorage.getItem("datos");
@@ -260,6 +267,8 @@ let listarEspecialidad = async () => {
 
   let crearMedico=async(event)=> {
     event.preventDefault();
+    await obtenerClave();
+  await obtenerIv();
     const  btnMedico=document.getElementById("guardarMedico");
     btnMedico.style.background="gray";
     btnMedico.disabled="true";
@@ -324,6 +333,8 @@ let listarEspecialidad = async () => {
    }
 }
 let inhabilitarMedico = async (ced) => {
+  await obtenerClave();
+  await obtenerIv();
   let cedula = ced.toString();
      let cedulaEncriptada=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(cedula)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
   console.log(cedulaEncriptada);
@@ -356,6 +367,8 @@ let inhabilitarMedico = async (ced) => {
 
 
 let habilitarMedico = async (ced) => {
+  await obtenerClave();
+  await obtenerIv();
   let cedula = ced.toString();
     let cedulaEncriptada=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(cedula)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
       
@@ -386,6 +399,8 @@ let habilitarMedico = async (ced) => {
 };
 
 let encontrarMedico = async () => {
+  await obtenerClave();
+  await obtenerIv();
         let cedula=localStorage.getItem("cedulaMedico");
      let cedulaEncriptada=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(cedula)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
       let medicoInDto={
@@ -480,6 +495,8 @@ function cancelar(){
 }
 
 let restaurarContrasenia=async(ced, cont)=>{
+  await obtenerClave();
+  await obtenerIv();
   let cedula = ced.toString();
  let cedulaEncriptada=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(cedula)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
   try {
@@ -506,6 +523,8 @@ catch (error) {
 }
 
 let actualizarMedico = async(event) => {
+  await obtenerClave();
+  await obtenerIv();
   event.preventDefault();
   let cedula=localStorage.getItem("cedulaMedico");
      let cedulaEncriptada=CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(encodeURIComponent(cedula)), CryptoJS.enc.Utf8.parse(cajaNegra2),{iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();

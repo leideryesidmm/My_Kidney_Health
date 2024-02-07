@@ -2,6 +2,8 @@
 var cedulaEncriptada= "";
 
 let obtenerCedulaEncriptada=async(cedula)=>{
+  await obtenerClave();
+  await obtenerIv();
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
   const peticion= await fetch(localStorage.getItem("servidorAPI")+'Medico/findAllPacientes',{
@@ -27,6 +29,8 @@ let obtenerCedulaEncriptada=async(cedula)=>{
 
 
 let crearCuidador = async () => {
+  await obtenerClave();
+  await obtenerIv();
   document.getElementById('agregarCuidador').addEventListener('submit', async function(event) {
     event.preventDefault();
 
@@ -101,6 +105,8 @@ let crearCuidador = async () => {
 }
 
 let cuidadorPorPaciente=async()=>{
+  await obtenerClave();
+  await obtenerIv();
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
   console.log(data);
@@ -180,7 +186,9 @@ let cuidadorPorPaciente=async()=>{
         }*/
 
 
-    let cuidadoresAntiguos = async () => {
+  let cuidadoresAntiguos = async () => {
+  await obtenerClave();
+  await obtenerIv();
       const cuidadoresDesencriptados = new Set();
       let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
@@ -373,6 +381,8 @@ let cuidadorPorPaciente=async()=>{
     
 
 let cuidadorActivo= async()=>{
+  await obtenerClave();
+  await obtenerIv();
   console.log("SI ENTRO A CUIDADORACTIVO")
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
@@ -429,6 +439,8 @@ let cuidadorActivo= async()=>{
 }
 
     let encontrarCuidador = async () => {
+      await obtenerClave();
+  await obtenerIv();
       let data = localStorage.getItem("datos");
       let dato=JSON.parse(data);
       console.log(data);
@@ -562,6 +574,8 @@ let cuidadorActivo= async()=>{
 */
 
 let actualizarCuidador = async () => {
+  await obtenerClave();
+  await obtenerIv();
   var botonActualizar = document.getElementById("actCuid");
   botonActualizar.style.background = "gray";
   botonActualizar.disabled = true;
@@ -634,6 +648,8 @@ let actualizarCuidador = async () => {
 }
 
 let cuidAntiguos = async () => {
+  await obtenerClave();
+  await obtenerIv();
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
   console.log(data);
@@ -693,6 +709,8 @@ else{
 };
 
 let reactivarCuidador = async (cedulaCuidador, cont) => {
+  await obtenerClave();
+  await obtenerIv();
   const btnreactivar=document.getElementById("reactivarCuidador"+cont);
   btnreactivar.style.filter= "grayscale(1)";
   btnreactivar.disabled = true;
@@ -768,7 +786,8 @@ let reactivarCuidador = async (cedulaCuidador, cont) => {
 }
 
 let inhabilitarCuidador=async()=>{
-
+  await obtenerClave();
+  await obtenerIv();
   var botonActualizar = document.getElementById("inhabilitar");
             botonActualizar.style.background = "gray";
             botonActualizar.disabled = true;

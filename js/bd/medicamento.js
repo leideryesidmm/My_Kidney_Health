@@ -40,8 +40,10 @@ let paciente=async(cedula)=>{
 }
 
 let cambioContrasenia = async (event) => {
-  event.preventDefault();
 
+  event.preventDefault();
+  await obtenerClave();
+  await obtenerIv();
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
   console.log(data);
@@ -103,8 +105,8 @@ $('#btnAceptar').click(function() {
 };
 
 let listarMedicamentos= async()=>{
-
-
+  await obtenerClave();
+  await obtenerIv();
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
   console.log(data);
@@ -176,6 +178,8 @@ return medicamentosArreglo;
 }
 
 let alergias= async()=>{
+  await obtenerClave();
+  await obtenerIv();
   let data = localStorage.getItem("datos");
     let dato=JSON.parse(data);
     const peticion= await fetch(localStorage.getItem("servidorAPI")+"DatosMedicos/alergia/listByPaciente/"+cedula,{
@@ -226,6 +230,8 @@ let listarVias= async()=>{
   
 }
 let encontrarMedicamento=async()=>{
+  await obtenerClave();
+  await obtenerIv();
   const params = new URLSearchParams(window.location.search.slice(1));
   const idFormulaMedicamento = params.get('idFormulaMedicamento');
   console.log(idFormulaMedicamento);
@@ -269,7 +275,10 @@ let encontrarMedicamento=async()=>{
 }
 
 let actualizarMedicamento=async (event)=> {
+
   event.preventDefault();
+  await obtenerClave();
+  await obtenerIv();
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
   console.log(data);
@@ -367,7 +376,10 @@ let eliminarMedicamento=async (idMedicamento)=> {
 }
 
 let crearMedicamento=async (event)=> {
+
   event.preventDefault();
+  await obtenerClave();
+  await obtenerIv();
   const btnMedicamento=document.getElementById("guardarmedicamento");
   btnMedicamento.style.background="gray";
   btnMedicamento.disabled="true";

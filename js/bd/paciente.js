@@ -8,6 +8,8 @@ let cambioContraseniaAlIniciar=async(event)=>{
   let dato=JSON.parse(data);
       let cedul= decodeURIComponent(dato.cedula);
   event.preventDefault();
+  await obtenerClave();
+  await obtenerIv();
     const newcontrasenia = document.getElementById("newcontrasenia").value;
     console.log(cedul);
     if (newcontrasenia === "" ) {
@@ -83,7 +85,8 @@ let paciente=async(cedula)=>{
 
 let cambioContrasenia = async (event) => {
   event.preventDefault();
-
+  await obtenerClave();
+  await obtenerIv();
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
   console.log(data);
@@ -145,6 +148,8 @@ $('#btnAceptar').click(function() {
 };
 
 let listaPacientes = async () => {
+  await obtenerClave();
+  await obtenerIv();
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
   console.log(data);
@@ -210,6 +215,8 @@ console.log(paciente)
 }
 
 let cuidadorActivo = async () => {
+  await obtenerClave();
+  await obtenerIv();
   console.log("ENTRO AL DE PACIENTE")
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
@@ -259,6 +266,8 @@ let cuidadorActivo = async () => {
 }
 
 let alergias = async () => {
+  await obtenerClave();
+  await obtenerIv();
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
   console.log(data);
@@ -302,6 +311,8 @@ let alergias = async () => {
 }
 
 let encontrarPaciente = async () => {
+  await obtenerClave();
+  await obtenerIv();
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
   let usuario = decodeURIComponent(dato.usuario);
@@ -332,7 +343,10 @@ console.log(paciente);
     cedula:paciente[0].cedula, contrasenia:paciente[0].contrasenia, rh:paciente[0].rh,
     tipoSangre:paciente[0].tipoSangre
   }
+  console.log("paciente bd con frontend")
   console.log(paciente);
+  console.log(iv);
+  console.log(cajaNegra2);
   if(usuario=="paciente"){
   var decryptedNombre = decodeURIComponent(CryptoJS.AES.decrypt(paciente[0].nombre,CryptoJS.enc.Utf8.parse(cajaNegra2),
   {iv: CryptoJS.enc.Utf8.parse(iv),mode: CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Utf8));
@@ -429,8 +443,10 @@ function cancelar(){
   location.href="pacientes.html";
 }
 
-let actualizarPaciente = async (event) => {  
+let actualizarPaciente = async (event) => {
   event.preventDefault();
+  await obtenerClave();
+  await obtenerIv();
   var botonActualizar = document.getElementById("actualizarPerfil");
             botonActualizar.style.background = "gray";
             botonActualizar.disabled = true;

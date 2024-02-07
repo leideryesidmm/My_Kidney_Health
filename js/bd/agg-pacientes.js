@@ -1,4 +1,6 @@
 let listarEps = async () => {
+  await obtenerClave();
+  await obtenerIv();
   let data = localStorage.getItem("datos");
     let dato=JSON.parse(data);
   const peticion = await fetch(localStorage.getItem("servidorAPI") + "DatosMedicos/ListEps", {
@@ -31,6 +33,8 @@ let listarEps = async () => {
 }
 
 let validarPaciente = async () => {
+  await obtenerClave();
+  await obtenerIv();
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
   let documento = document.getElementById('documento').value;
@@ -61,9 +65,12 @@ let validarPaciente = async () => {
 
 
 let crearPaciente=async(event)=> {
+
   let data = localStorage.getItem("datos");
   let dato=JSON.parse(data);
   event.preventDefault();
+  await obtenerClave();
+  await obtenerIv();
   const btnGuardar=document.getElementById("guardarPaciente");
   btnGuardar.style.background="gray";
   btnGuardar.disabled=true;
@@ -163,7 +170,10 @@ let decryptedNombre = decodeURIComponent(CryptoJS.AES.decrypt(pacienteInDto.nomb
  }
 
 let listarPacientes = async () => {
+  
   try {
+    await obtenerClave();
+    await obtenerIv();
     let data = localStorage.getItem("datos");
     let dato=JSON.parse(data);
     const peticion = await fetch(servidorAPI + 'Medico/findAllPacientes', {
@@ -205,6 +215,8 @@ let listarPacientes = async () => {
 
 let listarPacientesInactivos = async () => {
   try {
+    await obtenerClave();
+    await obtenerIv();
     let data = localStorage.getItem("datos");
     let dato=JSON.parse(data);
     const peticion = await fetch(servidorAPI + 'Medico/findAllPacientes', {
@@ -249,6 +261,8 @@ let listarPacientesInactivos = async () => {
 
 let ultimaCita = async (cedulaPaciente) => {
   try {
+    await obtenerClave();
+    await obtenerIv();
     let data = localStorage.getItem("datos");
     let dato=JSON.parse(data);
     cedulaPac = await obtenerCedEncriptada(cedulaPaciente);
